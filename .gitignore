@@ -1,0 +1,5 @@
+__pycache__/
+арх/
+venv/
+output/
+config.ini
