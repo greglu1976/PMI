@@ -1,7 +1,7 @@
 import pandas as pd
 import itertools
 import time
-from TON import TON  
+from TIMERS import TON  
 
 class TECHPTRC:
     def __init__(self, state=0, SGF1=0, SGF2=0, T=0.5):

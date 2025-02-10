@@ -7,14 +7,14 @@ class TECHPTRC:
         self.SGF2 = SGF2
         self.T1 = TON()
         self.T1.set_PT(T)
-        self.RS = SRTrigger(state=0)
+        self.SR = SRTrigger(state=0)
 
     def Step(self, OV, VYVOD, NaSign, srabKont, srabKI, Sbros):
         self.T1.IN = srabKI
         Q, ET = self.T1.start()  # Запускаем таймер и получаем выход и прошедшее время
         vvod = (not(OV or VYVOD)) and (self.SGF1==1)
         oper_vyvod = (OV or VYVOD) and (self.SGF1==1)
-        zablok = 0 if (self.SGF2==0) else self.RS.run(Q and vvod, not(vvod) or Sbros)
+        zablok = 0 if (self.SGF2==0) else self.SR.run(Q and vvod, not(vvod) or Sbros)
         srabsign = vvod and srabKont and not(zablok)
         srab = not(NaSign) and srabsign
         return vvod, oper_vyvod, srab, srabsign, zablok, ET

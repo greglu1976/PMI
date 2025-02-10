@@ -2,7 +2,9 @@ import pandas as pd
 import itertools
 import time
 from TIMERS import TON  
+from TECHPTRC import TECHPTRC
 
+'''
 class TECHPTRC:
     def __init__(self, state=0, SGF1=0, SGF2=0, T=0):
         self.state = state  # Начальное состояние триггера
@@ -21,15 +23,13 @@ class TECHPTRC:
     def Step(self, OVGZ, VYVOD, GZnasign, otklKontGazRele, srabKI, Sbros):
         self.T1.IN = srabKI
         Q, ET = self.T1.start()
-
         vvod = (not(OVGZ or VYVOD)) and (self.SGF1 == 1)
         oper_vyvod = (OVGZ or VYVOD) and (self.SGF1 == 1)
-
         zablok = 0 if (self.SGF2 == 0) else self.RS(Q and vvod, not(vvod) or Sbros)
         srabsign = vvod and otklKontGazRele and not(zablok)
         srab = not(GZnasign) and srabsign
 
-        return vvod, oper_vyvod, srab, srabsign, zablok, ET
+        return vvod, oper_vyvod, srab, srabsign, zablok, ET'''
 
 def generate_truth_table_to_excel(filename):
     inputs = ["ОВ ГЗоткл", "Вывод терминала", "ГЗоткл на сигн", "Откл.конт.газ. реле", "Сраб. КИ ГЗ_откл", "Сброс блок. ГЗ,ТЗ"]
@@ -47,7 +47,7 @@ def generate_truth_table_to_excel(filename):
         results_data.append(list(combination) + [int(val) for val in results])
         
         # Добавление временной задержки между итерациями (например, 1 секунда)
-        #time.sleep(1)  # Задержка на 1 секунду
+        time.sleep(0.1)  # Задержка на 1 секунду
 
     # Создание DataFrame из данных
     columns = inputs + ["ЛО: Ввод", "ЛО: Оперативный вывод", "ЛО: Срабатывание", "ЛО: Срабатывание сигн", "Заблокировано", "ET"]
