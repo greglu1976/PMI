@@ -1,4 +1,4 @@
-from TIMERS import TON  
+from lib._TIMERS.TIMERS import TON  
 from TRIGGERS import SRTrigger
 
 class TECHPTRC:

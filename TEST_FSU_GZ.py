@@ -3,7 +3,7 @@
 import time
 
 from TECHPTRC import TECHPTRC
-from TECHPTRC_2 import TECHPTRC_2
+from lib.TECHPTRC_2.TECHPTRC_2 import TECHPTRC_2
 from TJNTPTRC import TJNTPTRC
 from DZT2_SignAssembly import DZT2_SignAssembly
 from DZT2_LVALH import DZT2_LVALH
