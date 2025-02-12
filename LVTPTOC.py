@@ -1,7 +1,7 @@
 # Ступень МТЗ трансформатора с НН1, НН2
 
 from lib._TIMERS.TIMERS import TON  
-from TRIGGERS import RSTrigger
+from lib._TRIGGERS.TRIGGERS import RSTrigger
 
 class LVTPTOC:
     def __init__(self, SGF1=0, SGF2=0, SGF3=0, SGF4=0, SGF5=0, SGF6=0,SGF7=0, T1=0, Iset=1, Icoarse=2):

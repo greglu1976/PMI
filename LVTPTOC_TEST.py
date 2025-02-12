@@ -48,6 +48,7 @@ columns = list(input_values.keys()) + [
     "vvod", "oper_vyvod", "mtzA_pusk", "io_A", "mtzB_pusk", "io_B", "mtzC_pusk", "io_C",
     "gen_pusk", "mtz_srabsign", "mtz_srab", "ET", "kpon_pusk", "set_changer"
 ]
+
 results = []
 
 # Перебираем все комбинации входных значений
