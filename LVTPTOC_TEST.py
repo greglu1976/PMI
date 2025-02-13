@@ -22,7 +22,6 @@ input_values = {
     "NaSign": [0,],
     "SV1vkl": [0,],
     "SV2vkl": [0,],
-    "SGF1": [0,],
     "IA": [2,],
     "IAB": [0,],
     "IB": [0,],
@@ -35,9 +34,9 @@ input_values = {
     "KZN1neipr": [0, 1],
     "KPON1pusk": [0, 1],
     "VNN1vkl": [0, 1],
-    "KZN2neipr": [0, ],
-    "KPON2pusk": [0,],
-    "VNN2vkl": [0,]
+    "KZN2neipr": [0,],
+    "KPON2pusk": [0, 1],
+    "VNN2vkl": [0, 1]
 }
 
 # Генерация всех возможных комбинаций входных значений
@@ -48,7 +47,6 @@ columns = list(input_values.keys()) + [
     "vvod", "oper_vyvod", "mtzA_pusk", "io_A", "mtzB_pusk", "io_B", "mtzC_pusk", "io_C",
     "gen_pusk", "mtz_srabsign", "mtz_srab", "ET", "kpon_pusk", "set_changer"
 ]
-
 results = []
 
 # Перебираем все комбинации входных значений
@@ -63,13 +61,9 @@ for inputs in itertools.product(*input_values.values()):
         NaSign=input_dict["NaSign"],
         SV1vkl=input_dict["SV1vkl"],
         SV2vkl=input_dict["SV2vkl"],
-        SGF1=input_dict["SGF1"],
         IA=input_dict["IA"],
-        IAB=input_dict["IAB"],
         IB=input_dict["IB"],
-        IBC=input_dict["IBC"],
         IC=input_dict["IC"],
-        ICA=input_dict["ICA"],
         BNTpuskA=input_dict["BNTpuskA"],
         BNTpuskB=input_dict["BNTpuskB"],
         BNTpuskC=input_dict["BNTpuskC"],

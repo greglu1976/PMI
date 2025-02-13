@@ -1,5 +1,13 @@
 # Ступень МТЗ трансформатора с НН1, НН2
 
+#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
+#SGF2 - Тип_КПОН - Тип пуска по напряжению (Управляющее напряжение / Вольтметровая блокировка)
+#SGF3 - Реж_БНТ - Режим контроля от БНТ (Не предусмотрено/ Предусмотрено)
+#SGF4 - Реж_БНН_КПОН - Режим КПОН при неисправности ЦН  (Деблокировка (Чувств. уставка)/ Блокировка (Грубая уставка))
+#SGF5 - Реж_КПОН1 - Режим контроля от КПОН1 (Не предусмотрено/ Предусмотрено)
+#SGF6 - Реж_КПОН2 - Режим контроля от КПОН2 (Не предусмотрено/ Предусмотрено)
+#SGF7 - Контр_СВ - Режим контроля СВ НН (Не предусмотрено/ Блокировка ступени при включенном СВ/ 	Блокировка ступени при отключенном СВ)
+
 from lib._TIMERS.TIMERS import TON  
 from lib._TRIGGERS.TRIGGERS import RSTrigger
 
@@ -20,36 +28,23 @@ class LVTPTOC:
         self.RSb = RSTrigger(state=0)
         self.RSc = RSTrigger(state=0)
 
-    def Step(self, VYVOD, OV, OVst , NaSign, SV1vkl, SV2vkl, SGF1, IA, IAB, IB, IBC, IC, ICA, BNTpuskA, BNTpuskB, BNTpuskC, KZN1neipr, KPON1pusk, VNN1vkl, KZN2neipr, KPON2pusk, VNN2vkl):
-        vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # МТЗ: Ввод
-        oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # МТЗ: Оперативный вывод
+    def Step(self, VYVOD, OV, OVst, NaSign, SV1vkl, SV2vkl, IA, IB, IC, BNTpuskA, BNTpuskB, BNTpuskC, KZN1neipr, KPON1pusk, VNN1vkl, KZN2neipr, KPON2pusk, VNN2vkl):
+        vvod, oper_vyvod = self.PrePreStep(VYVOD, OV, OVst)
+        io_A, io_B, io_C, kpon_pusk, set_changer = self.PreStep(IA, IB, IC, KZN1neipr, KPON1pusk, VNN1vkl, KZN2neipr, KPON2pusk, VNN2vkl)
+        mtzA_pusk, mtzB_pusk, mtzC_pusk, gen_pusk, mtz_srabsign, mtz_srab, ET = self.AfterStep(NaSign, SV1vkl, SV2vkl, io_A, io_B, io_C, BNTpuskA, BNTpuskB, BNTpuskC, kpon_pusk, vvod)
+        return vvod, oper_vyvod, mtzA_pusk, io_A, mtzB_pusk, io_B, mtzC_pusk, io_C, gen_pusk, mtz_srabsign, mtz_srab, ET, kpon_pusk, set_changer
 
-        # Реализация блока КПОН в составе ступени МТЗ
-        #kpon_gen1 = 0 if (self.SGF5==0) else ((KZN1neipr if (self.SGF4==0) else (not(KZN1neipr) and KPON1pusk)) and VNN1vkl)
-        kpon_gen1 = 0 if (self.SGF5==0) else (VNN1vkl and (KZN1neipr if (self.SGF4==0) else 0) or (KPON1pusk and not(KZN1neipr if(self.SGF4==1) else 0)))
-        #kpon_gen2 = 0 if (self.SGF6==0) else ((KZN2neipr if (self.SGF4==0) else (not(KZN2neipr) and KPON2pusk)) and VNN2vkl)
-        kpon_gen2 = 0 if (self.SGF6==0) else (VNN2vkl and (KZN2neipr if (self.SGF4==0) else 0) or (KPON2pusk and not(KZN2neipr if(self.SGF4==1) else 0)))
-   
-        kpon_gen = ((1 if (self.SGF5==0) else 0) or not(VNN1vkl)) and ((1 if (self.SGF6==0) else 0) or not(VNN2vkl))
-        print(kpon_gen)
-        kpon_pusk = kpon_gen1 or kpon_gen2 or kpon_gen
-        # Проверка перевода на грубую уставку и подмена уставок
-        set_changer = 0 if (self.SGF2==1) else not(kpon_pusk)
-        settingI = self.Iset if (set_changer==0) else self.Icoarse
+
+    def AfterStep(self, NaSign, SV1vkl, SV2vkl, io_A, io_B, io_C, BNTpuskA, BNTpuskB, BNTpuskC, kpon_pusk, vvod):
+
+        #vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # МТЗ: Ввод
+        #oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # МТЗ: Оперативный вывод
 
         # Логика фазы А
-        Ia = IA if (SGF1==0) else IAB
-        io_A = (self.SGF1==1) and (self.RSa.run((Ia>=settingI), (Ia<0.95*settingI)))
         mtzA_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_A) and not(0 if (self.SGF3==0) else BNTpuskA)
-
         # Логика фазы B
-        Ib = IB if (SGF1==0) else IBC
-        io_B = (self.SGF1==1) and (self.RSb.run((Ib>=settingI), (Ib<0.95*settingI)))
         mtzB_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_B) and not(0 if (self.SGF3==0) else BNTpuskB)
-
         # Логика фазы C
-        Ic = IC if (SGF1==0) else ICA
-        io_C = (self.SGF1==1) and (self.RSc.run((Ic>=settingI), (Ic<0.95*settingI)))
         mtzC_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_C) and not(0 if (self.SGF3==0) else BNTpuskC)
 
         sv_ctl = 0 if (self.SGF7==0) else (SV1vkl or SV2vkl) if (self.SGF7==1) else not(SV1vkl or SV2vkl) 
@@ -60,7 +55,24 @@ class LVTPTOC:
         mtz_srabsign = Q
         mtz_srab = mtz_srabsign and not(NaSign)
 
-        return vvod, oper_vyvod, mtzA_pusk, io_A, mtzB_pusk, io_B, mtzC_pusk, io_C, gen_pusk, mtz_srabsign, mtz_srab, ET, kpon_pusk, set_changer
+        return mtzA_pusk, mtzB_pusk, mtzC_pusk, gen_pusk, mtz_srabsign, mtz_srab, ET
+
+    def PreStep(self, IA, IB, IC, KZN1neipr, KPON1pusk, VNN1vkl, KZN2neipr, KPON2pusk, VNN2vkl): # Вспомогательный метод для предварительного вычисления значений для БНТ
+        kpon_gen1 = 0 if (self.SGF5==0) else (VNN1vkl and (KZN1neipr if (self.SGF4==0) else 0) or (KPON1pusk and not(KZN1neipr if(self.SGF4==1) else 0)))
+        kpon_gen2 = 0 if (self.SGF6==0) else (VNN2vkl and (KZN2neipr if (self.SGF4==0) else 0) or (KPON2pusk and not(KZN2neipr if(self.SGF4==1) else 0)))
+        kpon_gen = ((1 if (self.SGF5==0) else 0) or not(VNN1vkl)) and ((1 if (self.SGF6==0) else 0) or not(VNN2vkl))
+        kpon_pusk = kpon_gen1 or kpon_gen2 or kpon_gen
+        set_changer = 0 if (self.SGF2==1) else not(kpon_pusk)
+        settingI = self.Iset if (set_changer==0) else self.Icoarse
+        io_A = (self.SGF1==1) and (self.RSa.run((IA>=settingI), (IA<0.95*settingI)))
+        io_B = (self.SGF1==1) and (self.RSb.run((IB>=settingI), (IB<0.95*settingI)))
+        io_C = (self.SGF1==1) and (self.RSc.run((IC>=settingI), (IC<0.95*settingI)))
+        return io_A, io_B, io_C, kpon_pusk, set_changer
+
+    def PrePreStep(self, VYVOD, OV, OVst):
+        vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # МТЗ: Ввод
+        oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # МТЗ: Оперативный вывод
+        return vvod, oper_vyvod       
 
     # Геттеры и сеттеры
     def get_SGF1(self):
