@@ -10,7 +10,7 @@ class LBPRBLC:
 
         blok = 0 if (self.SGF1==0) else mtz1_pusk if (self.SGF1==1) else mtz2_pusk if (self.SGF1==2) else mtz3_pusk
 
-        return (blok,)
+        return blok
 
     # Геттеры и сеттеры
     def get_SGF1(self):

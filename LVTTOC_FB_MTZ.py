@@ -57,7 +57,7 @@ class LVTTOC:
         # Обсчет БНТ
         # Собираем условия ввода
         vvod_bnt = (vvod_ptoc1 and (self.ptoc1.get_SGF3()==1)) or (vvod_ptoc2 and (self.ptoc2.get_SGF3()==1)) or (vvod_ptoc3 and (self.ptoc3.get_SGF3()==1))
-        ia_start_out_phar1, ib_start_out_phar1, ic_start_out_phar1, start_phar1 = self.phar1(vvod_bnt, (io_A_ptoc1, io_A_ptoc2, io_A_ptoc3), (io_B_ptoc1, io_B_ptoc2, io_B_ptoc3), (io_C_ptoc1, io_C_ptoc2, io_C_ptoc3), IA, IA2harm, IB, IB2harm, IC, IC2harm)
+        ia_start_out_phar1, ib_start_out_phar1, ic_start_out_phar1, start_phar1 = self.phar1.Step(vvod_bnt, (io_A_ptoc1, io_A_ptoc2, io_A_ptoc3), (io_B_ptoc1, io_B_ptoc2, io_B_ptoc3), (io_C_ptoc1, io_C_ptoc2, io_C_ptoc3), IA, IA2harm, IB, IB2harm, IC, IC2harm)
 
         # Второй шаг обсчета ступеней МТЗ , с известными значениями БНТ
         mtzA_pusk_ptoc1, mtzB_pusk_ptoc1, mtzC_pusk_ptoc1, gen_pusk_ptoc1, mtz_srabsign_ptoc1, mtz_srab_ptoc1, ET_ptoc1 = self.ptoc1.AfterStep(NaSign_ptoc1, SV1vkl, SV2vkl, io_A_ptoc1, io_B_ptoc1, io_C_ptoc1, ia_start_out_phar1, ib_start_out_phar1, ic_start_out_phar1, kpon_pusk_ptoc1, vvod_ptoc1)
@@ -67,21 +67,16 @@ class LVTTOC:
         mtzA_pusk_ptoc3, mtzB_pusk_ptoc3, mtzC_pusk_ptoc3, gen_pusk_ptoc3, mtz_srabsign_ptoc3, mtz_srab_ptoc3, ET_ptoc3 = self.ptoc3.AfterStep(NaSign_ptoc3, SV1vkl, SV2vkl, io_A_ptoc3, io_B_ptoc3, io_C_ptoc3, ia_start_out_phar1, ib_start_out_phar1, ic_start_out_phar1, kpon_pusk_ptoc3, vvod_ptoc3)
 
         # Обсчет БЛЗШ
-        blok_rblc1 = self.rblc1(gen_pusk_ptoc1, gen_pusk_ptoc2, gen_pusk_ptoc3)
+        blok_rblc1 = self.rblc1.Step(gen_pusk_ptoc1, gen_pusk_ptoc2, gen_pusk_ptoc3)
 
         # Сборка общего пуска
         mtz_pusk = gen_pusk_ptoc1 or gen_pusk_ptoc2 or gen_pusk_ptoc3
 
-        return ((vvod_ptoc1, oper_vyvod_ptoc1, mtzA_pusk_ptoc1, mtzB_pusk_ptoc1, mtzC_pusk_ptoc1, gen_pusk_ptoc1, mtz_srabsign_ptoc1, mtz_srab_ptoc1, io_A_ptoc1, io_B_ptoc1, io_C_ptoc1),
-                (vvod_ptoc2, oper_vyvod_ptoc2, mtzA_pusk_ptoc2, mtzB_pusk_ptoc2, mtzC_pusk_ptoc2, gen_pusk_ptoc2, mtz_srabsign_ptoc2, mtz_srab_ptoc2, io_A_ptoc2, io_B_ptoc2, io_C_ptoc2),
-                (vvod_ptoc3, oper_vyvod_ptoc3, mtzA_pusk_ptoc3, mtzB_pusk_ptoc3, mtzC_pusk_ptoc3, gen_pusk_ptoc3, mtz_srabsign_ptoc3, mtz_srab_ptoc3, io_A_ptoc3, io_B_ptoc3, io_C_ptoc3),
-                (kpon_pusk_ptuv1, kpon_pusk_ptuv2),
-                (ia_start_out_phar1, ib_start_out_phar1, ic_start_out_phar1, start_phar1),
-                (blok_rblc1,),
-                (mtz_pusk,)               
-                )
-
-
-
+        return (vvod_ptoc1, oper_vyvod_ptoc1, mtzA_pusk_ptoc1, mtzB_pusk_ptoc1, mtzC_pusk_ptoc1, gen_pusk_ptoc1, mtz_srabsign_ptoc1, mtz_srab_ptoc1, io_A_ptoc1, io_B_ptoc1, io_C_ptoc1,
+                vvod_ptoc2, oper_vyvod_ptoc2, mtzA_pusk_ptoc2, mtzB_pusk_ptoc2, mtzC_pusk_ptoc2, gen_pusk_ptoc2, mtz_srabsign_ptoc2, mtz_srab_ptoc2, io_A_ptoc2, io_B_ptoc2, io_C_ptoc2,
+                vvod_ptoc3, oper_vyvod_ptoc3, mtzA_pusk_ptoc3, mtzB_pusk_ptoc3, mtzC_pusk_ptoc3, gen_pusk_ptoc3, mtz_srabsign_ptoc3, mtz_srab_ptoc3, io_A_ptoc3, io_B_ptoc3, io_C_ptoc3,
+                kpon_pusk_ptuv1, kpon_pusk_ptuv2,
+                ia_start_out_phar1, ib_start_out_phar1, ic_start_out_phar1, start_phar1,
+                blok_rblc1, mtz_pusk)               
 
 

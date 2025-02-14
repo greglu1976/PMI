@@ -19,7 +19,7 @@ class VCPTUV:
         io_U2 = self.RSu2.run((U2>=self.U2op), (U2<0.95*self.U2op))
         kpon_pusk = VVOD and (io_Umin if (self.SGF1==0) else (io_Umin or io_U2) if (self.SGF1==1) else KPONvnesh)
 
-        return (kpon_pusk,)
+        return kpon_pusk
 
     # Геттеры и сеттеры
     def get_SGF1(self):

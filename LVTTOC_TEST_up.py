@@ -1,16 +1,9 @@
-# тестирование функции МТЗ из 3 ступеней, БНТ, БЛЗШ, двух КПОН
-
-#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
-#SGF2 - Тип_КПОН - Тип пуска по напряжению (Управляющее напряжение / Вольтметровая блокировка)
-#SGF3 - Реж_БНТ - Режим контроля от БНТ (Не предусмотрено/ Предусмотрено)
-#SGF4 - Реж_БНН_КПОН - Режим КПОН при неисправности ЦН  (Деблокировка (Чувств. уставка)/ Блокировка (Грубая уставка))
-#SGF5 - Реж_КПОН1 - Режим контроля от КПОН1 (Не предусмотрено/ Предусмотрено)
-#SGF6 - Реж_КПОН2 - Режим контроля от КПОН2 (Не предусмотрено/ Предусмотрено)
-#SGF7 - Контр_СВ - Режим контроля СВ НН (Не предусмотрено/ Блокировка ступени при включенном СВ/ 	Блокировка ступени при отключенном СВ)
-
 import time
 import pandas as pd
 from openpyxl import Workbook
+from openpyxl.styles import PatternFill
+from openpyxl.utils.dataframe import dataframe_to_rows
+from openpyxl.worksheet.dimensions import ColumnDimension
 from LVTTOC_FB_MTZ import LVTTOC
 
 # Создаем экземпляр класса LVTPTOC
@@ -64,7 +57,6 @@ input_values = {
 # Генерация всех возможных комбинаций входных значений
 import itertools
 
-
 # Создаем DataFrame для хранения результатов
 columns = list(input_values.keys()) + [
  "vvod_ptoc1", "oper_vyvod_ptoc1", "mtzA_pusk_ptoc1", "mtzB_pusk_ptoc1", "mtzC_pusk_ptoc1", "gen_pusk_ptoc1", "mtz_srabsign_ptoc1", "mtz_srab_ptoc1", "io_A_ptoc1", "io_B_ptoc1", "io_C_ptoc1", "vvod_ptoc2", "oper_vyvod_ptoc2", "mtzA_pusk_ptoc2", "mtzB_pusk_ptoc2", "mtzC_pusk_ptoc2", "gen_pusk_ptoc2", "mtz_srabsign_ptoc2", "mtz_srab_ptoc2", "io_A_ptoc2", "io_B_ptoc2", "io_C_ptoc2",             "vvod_ptoc3", "oper_vyvod_ptoc3", "mtzA_pusk_ptoc3", "mtzB_pusk_ptoc3", "mtzC_pusk_ptoc3", "gen_pusk_ptoc3", "mtz_srabsign_ptoc3", "mtz_srab_ptoc3", "io_A_ptoc3", "io_B_ptoc3", "io_C_ptoc3",            "kpon_pusk_ptuv1", "kpon_pusk_ptuv2", "ia_start_out_phar1", "ib_start_out_phar1", "ic_start_out_phar1", "start_phar1", "blok_rblc1", "mtz_pusk"  
@@ -113,21 +105,35 @@ for inputs in itertools.product(*input_values.values()):
     )
     
     # Сохраняем результаты
-    #results.append(list(input_dict.values()) + list(result))
     results.append(list(input_dict.values()) + [int(val) for val in result])
-    # Добавление временной задержки между итерациями
     time.sleep(0.01)
 
 # Создаем DataFrame из результатов
 df = pd.DataFrame(results, columns=columns)
 
-# Преобразуем логические значения в числовые (0 и 1)
-#for col in df.columns:
-    #if df[col].dtype == bool:
-        #df[col] = df[col].astype(int)
-
-# Сохраняем результаты в файл Excel
+# Создаем Excel-файл
 output_file = "test_results.xlsx"
-df.to_excel(output_file, index=False, engine="openpyxl")
+wb = Workbook()
+ws = wb.active
 
+# Записываем данные в Excel
+for r in dataframe_to_rows(df, index=False, header=True):
+    ws.append(r)
+
+# Устанавливаем ширину столбцов
+for col in ws.columns:
+    column_letter = col[0].column_letter
+    ws.column_dimensions[column_letter].width = 20  # Ширина столбца 15
+
+# Определяем красный цвет для заливки
+red_fill = PatternFill(start_color="FF0000", end_color="FF0000", fill_type="solid")
+
+# Применяем условное форматирование для выделения значений '1' красным цветом
+for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=1, max_col=ws.max_column):
+    for cell in row:
+        if cell.value == 1:
+            cell.fill = red_fill
+
+# Сохраняем файл
+wb.save(output_file)
 print(f"Результаты сохранены в файл: {output_file}")
