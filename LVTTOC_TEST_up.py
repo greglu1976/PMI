@@ -6,12 +6,23 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.worksheet.dimensions import ColumnDimension
 from LVTTOC_FB_MTZ import LVTTOC
 
+# Ступень МТЗ
+#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
+#SGF2 - Тип_КПОН - Тип пуска по напряжению (Управляющее напряжение / Вольтметровая блокировка)
+#SGF3 - Реж_БНТ - Режим контроля от БНТ (Не предусмотрено/ Предусмотрено)
+#SGF4 - Реж_БНН_КПОН - Режим КПОН при неисправности ЦН  (Деблокировка (Чувств. уставка)/ Блокировка (Грубая уставка))
+#SGF5 - Реж_КПОН1 - Режим контроля от КПОН1 (Не предусмотрено/ Предусмотрено)
+#SGF6 - Реж_КПОН2 - Режим контроля от КПОН2 (Не предусмотрено/ Предусмотрено)
+#SGF7 - Контр_СВ - Режим контроля СВ НН (Не предусмотрено/ Блокировка ступени при включенном СВ/ 	Блокировка ступени при отключенном СВ)
+# КПОН
+# SGF1 - Реж_пуска - Режим пуска (По Uмин/ Комбинированный/ Внешний)
+
 # Создаем экземпляр класса LVTPTOC
-lvttoc = LVTTOC(SGF1=1, 
-SGF1_ptoc1=1, SGF2_ptoc1=0, SGF3_ptoc1=0, SGF4_ptoc1=0, SGF5_ptoc1=0, SGF6_ptoc1=0, SGF7_ptoc1=0, T1_ptoc1=0, Iset_ptoc1=1, Icoarse_ptoc1=2,
+lvttoc = LVTTOC(SGF1=0, 
+SGF1_ptoc1=1, SGF2_ptoc1=0, SGF3_ptoc1=0, SGF4_ptoc1=0, SGF5_ptoc1=1, SGF6_ptoc1=0, SGF7_ptoc1=0, T1_ptoc1=0.23, Iset_ptoc1=3, Icoarse_ptoc1=5,
 SGF1_ptoc2=0, SGF2_ptoc2=0, SGF3_ptoc2=0, SGF4_ptoc2=0, SGF5_ptoc2=0, SGF6_ptoc2=0, SGF7_ptoc2=0, T1_ptoc2=0, Iset_ptoc2=1, Icoarse_ptoc2=2,
 SGF1_ptoc3=0, SGF2_ptoc3=0, SGF3_ptoc3=0, SGF4_ptoc3=0, SGF5_ptoc3=0, SGF6_ptoc3=0, SGF7_ptoc3=0, T1_ptoc3=0, Iset_ptoc3=1, Icoarse_ptoc3=2,
-SGF1_ptuv1=0, Uop_ptuv1=40, U2op_ptuv1=5,
+SGF1_ptuv1=1, Uop_ptuv1=40, U2op_ptuv1=5,
 SGF1_ptuv2=0, Uop_ptuv2=40, U2op_ptuv2=5,
 SGF1_phar1=0, Imax_phar1=3, Ratio_phar1=0.4,
 SGF1_rblc1=0
@@ -19,8 +30,8 @@ SGF1_rblc1=0
 
 # Определяем возможные входные значения для тестирования
 input_values = {
-    "VYVOD": [0, 1],
-    "OV": [0, 1],
+    "VYVOD": [0, ],
+    "OV": [0, ],
     "OVst_ptoc1": [0,],
     "OVst_ptoc2": [0,],
     "OVst_ptoc3": [0,],        
@@ -29,22 +40,22 @@ input_values = {
     "NaSign_ptoc3": [0,],       
     "SV1vkl": [0,],
     "SV2vkl": [0,],
-    "IA": [0,],
-    "IAB": [0,],
+    "IA": [1, ],
+    "IAB": [5,],
     "IB": [0,],
     "IBC": [0,],
     "IC": [0, ],
     "ICA": [0,],
-    "UAB_ptuv1": [0,],
-    "UBC_ptuv1": [0,],
-    "UCA_ptuv1": [0,],
-    "U2_ptuv1": [0,],
+    "UAB_ptuv1": [50,],
+    "UBC_ptuv1": [50,],
+    "UCA_ptuv1": [50,],
+    "U2_ptuv1": [0, 10],
     "UAB_ptuv2": [0,],
     "UBC_ptuv2": [0,],
     "UCA_ptuv2": [0,],
-    "U2_ptuv2": [0,],
-    "KPONvnesh_ptuv1": [0,],
-    "KPONvnesh_ptuv2": [0,],
+    "U2_ptuv2": [0, ],
+    "KPONvnesh_ptuv1": [0, ],
+    "KPONvnesh_ptuv2": [0, ],
     "IA2harm": [0,],
     "IB2harm": [0,],
     "IC2harm": [0,],
@@ -106,7 +117,7 @@ for inputs in itertools.product(*input_values.values()):
     
     # Сохраняем результаты
     results.append(list(input_dict.values()) + [int(val) for val in result])
-    time.sleep(0.01)
+    time.sleep(0.1)
 
 # Создаем DataFrame из результатов
 df = pd.DataFrame(results, columns=columns)
@@ -131,7 +142,7 @@ red_fill = PatternFill(start_color="FF0000", end_color="FF0000", fill_type="soli
 # Применяем условное форматирование для выделения значений '1' красным цветом
 for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=1, max_col=ws.max_column):
     for cell in row:
-        if cell.value == 1:
+        if cell.value != 0:
             cell.fill = red_fill
 
 # Сохраняем файл

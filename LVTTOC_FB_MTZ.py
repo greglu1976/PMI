@@ -45,14 +45,15 @@ class LVTTOC:
 
         # Обсчет КПОН
         # Собираем условия ввода
-        vvod_kpon = (vvod_ptoc1 and (self.ptoc1.get_SGF5()==1)) or (vvod_ptoc2 and (self.ptoc2.get_SGF5()==1)) or (vvod_ptoc3 and (self.ptoc3.get_SGF5()==1))      
-        kpon_pusk_ptuv1 = self.ptuv1.Step(vvod_kpon, KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
-        kpon_pusk_ptuv2 = self.ptuv2.Step(vvod_kpon, KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2)
+        vvod_kpon1 = (vvod_ptoc1 and (self.ptoc1.get_SGF5()==1)) or (vvod_ptoc2 and (self.ptoc2.get_SGF5()==1)) or (vvod_ptoc3 and (self.ptoc3.get_SGF5()==1))      
+        kpon_pusk_ptuv1 = self.ptuv1.Step(vvod_kpon1, KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
+        vvod_kpon2 = (vvod_ptoc1 and (self.ptoc1.get_SGF6()==1)) or (vvod_ptoc2 and (self.ptoc2.get_SGF6()==1)) or (vvod_ptoc3 and (self.ptoc3.get_SGF6()==1))  
+        kpon_pusk_ptuv2 = self.ptuv2.Step(vvod_kpon2, KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2)
 
         # Предварительный обсчет ступеней МТЗ
         io_A_ptoc1, io_B_ptoc1, io_C_ptoc1, kpon_pusk_ptoc1, set_changer_ptoc1 = self.ptoc1.PreStep(Ia, Ib, Ic, KZN1neipr, kpon_pusk_ptuv1, VNN1vkl, KZN2neipr, kpon_pusk_ptuv2, VNN2vkl)
         io_A_ptoc2, io_B_ptoc2, io_C_ptoc2, kpon_pusk_ptoc2, set_changer_ptoc2 = self.ptoc2.PreStep(Ia, Ib, Ic, KZN1neipr, kpon_pusk_ptuv1, VNN1vkl, KZN2neipr, kpon_pusk_ptuv2, VNN2vkl)
-        io_A_ptoc3, io_B_ptoc3, io_C_ptoc3, kpon_pusk_ptoc3, set_changer_ptoc3 = self.ptoc1.PreStep(Ia, Ib, Ic, KZN1neipr, kpon_pusk_ptuv1, VNN1vkl, KZN2neipr, kpon_pusk_ptuv2, VNN2vkl)
+        io_A_ptoc3, io_B_ptoc3, io_C_ptoc3, kpon_pusk_ptoc3, set_changer_ptoc3 = self.ptoc3.PreStep(Ia, Ib, Ic, KZN1neipr, kpon_pusk_ptuv1, VNN1vkl, KZN2neipr, kpon_pusk_ptuv2, VNN2vkl)
 
         # Обсчет БНТ
         # Собираем условия ввода
