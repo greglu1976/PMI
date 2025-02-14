@@ -1,3 +1,5 @@
+# тестирование функции МТЗ из 3 ступеней, БНТ, БЛЗШ, двух КПОН
+
 #SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 #SGF2 - Тип_КПОН - Тип пуска по напряжению (Управляющее напряжение / Вольтметровая блокировка)
 #SGF3 - Реж_БНТ - Режим контроля от БНТ (Не предусмотрено/ Предусмотрено)
@@ -9,10 +11,27 @@
 import time
 import pandas as pd
 from openpyxl import Workbook
-from LVTPTOC import LVTPTOC
+from LVTTOC_FB_MTZ import LVTTOC
 
 # Создаем экземпляр класса LVTPTOC
-lvtptoc = LVTPTOC(SGF1=1, SGF2=0, SGF3=0, SGF4=0, SGF5=1, SGF6=0, SGF7=0, T1=0.13, Iset=3, Icoarse=6)
+lvttoc = LVTTOC(SGF1=1, 
+SGF1_ptoc1=0, SGF2_ptoc1=0, SGF3_ptoc1=0, SGF4_ptoc1=0, SGF5_ptoc1=0, SGF6_ptoc1=0, SGF7_ptoc1=0, T1_ptoc1=0, Iset_ptoc1=1, Icoarse_ptoc1=2,
+SGF1_ptoc2=0, SGF2_ptoc2=0, SGF3_ptoc2=0, SGF4_ptoc2=0, SGF5_ptoc2=0, SGF6_ptoc2=0, SGF7_ptoc2=0, T1_ptoc2=0, Iset_ptoc2=1, Icoarse_ptoc2=2,
+SGF1_ptoc3=0, SGF2_ptoc3=0, SGF3_ptoc3=0, SGF4_ptoc3=0, SGF5_ptoc3=0, SGF6_ptoc3=0, SGF7_ptoc3=0, T1_ptoc3=0, Iset_ptoc3=1, Icoarse_ptoc3=2,
+SGF1_ptuv1=0, Uop_ptuv1=40, U2op_ptuv1=5,
+SGF1_ptuv2=0, Uop_ptuv2=40, U2op_ptuv2=5,
+SGF1_phar1=0, Imax_phar1=3, Ratio_phar1=0.4,
+)
+
+
+
+
+                    SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1,
+                    SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2,
+                    SGF1_phar1, Imax_phar1, Ratio_phar1,
+                    SGF1_rblc1
+
+
 
 # Определяем возможные входные значения для тестирования
 input_values = {
@@ -54,7 +73,7 @@ for inputs in itertools.product(*input_values.values()):
     input_dict = dict(zip(input_values.keys(), inputs))
     
     # Вызываем метод Step
-    result = lvtptoc.Step(
+    result = lvttoc.Step(
         VYVOD=input_dict["VYVOD"],
         OV=input_dict["OV"],
         OV=input_dict["OV"],
