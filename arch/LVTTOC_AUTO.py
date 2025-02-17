@@ -1,3 +1,5 @@
+# Старая версия без сохранения и загрузки
+
 import tkinter as tk
 from tkinter import ttk
 from LVTTOC_FB_MTZ import LVTTOC

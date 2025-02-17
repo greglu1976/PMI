@@ -1,3 +1,5 @@
+# Тестирование ФБ МТЗ через GUI
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
@@ -12,7 +14,7 @@ from LVTTOC_FB_MTZ import LVTTOC
 class LVTTOC_GUI:
     def __init__(self, root):
         self.root = root 
-        self.root.title("LVTTOC Tester")
+        self.root.title("LVTTOC Tester/ Тестирование ФБ МТЗ для ЮНИТ-М300-Т2")
         self.lvttoc = None
         self.polling_thread = None  # Для управления потоком опроса
         self.is_polling = False     # Флаг для остановки опроса
