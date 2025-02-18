@@ -19,11 +19,12 @@ class T_LVRVTR:
      
 
     def Step(self, VYVOD = 0, OV = 0, vnesh_bnn_srab=0, u_ab=0, u_bc=0, u_ca=0, u2=0):
-
+        print(VYVOD, OV, vnesh_bnn_srab, u_ab, u_bc, u_ca, u2)
         vvod = (not(OV or VYVOD)) and (self.SGF1==1) # Ввод
         oper_vyvod = (OV or VYVOD) and (self.SGF1==1) # Оперативный вывод
 
         u_max = max(u_ab, u_bc, u_ca)
+        print(u_ab, u_bc, u_ca)
         io_u = self.rs_u.run((u_max<=self.u_min), (u_max>1.05*self.u_min))
         io_u2 = self.rs_u2.run((u2>=self.u2_max), (u2<0.95*self.u2_max))
 

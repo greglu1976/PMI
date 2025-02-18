@@ -126,11 +126,11 @@ class PartOfFsuInTOC_GUI:
             "UAB_ptuv1": tk.DoubleVar(value=50),
             "UBC_ptuv1": tk.DoubleVar(value=50),
             "UCA_ptuv1": tk.DoubleVar(value=50),
-            "U2_ptuv1": tk.DoubleVar(value=0),
-            "UAB_ptuv2": tk.DoubleVar(value=0),
-            "UBC_ptuv2": tk.DoubleVar(value=0),
-            "UCA_ptuv2": tk.DoubleVar(value=0),
-            "U2_ptuv2": tk.DoubleVar(value=0),
+            "U2_ptuv1": tk.DoubleVar(value=1),
+            "UAB_ptuv2": tk.DoubleVar(value=2),
+            "UBC_ptuv2": tk.DoubleVar(value=3),
+            "UCA_ptuv2": tk.DoubleVar(value=4),
+            "U2_ptuv2": tk.DoubleVar(value=5),
             "KPONvnesh_ptuv1": tk.IntVar(value=0),
             "KPONvnesh_ptuv2": tk.IntVar(value=0),
             "IA2harm": tk.DoubleVar(value=0),
@@ -333,6 +333,7 @@ class PartOfFsuInTOC_GUI:
     def poll_inputs(self):
         while self.is_polling:
             inputs = {key: var.get() for key, var in self.input_vars.items()}
+            #print(inputs)
             result = self.part.Step(**inputs)
 
             # Обновление выходных значений
