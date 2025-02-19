@@ -19,7 +19,7 @@ from LVTTOC_FB_MTZ import LVTTOC
 
 # Создаем экземпляр класса LVTPTOC
 lvttoc = LVTTOC(SGF1=0, 
-SGF1_ptoc1=1, SGF2_ptoc1=0, SGF3_ptoc1=0, SGF4_ptoc1=0, SGF5_ptoc1=1, SGF6_ptoc1=0, SGF7_ptoc1=0, T1_ptoc1=0.23, Iset_ptoc1=3, Icoarse_ptoc1=5,
+SGF1_ptoc1=1, SGF2_ptoc1=0, SGF3_ptoc1=0, SGF4_ptoc1=0, SGF5_ptoc1=1, SGF6_ptoc1=1, SGF7_ptoc1=0, T1_ptoc1=0.23, Iset_ptoc1=3, Icoarse_ptoc1=5,
 SGF1_ptoc2=0, SGF2_ptoc2=0, SGF3_ptoc2=0, SGF4_ptoc2=0, SGF5_ptoc2=0, SGF6_ptoc2=0, SGF7_ptoc2=0, T1_ptoc2=0, Iset_ptoc2=1, Icoarse_ptoc2=2,
 SGF1_ptoc3=0, SGF2_ptoc3=0, SGF3_ptoc3=0, SGF4_ptoc3=0, SGF5_ptoc3=0, SGF6_ptoc3=0, SGF7_ptoc3=0, T1_ptoc3=0, Iset_ptoc3=1, Icoarse_ptoc3=2,
 SGF1_ptuv1=1, Uop_ptuv1=40, U2op_ptuv1=5,
@@ -40,8 +40,8 @@ input_values = {
     "NaSign_ptoc3": [0,],       
     "SV1vkl": [0,],
     "SV2vkl": [0,],
-    "IA": [1, ],
-    "IAB": [5,],
+    "IA": [1, 2, 3 ],
+    "IAB": [0,],
     "IB": [0,],
     "IBC": [0,],
     "IC": [0, ],
@@ -49,7 +49,7 @@ input_values = {
     "UAB_ptuv1": [50,],
     "UBC_ptuv1": [50,],
     "UCA_ptuv1": [50,],
-    "U2_ptuv1": [0, 10],
+    "U2_ptuv1": [0, ],
     "UAB_ptuv2": [0,],
     "UBC_ptuv2": [0,],
     "UCA_ptuv2": [0,],

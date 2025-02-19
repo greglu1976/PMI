@@ -12,7 +12,7 @@ from lib._TIMERS.TIMERS import TON
 from lib._TRIGGERS.TRIGGERS import RSTrigger
 
 class LVTPTOC:
-    def __init__(self, SGF1=0, SGF2=0, SGF3=0, SGF4=0, SGF5=0, SGF6=0,SGF7=0, T1=0, Iset=1, Icoarse=2):
+    def __init__(self, SGF1, SGF2, SGF3, SGF4, SGF5, SGF6, SGF7, T1, Iset, Icoarse):
         self.SGF1 = SGF1
         self.SGF2 = SGF2
         self.SGF3 = SGF3
@@ -37,9 +37,6 @@ class LVTPTOC:
 
     def AfterStep(self, NaSign, SV1vkl, SV2vkl, io_A, io_B, io_C, BNTpuskA, BNTpuskB, BNTpuskC, kpon_pusk, vvod):
 
-        #vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # МТЗ: Ввод
-        #oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # МТЗ: Оперативный вывод
-
         # Логика фазы А
         mtzA_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_A) and not(0 if (self.SGF3==0) else BNTpuskA)
         # Логика фазы B
@@ -61,12 +58,15 @@ class LVTPTOC:
         kpon_gen1 = 0 if (self.SGF5==0) else (VNN1vkl and (KZN1neipr if (self.SGF4==0) else 0) or (KPON1pusk and not(KZN1neipr if(self.SGF4==1) else 0)))
         kpon_gen2 = 0 if (self.SGF6==0) else (VNN2vkl and (KZN2neipr if (self.SGF4==0) else 0) or (KPON2pusk and not(KZN2neipr if(self.SGF4==1) else 0)))
         kpon_gen = ((1 if (self.SGF5==0) else 0) or not(VNN1vkl)) and ((1 if (self.SGF6==0) else 0) or not(VNN2vkl))
+
+        #print('kpon_gen', self.SGF5, self.SGF6)
         kpon_pusk = kpon_gen1 or kpon_gen2 or kpon_gen
         set_changer = 0 if (self.SGF2==1) else not(kpon_pusk)
         settingI = self.Iset if (set_changer==0) else self.Icoarse
         io_A = (self.SGF1==1) and (self.RSa.run((IA>=settingI), (IA<0.95*settingI)))
         io_B = (self.SGF1==1) and (self.RSb.run((IB>=settingI), (IB<0.95*settingI)))
         io_C = (self.SGF1==1) and (self.RSc.run((IC>=settingI), (IC<0.95*settingI)))
+        #print('set_changer', set_changer, kpon_gen1, kpon_gen2, kpon_gen)
         return io_A, io_B, io_C, kpon_pusk, set_changer
 
     def PrePreStep(self, VYVOD, OV, OVst):

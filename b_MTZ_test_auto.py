@@ -21,6 +21,11 @@ class PartOfFsuInTOC_GUI:
         self.polling_thread = None
         self.is_polling = False
 
+        # Инициализация переменных для имени файла
+        self.function_name = tk.StringVar(value="Функция")
+        self.mode_name = tk.StringVar(value="Режим")
+
+
         # Инициализация переменных для SGF параметров, настроек, входных и выходных значений
         self.sgf_params = {
             "SGF1": tk.IntVar(value=0),
@@ -45,7 +50,7 @@ class PartOfFsuInTOC_GUI:
             "SGF5_ptoc3": tk.IntVar(value=0),
             "SGF6_ptoc3": tk.IntVar(value=0),
             "SGF7_ptoc3": tk.IntVar(value=0),
-            "SGF1_ptuv1": tk.IntVar(value=1),
+            "SGF1_ptuv1": tk.IntVar(value=0),
             "SGF1_ptuv2": tk.IntVar(value=0),
             "SGF1_phar1": tk.IntVar(value=0),
             "SGF1_rblc1": tk.IntVar(value=0),
@@ -53,7 +58,7 @@ class PartOfFsuInTOC_GUI:
             "SGF2_lvrbvtr1": tk.IntVar(value=0),
             "SGF1_lvrbvtr2": tk.IntVar(value=0),
             "SGF2_lvrbvtr2": tk.IntVar(value=0),
-            "SGF1_ptrc1_tofflvlgc": tk.IntVar(value=0),  # Add missing SGF parameters
+            "SGF1_ptrc1_tofflvlgc": tk.IntVar(value=0), 
             "SGF1_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rbre1_tofflvlgc": tk.IntVar(value=0),
@@ -83,27 +88,27 @@ class PartOfFsuInTOC_GUI:
         }
 
         self.settings = {
-            "T1_ptoc1": tk.DoubleVar(value=0.23),
-            "Iset_ptoc1": tk.DoubleVar(value=3),
-            "Icoarse_ptoc1": tk.DoubleVar(value=5),
-            "T1_ptoc2": tk.DoubleVar(value=0),
+            "T1_ptoc1": tk.DoubleVar(value=1),
+            "Iset_ptoc1": tk.DoubleVar(value=1),
+            "Icoarse_ptoc1": tk.DoubleVar(value=3),
+            "T1_ptoc2": tk.DoubleVar(value=1),
             "Iset_ptoc2": tk.DoubleVar(value=1),
-            "Icoarse_ptoc2": tk.DoubleVar(value=2),
-            "T1_ptoc3": tk.DoubleVar(value=0),
+            "Icoarse_ptoc2": tk.DoubleVar(value=3),
+            "T1_ptoc3": tk.DoubleVar(value=1),
             "Iset_ptoc3": tk.DoubleVar(value=1),
-            "Icoarse_ptoc3": tk.DoubleVar(value=2),
+            "Icoarse_ptoc3": tk.DoubleVar(value=3),
             "Uop_ptuv1": tk.DoubleVar(value=40),
             "U2op_ptuv1": tk.DoubleVar(value=5),
             "Uop_ptuv2": tk.DoubleVar(value=40),
             "U2op_ptuv2": tk.DoubleVar(value=5),
-            "Imax_phar1": tk.DoubleVar(value=3),
+            "Imax_phar1": tk.DoubleVar(value=5),
             "Ratio_phar1": tk.DoubleVar(value=0.4),
             "u_min_lvrbvtr1": tk.DoubleVar(value=40),
             "u2_max_lvrbvtr1": tk.DoubleVar(value=5),
-            "t1_lvrbvtr1": tk.DoubleVar(value=0),
+            "t1_lvrbvtr1": tk.DoubleVar(value=1),
             "u_min_lvrbvtr2": tk.DoubleVar(value=40),
             "u2_max_lvrbvtr2": tk.DoubleVar(value=5),
-            "t1_lvrbvtr2": tk.DoubleVar(value=0),
+            "t1_lvrbvtr2": tk.DoubleVar(value=1),
         }
 
         self.input_vars = {
@@ -120,17 +125,17 @@ class PartOfFsuInTOC_GUI:
             "IA": tk.DoubleVar(value=1),
             "IB": tk.DoubleVar(value=0),
             "IC": tk.DoubleVar(value=0),
-            "IAB": tk.DoubleVar(value=5),
+            "IAB": tk.DoubleVar(value=0),
             "IBC": tk.DoubleVar(value=0),
             "ICA": tk.DoubleVar(value=0),
             "UAB_ptuv1": tk.DoubleVar(value=50),
             "UBC_ptuv1": tk.DoubleVar(value=50),
             "UCA_ptuv1": tk.DoubleVar(value=50),
-            "U2_ptuv1": tk.DoubleVar(value=1),
-            "UAB_ptuv2": tk.DoubleVar(value=2),
-            "UBC_ptuv2": tk.DoubleVar(value=3),
-            "UCA_ptuv2": tk.DoubleVar(value=4),
-            "U2_ptuv2": tk.DoubleVar(value=5),
+            "U2_ptuv1": tk.DoubleVar(value=0),
+            "UAB_ptuv2": tk.DoubleVar(value=50),
+            "UBC_ptuv2": tk.DoubleVar(value=50),
+            "UCA_ptuv2": tk.DoubleVar(value=50),
+            "U2_ptuv2": tk.DoubleVar(value=0),
             "KPONvnesh_ptuv1": tk.IntVar(value=0),
             "KPONvnesh_ptuv2": tk.IntVar(value=0),
             "IA2harm": tk.DoubleVar(value=0),
@@ -162,7 +167,7 @@ class PartOfFsuInTOC_GUI:
         col = 0
         for key, var in self.sgf_params.items():
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
-            if "SGF7" in key:
+            if key=="SGF7_ptoc1" or key=="SGF7_ptoc2" or key=="SGF7_ptoc3" or key=="SGF1_ptuv1" or key=="SGF1_ptuv2":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             else:
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
@@ -203,6 +208,15 @@ class PartOfFsuInTOC_GUI:
 
         # Button Load
         ttk.Button(buttons_frame, text="Load", command=self.load_from_excel).grid(row=0, column=4, pady=10)        
+
+
+        # Поля для задания имени файла
+        ttk.Label(buttons_frame, text="Функция:").grid(row=0, column=5, padx=5, pady=5)
+        ttk.Entry(buttons_frame, textvariable=self.function_name, width=15).grid(row=0, column=6, padx=5, pady=5)
+
+        ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=7, padx=5, pady=5)
+        ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=8, padx=5, pady=5)
+
 
         # Frame for input values
         input_frame = ttk.LabelFrame(self.root, text="Inputs")
@@ -348,6 +362,17 @@ class PartOfFsuInTOC_GUI:
             time.sleep(0.1)
 
     def save_to_excel(self):
+
+        # Формируем имя файла
+        function = self.function_name.get().strip()
+        mode = self.mode_name.get().strip()
+        if not function or not mode:
+            print("Поля 'Функция' и 'Режим' должны быть заполнены")
+            return
+
+        output_file = f"{function}_{mode}.xlsx"
+
+
         # Создаем DataFrame для каждой группы данных
         sgf_df = pd.DataFrame({
             key: [var.get()] for key, var in self.sgf_params.items()
@@ -363,7 +388,7 @@ class PartOfFsuInTOC_GUI:
         })
 
         # Сохраняем данные в Excel
-        output_file = "data.xlsx"
+        #output_file = "data.xlsx"
         with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
             sgf_df.to_excel(writer, sheet_name="SGF_Parameters", index=False)
             settings_df.to_excel(writer, sheet_name="Settings", index=False)
