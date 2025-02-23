@@ -1,0 +1,171 @@
+{
+    "lvttoc": {
+        "ptoc1": {
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "SetValue": 1
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "SetValue": 1
+            },
+            "Icoarse": {
+                "ShortDescription": "Iср_груб",
+                "FullDescription": "Ток срабатывания грубого органа",
+                "Note": "-",
+                "DefaultValue": "1",
+                "SetValue": 3
+            }
+        },
+        "ptoc2": {
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "SetValue": 1
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "SetValue": 1
+            },
+            "Icoarse": {
+                "ShortDescription": "Iср_груб",
+                "FullDescription": "Ток срабатывания грубого органа",
+                "Note": "-",
+                "DefaultValue": "1",
+                "SetValue": 3
+            }
+        },
+        "ptoc3": {
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "SetValue": 1
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "SetValue": 1
+            },
+            "Icoarse": {
+                "ShortDescription": "Iср_груб",
+                "FullDescription": "Ток срабатывания грубого органа",
+                "Note": "-",
+                "DefaultValue": "1",
+                "SetValue": 3
+            }
+        },
+        "ptuv1": {
+            "Uop": {
+                "ShortDescription": "Uср",
+                "FullDescription": "Напряжение срабатывания",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 40
+            },
+            "U2op": {
+                "ShortDescription": "U2ср",
+                "FullDescription": "Напряжение срабатывания ОП",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 5
+            }
+        },
+        "ptuv2": {
+            "Uop": {
+                "ShortDescription": "Uср",
+                "FullDescription": "Напряжение срабатывания",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 40
+            },
+            "U2op": {
+                "ShortDescription": "U2ср",
+                "FullDescription": "Напряжение срабатывания ОП",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 5
+            }
+        },
+        "phar1": {
+            "Imax": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток блокировки",
+                "Note": "-",
+                "DefaultValue": "7.5",
+                "SetValue": 5
+            },
+            "Ratio": {
+                "ShortDescription": "Ih2/Ih1",
+                "FullDescription": "Отношение тока второй гармоники к току основной гармоники",
+                "Note": "-",
+                "DefaultValue": "15",
+                "SetValue": null
+            }
+        }
+    },
+    "lvrbvtr1": {
+        "": {
+            "Umin": {
+                "ShortDescription": "Uср",
+                "FullDescription": "Напряжение срабатывания",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 40
+            },
+            "U2max": {
+                "ShortDescription": "U2ср",
+                "FullDescription": "Напряжение срабатывания ОП",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 5
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "SetValue": 1
+            }
+        }
+    },
+    "lvrbvtr2": {
+        "": {
+            "Umin": {
+                "ShortDescription": "Uср",
+                "FullDescription": "Напряжение срабатывания",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 40
+            },
+            "U2max": {
+                "ShortDescription": "U2ср",
+                "FullDescription": "Напряжение срабатывания ОП",
+                "Note": "-",
+                "DefaultValue": "6",
+                "SetValue": 5
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "SetValue": 1
+            }
+        }
+    }
+}
