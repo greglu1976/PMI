@@ -7,12 +7,14 @@ from lxml import etree
 import json
 import re
 
+from create_settings_from_mode2 import start_proceed_modes
+
 def horizont_A4(doc):
     # Настройка страницы формата A4 (297мм x 210мм) горизонтальной ориентации
     section = doc.sections[-1]
-    section.orientation = WD_ORIENTATION.LANDSCAPE  # Горизонтальная ориентация
-    section.page_width = Mm(297)  # Ширина A4 в миллиметрах
-    section.page_height = Mm(210)  # Высота A4 в миллиметрах
+    section.orientation = WD_ORIENTATION.PORTRAIT # Горизонтальная ориентация
+    section.page_width = Mm(210)  # Ширина A4 в миллиметрах
+    section.page_height = Mm(297)  # Высота A4 в миллиметрах
     section.top_margin = Mm(12.7)  # Отступы в миллиметрах (примерно 0.5 дюйма)
     section.bottom_margin = Mm(12.7)
     section.left_margin = Mm(12.7)
@@ -89,7 +91,7 @@ def add_table(doc, combined_df, replacement_titles, header_row_height):
         #if column != 'Номер режима':  # Вертикальная ориентация не применяется к "Номер режима"
         set_vertical_text(cell)
         # Установка отступов в ячейке
-        set_cell_margins(cell, top=0.05, bottom=0.05, left=0.05, right=0.05)
+        set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
 
     # Добавление данных и настройка отступов в ячейках
     for i in range(len(combined_df)):
@@ -100,8 +102,41 @@ def add_table(doc, combined_df, replacement_titles, header_row_height):
             run.font.size = Pt(11)
             run.font.name = 'Arial'
             # Установка отступов в ячейке
-            set_cell_margins(cell, top=0.05, bottom=0.05, left=0.05, right=0.05)
+            set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
     return doc
+
+# Функция для добавления таблицы в документ
+def add_table_set(doc, data):
+    table = doc.add_table(rows=len(data) + 1, cols=6)
+    table.style = 'Стиль3'  # Применяем стиль таблицы
+
+    # Заголовки столбцов
+    headers = ['Параметр', 'Обозначение ФСУ', 'Значение / Диапазон', 'Ед.изм.', 'Шаг', 'Уставка']
+    for i, header in enumerate(headers):
+        cell = table.cell(0, i)
+        cell.text = header
+
+    # Добавление данных в таблицу
+    for row_idx, (switch, values) in enumerate(data.items(), start=1):
+        table.cell(row_idx, 0).text = f"{values.get('FullDescription', '')} ({values.get('ShortDescription', '')})"
+        units = values.get('units', '')
+        if 'SGF' in switch:
+            table.cell(row_idx, 1).text = switch
+            table.cell(row_idx, 2).text = values.get('Note', '').replace(',', '\n')
+        else:
+            table.cell(row_idx, 1).text = values.get('AppliedDescription', '')
+            if units == 'мс':
+                units = 'с'
+                table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
+            else:
+                table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "                
+
+        table.cell(row_idx, 3).text = units
+        table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+        table.cell(row_idx, 5).text = str(values.get('SetValue', '')).replace('.', ',')
+
+    return doc
+
 
 # Открытие шаблона документа
 doc = Document('templ.docx')
@@ -109,7 +144,7 @@ horizont_A4(doc)
 paragraph = doc.add_heading('Проверка БНТ', level=2)
 
 # Путь к папке с файлами
-folder_path = 'modes'
+folder_path = 'modes2'
 
 # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_inputs.json
 with open('fsu_bnt_needed_inputs.json', 'r', encoding='utf-8') as f:
@@ -132,16 +167,53 @@ doc.add_paragraph('Контролируемые сигналы', style='tablenam
 doc = add_table(doc, combined_df, replacement_titles, 45)
 
 # Загрузка словаря для выборки столбцов из JSON-файла fsu_mtz_sgfs.json
-with open('fsu_mtz_sgfs.json', 'r', encoding='utf-8') as f:
-    needed_columns = json.load(f)
+#with open('fsu_mtz_sgfs.json', 'r', encoding='utf-8') as f:
+    #needed_columns = json.load(f)
 # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_outputs.json
-with open('fsu_mtz_sgfs.json', 'r', encoding='utf-8') as f:
-    replacement_titles = json.load(f)
-combined_df = procced_xlsx(folder_path, needed_columns, 'SGF_Parameters')
-doc.add_paragraph('Состояние программных переключателей', style='tablename1')
-doc = add_table(doc, combined_df, replacement_titles, 90)
+#with open('fsu_mtz_sgfs.json', 'r', encoding='utf-8') as f:
+    #replacement_titles = json.load(f)
+#combined_df = procced_xlsx(folder_path, needed_columns, 'SGF_Parameters')
+#doc.add_paragraph('Состояние программных переключателей', style='tablename1')
+#doc = add_table(doc, combined_df, replacement_titles, 90)
+
+paragraph = doc.add_heading('Таблицы для конфигурирования режимов', level=3)
+
+#combined_df = procced_xlsx(folder_path, needed_columns, 'Inputs')
+start_proceed_modes('modes2/БНТ_2.xlsx') # Получаем json режимные ключи и уставки в result_dict.json
+
+file_path_desc = 'part/description.json'
+with open(file_path_desc, 'r', encoding='utf-8') as file:
+    description_data = json.load(file)
+file_path_data = 'result_dict.json'
+with open(file_path_data, 'r', encoding='utf-8') as file:
+    general_data = json.load(file)
 
 
+# Итерация по словарю general_data
+for fbname, functions in general_data.items():
+    # Получаем описание FB из description_data
+    fb_info = description_data.get(fbname, {})
+    desc = fb_info.get('desc', 'Описание не найдено')
+    fb_name = fb_info.get('fbname', 'FB не найдено')
+
+    # Добавляем заголовок для FB
+    paragraph = doc.add_heading(f"{desc} ({fb_name})", level=3)
+
+    for func_name, switches in functions.items():
+        if func_name == "":  # Если ключ пустой
+            # Добавляем заголовок для общих уставок
+            paragraph = doc.add_heading("Общие уставки", level=4)
+        else:
+            # Ищем описание функции в description_data
+            func_desc_info = fb_info.get(func_name, {})
+            func_desc = func_desc_info.get('funcname', 'Описание функции не найдено')
+            func_short_name = func_desc_info.get('func_short_name', 'Код функции не найден')
+
+            # Добавляем заголовок для функции
+            paragraph = doc.add_heading(f"{func_desc} ({func_short_name})", level=4)
+
+        # Добавляем таблицу для переключателей (switches)
+        doc = add_table_set(doc, switches)
 # Сохранение документа
 doc.save('_inouts.docx')
 print("Документ успешно создан: _inouts.docx")
