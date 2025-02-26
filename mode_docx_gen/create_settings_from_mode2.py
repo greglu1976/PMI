@@ -50,7 +50,6 @@ def load_and_find_data(data, result_dict, set_value):
     file_path = files[0]
     df = pd.read_excel(file_path, sheet_name='Signals')
 
-
     if 'SGF' in switch:
         # Ищем значение в столбце 'AppliedDescription'
         row = df[df['AppliedDescription'] == switch]
@@ -73,7 +72,8 @@ def load_and_find_data(data, result_dict, set_value):
         'minValue': str(row['minValue'].values[0]),
         'maxValue': str(row['maxValue'].values[0]),
         'step': str(row['step'].values[0]),        
-        'SetValue': str(set_value) if pd.notna(set_value) else None
+        'SetValue': str(set_value) if pd.notna(set_value) else None,
+        'Color': 'norm'
     }
 
     # Добавляем данные в структуру словарей
@@ -107,6 +107,12 @@ def merge_dicts(dict1, dict2):
     return dict1
 
 def start_proceed_modes(xlsx_file):
+
+    # Извлекаем базовое имя файла без расширения
+    base_name = os.path.splitext(os.path.basename(xlsx_file))[0]
+    output_dir = os.path.dirname(xlsx_file)  # Директория входного файла
+    output_file = os.path.join(output_dir, f"{base_name}.json")  # Формируем путь к выходному файлу
+
     # Путь к файлу Excel
     #xlsx_file = '1.xlsx'
     #sheet_name = 'SGF_Parameters'
@@ -137,7 +143,6 @@ def start_proceed_modes(xlsx_file):
         #json.dump(settings_result_dict, f, indent=4, ensure_ascii=False)
 
     #print("Результат сохранен в файл 'settings.json'")
-
 
     sheet_name = 'SGF_Parameters'
 
@@ -170,11 +175,10 @@ def start_proceed_modes(xlsx_file):
     result_dict = merge_dicts(sgfs_result_dict, settings_result_dict)
 
     # Сохраняем результат в JSON-файл
-    with open('result_dict.json', 'w', encoding='utf-8') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(result_dict, f, indent=4, ensure_ascii=False)
 
-    print("Результат сохранен в файл 'result_dict.json'")
-
+    print(f"Результат сохранен в файл {output_file}")
 
     #print(json.dumps(data, indent=4, ensure_ascii=False))  # Выводим данные с форматированием
 

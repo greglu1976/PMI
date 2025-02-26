@@ -137,6 +137,69 @@ def add_table_set(doc, data):
 
     return doc
 
+# Функция для обработки всех файлов в папке modes2/
+def process_all_xlsx_in_folder(folder_path, doc):
+    # Получаем список всех .xlsx файлов в папке
+    xlsx_files = [f for f in os.listdir(folder_path) if f.endswith('.xlsx')]
+
+    for xlsx_file in xlsx_files:
+        # Полный путь к файлу
+        file_path = os.path.join(folder_path, xlsx_file)
+
+        # Обрабатываем каждый файл
+        doc = process_single_xlsx(file_path, doc)
+
+    return doc
+
+def process_single_xlsx(file_path, doc):
+    # Получаем имя файла без расширения
+    base_name = os.path.splitext(os.path.basename(file_path))[0]
+    
+    # Создаем заголовок для текущего файла
+    paragraph = doc.add_heading(f'Таблицы для конфигурирования режимов: {base_name}', level=3)
+
+    # Обрабатываем файл Excel и получаем result_dict.json
+    start_proceed_modes(file_path)
+
+    # Загружаем description.json
+    file_path_desc = 'part/description.json'
+    with open(file_path_desc, 'r', encoding='utf-8') as desc_file:
+        description_data = json.load(desc_file)
+
+    # Загружаем result_dict.json для текущего файла
+    result_json_path = f'modes2/{base_name}.json'
+    with open(result_json_path, 'r', encoding='utf-8') as result_file:
+        general_data = json.load(result_file)
+
+    # Итерация по словарю general_data
+    for fbname, functions in general_data.items():
+        # Получаем описание FB из description_data
+        fb_info = description_data.get(fbname, {})
+        desc = fb_info.get('desc', 'Описание не найдено')
+        fb_name = fb_info.get('fbname', 'FB не найдено')
+
+        # Добавляем заголовок для FB
+        paragraph = doc.add_heading(f"{desc} ({fb_name})", level=3)
+
+        for func_name, switches in functions.items():
+            if func_name == "":  # Если ключ пустой
+                # Добавляем заголовок для общих уставок
+                paragraph = doc.add_heading("Общие уставки", level=4)
+            else:
+                # Ищем описание функции в description_data
+                func_desc_info = fb_info.get(func_name, {})
+                func_desc = func_desc_info.get('funcname', 'Описание функции не найдено')
+                func_short_name = func_desc_info.get('func_short_name', 'Код функции не найден')
+
+                # Добавляем заголовок для функции
+                paragraph = doc.add_heading(f"{func_desc} ({func_short_name})", level=4)
+
+            # Добавляем таблицу для переключателей (switches)
+            doc = add_table_set(doc, switches)
+
+    return doc
+
+
 
 # Открытие шаблона документа
 doc = Document('templ.docx')
@@ -166,54 +229,11 @@ combined_df = procced_xlsx(folder_path, needed_columns, 'Outputs')
 doc.add_paragraph('Контролируемые сигналы', style='tablename1')
 doc = add_table(doc, combined_df, replacement_titles, 45)
 
-# Загрузка словаря для выборки столбцов из JSON-файла fsu_mtz_sgfs.json
-#with open('fsu_mtz_sgfs.json', 'r', encoding='utf-8') as f:
-    #needed_columns = json.load(f)
-# Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_outputs.json
-#with open('fsu_mtz_sgfs.json', 'r', encoding='utf-8') as f:
-    #replacement_titles = json.load(f)
-#combined_df = procced_xlsx(folder_path, needed_columns, 'SGF_Parameters')
-#doc.add_paragraph('Состояние программных переключателей', style='tablename1')
-#doc = add_table(doc, combined_df, replacement_titles, 90)
 
 paragraph = doc.add_heading('Таблицы для конфигурирования режимов', level=3)
 
-#combined_df = procced_xlsx(folder_path, needed_columns, 'Inputs')
-start_proceed_modes('modes2/БНТ_2.xlsx') # Получаем json режимные ключи и уставки в result_dict.json
-
-file_path_desc = 'part/description.json'
-with open(file_path_desc, 'r', encoding='utf-8') as file:
-    description_data = json.load(file)
-file_path_data = 'result_dict.json'
-with open(file_path_data, 'r', encoding='utf-8') as file:
-    general_data = json.load(file)
-
-
-# Итерация по словарю general_data
-for fbname, functions in general_data.items():
-    # Получаем описание FB из description_data
-    fb_info = description_data.get(fbname, {})
-    desc = fb_info.get('desc', 'Описание не найдено')
-    fb_name = fb_info.get('fbname', 'FB не найдено')
-
-    # Добавляем заголовок для FB
-    paragraph = doc.add_heading(f"{desc} ({fb_name})", level=3)
-
-    for func_name, switches in functions.items():
-        if func_name == "":  # Если ключ пустой
-            # Добавляем заголовок для общих уставок
-            paragraph = doc.add_heading("Общие уставки", level=4)
-        else:
-            # Ищем описание функции в description_data
-            func_desc_info = fb_info.get(func_name, {})
-            func_desc = func_desc_info.get('funcname', 'Описание функции не найдено')
-            func_short_name = func_desc_info.get('func_short_name', 'Код функции не найден')
-
-            # Добавляем заголовок для функции
-            paragraph = doc.add_heading(f"{func_desc} ({func_short_name})", level=4)
-
-        # Добавляем таблицу для переключателей (switches)
-        doc = add_table_set(doc, switches)
+    # Обрабатываем все файлы в папке
+doc = process_all_xlsx_in_folder(folder_path, doc)
 # Сохранение документа
 doc.save('_inouts.docx')
 print("Документ успешно создан: _inouts.docx")
