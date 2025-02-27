@@ -271,7 +271,7 @@ def add_json_data_to_doc(folder_path, doc):
             fb_name = fb_info.get('fbname', 'FB не найдено')
 
             # Добавляем заголовок для FB
-            paragraph = doc.add_heading(f"{desc} ({fb_name})", level=3)
+            paragraph = doc.add_heading(f"{desc} ({fb_name})", level=4)
 
             for func_name, switches in functions.items():
                 if func_name == "":  # Если ключ пустой
