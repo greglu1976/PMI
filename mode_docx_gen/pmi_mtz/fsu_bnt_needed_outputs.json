@@ -1,0 +1,19 @@
+{
+    "mtzA_pusk_ptoc1_lvttoc": "М9.К5",
+    "mtzB_pusk_ptoc1_lvttoc": "М9.К6",
+    "mtzC_pusk_ptoc1_lvttoc": "М9.К7",
+    "io_A_ptoc1_lvttoc": "М10.К6",
+    "mtzA_pusk_ptoc2_lvttoc": "М9.К8",
+    "mtzB_pusk_ptoc2_lvttoc": "М10.К1",
+    "mtzC_pusk_ptoc2_lvttoc": "М10.К2",
+    "io_B_ptoc2_lvttoc": "М10.К7",
+    "mtzA_pusk_ptoc3_lvttoc": "М10.К3",
+    "mtzB_pusk_ptoc3_lvttoc": "М10.К4",
+    "mtzC_pusk_ptoc3_lvttoc": "М10.К5",
+    "io_C_ptoc3_lvttoc": "М10.К8",
+    "ia_start_out_phar1_lvttoc": "М9.К2",
+    "ib_start_out_phar1_lvttoc": "М9.К3",
+    "ic_start_out_phar1_lvttoc": "М9.К4",
+    "start_phar1_lvttoc": "М9.К1",
+    "pusk_lvalv": "М1.К1"
+}

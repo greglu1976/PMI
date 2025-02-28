@@ -1,4 +1,5 @@
 # Изменения - вместо генерации все уставок, если не было изменений по сравнению с предыдущем режимом. Добавляется строка - Параметры не изменились
+# ВЕРСИЯ 6
 
 import os
 import pandas as pd
@@ -82,14 +83,14 @@ def procced_xlsx(folder_path, needed_columns, sheet_name):
     combined_df = combined_df.sort_values(by='Номер режима', ascending=True).reset_index(drop=True)
     return combined_df
 
-def add_table(doc, combined_df, replacement_titles, header_row_height):
+def add_table(doc, combined_df, replacement_titles, header_row_height, is_ctrl_row=False):
     # Добавление таблицы
-    table = doc.add_table(rows=len(combined_df)+1, cols=len(combined_df.columns))
+    table = doc.add_table(rows=len(combined_df) + 1, cols=len(combined_df.columns))
     table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
 
     # Установка высоты первой строки (заголовок)
     header_row = table.rows[0]
-    header_row.height = Mm(header_row_height)  # Устанавливаем высоту строки заголовка в 45 мм
+    header_row.height = Mm(header_row_height)  # Устанавливаем высоту строки заголовка
     set_repeat_table_header(header_row)
 
     # Добавление заголовков столбцов с вертикальной ориентацией и настройкой отступов
@@ -99,28 +100,46 @@ def add_table(doc, combined_df, replacement_titles, header_row_height):
         # Используем значение из fsu_mtz_outputs.json для замены заголовка
         new_title = replacement_titles.get(column, column)  # Если нет соответствия, оставляем старое название
         run = cell.paragraphs[0].add_run(new_title)
-        run.font.size = Pt(11)
-        run.font.name = 'Arial'
+        #run.font.size = Pt(11)
+        #run.font.name = 'Arial'
         # Установка вертикальной ориентации текста
-        # if column != 'Номер режима':  # Вертикальная ориентация не применяется к "Номер режима"
         set_vertical_text(cell)
         set_cell_vertical_alignment(cell, align="center")
         # Установка отступов в ячейке
         set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
 
     # Добавление данных и настройка отступов в ячейках
+    row_index = 1  # Начинаем с первой строки данных (после заголовка)
     for i in range(len(combined_df)):
+        # Добавляем строку с данными
         for j, column in enumerate(combined_df.columns):
-            cell = table.cell(i+1, j)
+            cell = table.cell(row_index, j)
             cell.text = str(combined_df.iloc[i][column])
             run = cell.paragraphs[0].runs[0] if cell.paragraphs[0].runs else cell.paragraphs[0].add_run()
-            run.font.size = Pt(11)
-            run.font.name = 'Arial'
+            #run.font.size = Pt(11)
+            #run.font.name = 'Arial'
             # Установка отступов в ячейке
             set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
 
+        # Если is_ctrl_row == True, добавляем пустую строку после текущей строки
+        if is_ctrl_row:
+            # Добавляем новую пустую строку
+            table.add_row()
+            row_index += 1  # Переходим к новой строке
+            mode_number = combined_df.iloc[i]['Номер режима']  # Берем номер режима из текущей строки
+            for j, column in enumerate(combined_df.columns):
+                cell = table.cell(row_index, j)
+                if column == 'Номер режима':  # Для столбца "Номер режима" дублируем значение
+                    cell.text = str(mode_number)
+                else:  # Для остальных столбцов оставляем пустые значения
+                    cell.text = ""
+                # Настройка отступов в ячейке
+                set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
+
+        row_index += 1  # Переходим к следующей строке данных
+
     # Применяем стиль "Текст таблицы" ко всем ячейкам
-    apply_style_to_all_cells(table, 'Текст таблицы')
+    apply_style_to_all_cells(table, 'Текст таблицы', numbered_style='Текст таблицы')
 
     return doc
 
@@ -142,12 +161,20 @@ def set_repeat_table_header(row):
     return row
 
 # Функция для применения стиля ко всем параграфам в ячейках таблицы
-def apply_style_to_all_cells(table, style_name):
-    for row in table.rows:
-        for cell in row.cells:
+def apply_style_to_all_cells(table, style_name, numbered_style="ЮИ_Таблица_Нумерованный"):
+    for row_idx, row in enumerate(table.rows):
+        for col_idx, cell in enumerate(row.cells):
+            # Пропускаем первую строку (заголовок таблицы)
+            if row_idx == 0:
+                continue  # Не применяем стили к строке заголовка
+
             for paragraph in cell.paragraphs:
-                # Применяем указанный стиль к параграфу
-                paragraph.style = style_name
+                # Применяем специальный стиль для первого столбца
+                if col_idx == 0:  # Проверяем, является ли это ячейкой первого столбца
+                    paragraph.style = numbered_style
+                else:
+                    # Применяем указанный стиль ко всем остальным ячейкам
+                    paragraph.style = style_name
 
 def add_table_set(doc, data):
     # Создаем таблицу
@@ -205,8 +232,9 @@ def add_table_set(doc, data):
             #paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
             paragraph.style = "ЮИ_Таблица_Нумерованный"
 
+
     # Применяем стиль "Текст таблицы" ко всем ячейкам
-    #apply_style_to_all_cells(table, 'Текст таблицы')
+    apply_style_to_all_cells(table, 'ЮИ_Таблица_Текст')
 
     table.style = 'Стиль3'
     table.allow_autofit = False
@@ -222,7 +250,7 @@ def parse_xml(xml_string):
     return etree.fromstring(xml_string)
 
 # Этап 1: Генерация JSON для всех файлов
-def generate_json_for_all_xlsx(folder_path):
+def generate_json_for_all_xlsx(folder_path, root_dir=''):
     # Получаем список всех .xlsx файлов в папке
     xlsx_files = [f for f in os.listdir(folder_path) if f.endswith('.xlsx')]
     
@@ -234,10 +262,10 @@ def generate_json_for_all_xlsx(folder_path):
         file_path = os.path.join(folder_path, xlsx_file)
 
         # Обрабатываем каждый файл и генерируем JSON
-        start_proceed_modes(file_path)
+        start_proceed_modes(file_path, root_dir)
 
 # Этап 2: Добавление данных из JSON в документ
-def add_json_data_to_doc(folder_path, doc):
+def add_json_data_to_doc(folder_path, doc, root_dir=''):
     # Получаем список всех .json файлов в папке
     json_files = [f for f in os.listdir(folder_path) if f.endswith('.json')]
     
@@ -245,6 +273,11 @@ def add_json_data_to_doc(folder_path, doc):
     json_files = natsorted(json_files)
 
     previous_general_data = None  # Переменная для хранения данных предыдущего режима
+
+    # Загружаем description.json
+    file_path_desc = root_dir + 'part/description.json'
+    with open(file_path_desc, 'r', encoding='utf-8') as desc_file:
+        description_data = json.load(desc_file)
 
     for idx, json_file in enumerate(json_files):
         # Полный путь к файлу
@@ -256,11 +289,6 @@ def add_json_data_to_doc(folder_path, doc):
 
         # Создаем заголовок для текущего файла
         paragraph = doc.add_heading(f'Параметры для проверки функции: {base_name_parts[0]}. Режим №{base_name_parts[1]}', level=3)
-
-        # Загружаем description.json
-        file_path_desc = 'part/description.json'
-        with open(file_path_desc, 'r', encoding='utf-8') as desc_file:
-            description_data = json.load(desc_file)
 
         # Загружаем result_dict.json для текущего файла
         with open(file_path, 'r', encoding='utf-8') as result_file:
@@ -326,11 +354,13 @@ def add_json_data_to_doc(folder_path, doc):
 
 # Основной код
 if __name__ == "__main__":
+    # Корень
+    root_dir = 'pmi_mtz\\'
     # Путь к папке с файлами
-    folder_path = 'modes2'
+    folder_path = root_dir + 'bnt_modes' # ПАПКА УКАЗЫВАЕТСЯ ТОЛЬКО ЗДЕСЬ - к режимам в xlsx
 
     # Этап 1: Генерация JSON
-    generate_json_for_all_xlsx(folder_path)
+    generate_json_for_all_xlsx(folder_path, root_dir)
     # Этап 1.1: Контроль режимов в JSON
     start_analyze(folder_path)
 
@@ -341,30 +371,30 @@ if __name__ == "__main__":
     paragraph = doc.add_heading('Проверка БНТ', level=2)
 
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_inputs.json
-    with open('fsu_bnt_needed_inputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'fsu_bnt_needed_inputs.json', 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_inputs.json
-    with open('fsu_mtz_inputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'fsu_mtz_inputs.json', 'r', encoding='utf-8') as f:
         replacement_titles = json.load(f)
     combined_df = procced_xlsx(folder_path, needed_columns, 'Inputs')
     doc.add_paragraph('Подаваемые воздействия при проверке', style='ЮИ_Таблица_Название')
     doc = add_table(doc, combined_df, replacement_titles, 25)
 
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_outputs.json
-    with open('fsu_bnt_needed_outputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'fsu_bnt_needed_outputs.json', 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_outputs.json
-    with open('fsu_mtz_outputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'fsu_mtz_outputs.json', 'r', encoding='utf-8') as f:
         replacement_titles = json.load(f)
     combined_df = procced_xlsx(folder_path, needed_columns, 'Outputs')
     doc.add_paragraph('Контролируемые сигналы при проверке', style='ЮИ_Таблица_Название')
-    doc = add_table(doc, combined_df, replacement_titles, 45)
+    doc = add_table(doc, combined_df, replacement_titles, 45, is_ctrl_row=True)
 
     #paragraph = doc.add_heading('Таблицы для конфигурирования режимов', level=3)
 
     # Этап 2: Добавление данных из JSON в документ
-    doc = add_json_data_to_doc(folder_path, doc)
+    doc = add_json_data_to_doc(folder_path, doc, root_dir)
 
     # Сохранение документа
-    doc.save('_inouts.docx')
-    print("Документ успешно создан: _inouts.docx")
+    doc.save('_pmi.docx')
+    print("Документ успешно создан: _pmi.docx")

@@ -29,12 +29,12 @@ def parse_sgf(input_str):
 
     return {'switch': switch, 'func': func, 'fb': fb, 'part': part}
 
-def load_and_find_data(data, result_dict, set_value):
+def load_and_find_data(data, result_dict, set_value, root_dir = ''):
     # Извлекаем значения из словаря
     switch = data['switch']
     func = data['func']
     fb = data['fb']
-    part = data['part'] if data['part'] != '' else 'part'
+    part = data['part'] if data['part'] != '' else root_dir+'part'
 
     # Формируем путь к файлу
     file_path = os.path.join(part, fb, func, '*.xlsx')
@@ -106,7 +106,7 @@ def merge_dicts(dict1, dict2):
             dict1[key] = value
     return dict1
 
-def start_proceed_modes(xlsx_file):
+def start_proceed_modes(xlsx_file, root_dir=''):
 
     # Извлекаем базовое имя файла без расширения
     base_name = os.path.splitext(os.path.basename(xlsx_file))[0]
@@ -129,8 +129,8 @@ def start_proceed_modes(xlsx_file):
         parsed_data = parse_sgf(column)
         set_value = df[column].values[0]  # Значение из первой строки
         #print(f"Обрабатываем заголовок: {column}, значение: {set_value}")
-        #print(f"Результат парсинга: {parsed_data}")
-        load_and_find_data(parsed_data, result_dict, set_value)
+        print(f"Результат парсинга: {parsed_data}")
+        load_and_find_data(parsed_data, result_dict, set_value, root_dir)
 
     # Преобразуем все numpy.int64 в стандартные типы Python
     settings_result_dict = convert_numpy_types(result_dict)
@@ -158,7 +158,7 @@ def start_proceed_modes(xlsx_file):
         set_value = df[column].values[0]  # Значение из первой строки
         #print(f"Обрабатываем заголовок: {column}, значение: {set_value}")
         #print(f"Результат парсинга: {parsed_data}")
-        load_and_find_data(parsed_data, result_dict, set_value)
+        load_and_find_data(parsed_data, result_dict, set_value, root_dir)
 
     # Преобразуем все numpy.int64 в стандартные типы Python
     sgfs_result_dict = convert_numpy_types(result_dict)
