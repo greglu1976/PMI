@@ -356,8 +356,11 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
 if __name__ == "__main__":
     # Корень
     root_dir = 'pmi_mtz\\'
+
     # Путь к папке с файлами
-    folder_path = root_dir + 'bnt_modes' # ПАПКА УКАЗЫВАЕТСЯ ТОЛЬКО ЗДЕСЬ - к режимам в xlsx
+    #folder_path = root_dir + 'bnt_modes' # ПАПКА УКАЗЫВАЕТСЯ ТОЛЬКО ЗДЕСЬ - к режимам в xlsx
+    folder_path = root_dir + 'kzn_modes'
+
 
     # Этап 1: Генерация JSON
     generate_json_for_all_xlsx(folder_path, root_dir)
@@ -371,7 +374,7 @@ if __name__ == "__main__":
     paragraph = doc.add_heading('Проверка БНТ', level=2)
 
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_inputs.json
-    with open(root_dir+'fsu_bnt_needed_inputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'fsu_kzn_needed_inputs.json', 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_inputs.json
     with open(root_dir+'fsu_mtz_inputs.json', 'r', encoding='utf-8') as f:
@@ -381,7 +384,7 @@ if __name__ == "__main__":
     doc = add_table(doc, combined_df, replacement_titles, 25)
 
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_outputs.json
-    with open(root_dir+'fsu_bnt_needed_outputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'fsu_kzn_needed_outputs.json', 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_outputs.json
     with open(root_dir+'fsu_mtz_outputs.json', 'r', encoding='utf-8') as f:
