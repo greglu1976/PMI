@@ -57,7 +57,7 @@ class partOfFsuInTOC:
         # вычисляем ЛО Т
         vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1 = self.tofflvlgc.Step(VYVOD, OVlot, OVlo, (mtz_srab_ptoc1_lvttoc,), mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, OVzapv, OVzavr)
         # вычисляем ПС
-        pusk_lvalv = self.lvalv.Step(VYVOD, COMM_SIGN = (mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, srab_ptrc1))
+        pusk_lvalv = self.lvalv.Step(VYVOD, COMM_SIGN = (mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, srab_ptrc1, neispr_zn_lvrbvtr1, neispr_zn_lvrbvtr2))
 
         return (vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1, 
         vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2,

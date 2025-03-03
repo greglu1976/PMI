@@ -317,7 +317,7 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
 
         # Если нет изменений, добавляем сообщение об идентичности режима
         if not has_changes:
-            doc.add_heading(f"Параметры режима идентичны предыдущему", level=4)
+            doc.add_heading(f"Параметры режима идентичны предыдущему.", level=4)
             previous_general_data = current_general_data  # Обновляем данные предыдущего режима
             continue
 
@@ -356,11 +356,16 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
 if __name__ == "__main__":
     # Корень
     root_dir = 'pmi_mtz\\'
+    # Параметры описания
+    heading = 'Проверка КПОН'
+    intro_text = 'Для проверки функций КПОН в составе МТЗ предусматривается 7 режимов. Перечень подаваемых воздействий для каждого режима приводится в таблице XXX. Контроль выходных сигналов для каждого из режимов осуществляется в соответствии с таблицей XXX по осциллограмме, либо (в случае автоматизированной проверки) по контактам выходных реле (см. таблицу XXX).'
+    func_modes_dir = 'kpon_modes'
+    needed_inputs = 'fsu_kpon_needed_inputs.json'
+    needed_outputs = 'fsu_kpon_needed_outputs.json'
 
     # Путь к папке с файлами
     #folder_path = root_dir + 'bnt_modes' # ПАПКА УКАЗЫВАЕТСЯ ТОЛЬКО ЗДЕСЬ - к режимам в xlsx
-    folder_path = root_dir + 'kzn_modes'
-
+    folder_path = root_dir + func_modes_dir
 
     # Этап 1: Генерация JSON
     generate_json_for_all_xlsx(folder_path, root_dir)
@@ -371,10 +376,11 @@ if __name__ == "__main__":
     #doc = Document('templ1.docx')
     doc = Document('template.docx')
     horizont_A4(doc)
-    paragraph = doc.add_heading('Проверка БНТ', level=2)
+    paragraph = doc.add_heading(heading, level=2)
+    paragraph = doc.add_heading(intro_text, level=3)
 
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_inputs.json
-    with open(root_dir+'fsu_kzn_needed_inputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir + needed_inputs, 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_inputs.json
     with open(root_dir+'fsu_mtz_inputs.json', 'r', encoding='utf-8') as f:
@@ -384,7 +390,7 @@ if __name__ == "__main__":
     doc = add_table(doc, combined_df, replacement_titles, 25)
 
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_outputs.json
-    with open(root_dir+'fsu_kzn_needed_outputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir + needed_outputs, 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_outputs.json
     with open(root_dir+'fsu_mtz_outputs.json', 'r', encoding='utf-8') as f:

@@ -1,7 +1,4 @@
 {
-    "IA": "IA",
-    "IB": "IB",
-    "IC": "IC",
     "UAB_ptuv1": "UAB НН1",
     "UBC_ptuv1": "UBC НН1",
     "UCA_ptuv1": "UCA НН1",
@@ -10,8 +7,6 @@
     "UBC_ptuv2": "UBC НН2",
     "UCA_ptuv2": "UCA НН2",
     "U2_ptuv2": "U2 НН2",
-    "IA2harm": "IA 2г",
-    "IB2harm": "IB 2г",
-    "IC2harm": "IC 2г"
-}
+    "KPONvnesh_ptuv1": "КПОН1 внеш.",
+    "KPONvnesh_ptuv2": "КПОН2 внеш."
 }
