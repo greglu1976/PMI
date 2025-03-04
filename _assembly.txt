@@ -18,3 +18,10 @@ intro_text = 'Для проверки функций КПОН в составе 
 func_modes_dir = 'kpon_modes'
 needed_inputs = 'fsu_kpon_needed_inputs.json'
 needed_outputs = 'fsu_kpon_needed_outputs.json'
+
+# МТЗ 1 ст
+heading = 'Проверка МТЗ 1 ступень'
+intro_text = 'Для проверки функции первой ступени в составе МТЗ предусматривается 17 режимов. Перечень подаваемых воздействий для каждого режима приводится в таблице XXX. Контроль выходных сигналов для каждого из режимов осуществляется в соответствии с таблицей XXX по осциллограмме, либо (в случае автоматизированной проверки) по контактам выходных реле (см. таблицу XXX).'
+func_modes_dir = 'mtz1_modes'
+needed_inputs = 'fsu_mtz1_needed_inputs.json'
+needed_outputs = 'fsu_mtz1_needed_outputs.json'
