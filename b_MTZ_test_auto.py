@@ -167,6 +167,8 @@ class PartOfFsuInTOC_GUI:
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
             if key=="SGF7_ptoc1_lvttoc" or key=="SGF7_ptoc2_lvttoc" or key=="SGF7_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
+            elif key=="SGF1_rblc1_lvttoc":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)   
             else:
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
             row += 1

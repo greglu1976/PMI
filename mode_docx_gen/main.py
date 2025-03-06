@@ -355,15 +355,18 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
     return doc
 
 # Основной код
-if __name__ == "__main__":
+def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_outputs):
     # Корень
     root_dir = 'pmi_mtz\\'
+
+    print('========================================', heading, intro_text, func_modes_dir, needed_inputs, needed_outputs)
     # Параметры описания
-    heading = 'Проверка МТЗ 1 ступень'
-    intro_text = 'Для проверки функций МТЗ в составе МТЗ предусматривается 17 режимов. Перечень подаваемых воздействий для каждого режима приводится в таблице XXX. Контроль выходных сигналов для каждого из режимов осуществляется в соответствии с таблицей XXX по осциллограмме, либо (в случае автоматизированной проверки) по контактам выходных реле (см. таблицу XXX).'
-    func_modes_dir = 'mtz1_modes'
-    needed_inputs = 'fsu_mtz1_needed_inputs.json'
-    needed_outputs = 'fsu_mtz1_needed_outputs.json'
+    #heading = 'Проверка МТЗ 3 ступень'
+    #intro_text = 'Для проверки функции третьей ступени в составе МТЗ предусматривается 20 режимов. Перечень подаваемых воздействий для каждого режима приводится в таблице XXX. Контроль выходных сигналов для каждого из режимов осуществляется в соответствии с таблицей XXX по осциллограмме, либо (в случае автоматизированной проверки) по контактам выходных реле (см. таблицу XXX).'
+    #func_modes_dir = 'mtz3_modes'
+    #needed_inputs = 'fsu_mtz3_needed_inputs.json'
+    #needed_outputs = 'fsu_mtz3_needed_outputs.json'
+
 
     # Путь к папке с файлами
     #folder_path = root_dir + 'bnt_modes' # ПАПКА УКАЗЫВАЕТСЯ ТОЛЬКО ЗДЕСЬ - к режимам в xlsx
@@ -372,12 +375,13 @@ if __name__ == "__main__":
     # Этап 1: Генерация JSON
     generate_json_for_all_xlsx(folder_path, root_dir)
     # Этап 1.1: Контроль режимов в JSON
+
     start_analyze(folder_path)
 
     # Открытие шаблона документа
     #doc = Document('templ1.docx')
-    doc = Document('template.docx')
-    horizont_A4(doc)
+    #doc = Document('template.docx')
+    #horizont_A4(doc)
     paragraph = doc.add_heading(heading, level=2)
     paragraph = doc.add_heading(intro_text, level=3)
 
@@ -391,6 +395,7 @@ if __name__ == "__main__":
     doc.add_paragraph('Подаваемые воздействия при проверке', style='ЮИ_Таблица_Название')
     doc = add_table(doc, combined_df, replacement_titles, 25)
 
+
     # Загрузка словаря для выборки столбцов из JSON-файла fsu_bnt_needed_outputs.json
     with open(root_dir + needed_outputs, 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
@@ -400,12 +405,10 @@ if __name__ == "__main__":
     combined_df = procced_xlsx(folder_path, needed_columns, 'Outputs')
     doc.add_paragraph('Контролируемые сигналы при проверке', style='ЮИ_Таблица_Название')
     doc = add_table(doc, combined_df, replacement_titles, 45, is_ctrl_row=True)
-
     #paragraph = doc.add_heading('Таблицы для конфигурирования режимов', level=3)
 
     # Этап 2: Добавление данных из JSON в документ
     doc = add_json_data_to_doc(folder_path, doc, root_dir)
 
-    # Сохранение документа
-    doc.save('_pmi.docx')
-    print("Документ успешно создан: _pmi.docx")
+    return doc
+

@@ -79,7 +79,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "changed"
+                "Color": "norm"
             },
             "SGF6": {
                 "ShortDescription": "Реж_КПОН2",
@@ -97,7 +97,7 @@
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
                 "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 3 -  Блокировка ступени при отключенном СВ",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
                 "units": "-",
@@ -229,7 +229,7 @@
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
                 "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 3 -  Блокировка ступени при отключенном СВ",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
                 "units": "-",
@@ -361,7 +361,7 @@
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
                 "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 3 -  Блокировка ступени при отключенном СВ",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
                 "units": "-",
@@ -563,7 +563,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF2": {
                 "ShortDescription": "Реж_пуска",
@@ -575,8 +575,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "1",
+                "Color": "changed"
             }
         }
     },
@@ -593,7 +593,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF2": {
                 "ShortDescription": "Реж_пуска",
@@ -605,8 +605,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "1",
+                "Color": "changed"
             }
         }
     },

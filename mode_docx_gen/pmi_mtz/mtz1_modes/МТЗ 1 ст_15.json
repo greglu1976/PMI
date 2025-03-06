@@ -39,7 +39,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF3": {
@@ -65,7 +65,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF5": {
@@ -79,7 +79,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF6": {
                 "ShortDescription": "Реж_КПОН2",
@@ -92,19 +92,19 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
                 "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 3 -  Блокировка ступени при отключенном СВ",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
                 "units": "-",
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "T1": {
@@ -229,7 +229,7 @@
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
                 "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 3 -  Блокировка ступени при отключенном СВ",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
                 "units": "-",
@@ -361,7 +361,7 @@
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
                 "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 3 -  Блокировка ступени при отключенном СВ",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
                 "units": "-",
@@ -562,8 +562,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
+                "SetValue": "0",
+                "Color": "changed"
             },
             "SGF2": {
                 "ShortDescription": "Реж_пуска",
@@ -576,7 +576,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             }
         }
     },
@@ -592,8 +592,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
+                "SetValue": "0",
+                "Color": "changed"
             },
             "SGF2": {
                 "ShortDescription": "Реж_пуска",
@@ -606,7 +606,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             }
         }
     },

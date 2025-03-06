@@ -1,0 +1,18 @@
+{
+    "vvod_ptoc3_lvttoc": "М9.К1",
+    "oper_vyvod_ptoc3_lvttoc": "М9.К2",
+    "mtzA_pusk_ptoc3_lvttoc": "М9.К3",
+    "mtzB_pusk_ptoc3_lvttoc": "М9.К4",
+    "mtzC_pusk_ptoc3_lvttoc": "М9.К5",
+    "gen_pusk_ptoc_lvttoc": "М9.К6",
+    "mtz_srab_ptoc3_lvttoc": "М9.К7",    
+    "mtz_srabsign_ptoc3_lvttoc": "М9.К8",
+    "io_A_ptoc3_lvttoc": "М10.К1",
+    "io_B_ptoc3_lvttoc": "М10.К2",
+    "io_C_ptoc3_lvttoc": "М10.К3",
+    "srab_ptrc1": "М10.К4",
+    "zapret_rbre1": "М10.К5",
+    "zapret_rblc1": "М10.К6",
+    "blok_rblc1_lvttoc": "М10.К7",  
+    "pusk_lvalv": "М1.К1"
+}
