@@ -1,5 +1,7 @@
+# для отключающей ступени ГЗ
+
 from lib._TIMERS.TIMERS import TON  
-from TRIGGERS import SRTrigger
+from lib._TRIGGERS.TRIGGERS import SRTrigger
 
 class TECHPTRC:
     def __init__(self, SGF1=0, SGF2=0, T=0):
