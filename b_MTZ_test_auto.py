@@ -100,7 +100,7 @@ class PartOfFsuInTOC_GUI:
             "Uop_ptuv2_lvttoc": tk.DoubleVar(value=40),
             "U2op_ptuv2_lvttoc": tk.DoubleVar(value=5),
             "Imax_phar1_lvttoc": tk.DoubleVar(value=5),
-            "Ratio_phar1_lvttoc": tk.DoubleVar(value=0.4),
+            "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
             "u_min_lvrbvtr1": tk.DoubleVar(value=40),
             "u2_max_lvrbvtr1": tk.DoubleVar(value=5),
             "t1_lvrbvtr1": tk.DoubleVar(value=1),

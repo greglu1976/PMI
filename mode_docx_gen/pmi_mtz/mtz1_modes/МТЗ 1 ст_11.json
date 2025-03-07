@@ -530,7 +530,7 @@
                 "minValue": "5",
                 "maxValue": "100",
                 "step": "1",
-                "SetValue": "0.4",
+                "SetValue": "40",
                 "Color": "norm"
             }
         },

@@ -200,7 +200,8 @@ def add_table_set(doc, data):
 
     # Добавление данных в таблицу
     for row_idx, (switch, values) in enumerate(data.items(), start=1):
-        table.cell(row_idx, 0).text = f"{values.get('FullDescription', '')} ({values.get('ShortDescription', '')})"
+        full_desc_processed = values.get('FullDescription', '').replace('<<','«').replace('>>','»')
+        table.cell(row_idx, 0).text = f"{full_desc_processed} ({values.get('ShortDescription', '')})"
         units = values.get('units', '')
         
         if 'SGF' in switch:
