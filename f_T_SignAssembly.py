@@ -1,20 +1,20 @@
 # СС для исполнения Т
 
 class T_SignAssembly:
-    def __init__(self, SGF1=0, SGF2=0, SGF3=0, SGF4=0, SGF5=0, SGF6=0, SGF7=0, SGF8=0, SGF9=0, SGF10=0, SGF11=0, SGF12=0, SGF13=0):
-        self.SGF1 = SGF1
-        self.SGF2 = SGF2
-        self.SGF3 = SGF3
-        self.SGF4 = SGF4
-        self.SGF5 = SGF5
-        self.SGF6 = SGF6
-        self.SGF7 = SGF7
-        self.SGF8 = SGF8
-        self.SGF9 = SGF9
-        self.SGF10 = SGF10
-        self.SGF11 = SGF11
-        self.SGF12 = SGF12
-        self.SGF13 = SGF13
+    def __init__(self, SGF1_t_signassembly, SGF2_t_signassembly, SGF3_t_signassembly, SGF4_t_signassembly, SGF5_t_signassembly, SGF6_t_signassembly, SGF7_t_signassembly, SGF8_t_signassembly, SGF9_t_signassembly, SGF10_t_signassembly, SGF11_t_signassembly, SGF12_t_signassembly, SGF13_t_signassembly):
+        self.SGF1 = SGF1_t_signassembly
+        self.SGF2 = SGF2_t_signassembly
+        self.SGF3 = SGF3_t_signassembly
+        self.SGF4 = SGF4_t_signassembly
+        self.SGF5 = SGF5_t_signassembly
+        self.SGF6 = SGF6_t_signassembly
+        self.SGF7 = SGF7_t_signassembly
+        self.SGF8 = SGF8_t_signassembly
+        self.SGF9 = SGF9_t_signassembly
+        self.SGF10 = SGF10_t_signassembly
+        self.SGF11 = SGF11_t_signassembly
+        self.SGF12 = SGF12_t_signassembly
+        self.SGF13 = SGF13_t_signassembly
 
     def Step(self, VYVOD, gz_sign, gz_zablok, gz_ki, tz_sign, tz_ki, tz_zablok, ts_sign, vnesh_otkl, Polozh_SA1, Polozh_SA2, Polozh_SA3, Polozh_SA4, Polozh_SA5, Polozh_SG1, Polozh_SG2, ot_gz, ot_tz, ot_v, ot_zdz_nn, ot_urov_nn, ot_ieu_tn, prev_vrem_ka, vnesh_sign):
         SS_gz_sign = any(gz_sign) and (not VYVOD)

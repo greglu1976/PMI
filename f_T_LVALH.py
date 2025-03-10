@@ -1,21 +1,21 @@
 # (T_LVALH) Функция ПС - предупредительная сигнализация трансформатора 35 кВ исполнение Т
 
 class T_LVALH:
-    def __init__(self, SGF1=0, SGF2=0, SGF3=0, SGF4=0, SGF5=0, SGF6=0, SGF7=0, SGF8=0, SGF9=0, SGF10=0, SGF11=0, SGF12=0, SGF13=0, SGF14=0):
-        self.SGF1 = SGF1 # ГЗ сигн
-        self.SGF2 = SGF2 # Низк.изол.ГЗ
-        self.SGF3 = SGF3 # ГЗ заблокирована
-        self.SGF4 = SGF4
-        self.SGF5 = SGF5
-        self.SGF6 = SGF6
-        self.SGF7 = SGF7
-        self.SGF8 = SGF8        
-        self.SGF9 = SGF9
-        self.SGF10 = SGF10
-        self.SGF11 = SGF11
-        self.SGF12 = SGF12
-        self.SGF13 = SGF13
-        self.SGF14 = SGF14
+    def __init__(self, SGF1_t_lvalh, SGF2_t_lvalh, SGF3_t_lvalh, SGF4_t_lvalh, SGF5_t_lvalh, SGF6_t_lvalh, SGF7_t_lvalh, SGF8_t_lvalh, SGF9_t_lvalh, SGF10_t_lvalh, SGF11_t_lvalh, SGF12_t_lvalh, SGF13_t_lvalh, SGF14_t_lvalh):
+        self.SGF1 = SGF1_t_lvalh # ГЗ сигн
+        self.SGF2 = SGF2_t_lvalh # Низк.изол.ГЗ
+        self.SGF3 = SGF3_t_lvalh # ГЗ заблокирована
+        self.SGF4 = SGF4_t_lvalh
+        self.SGF5 = SGF5_t_lvalh
+        self.SGF6 = SGF6_t_lvalh
+        self.SGF7 = SGF7_t_lvalh
+        self.SGF8 = SGF8_t_lvalh        
+        self.SGF9 = SGF9_t_lvalh
+        self.SGF10 = SGF10_t_lvalh
+        self.SGF11 = SGF11_t_lvalh
+        self.SGF12 = SGF12_t_lvalh
+        self.SGF13 = SGF13_t_lvalh
+        self.SGF14 = SGF14_t_lvalh
 
     def Step(self, VYVOD, sign_ps_tuple, sgf1_sign = 0, sgf2_sign = 0, sgf3_sign = 0, sgf4_sign = 0, sgf5_sign = 0, sgf6_sign = 0, sgf7_sign = 0, sgf8_sign = 0, sgf9_sign = 0, sgf10_sign = 0, sgf11_sign = 0, sgf12_sign = 0, sgf13_sign = 0, sgf14_sign = 0):
         sign_ps = any(sign_ps_tuple)

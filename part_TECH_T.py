@@ -1,72 +1,64 @@
 # ЧАСТЬ СХЕМЫ ФСУ ДЛЯ ПРОВЕРКИ ГАЗОВЫХ И ТЕХНОЛОГИЧЕСКИХ ЗАЩИТ
 # ИСПОЛНЕНИЯ Т
-# 
-
 
 from fb_APTTECHLGC import APTTECHLGC # импорт ТЗ
 from fb_ALMTECHLGC_UIRZ import ALMTECHLGC_UIRZ # импорт ТС
-
-from TOFFLVLGC_FB_LO_T import TOFFLVLGC # импорт ЛО Т
+from fb_TALMGASLGC import TALMGASLGC
+from fb_TTRGASLGC import TTRGASLGC
+from fb_TLTCGASLGC import TLTCGASLGC
+from fb_TOFFLVLGC import TOFFLVLGC # импорт ЛО Т
+from f_T_SignAssembly import T_SignAssembly
 from f_T_LVALH import T_LVALH # импорт ПС
 
 class part_TECH_T:
-    def __init__(self, SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1,
-                SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2, Icoarse_ptoc2,
-                SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3, Icoarse_ptoc3,
-                SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1,
-                SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2,
-                SGF1_phar1, Imax_phar1, Ratio_phar1,
-                SGF1_rblc1,
-                SGF1_lvrbvtr1, SGF2_lvrbvtr1, u_min_lvrbvtr1, u2_max_lvrbvtr1, t1_lvrbvtr1,
-                SGF1_lvrbvtr2, SGF2_lvrbvtr2, u_min_lvrbvtr2, u2_max_lvrbvtr2, t1_lvrbvtr2,
-                SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc,
-                ):
-        # Инициализируем ФБ МТЗ Т2        
-        self.lvttoc = LVTTOC(SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1,
-                SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2, Icoarse_ptoc2,
-                SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3, Icoarse_ptoc3,
-                SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1,
-                SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2,
-                SGF1_phar1, Imax_phar1, Ratio_phar1,
-                SGF1_rblc1)
-        # Инициализируем ФБ КЦН НН1 и КЦН НН2        
-        self.lvrbvtr1 = T_LVRVTR(SGF1_lvrbvtr1, SGF2_lvrbvtr1, u_min_lvrbvtr1, u2_max_lvrbvtr1, t1_lvrbvtr1)
-        self.lvrbvtr2 = T_LVRVTR(SGF1_lvrbvtr2, SGF2_lvrbvtr2, u_min_lvrbvtr2, u2_max_lvrbvtr2, t1_lvrbvtr2)
+    def __init__(self, SGF1_oilptrc1_apttechlgc, SGF2_oilptrc1_apttechlgc,T1_oilptrc1_apttechlgc, SGF1_winptrc1_apttechlgc, SGF2_winptrc1_apttechlgc, T1_winptrc1_apttechlgc, SGF1_vlvptrc1_apttechlgc, SGF2_vlvptrc1_apttechlgc, T1_vlvptrc1_apttechlgc, SGF1_prvlvptrc1_almtechlgc, SGF1_shvlvptrc1_almtechlgc,SGF1_levptrc1_almtechlgc, SGF1_ptrc1_talmgaslgc, SGF2_ptrc1_talmgaslgc, T1_ptrc1_talmgaslgc, SGF1_ptrc1_ttrgaslgc, SGF2_ptrc1_ttrgaslgc, T1_ptrc1_ttrgaslgc, SGF1_ptrc1_tltcgaslgc, SGF2_ptrc1_tltcgaslgc, T1_ptrc1_tltcgaslgc, SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc, SGF1_t_lvalh, SGF2_t_lvalh, SGF3_t_lvalh, SGF4_t_lvalh, SGF5_t_lvalh, SGF6_t_lvalh, SGF7_t_lvalh, SGF8_t_lvalh, SGF9_t_lvalh, SGF10_t_lvalh, SGF11_t_lvalh, SGF12_t_lvalh, SGF13_t_lvalh, SGF14_t_lvalh, SGF1_t_signassembly, SGF2_t_signassembly, SGF3_t_signassembly, SGF4_t_signassembly, SGF5_t_signassembly, SGF6_t_signassembly, SGF7_t_signassembly, SGF8_t_signassembly, SGF9_t_signassembly, SGF10_t_signassembly, SGF11_t_signassembly, SGF12_t_signassembly, SGF13_t_signassembly):
+        # Инициализируем ФБ ТЗ       
+        self.apttechlgc = APTTECHLGC(SGF1_oilptrc1_apttechlgc, SGF2_oilptrc1_apttechlgc,T1_oilptrc1_apttechlgc, SGF1_winptrc1_apttechlgc, SGF2_winptrc1_apttechlgc, T1_winptrc1_apttechlgc, SGF1_vlvptrc1_apttechlgc, SGF2_vlvptrc1_apttechlgc, T1_vlvptrc1_apttechlgc)
+        # Инициализируем ФБ ТС
+        self.almtechlgc =  ALMTECHLGC_UIRZ(SGF1_prvlvptrc1_almtechlgc, SGF1_shvlvptrc1_almtechlgc,SGF1_levptrc1_almtechlgc)
+        # Инициализируем ФБ ГЗ сигн
+        self.talmgaslgc =  TALMGASLGC(SGF1_ptrc1_talmgaslgc, SGF2_ptrc1_talmgaslgc, T1_ptrc1_talmgaslgc)
+        # Инициализируем ФБ ГЗ откл
+        self.ttrgaslgc = TTRGASLGC(SGF1_ptrc1_ttrgaslgc, SGF2_ptrc1_ttrgaslgc, T1_ptrc1_ttrgaslgc)
+        # Инициализируем ФБ ГЗ РПН
+        self.tltcgaslgc = TLTCGASLGC(SGF1_ptrc1_tltcgaslgc, SGF2_ptrc1_tltcgaslgc, T1_ptrc1_tltcgaslgc)
         # Инициализируем ФБ ЛО Т       
         self.tofflvlgc = TOFFLVLGC(SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc)
+        # Инициализируем СС
+        self.t_signassembly = T_SignAssembly(SGF1_t_signassembly, SGF2_t_signassembly, SGF3_t_signassembly, SGF4_t_signassembly, SGF5_t_signassembly, SGF6_t_signassembly, SGF7_t_signassembly, SGF8_t_signassembly, SGF9_t_signassembly, SGF10_t_signassembly, SGF11_t_signassembly, SGF12_t_signassembly, SGF13_t_signassembly)
         # ИНициализируем ПС
-        self.lvalv = DZT2_LVALH(SGF1=0, SGF2=0, SGF3=0, SGF4=0, SGF5=0, SGF6=0, SGF7=0, SGF8=0, SGF9=0, SGF10=0, SGF11=0, SGF12=0, SGF13=0)
+        self.lvalv = T_LVALH(SGF1_t_lvalh, SGF2_t_lvalh, SGF3_t_lvalh, SGF4_t_lvalh, SGF5_t_lvalh, SGF6_t_lvalh, SGF7_t_lvalh, SGF8_t_lvalh, SGF9_t_lvalh, SGF10_t_lvalh, SGF11_t_lvalh, SGF12_t_lvalh, SGF13_t_lvalh, SGF14_t_lvalh)
 
-    def Step(self, VYVOD, OV_lvttoc, SV1vkl, SV2vkl, IA, IAB, IB, IBC, IC, ICA, VNN1vkl, VNN2vkl, 
-        OVst_ptoc1, NaSign_ptoc1,
-        OVst_ptoc2, NaSign_ptoc2,
-        OVst_ptoc3, NaSign_ptoc3,
-        KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, 
-        KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2,
-        IA2harm, IB2harm, IC2harm,
-        OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1,
-        OV_lvrbvtr2, vnesh_bnn_srab_lvrbvtr2,
-        OVlot, OVlo, OVzapv, OVzavr,
+    def Step(self, VYVOD, OV_tz, OV_dtm, OV_dto, OV_rd, NaSign_dtm, NaSign_dto, NaSign_rd, srabKontOtkl_m, srabKontSign_m, srabKontOtkl_o, srabKontSign_o, srabKontOtkl_rd, srabKI_m, srabKI_o, srabKI_rd, Sbros, OV_ts, OV_pk, OV_ok, OV_lev, NaSign_pk, NaSign_ok, NaSign_lev, srabKontOtkl_pk, srabKontOtkl_ok, srabKontOtkl_lev, OV_ptrc1_talmgaslgc, NaOtkl_ptrc1_talmgaslgc, srabKont_ptrc1_talmgaslgc, srabKI_ptrc1_talmgaslgc, OV_ptrc1_ttrgaslgc, NaSign_ptrc1_ttrgaslgc, srabKont_ptrc1_ttrgaslgc, srabKI_ptrc1_ttrgaslgc, OV_ptrc1_tltcgaslgc, NaSign_ptrc1_tltcgaslgc, srabKont_ptrc1_tltcgaslgc, srabKI_ptrc1_tltcgaslgc, OV_tofflvlg, OVlo_tofflvlg, OVzapv_tofflvlg, OVzavr_tofflvlg, oil_t_hi_level, oil_ltc_hi_level, oil_ltc_lo_level, oil_ltc_lo_temp
         ):
-
-        # вычисляем КЦН НН
-        vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1 = self.lvrbvtr1.Step(VYVOD, OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
-        vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2 = self.lvrbvtr2.Step(VYVOD, OV_lvrbvtr2, vnesh_bnn_srab_lvrbvtr2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2)
-        # вычисляем МТЗ
-        vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, gen_pusk_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srab_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, vvod_ptoc2_lvttoc, oper_vyvod_ptoc2_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, gen_pusk_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srab_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, vvod_ptoc3_lvttoc, oper_vyvod_ptoc3_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, gen_pusk_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, mtz_srab_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, kpon_pusk_ptuv2_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, start_phar1_lvttoc, blok_rblc1_lvttoc, mtz_pusk_lvttoc = self.lvttoc.Step(VYVOD, OV_lvttoc, SV1vkl, SV2vkl, IA, IAB, IB, IBC, IC, ICA, neispr_zn_lvrbvtr1, VNN1vkl, neispr_zn_lvrbvtr2, VNN2vkl, OVst_ptoc1, NaSign_ptoc1, OVst_ptoc2, NaSign_ptoc2, OVst_ptoc3, NaSign_ptoc3, KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2, IA2harm, IB2harm, IC2harm)
+        # Вычисляем ТЗ
+        vvod_oilptrc1_apttechlgc, oper_vyvod_oilptrc1_apttechlgc, srab_oilptrc1_apttechlgc, srabsign_oilptrc1_apttechlgc, zablok_oilptrc1_apttechlgc, ET_oilptrc1_apttechlgc, vvod_winptrc1_apttechlgc, oper_vyvod_winptrc1_apttechlgc, srab_winptrc1_apttechlgc, srabsign_winptrc1_apttechlgc, zablok_winptrc1_apttechlgc, ET_winptrc1_apttechlgc, vvod_vlvptrc1_apttechlgc, oper_vyvod_vlvptrc1_apttechlgc, srab_vlvptrc1_apttechlgc, srabsign_vlvptrc1_apttechlgc, zablok_vlvptrc1_apttechlgc, ET_vlvptrc1_apttechlgc = self.apttechlgc.Step(VYVOD, OV_tz, OV_dtm, OV_dto, OV_rd, NaSign_dtm, NaSign_dto, NaSign_rd, srabKontOtkl_m, srabKontSign_m, srabKontOtkl_o, srabKontSign_o, srabKontOtkl_rd, srabKI_m, srabKI_o, srabKI_rd, Sbros)
+        # Вычисляем ТС
+        vvod_prvlvptrc1_almtechlgc, oper_vyvod_prvlvptrc1_almtechlgc, srab_prvlvptrc1_almtechlgc, srabsign_prvlvptrc1_almtechlgc, vvod_shvlvptrc1_almtechlgc, oper_vyvod_shvlvptrc1_almtechlgc, srab_shvlvptrc1_almtechlgc, srabsign_shvlvptrc1_almtechlgc, vvod_levptrc1_almtechlgc, oper_vyvod_levptrc1_almtechlgc, srab_levptrc1_almtechlgc, srabsign_levptrc1_almtechlgc = self.almtechlgc.Step(VYVOD, OV_ts, OV_pk, OV_ok, OV_lev, NaSign_pk, NaSign_ok, NaSign_lev, srabKontOtkl_pk, srabKontOtkl_ok, srabKontOtkl_lev)
+        # Вычисляем ГЗ сигн
+        vvod_ptrc1_talmgaslgc, oper_vyvod_ptrc1_talmgaslgc, srab_ptrc1_talmgaslgc, srabsign_ptrc1_talmgaslgc, zablok_ptrc1_talmgaslgc, ET_ptrc1_talmgaslgc = self.talmgaslgc.Step(VYVOD, OV_ptrc1_talmgaslgc, NaOtkl_ptrc1_talmgaslgc, srabKont_ptrc1_talmgaslgc, srabKI_ptrc1_talmgaslgc, Sbros)
+        # Вычисляем ГЗ откл
+        OV_f = 0
+        vvod_ptrc1_ttrgaslgc, oper_vyvod_ptrc1_ttrgaslgc, srab_ptrc1_ttrgaslgc, srabsign_ptrc1_ttrgaslgc, zablok_ptrc1_ttrgaslgc, ET_ptrc1_ttrgaslgc = self.ttrgaslgc.Step(VYVOD, OV_ptrc1_ttrgaslgc, OV_f, NaSign_ptrc1_ttrgaslgc, srabKont_ptrc1_ttrgaslgc, srabKI_ptrc1_ttrgaslgc, Sbros)
+        # Вычисляем ГЗ РПН
+        vvod_ptrc1_tltcgaslgc, oper_vyvod_ptrc1_tltcgaslgc, srab_ptrc1_tltcgaslgc, srabsign_ptrc1_tltcgaslgc, zablok_ptrc1_tltcgaslgc, ET_ptrc1_tltcgaslgc = self.tltcgaslgc.Step(VYVOD, OV_ptrc1_tltcgaslgc, OV_f, NaSign_ptrc1_tltcgaslgc, srabKont_ptrc1_tltcgaslgc, srabKI_ptrc1_tltcgaslgc, Sbros)
+        # Собираем кортеж срабатываний
+        signals_tofflvlg = (srab_oilptrc1_apttechlgc, srab_winptrc1_apttechlgc, srab_vlvptrc1_apttechlgc, srab_prvlvptrc1_almtechlgc, srab_shvlvptrc1_almtechlgc, srab_levptrc1_almtechlgc, srab_ptrc1_talmgaslgc, srab_ptrc1_ttrgaslgc, srab_ptrc1_tltcgaslgc) 
+        # Зануляем сраб МТЗ, здесь не требуется - а передать значения нужно
+        mtz2_srab_tofflvlg=0
+        mtz3_srab_tofflvlg=0
         # вычисляем ЛО Т
-        vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1 = self.tofflvlgc.Step(VYVOD, OVlot, OVlo, (mtz_srab_ptoc1_lvttoc,), mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, OVzapv, OVzavr)
+        vvod_ptrc1_tofflvlgc, oper_vyvod_ptrc1_tofflvlgc, pusk_ptrc1_tofflvlgc, srab_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, zapret_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, zapret_rbre1_tofflvlgc = self.tofflvlgc.Step(VYVOD, OV_tofflvlg, OVlo_tofflvlg, signals_tofflvlg, mtz2_srab_tofflvlg, mtz3_srab_tofflvlg, OVzapv_tofflvlg, OVzavr_tofflvlg)
+        # вычисляем СС       
+        SS_gz_sign, SS_gz_zablok, SS_gz_nizk_isol, SS_tz_sign, SS_tz_nizk_isol, SS_tz_zablok, SS_ts_sign, SS_vnesh_otkl, SS_vyh_zepi_razobr, SS_bi_vyved, SS_ot_sign, SS_neispr_ot_gz,  SS_neispr_ot_tz, SS_neispr_ot_v, SS_ot_nn_sign, SS_prev_vrem_per_ka, SS_obsh_vnesh_sign = self.t_signassembly.Step(VYVOD, (srabKont_ptrc1_talmgaslgc, srabKont_ptrc1_ttrgaslgc, srabKont_ptrc1_tltcgaslgc), (zablok_ptrc1_talmgaslgc, zablok_ptrc1_ttrgaslgc, zablok_ptrc1_tltcgaslgc), (srabKI_ptrc1_talmgaslgc, srabKI_ptrc1_ttrgaslgc, srabKI_ptrc1_tltcgaslgc), (srabKontOtkl_m, srabKontSign_m, srabKontOtkl_o, srabKontSign_o, srabKontOtkl_rd), (srabKI_m, srabKI_o, srabKI_rd), (zablok_oilptrc1_apttechlgc, zablok_winptrc1_apttechlgc, zablok_vlvptrc1_apttechlgc), (srabKontOtkl_pk, srabKontOtkl_ok, srabKontOtkl_lev, oil_t_hi_level, oil_ltc_hi_level, oil_ltc_lo_level, oil_ltc_lo_temp), (0, 0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (0,), (0,)) # Обнулили контроль SA SG и пр. Здесь не проверяются эти цепи
         # вычисляем ПС
-        pusk_lvalv = self.lvalv.Step(VYVOD, COMM_SIGN = (mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, srab_ptrc1, neispr_zn_lvrbvtr1, neispr_zn_lvrbvtr2))
+        pusk_lvalv = self.lvalv.Step(VYVOD, (srabsign_ptrc1_talmgaslgc, srabsign_ptrc1_ttrgaslgc, srabsign_ptrc1_tltcgaslgc, srabsign_oilptrc1_apttechlgc, srabsign_winptrc1_apttechlgc, srabsign_vlvptrc1_apttechlgc, srabsign_prvlvptrc1_almtechlgc, srabsign_shvlvptrc1_almtechlgc, srabsign_levptrc1_almtechlgc), SS_gz_sign, SS_gz_nizk_isol, SS_gz_zablok, SS_tz_sign, SS_tz_nizk_isol, SS_tz_zablok, SS_ts_sign, SS_ot_sign, SS_ot_nn_sign, SS_vnesh_otkl, SS_vyh_zepi_razobr, SS_bi_vyved, SS_prev_vrem_per_ka, SS_obsh_vnesh_sign)
 
-        return (vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1, 
-        vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2,
-        vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, gen_pusk_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srab_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, vvod_ptoc2_lvttoc, oper_vyvod_ptoc2_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, gen_pusk_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srab_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, vvod_ptoc3_lvttoc, oper_vyvod_ptoc3_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, gen_pusk_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, mtz_srab_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, kpon_pusk_ptuv2_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, start_phar1_lvttoc, blok_rblc1_lvttoc, mtz_pusk_lvttoc, vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1, pusk_lvalv
-        )
+        return (vvod_oilptrc1_apttechlgc, oper_vyvod_oilptrc1_apttechlgc, srab_oilptrc1_apttechlgc, srabsign_oilptrc1_apttechlgc, zablok_oilptrc1_apttechlgc, ET_oilptrc1_apttechlgc, vvod_winptrc1_apttechlgc, oper_vyvod_winptrc1_apttechlgc, srab_winptrc1_apttechlgc, srabsign_winptrc1_apttechlgc, zablok_winptrc1_apttechlgc, ET_winptrc1_apttechlgc, vvod_vlvptrc1_apttechlgc, oper_vyvod_vlvptrc1_apttechlgc, srab_vlvptrc1_apttechlgc, srabsign_vlvptrc1_apttechlgc, zablok_vlvptrc1_apttechlgc, ET_vlvptrc1_apttechlgc, vvod_prvlvptrc1_almtechlgc, oper_vyvod_prvlvptrc1_almtechlgc, srab_prvlvptrc1_almtechlgc, srabsign_prvlvptrc1_almtechlgc, vvod_shvlvptrc1_almtechlgc, oper_vyvod_shvlvptrc1_almtechlgc, srab_shvlvptrc1_almtechlgc, srabsign_shvlvptrc1_almtechlgc, vvod_levptrc1_almtechlgc, oper_vyvod_levptrc1_almtechlgc, srab_levptrc1_almtechlgc, srabsign_levptrc1_almtechlgc, vvod_ptrc1_talmgaslgc, oper_vyvod_ptrc1_talmgaslgc, srab_ptrc1_talmgaslgc, srabsign_ptrc1_talmgaslgc, zablok_ptrc1_talmgaslgc, ET_ptrc1_talmgaslgc, vvod_ptrc1_ttrgaslgc, oper_vyvod_ptrc1_ttrgaslgc, srab_ptrc1_ttrgaslgc, srabsign_ptrc1_ttrgaslgc, zablok_ptrc1_ttrgaslgc, ET_ptrc1_ttrgaslgc, vvod_ptrc1_tltcgaslgc, oper_vyvod_ptrc1_tltcgaslgc, srab_ptrc1_tltcgaslgc, srabsign_ptrc1_tltcgaslgc, zablok_ptrc1_tltcgaslgc, ET_ptrc1_tltcgaslgc, vvod_ptrc1_tofflvlgc, oper_vyvod_ptrc1_tofflvlgc, pusk_ptrc1_tofflvlgc, srab_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, zapret_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, zapret_rbre1_tofflvlgc, SS_gz_sign, SS_gz_zablok, SS_gz_nizk_isol, SS_tz_sign, SS_tz_nizk_isol, SS_tz_zablok, SS_ts_sign, SS_vnesh_otkl, SS_vyh_zepi_razobr, SS_bi_vyved, SS_ot_sign, SS_neispr_ot_gz,  SS_neispr_ot_tz, SS_neispr_ot_v, SS_ot_nn_sign, SS_prev_vrem_per_ka, SS_obsh_vnesh_sign, pusk_lvalv)
        
 
 if __name__ == "__main__":
-    part = partOfFsuInTOC(SGF1=1)
+    part = part_TECH_T(SGF1=1)
     res = part.Step(0, (0,0,0), 0,0,0,0,0,0,0,0,0,0,0,0,0)
     print(res)
 

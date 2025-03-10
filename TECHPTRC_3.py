@@ -1,7 +1,7 @@
 # для датчиков технологических защит с контролем сигн и откл ступеней
 
 from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import SRTrigger
+from lib._TRIGGERS.TRIGGERS import SRTrigger, RSTrigger
 
 class TECHPTRC_3:
     def __init__(self, SGF1=0, SGF2=0, T=0):
@@ -10,7 +10,7 @@ class TECHPTRC_3:
         self.T1 = TON()
         self.T1.set_PT(T)
         self.SR = SRTrigger(state=0)
-        self.SR_special = SRTrigger(state=0)
+        self.RS_special = RSTrigger(state=0)
 
     def Step(self, VYVOD, OV_fb, OV_func, NaSign, srabKontOtkl, srabKontSign, srabKI, Sbros):
         self.T1.IN = srabKI
@@ -21,7 +21,7 @@ class TECHPTRC_3:
         # Обсчитываем первый триггер
         _s_SR1 = srabKontOtkl and (not srabKontSign)
         _r_SR1 = (not vvod) or ((not srabKontOtkl) and (not srabKontSign))
-        _q_SR1 = self.SR_special.run(_s_SR1, _r_SR1)
+        _q_SR1 = self.RS_special.run(_s_SR1, _r_SR1)
 
         # Обсчитываем второй триггер
         _s_SR2 = vvod and Q

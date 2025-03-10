@@ -11,11 +11,11 @@ class TECHPTRC:
         self.T1.set_PT(T)
         self.SR = SRTrigger(state=0)
 
-    def Step(self, OV, VYVOD, NaSign, srabKont, srabKI, Sbros):
+    def Step(self, VYVOD, OV_fb, OV_f, NaSign, srabKont, srabKI, Sbros):
         self.T1.IN = srabKI
         Q, ET = self.T1.start()  # Запускаем таймер и получаем выход и прошедшее время
-        vvod = (not(OV or VYVOD)) and (self.SGF1==1)
-        oper_vyvod = (OV or VYVOD) and (self.SGF1==1)
+        vvod = (not(OV_fb or OV_f or VYVOD)) and (self.SGF1==1)
+        oper_vyvod = (OV_fb or OV_f or VYVOD) and (self.SGF1==1)
         zablok = 0 if (self.SGF2==0) else self.SR.run(Q and vvod, not(vvod) or Sbros)
         srabsign = vvod and srabKont and not(zablok)
         srab = not(NaSign) and srabsign

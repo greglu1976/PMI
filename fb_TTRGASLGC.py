@@ -1,20 +1,17 @@
 # Функц блок ГЗ откл
 
-
-
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ВНИЗУ НЕ ПРАВЛЕНО !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 from f_TECHPTRC import TECHPTRC
 
 class TTRGASLGC:
-    def __init__(self, SGF1_ptrc1_talmgaslgc, SGF2_ptrc1_talmgaslgc, T1_ptrc1_talmgaslgc):
+    def __init__(self, SGF1_ptrc1_ttrgaslgc, SGF2_ptrc1_ttrgaslgc, T1_ptrc1_ttrgaslgc):
 
-        self.ptrc1 = TECHPTRC(SGF1_ptrc1_talmgaslgc, SGF2_ptrc1_talmgaslgc, T1_ptrc1_talmgaslgc)
+        self.ptrc1 = TECHPTRC(SGF1_ptrc1_ttrgaslgc, SGF2_ptrc1_ttrgaslgc, T1_ptrc1_ttrgaslgc)
 
+    OV_f = 0
 
-    def Step(self, VYVOD, OV, NaOtkl, srabKont, srabKI, Sbros):
-        vvod_ptrc1_talmgaslgc, oper_vyvod_ptrc1_talmgaslgc, srab_ptrc1_talmgaslgc, srabsign_ptrc1_talmgaslgc, zablok_ptrc1_talmgaslgc, ET_ptrc1_talmgaslgc = self.ptrc1.Step( OV, VYVOD, NaOtkl, srabKont, srabKI, Sbros)
+    def Step(self, VYVOD, OV_ptrc1_ttrgaslgc, OV_f, NaSign_ptrc1_ttrgaslgc, srabKont_ptrc1_ttrgaslgc, srabKI_ptrc1_ttrgaslgc, Sbros):
+        vvod_ptrc1_ttrgaslgc, oper_vyvod_ptrc1_ttrgaslgc, srab_ptrc1_ttrgaslgc, srabsign_ptrc1_ttrgaslgc, zablok_ptrc1_ttrgaslgc, ET_ptrc1_ttrgaslgc = self.ptrc1.Step(VYVOD, OV_ptrc1_ttrgaslgc, OV_f, NaSign_ptrc1_ttrgaslgc, srabKont_ptrc1_ttrgaslgc, srabKI_ptrc1_ttrgaslgc, Sbros)
 
-        return (vvod_ptrc1_talmgaslgc, oper_vyvod_ptrc1_talmgaslgc, srab_ptrc1_talmgaslgc, srabsign_ptrc1_talmgaslgc, zablok_ptrc1_talmgaslgc, ET_ptrc1_talmgaslgc)
+        return (vvod_ptrc1_ttrgaslgc, oper_vyvod_ptrc1_ttrgaslgc, srab_ptrc1_ttrgaslgc, srabsign_ptrc1_ttrgaslgc, zablok_ptrc1_ttrgaslgc, ET_ptrc1_ttrgaslgc)
 
 
