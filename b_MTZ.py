@@ -8,6 +8,7 @@ from LVTTOC_FB_MTZ import LVTTOC # импорт ФБ МТЗ
 from T_LVRVTR import T_LVRVTR # импорт Ф КЦН НН
 from TOFFLVLGC_FB_LO_T import TOFFLVLGC # импорт ЛО Т
 from DZT2_LVALH import DZT2_LVALH # импорт ПС
+from threePhaseSys import ThreePhaseSystem # клас для расчета аналоговых значений 
 
 class partOfFsuInTOC:
     def __init__(self, SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1,
@@ -37,7 +38,7 @@ class partOfFsuInTOC:
         # ИНициализируем ПС
         self.lvalv = DZT2_LVALH(SGF1=0, SGF2=0, SGF3=0, SGF4=0, SGF5=0, SGF6=0, SGF7=0, SGF8=0, SGF9=0, SGF10=0, SGF11=0, SGF12=0, SGF13=0)
 
-    def Step(self, VYVOD, OV_lvttoc, SV1vkl, SV2vkl, IA, IAB, IB, IBC, IC, ICA, VNN1vkl, VNN2vkl, 
+    def Step(self, VYVOD, OV_lvttoc, SV1vkl, SV2vkl, IA, dIA, IB, dIB, IC, dIC, VNN1vkl, VNN2vkl, 
         OVst_ptoc1, NaSign_ptoc1,
         OVst_ptoc2, NaSign_ptoc2,
         OVst_ptoc3, NaSign_ptoc3,
@@ -48,6 +49,20 @@ class partOfFsuInTOC:
         OV_lvrbvtr2, vnesh_bnn_srab_lvrbvtr2,
         OVlot, OVlo, OVzapv, OVzavr,
         ):
+
+        # Расчитываем аналоги
+        threeI = ThreePhaseSystem(IA, dIA, IB, dIB, IC, dIC)
+        Is = threeI.calculate_line_voltages()
+        IAB = Is['Uab']
+        IBC = Is['Ubc']
+        ICA = Is['Uca']
+        threeU1 = ThreePhaseSystem(UA1, dUA1, UB1, dUB1, UC1, dUC1)
+        U1s = threeU1.calculate_line_voltages()
+        UAB_ptuv1 = U1s['Uab']
+        UBC_ptuv1 = U1s['Ubc']
+        UCA_ptuv1= U1s['Uca']
+        U1s2 = threeU1.calculate_symmetric_components()
+        U2_ptuv1 = U1s2['U2']
 
         # вычисляем КЦН НН
         vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1 = self.lvrbvtr1.Step(VYVOD, OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
