@@ -121,19 +121,23 @@ class PartOfFsuInTOC_GUI:
             "SV1vkl": tk.IntVar(value=0),
             "SV2vkl": tk.IntVar(value=0),
             "IA": tk.DoubleVar(value=1),
+            "dIA": tk.DoubleVar(value=0),
             "IB": tk.DoubleVar(value=0),
+            "dIB": tk.DoubleVar(value=240),
             "IC": tk.DoubleVar(value=0),
-            "IAB": tk.DoubleVar(value=0),
-            "IBC": tk.DoubleVar(value=0),
-            "ICA": tk.DoubleVar(value=0),
-            "UAB_ptuv1": tk.DoubleVar(value=50),
-            "UBC_ptuv1": tk.DoubleVar(value=50),
-            "UCA_ptuv1": tk.DoubleVar(value=50),
-            "U2_ptuv1": tk.DoubleVar(value=0),
-            "UAB_ptuv2": tk.DoubleVar(value=50),
-            "UBC_ptuv2": tk.DoubleVar(value=50),
-            "UCA_ptuv2": tk.DoubleVar(value=50),
-            "U2_ptuv2": tk.DoubleVar(value=0),
+            "dIC": tk.DoubleVar(value=120),
+            "UA1": tk.DoubleVar(value=50),
+            "dUA1": tk.DoubleVar(value=0),
+            "UB1": tk.DoubleVar(value=50),
+            "dUB1": tk.DoubleVar(value=240),
+            "UC1": tk.DoubleVar(value=50),
+            "dUC1": tk.DoubleVar(value=120),
+            "UA2": tk.DoubleVar(value=50),
+            "dUA2": tk.DoubleVar(value=0),
+            "UB2": tk.DoubleVar(value=50),
+            "dUB2": tk.DoubleVar(value=240),
+            "UC2": tk.DoubleVar(value=50),
+            "dUC2": tk.DoubleVar(value=120),
             "KPONvnesh_ptuv1": tk.IntVar(value=0),
             "KPONvnesh_ptuv2": tk.IntVar(value=0),
             "IA2harm": tk.DoubleVar(value=0),
@@ -251,7 +255,7 @@ class PartOfFsuInTOC_GUI:
             "io_A_ptoc3_lvttoc", "io_B_ptoc3_lvttoc", "io_C_ptoc3_lvttoc", "kpon_pusk_ptuv1_lvttoc", "kpon_pusk_ptuv2_lvttoc",
             "ia_start_out_phar1_lvttoc", "ib_start_out_phar1_lvttoc", "ic_start_out_phar1_lvttoc", "start_phar1_lvttoc", "blok_rblc1_lvttoc",
             "mtz_pusk_lvttoc", "vvod_ptrc1", "oper_vyvod_ptrc1", "pusk_ptrc1", "srab_ptrc1", "vvod_rblc1", "oper_vyvod_rblc1", "zapret_rblc1",
-            "vvod_rbre1", "oper_vyvod_rbre1", "zapret_rbre1", "pusk_lvalv"
+            "vvod_rbre1", "oper_vyvod_rbre1", "zapret_rbre1", "pusk_lvalv", "IAB", "IBC", "ICA", "UAB_ptuv1", "UBC_ptuv1", "UCA_ptuv1", "U2_ptuv1", "UAB_ptuv2", "UBC_ptuv2", "UCA_ptuv2", "U2_ptuv2"
         ]
 
         row = 0
@@ -354,7 +358,7 @@ class PartOfFsuInTOC_GUI:
             for output, value in zip(self.output_labels.keys(), result):
                 label = self.output_labels[output]
                 label.config(text=f"{output}: {int(value)}")
-                if int(value) == 1:
+                if int(value) != 0:
                     label.config(background="red")
                 else:
                     label.config(background="green")

@@ -42,8 +42,8 @@ class partOfFsuInTOC:
         OVst_ptoc1, NaSign_ptoc1,
         OVst_ptoc2, NaSign_ptoc2,
         OVst_ptoc3, NaSign_ptoc3,
-        KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, 
-        KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2,
+        KPONvnesh_ptuv1, UA1, dUA1, UB1, dUB1, UC1, dUC1,  
+        KPONvnesh_ptuv2, UA2, dUA2, UB2, dUB2, UC2, dUC2, 
         IA2harm, IB2harm, IC2harm,
         OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1,
         OV_lvrbvtr2, vnesh_bnn_srab_lvrbvtr2,
@@ -53,16 +53,24 @@ class partOfFsuInTOC:
         # Расчитываем аналоги
         threeI = ThreePhaseSystem(IA, dIA, IB, dIB, IC, dIC)
         Is = threeI.calculate_line_voltages()
-        IAB = Is['Uab']
-        IBC = Is['Ubc']
-        ICA = Is['Uca']
+        IAB = Is['Uab']['amplitude']
+        IBC = Is['Ubc']['amplitude']
+        ICA = Is['Uca']['amplitude']
         threeU1 = ThreePhaseSystem(UA1, dUA1, UB1, dUB1, UC1, dUC1)
         U1s = threeU1.calculate_line_voltages()
-        UAB_ptuv1 = U1s['Uab']
-        UBC_ptuv1 = U1s['Ubc']
-        UCA_ptuv1= U1s['Uca']
-        U1s2 = threeU1.calculate_symmetric_components()
-        U2_ptuv1 = U1s2['U2']
+        UAB_ptuv1 = U1s['Uab']['amplitude']
+        UBC_ptuv1 = U1s['Ubc']['amplitude']
+        UCA_ptuv1= U1s['Uca']['amplitude']
+        U1simm = threeU1.calculate_symmetric_components()
+        U2_ptuv1 = U1simm['U2']['amplitude']
+        threeU2 = ThreePhaseSystem(UA2, dUA2, UB2, dUB2, UC2, dUC2)
+        U2s = threeU2.calculate_line_voltages()
+        UAB_ptuv2 = U2s['Uab']['amplitude']
+        UBC_ptuv2 = U2s['Ubc']['amplitude']
+        UCA_ptuv2= U2s['Uca']['amplitude']
+        U2simm = threeU2.calculate_symmetric_components()
+        U2_ptuv2 = U2simm['U2']['amplitude']
+
 
         # вычисляем КЦН НН
         vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1 = self.lvrbvtr1.Step(VYVOD, OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
@@ -76,7 +84,7 @@ class partOfFsuInTOC:
 
         return (vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1, 
         vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2,
-        vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, gen_pusk_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srab_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, vvod_ptoc2_lvttoc, oper_vyvod_ptoc2_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, gen_pusk_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srab_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, vvod_ptoc3_lvttoc, oper_vyvod_ptoc3_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, gen_pusk_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, mtz_srab_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, kpon_pusk_ptuv2_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, start_phar1_lvttoc, blok_rblc1_lvttoc, mtz_pusk_lvttoc, vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1, pusk_lvalv
+        vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, gen_pusk_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srab_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, vvod_ptoc2_lvttoc, oper_vyvod_ptoc2_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, gen_pusk_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srab_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, vvod_ptoc3_lvttoc, oper_vyvod_ptoc3_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, gen_pusk_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, mtz_srab_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, kpon_pusk_ptuv2_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, start_phar1_lvttoc, blok_rblc1_lvttoc, mtz_pusk_lvttoc, vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1, pusk_lvalv, IAB, IBC, ICA, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2
         )
        
 
