@@ -223,8 +223,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
+                "SetValue": "0",
+                "Color": "changed"
             },
             "SGF7": {
                 "ShortDescription": "Контр_СВ",
