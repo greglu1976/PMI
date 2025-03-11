@@ -198,7 +198,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "changed"
+                "Color": "norm"
             },
             "SGF5": {
                 "ShortDescription": "Реж_КПОН1",

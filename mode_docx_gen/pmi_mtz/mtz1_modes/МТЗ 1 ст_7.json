@@ -79,7 +79,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF6": {
                 "ShortDescription": "Реж_КПОН2",
