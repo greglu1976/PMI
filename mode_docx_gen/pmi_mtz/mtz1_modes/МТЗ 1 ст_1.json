@@ -435,7 +435,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -448,7 +448,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             }
         },
@@ -476,7 +476,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -489,7 +489,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             }
         },

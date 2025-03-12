@@ -422,8 +422,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "2",
+                "Color": "changed"
             },
             "Uop": {
                 "ShortDescription": "Uср",
@@ -435,7 +435,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -463,8 +463,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "2",
+                "Color": "changed"
             },
             "Uop": {
                 "ShortDescription": "Uср",
@@ -476,7 +476,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -562,7 +562,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "SGF2": {
@@ -575,7 +575,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             }
         }
@@ -592,7 +592,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "SGF2": {
@@ -605,7 +605,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             }
         }

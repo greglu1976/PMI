@@ -52,9 +52,9 @@ class partOfFsuInTOC:
         # Расчитываем аналоги
         threeI = ThreePhaseSystem(IA, dIA, IB, dIB, IC, dIC)
         Is = threeI.calculate_line_voltages()
-        IAB = Is['Uab']['amplitude']
-        IBC = Is['Ubc']['amplitude']
-        ICA = Is['Uca']['amplitude']
+        IAB = Is['Uab']['amplitude']/(3**0.5)
+        IBC = Is['Ubc']['amplitude']/(3**0.5)
+        ICA = Is['Uca']['amplitude']/(3**0.5)
         threeU1 = ThreePhaseSystem(UA1, dUA1, UB1, dUB1, UC1, dUC1)
         U1s = threeU1.calculate_line_voltages()
         UAB_ptuv1 = U1s['Uab']['amplitude']
@@ -72,26 +72,17 @@ class partOfFsuInTOC:
 
         # Нижерассчитанные значения используются ТОЛЬКО для индикации - в логике МТЗ не используются!!!
         Isimm = threeI.calculate_symmetric_components()
-        dIAB = Is['Uab']['angle']
-        dIBC = Is['Ubc']['angle']
-        dICA = Is['Uca']['angle']
+        dIAB = (Is['Uab']['angle'])
+        dIBC = (Is['Ubc']['angle'])
+        dICA = (Is['Uca']['angle'])
         I2 = Isimm['U2']['amplitude']
-        I0 = Isimm['U0']['amplitude']
-        I1 = Isimm['U1']['amplitude']      
-        dUAB_ptuv1 = U1s['Uab']['angle']
-        dUBC_ptuv1 = U1s['Ubc']['angle']
-        dUCA_ptuv1 = U1s['Uca']['angle']
-        dU2_ptuv1 = U1simm['U2']['angle']
-        U0_ptuv1 = U1simm['U0']['amplitude']
+        I0 = 3*Isimm['U0']['amplitude']
+        I1 = Isimm['U1']['amplitude'] 
+
+        U0_ptuv1 = 3*U1simm['U0']['amplitude']
         U1_ptuv1 = U1simm['U1']['amplitude']
-        dU0_ptuv1 = U1simm['U0']['angle']
-        dUAB_ptuv2 = U2s['Uab']['angle']
-        dUBC_ptuv2 = U2s['Ubc']['angle']
-        dUCA_ptuv2 = U2s['Uca']['angle']
-        dU2_ptuv2 = U2simm['U2']['angle']
-        U0_ptuv2 = U2simm['U0']['amplitude']
-        dU0_ptuv2 = U2simm['U0']['angle']
-        U0_ptuv2 = U2simm['U0']['amplitude']
+
+        U0_ptuv2 = 3*U2simm['U0']['amplitude']
         U1_ptuv2 = U2simm['U1']['amplitude']
         # вычисляем КЦН НН
         vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1 = self.lvrbvtr1.Step(VYVOD, OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
