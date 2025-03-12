@@ -1,3 +1,5 @@
+# НЕ ПЕРЕРАБОТАНО ПО ЧАСТИ РАСЧЕТА АНАЛОГОВЫХ ЗНАЧЕНИЙ!
+
 import time
 import pandas as pd
 from openpyxl import Workbook
