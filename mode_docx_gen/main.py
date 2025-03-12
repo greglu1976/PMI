@@ -89,6 +89,9 @@ def add_table(doc, combined_df, replacement_titles, header_row_height, is_ctrl_r
     # Добавление таблицы
     table = doc.add_table(rows=len(combined_df) + 1, cols=len(combined_df.columns))
     table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
+    # Замена точек на запятые в combined_df
+    combined_df = combined_df.applymap(lambda x: str(x).replace('.', ',') if isinstance(x, (float, int)) else x)
+    #print('================>', combined_df)
 
     # Установка высоты первой строки (заголовок)
     header_row = table.rows[0]
@@ -360,7 +363,7 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_out
     # Корень
     root_dir = 'pmi_mtz\\'
 
-    print('========================================', heading, intro_text, func_modes_dir, needed_inputs, needed_outputs)
+    #print('========================================', heading, intro_text, func_modes_dir, needed_inputs, needed_outputs)
     # Параметры описания
     #heading = 'Проверка МТЗ 3 ступень'
     #intro_text = 'Для проверки функции третьей ступени в составе МТЗ предусматривается 20 режимов. Перечень подаваемых воздействий для каждого режима приводится в таблице XXX. Контроль выходных сигналов для каждого из режимов осуществляется в соответствии с таблицей XXX по осциллограмме, либо (в случае автоматизированной проверки) по контактам выходных реле (см. таблицу XXX).'
@@ -393,6 +396,7 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_out
     with open(root_dir+'fsu_mtz_inputs.json', 'r', encoding='utf-8') as f:
         replacement_titles = json.load(f)
     combined_df = procced_xlsx(folder_path, needed_columns, 'Inputs')
+    
     doc.add_paragraph('Подаваемые воздействия при проверке', style='ЮИ_Таблица_Название')
     doc = add_table(doc, combined_df, replacement_titles, 25)
 

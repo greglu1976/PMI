@@ -38,11 +38,12 @@ def load_and_find_data(data, result_dict, set_value, root_dir = ''):
 
     # Формируем путь к файлу
     file_path = os.path.join(part, fb, func, '*.xlsx')
-    print(f"Ищем файл по пути: {file_path}")
+    #print(f"Ищем файл по пути: {file_path}")
     
     # Ищем файл по шаблону
     files = glob.glob(file_path)
     if not files:
+        print('>>>>', data)
         print(f"Файл не найден по пути: {file_path}")
         return
 
@@ -129,7 +130,7 @@ def start_proceed_modes(xlsx_file, root_dir=''):
         parsed_data = parse_sgf(column)
         set_value = df[column].values[0]  # Значение из первой строки
         #print(f"Обрабатываем заголовок: {column}, значение: {set_value}")
-        print(f"Результат парсинга: {parsed_data}")
+        #print(f"Результат парсинга: {parsed_data}")
         load_and_find_data(parsed_data, result_dict, set_value, root_dir)
 
     # Преобразуем все numpy.int64 в стандартные типы Python
