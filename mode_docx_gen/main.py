@@ -24,6 +24,9 @@ from docx.oxml.ns import qn
 from analizator import start_analyze
 from create_settings_from_mode2 import start_proceed_modes
 
+# Добавляем глобальную переменную для управления выводом таблиц
+ALL_TABLES = False  # Если False - таблицы без изменений не выводятся
+
 def horizont_A4(doc):
     # Настройка страницы формата A4 (297мм x 210мм) горизонтальной ориентации
     section = doc.sections[-1]
@@ -270,8 +273,144 @@ def generate_json_for_all_xlsx(folder_path, root_dir=''):
         # Обрабатываем каждый файл и генерируем JSON
         start_proceed_modes(file_path, root_dir)
 
-# Этап 2: Добавление данных из JSON в документ
+
+# Этап 2: Добавление данных из JSON в документ - при этом приводятся только таблицы с изменениями
 def add_json_data_to_doc(folder_path, doc, root_dir=''):
+    # Получаем список всех .json файлов в папке
+    json_files = [f for f in os.listdir(folder_path) if f.endswith('.json')]
+    
+    # Сортируем файлы по естественному порядку (БНТ_1.json, БНТ_2.json, ..., БНТ_10.json)
+    json_files = natsorted(json_files)
+
+    previous_general_data = None  # Переменная для хранения данных предыдущего режима
+
+    # Загружаем description.json
+    file_path_desc = root_dir + 'part/description.json'
+    with open(file_path_desc, 'r', encoding='utf-8') as desc_file:
+        description_data = json.load(desc_file)
+
+    for idx, json_file in enumerate(json_files):
+        # Полный путь к файлу
+        file_path = os.path.join(folder_path, json_file)
+
+        # Получаем имя файла без расширения
+        base_name = os.path.splitext(json_file)[0]
+        base_name_parts = base_name.split('_')
+
+        # Создаем заголовок для текущего файла
+        paragraph = doc.add_heading(f'Параметры для проверки функции: {base_name_parts[0]}. Режим №{base_name_parts[1]}', level=3)
+
+        # Загружаем result_dict.json для текущего файла
+        with open(file_path, 'r', encoding='utf-8') as result_file:
+            current_general_data = json.load(result_file)
+
+        # Проверяем, есть ли изменения в текущем режиме
+        has_changes = False
+        if previous_general_data is not None:
+            for fbname, functions in current_general_data.items():
+                if fbname in previous_general_data:
+                    prev_functions = previous_general_data[fbname]
+                    for func_name, switches in functions.items():
+                        if func_name in prev_functions:
+                            prev_switches = prev_functions[func_name]
+                            for switch, values in switches.items():
+                                if switch in prev_switches and values.get('Color', '') == 'changed':
+                                    has_changes = True
+                                    break
+                        else:
+                            has_changes = True  # Новая функция появилась
+                else:
+                    has_changes = True  # Новый FB появился
+        else:
+            # Для первого режима всегда добавляем таблицы
+            has_changes = True
+
+        # Если это первый режим, выводим все таблицы
+        if idx == 0:
+            # Итерация по словарю current_general_data
+            for fbname, functions in current_general_data.items():
+                # Получаем описание FB из description_data
+                fb_info = description_data.get(fbname, {})
+                desc = fb_info.get('desc', 'Описание не найдено')
+                fb_name = fb_info.get('fbname', 'FB не найдено')
+
+                # Добавляем заголовок для FB
+                paragraph = doc.add_heading(f"{desc} ({fb_name})", level=4)
+
+                for func_name, switches in functions.items():
+                    if func_name == "":  # Если ключ пустой
+                        # Добавляем заголовок для общих уставок
+                        doc.add_paragraph('Общие уставки', style='ЮИ_Таблица_Название')
+                    else:
+                        # Ищем описание функции в description_data
+                        func_desc_info = fb_info.get(func_name, {})
+                        func_desc = func_desc_info.get('funcname', 'Описание функции не найдено')
+                        func_short_name = func_desc_info.get('func_short_name', 'Код функции не найден')
+
+                        # Добавляем заголовок для функции
+                        doc.add_paragraph(f"{func_desc} ({func_short_name})", style='ЮИ_Таблица_Название')
+
+                    # Добавляем таблицу для переключателей (switches)
+                    doc = add_table_set(doc, switches)
+
+        # Если это не первый режим и нет изменений, добавляем сообщение
+        elif not has_changes:
+            doc.add_heading(f"Параметры режима идентичны предыдущему.", level=4)
+            previous_general_data = current_general_data  # Обновляем данные предыдущего режима
+            continue  # Пропускаем вывод таблиц для этого режима
+
+        # Если это не первый режим и есть изменения, выводим только измененные таблицы
+        else:
+            # Итерация по словарю current_general_data
+            for fbname, functions in current_general_data.items():
+                # Получаем описание FB из description_data
+                fb_info = description_data.get(fbname, {})
+                desc = fb_info.get('desc', 'Описание не найдено')
+                fb_name = fb_info.get('fbname', 'FB не найдено')
+
+                # Проверяем, есть ли изменения в текущем FB
+                has_changes_in_fb = any(
+                    any(values.get('Color', '') == 'changed' for values in switches.values())
+                    for switches in functions.values()
+                )
+
+                # Если в FB нет изменений, пропускаем вывод
+                if not has_changes_in_fb:
+                    continue
+
+                # Добавляем заголовок для FB
+                paragraph = doc.add_heading(f"{desc} ({fb_name})", level=4)
+
+                for func_name, switches in functions.items():
+                    # Проверяем, есть ли изменения в текущей функции
+                    has_changes_in_func = any(values.get('Color', '') == 'changed' for values in switches.values())
+
+                    # Если в функции нет изменений, пропускаем вывод
+                    if not has_changes_in_func:
+                        continue
+
+                    if func_name == "":  # Если ключ пустой
+                        # Добавляем заголовок для общих уставок
+                        doc.add_paragraph('Общие уставки', style='ЮИ_Таблица_Название')
+                    else:
+                        # Ищем описание функции в description_data
+                        func_desc_info = fb_info.get(func_name, {})
+                        func_desc = func_desc_info.get('funcname', 'Описание функции не найдено')
+                        func_short_name = func_desc_info.get('func_short_name', 'Код функции не найден')
+
+                        # Добавляем заголовок для функции
+                        doc.add_paragraph(f"{func_desc} ({func_short_name})", style='ЮИ_Таблица_Название')
+
+                    # Добавляем таблицу для переключателей (switches)
+                    doc = add_table_set(doc, switches)
+
+        # Обновляем данные предыдущего режима
+        previous_general_data = current_general_data
+
+    return doc
+
+# Этап 2 СТАРЫЙ: Добавление данных из JSON в документ при этом если есть хоть одно изменение в режиме то приводятся все таблицы режима
+def add_json_data_to_doc_old(folder_path, doc, root_dir=''):
     # Получаем список всех .json файлов в папке
     json_files = [f for f in os.listdir(folder_path) if f.endswith('.json')]
     
@@ -358,6 +497,7 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
 
     return doc
 
+
 # Основной код
 def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_outputs):
     # Корень
@@ -401,7 +541,10 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_out
     doc = add_table(doc, combined_df, replacement_titles, 25)
 
     # Этап 2: Добавление данных из JSON в документ
-    doc = add_json_data_to_doc(folder_path, doc, root_dir)
+    if not ALL_TABLES:
+        doc = add_json_data_to_doc(folder_path, doc, root_dir)
+    else:
+        doc = add_json_data_to_doc_old(folder_path, doc, root_dir)
 
     return doc
 
