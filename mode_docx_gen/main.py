@@ -26,7 +26,7 @@ from create_settings_from_mode2 import start_proceed_modes
 
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
-REGENERATE = 0 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
+REGENERATE = 1 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
 
 def horizont_A4(doc):
     # Настройка страницы формата A4 (297мм x 210мм) горизонтальной ориентации
@@ -139,7 +139,7 @@ def add_table(doc, combined_df, replacement_titles, header_row_height, is_ctrl_r
             for j, column in enumerate(combined_df.columns):
                 cell = table.cell(row_index, j)
                 if column == 'Номер режима':  # Для столбца "Номер режима" дублируем значение
-                    cell.text = str(mode_number)
+                    cell.text = str(mode_number+' (рез)')
                 else:  # Для остальных столбцов оставляем пустые значения
                     cell.text = ""
                 # Настройка отступов в ячейке
@@ -526,6 +526,7 @@ def add_json_data_to_doc_opt(folder_path, doc, root_dir=''):
 
         # Создаем заголовок для текущего файла
         paragraph = doc.add_heading(f'Параметры для проверки функции: {base_name_parts[0]}. Режим №{base_name_parts[1]}', level=3)
+        paragraph = doc_set.add_heading(f'Параметры для проверки функции: {base_name_parts[0]}. Режим №{base_name_parts[1]}', level=9)
         set_file_name = f'{base_name_parts[0]}. Режим №{base_name_parts[1]}'
 
         # Загружаем result_dict.json для текущего файла
@@ -558,7 +559,7 @@ def add_json_data_to_doc_opt(folder_path, doc, root_dir=''):
             doc.add_heading(f"Параметры режима идентичны предыдущему.", level=4)
             previous_general_data = current_general_data  # Обновляем данные предыдущего режима
             continue
-
+        paragraph = doc.add_heading("Данные режима приведены в документе по ссылке", level=4)
         # Итерация по словарю current_general_data
         for fbname, functions in current_general_data.items():
             # Получаем описание FB из description_data
@@ -567,8 +568,8 @@ def add_json_data_to_doc_opt(folder_path, doc, root_dir=''):
             fb_name = fb_info.get('fbname', 'FB не найдено')
 
             # Добавляем заголовок для FB
-            paragraph = doc_set.add_heading(f"{desc} ({fb_name})", level=4)
-
+            paragraph = doc_set.add_heading(f"{desc} ({fb_name})", level=2)
+            
             for func_name, switches in functions.items():
                 if func_name == "":  # Если ключ пустой
                     # Добавляем заголовок для общих уставок
