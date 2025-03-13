@@ -211,7 +211,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "changed"
+                "Color": "norm"
             },
             "SGF6": {
                 "ShortDescription": "Реж_КПОН2",
@@ -223,7 +223,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "SGF7": {
@@ -422,7 +422,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "Uop": {
@@ -435,7 +435,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -449,7 +449,7 @@
                 "maxValue": "50",
                 "step": "0.1",
                 "SetValue": "5",
-                "Color": "norm"
+                "Color": "changed"
             }
         },
         "ptuv2": {
@@ -463,7 +463,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "Uop": {
@@ -476,7 +476,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -490,7 +490,7 @@
                 "maxValue": "50",
                 "step": "0.1",
                 "SetValue": "5",
-                "Color": "norm"
+                "Color": "changed"
             }
         },
         "phar1": {
@@ -562,8 +562,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "SGF2": {
                 "ShortDescription": "Реж_пуска",
@@ -575,8 +575,47 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Umin": {
+                "ShortDescription": "Uср",
+                "FullDescription": "Напряжение срабатывания",
+                "Note": "-",
+                "DefaultValue": "6",
+                "AppliedDescription": "U<",
+                "units": "В",
+                "minValue": "2",
+                "maxValue": "100",
+                "step": "0.1",
+                "SetValue": "50",
+                "Color": "norm"
+            },
+            "U2max": {
+                "ShortDescription": "U2ср",
+                "FullDescription": "Напряжение срабатывания ОП",
+                "Note": "-",
+                "DefaultValue": "6",
+                "AppliedDescription": "U2>",
+                "units": "В",
+                "minValue": "2",
+                "maxValue": "50",
+                "step": "0.1",
+                "SetValue": "20",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "AppliedDescription": "T1",
+                "units": "мс",
+                "minValue": "0",
+                "maxValue": "100000",
+                "step": "10",
                 "SetValue": "1",
-                "Color": "changed"
+                "Color": "norm"
             }
         }
     },
@@ -592,8 +631,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "SGF2": {
                 "ShortDescription": "Реж_пуска",
@@ -605,8 +644,47 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Umin": {
+                "ShortDescription": "Uср",
+                "FullDescription": "Напряжение срабатывания",
+                "Note": "-",
+                "DefaultValue": "6",
+                "AppliedDescription": "U<",
+                "units": "В",
+                "minValue": "2",
+                "maxValue": "100",
+                "step": "0.1",
+                "SetValue": "50",
+                "Color": "norm"
+            },
+            "U2max": {
+                "ShortDescription": "U2ср",
+                "FullDescription": "Напряжение срабатывания ОП",
+                "Note": "-",
+                "DefaultValue": "6",
+                "AppliedDescription": "U2>",
+                "units": "В",
+                "minValue": "2",
+                "maxValue": "50",
+                "step": "0.1",
+                "SetValue": "20",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "AppliedDescription": "T1",
+                "units": "мс",
+                "minValue": "0",
+                "maxValue": "100000",
+                "step": "10",
                 "SetValue": "1",
-                "Color": "changed"
+                "Color": "norm"
             }
         }
     },
