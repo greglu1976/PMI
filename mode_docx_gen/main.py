@@ -139,7 +139,7 @@ def add_table(doc, combined_df, replacement_titles, header_row_height, is_ctrl_r
             for j, column in enumerate(combined_df.columns):
                 cell = table.cell(row_index, j)
                 if column == 'Номер режима':  # Для столбца "Номер режима" дублируем значение
-                    cell.text = str(mode_number+' (рез)')
+                    cell.text = str(mode_number+'') # Было здесь +' (рез)'
                 else:  # Для остальных столбцов оставляем пустые значения
                     cell.text = ""
                 # Настройка отступов в ячейке
