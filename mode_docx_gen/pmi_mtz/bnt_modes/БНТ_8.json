@@ -435,7 +435,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -448,7 +448,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             }
         },
@@ -476,7 +476,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -489,7 +489,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             }
         },
@@ -505,7 +505,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "changed"
+                "Color": "norm"
             },
             "Imax": {
                 "ShortDescription": "Iср",
@@ -588,7 +588,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2max": {
@@ -601,7 +601,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             },
             "T1": {
@@ -657,7 +657,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2max": {
@@ -670,7 +670,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             },
             "T1": {
@@ -700,7 +700,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             }
         },
@@ -715,7 +715,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF2": {
@@ -728,7 +728,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF3": {
@@ -741,7 +741,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             }
         },
@@ -756,7 +756,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF2": {
@@ -769,7 +769,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF3": {
@@ -782,7 +782,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             }
         }

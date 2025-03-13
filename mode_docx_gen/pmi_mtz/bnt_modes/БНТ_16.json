@@ -158,7 +158,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "SGF2": {
@@ -185,7 +185,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "changed"
+                "Color": "norm"
             },
             "SGF4": {
                 "ShortDescription": "Реж_БНН_КПОН",
@@ -290,7 +290,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF2": {
@@ -316,7 +316,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF4": {
@@ -505,7 +505,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "Imax": {
                 "ShortDescription": "Iср",

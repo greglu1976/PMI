@@ -158,138 +158,6 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF2": {
-                "ShortDescription": "Тип_КПОН",
-                "FullDescription": "Тип пуска по напряжению",
-                "Note": "0 - Управляющее напряжение, \n1 - Вольтметровая блокировка",
-                "DefaultValue": "1",
-                "AppliedDescription": "SGF2",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF3": {
-                "ShortDescription": "Реж_БНТ",
-                "FullDescription": "Режим контроля от БНТ",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "1",
-                "AppliedDescription": "SGF3",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF4": {
-                "ShortDescription": "Реж_БНН_КПОН",
-                "FullDescription": "Режим КПОН при неисправности ЦН",
-                "Note": "0 - Деблокировка, \n1 - Блокировка",
-                "DefaultValue": "1",
-                "AppliedDescription": "SGF4",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF5": {
-                "ShortDescription": "Реж_КПОН1",
-                "FullDescription": "Режим контроля от КПОН1",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF5",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF6": {
-                "ShortDescription": "Реж_КПОН2",
-                "FullDescription": "Режим контроля от КПОН2",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF6",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF7": {
-                "ShortDescription": "Контр_СВ",
-                "FullDescription": "Режим контроля СВ НН",
-                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF7",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "T1": {
-                "ShortDescription": "Tср",
-                "FullDescription": "Выдержка времени срабатывания",
-                "Note": "-",
-                "DefaultValue": "500",
-                "AppliedDescription": "T1",
-                "units": "мс",
-                "minValue": "0",
-                "maxValue": "100000",
-                "step": "10",
-                "SetValue": "1",
-                "Color": "norm"
-            },
-            "Iset": {
-                "ShortDescription": "Iср",
-                "FullDescription": "Ток срабатывания",
-                "Note": "-",
-                "DefaultValue": "1",
-                "AppliedDescription": "I>",
-                "units": "о.е.",
-                "minValue": "0.1",
-                "maxValue": "30",
-                "step": "0.01",
-                "SetValue": "1",
-                "Color": "norm"
-            },
-            "Icoarse": {
-                "ShortDescription": "Iср_груб",
-                "FullDescription": "Ток срабатывания грубого органа",
-                "Note": "-",
-                "DefaultValue": "1",
-                "AppliedDescription": "Iгруб>",
-                "units": "о.е.",
-                "minValue": "0.1",
-                "maxValue": "30",
-                "step": "0.01",
-                "SetValue": "3",
-                "Color": "norm"
-            }
-        },
-        "ptoc3": {
-            "SGF1": {
-                "ShortDescription": "Ввод_функции",
-                "FullDescription": "Ввод функции в работу",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF1",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -411,6 +279,138 @@
                 "Color": "norm"
             }
         },
+        "ptoc3": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF2": {
+                "ShortDescription": "Тип_КПОН",
+                "FullDescription": "Тип пуска по напряжению",
+                "Note": "0 - Управляющее напряжение, \n1 - Вольтметровая блокировка",
+                "DefaultValue": "1",
+                "AppliedDescription": "SGF2",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF3": {
+                "ShortDescription": "Реж_БНТ",
+                "FullDescription": "Режим контроля от БНТ",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "1",
+                "AppliedDescription": "SGF3",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF4": {
+                "ShortDescription": "Реж_БНН_КПОН",
+                "FullDescription": "Режим КПОН при неисправности ЦН",
+                "Note": "0 - Деблокировка, \n1 - Блокировка",
+                "DefaultValue": "1",
+                "AppliedDescription": "SGF4",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF5": {
+                "ShortDescription": "Реж_КПОН1",
+                "FullDescription": "Режим контроля от КПОН1",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF5",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF6": {
+                "ShortDescription": "Реж_КПОН2",
+                "FullDescription": "Режим контроля от КПОН2",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF6",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF7": {
+                "ShortDescription": "Контр_СВ",
+                "FullDescription": "Режим контроля СВ НН",
+                "Note": "0 - Не предусмотрено, 1 - Блокировка ступени при включенном СВ, 2 -  Блокировка ступени при отключенном СВ",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF7",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "500",
+                "AppliedDescription": "T1",
+                "units": "мс",
+                "minValue": "0",
+                "maxValue": "100000",
+                "step": "10",
+                "SetValue": "1",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "SetValue": "1",
+                "Color": "norm"
+            },
+            "Icoarse": {
+                "ShortDescription": "Iср_груб",
+                "FullDescription": "Ток срабатывания грубого органа",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "Iгруб>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "SetValue": "3",
+                "Color": "norm"
+            }
+        },
         "ptuv1": {
             "SGF1": {
                 "ShortDescription": "Реж_пуска",
@@ -435,7 +435,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -448,7 +448,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             }
         },
@@ -476,7 +476,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2op": {
@@ -489,7 +489,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             }
         },
@@ -504,7 +504,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "Imax": {
@@ -588,7 +588,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2max": {
@@ -601,7 +601,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             },
             "T1": {
@@ -657,7 +657,7 @@
                 "minValue": "2",
                 "maxValue": "100",
                 "step": "0.1",
-                "SetValue": "40",
+                "SetValue": "50",
                 "Color": "norm"
             },
             "U2max": {
@@ -670,7 +670,7 @@
                 "minValue": "2",
                 "maxValue": "50",
                 "step": "0.1",
-                "SetValue": "5",
+                "SetValue": "20",
                 "Color": "norm"
             },
             "T1": {
@@ -700,7 +700,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             }
         },
@@ -715,7 +715,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF2": {
@@ -728,7 +728,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF3": {
@@ -741,7 +741,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             }
         },
@@ -756,7 +756,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF2": {
@@ -769,7 +769,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF3": {
@@ -782,7 +782,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             }
         }

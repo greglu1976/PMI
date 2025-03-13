@@ -26,8 +26,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "1",
+                "Color": "changed"
             },
             "SGF2": {
                 "ShortDescription": "Тип_КПОН",
@@ -159,7 +159,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF2": {
                 "ShortDescription": "Тип_КПОН",
@@ -185,7 +185,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "changed"
+                "Color": "norm"
             },
             "SGF4": {
                 "ShortDescription": "Реж_БНН_КПОН",
@@ -290,7 +290,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF2": {
@@ -317,7 +317,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF4": {
                 "ShortDescription": "Реж_БНН_КПОН",
