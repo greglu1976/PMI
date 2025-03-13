@@ -221,6 +221,9 @@ class PartOfFsuInTOC_GUI:
         ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=7, padx=5, pady=5)
         ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=8, padx=5, pady=5)
 
+        # Добавляем новый элемент (например, Label) с возможностью изменения цвета
+        self.status_label = ttk.Label(buttons_frame, text="Шаг", background="green", foreground="white")
+        self.status_label.grid(row=0, column=9, padx=5, pady=5)
 
         # Frame for input values
         input_frame = ttk.LabelFrame(self.root, text="Inputs")
@@ -345,7 +348,7 @@ class PartOfFsuInTOC_GUI:
     def stop_polling(self):
         self.is_polling = False
         if self.polling_thread and self.polling_thread.is_alive():
-            self.polling_thread.join()
+            self.polling_thread.join(timeout=1.0)
         print("Polling stopped")
 
     def poll_inputs(self):
@@ -364,7 +367,10 @@ class PartOfFsuInTOC_GUI:
                 else:
                     label.config(background="green")
 
-            time.sleep(0.25) # Время шага опроса
+            time.sleep(0.3) # Время шага опроса
+            self.status_label.config(text="Шаг", background="red", foreground="white")
+            time.sleep(0.05) # Время шага опроса
+            self.status_label.config(text="Шаг", background="green", foreground="white")
 
     def save_to_excel(self):
 
