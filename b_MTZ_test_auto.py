@@ -25,7 +25,6 @@ class PartOfFsuInTOC_GUI:
         self.function_name = tk.StringVar(value="Функция")
         self.mode_name = tk.StringVar(value="Режим")
 
-
         # Инициализация переменных для SGF параметров, настроек, входных и выходных значений
         self.sgf_params = {
             "SGF1_lvttoc": tk.IntVar(value=0),
