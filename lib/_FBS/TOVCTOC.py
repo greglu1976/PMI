@@ -1,19 +1,15 @@
 # ФБ Защита от перегрузки (ЗП Т 35) (TOVCTOC)
+# проверено 14.03.25
 
-
-from _FUNCS.PHPTOC_T import PHPTOC_T
+from lib._FUNCS.PHPTOC_T import PHPTOC_T # импортируем функцию ЗП
 
 class TOVCTOC:
-    def __init__(self, SGF1_ptrc1_tltcgaslgc, SGF2_ptrc1_tltcgaslgc, T1_ptrc1_tltcgaslgc):
+    def __init__(self, SGF1_hvptoc1_lovctoc, T1_hvptoc1_lovctoc, Iset_hvptoc1_lovctoc):
+        self.hvptoc1 = PHPTOC_T(SGF1_hvptoc1_lovctoc, T1_hvptoc1_lovctoc, Iset_hvptoc1_lovctoc)
 
-        self.ptrc1 = PHPTOC_T(SGF1_ptrc1_tltcgaslgc, SGF2_ptrc1_tltcgaslgc, T1_ptrc1_tltcgaslgc)
-
-    OV_f=0
-    def Step(self, VYVOD, OV_ptrc1_tltcgaslgc, OV_f,  NaSign_ptrc1_tltcgaslgc, srabKont_ptrc1_tltcgaslgc, srabKI_ptrc1_tltcgaslgc, Sbros):
-        vvod_ptrc1_tltcgaslgc, oper_vyvod_ptrc1_tltcgaslgc, srab_ptrc1_tltcgaslgc, srabsign_ptrc1_tltcgaslgc, zablok_ptrc1_tltcgaslgc, ET_ptrc1_tltcgaslgc = self.ptrc1.Step(VYVOD, OV_ptrc1_tltcgaslgc, OV_f, NaSign_ptrc1_tltcgaslgc, srabKont_ptrc1_tltcgaslgc, srabKI_ptrc1_tltcgaslgc, Sbros)
-
-        return (vvod_ptrc1_tltcgaslgc, oper_vyvod_ptrc1_tltcgaslgc, srab_ptrc1_tltcgaslgc, srabsign_ptrc1_tltcgaslgc, zablok_ptrc1_tltcgaslgc, ET_ptrc1_tltcgaslgc)
-
+    def Step(self, VYVOD, OV_hvptoc1_lovctoc, NaOtkl_hvptoc1_lovctoc, IA, IB, IC):
+        vvod_hvptoc1_lovctoc, oper_vyvod_hvptoc1_lovctoc, pusk_hvptoc1_lovctoc, io_hvptoc1_lovctoc, srab_hvptoc1_lovctoc, srabotkl_hvptoc1_lovctoc, ET_hvptoc1_lovctoc = self.hvptoc1.Step(VYVOD, OV_hvptoc1_lovctoc, NaOtkl_hvptoc1_lovctoc, IA, IB, IC)
+        return vvod_hvptoc1_lovctoc, oper_vyvod_hvptoc1_lovctoc, pusk_hvptoc1_lovctoc, io_hvptoc1_lovctoc, srab_hvptoc1_lovctoc, srabotkl_hvptoc1_lovctoc, ET_hvptoc1_lovctoc
 
 
 if __name__ == "__main__":
