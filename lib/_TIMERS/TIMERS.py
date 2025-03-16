@@ -42,31 +42,41 @@ class TP:
         self.Q = False   # Выход (boolean)
         self.start_time = None  # Время начала отсчета
         self.pulse_active = False  # Флаг активности импульса
+        self.triggered = False  # Флаг, указывающий, что таймер уже сработал
 
     def start(self):
         """Обновляет состояние таймера."""
-        if self.IN and not self.pulse_active:  # Если вход включен и импульс не активен
-            self.Q = True  # Включаем выход
-            self.pulse_active = True  # Устанавливаем флаг активности импульса
-            self.start_time = time.time()  # Начинаем отсчет
+        # Если вход включен и таймер еще не срабатывал, запускаем импульс
+        if self.IN and not self.triggered:
+            self.Q = True
+            self.pulse_active = True
+            self.start_time = time.time()
+            self.triggered = True  # Устанавливаем флаг срабатывания
 
+        # Если импульс активен, обновляем прошедшее время
         if self.pulse_active:
-            self.ET = time.time() - self.start_time  # Обновляем прошедшее время
+            self.ET = time.time() - self.start_time
 
-            if self.ET >= self.PT:  # Если прошедшее время больше или равно предустановленному
-                self.Q = False  # Выключаем выход
-                self.pulse_active = False  # Сбрасываем флаг активности импульса
-                self.ET = 0  # Сбрасываем прошедшее время
-                self.start_time = None  # Сбрасываем время начала отсчета
+            # Если прошедшее время больше или равно предустановленному, сбрасываем таймер
+            if self.ET >= self.PT:
+                self.Q = False
+                self.pulse_active = False
+                self.ET = 0
+                self.start_time = None
+
+        # Если вход выключен и импульс не активен, сбрасываем флаг срабатывания
+        if not self.IN and not self.pulse_active:
+            self.triggered = False
 
         return self.Q, self.ET  # Возвращаем состояние выхода и прошедшее время
 
     def reset(self):
         """Сбрасывает таймер и выходные сигналы."""
-        self.Q = False  # Сбрасываем выход
-        self.ET = 0      # Сбрасываем прошедшее время
-        self.start_time = None  # Сбрасываем время начала отсчета
-        self.pulse_active = False  # Сбрасываем флаг активности импульса
+        self.Q = False
+        self.ET = 0
+        self.start_time = None
+        self.pulse_active = False
+        self.triggered = False
 
     def set_PT(self, PT):
         """Устанавливает предустановленное время."""

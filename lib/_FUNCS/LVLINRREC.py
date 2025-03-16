@@ -89,10 +89,23 @@ class LVLINRREC:
         self.apv_gotov_2 = self.RS2.run(_p011, (not vvod or sgf4_out or _p002 or APV_blk2cycl or self.apv_2_cycl or self.apv_zaderzh_vkl or sgf5_out))
 
         _p012 = not(self.apv_gotov_1) or self.apv_gotov_2
+        self.apv_tek_2_cycl = self.RS4.run(_p009, _p012)
 
-        
-        return 
+        self.T5.IN = self.apv_tek_2_cycl
+        _p013, ET_t5 = self.T5.start()
+
+        self.apv_2_cycl = _p008 and _p013
+        _p014 = _p010 or _p013
+
+        self.T3.IN = _p014
+        self.apv_zaderzh_vkl, ET_t3 = self.T3.start()
+
+        apv_vkl_ks = 0 if self.SGF3==0 else (_p008 and KNNsh_pusk and KNNp_pusk)
+        apv_vkl = not KSV_blk and (self.apv_2_cycl or apv_1_cycl)        
  
+        return vvod, oper_vyvod, self.apv_gotov_1, self.apv_gotov_2, apv_tekush_cycl, apv_1_cycl, apv_vkl, self.apv_2_cycl, self.apv_tek_2_cycl, self.apv_zaderzh_vkl, apv_vkl_ks, ET_t1, ET_t2, ET_t3, ET_t4, ET_t5, ET_t6, _p001, _p002, _p003, _p004, _p005, _p006, _p007, _p008, _p009, _p010, _p011, _p012, _p013, _p014
+
+
     # Геттеры и сеттеры
     def get_SGF1(self):
         return self.SGF1
@@ -102,6 +115,20 @@ class LVLINRREC:
         return self.SGF2
     def set_SGF2(self, value):
         self.SGF2 = value
+    def get_SGF3(self):
+        return self.SGF3
+    def set_SGF3(self, value):
+        self.SGF3= value
+    def get_SGF4(self):
+        return self.SGF4
+    def set_SGF4(self, value):
+        self.SGF4 = value
+    def get_SGF5(self):
+        return self.SGF5
+    def set_SGF5(self, value):
+        self.SGF5 = value
+
+
 
     def get_T1(self):
         return self.T1.PT  # Предустановленное время таймера
@@ -109,7 +136,37 @@ class LVLINRREC:
     def set_T1(self, T):
         self.T1.set_PT(T)  # Устанавливаем предустановленное время таймера
 
+    def get_T2(self):
+        return self.T2.PT  # Предустановленное время таймера
+    # Сеттер для времени таймера
+    def set_T2(self, T):
+        self.T2.set_PT(T)  # Устанавливаем предустановленное время таймера
+
+    def get_T3(self):
+        return self.T3.PT  # Предустановленное время таймера
+    # Сеттер для времени таймера
+    def set_T3(self, T):
+        self.T3.set_PT(T)  # Устанавливаем предустановленное время таймера
+
+    def get_T4(self):
+        return self.T4.PT  # Предустановленное время таймера
+    # Сеттер для времени таймера
+    def set_T4(self, T):
+        self.T4.set_PT(T)  # Устанавливаем предустановленное время таймера
+
+    def get_T5(self):            
+        return self.T5.PT  # Предустановленное время таймера    
+    # Сеттер для времени таймера
+    def set_T5(self, T):  
+        self.T5.set_PT(T)  # Устанавливаем предустановленное время таймера
+
+    def get_T6(self):            
+        return self.T6.PT  # Предустановленное время таймера    
+    # Сеттер для времени таймера
+    def set_T6(self, T):  
+        self.T6.set_PT(T)  # Устанавливаем предустановленное время таймера  
+
 if __name__ == "__main__":
-    ptoc1 = LVPTOC(SGF1=1, SGF2=0, T1=0, Iset=1)
+    ptoc1 = LVLINRREC(SGF1=1, SGF2=0, T1=0, Iset=1)
     res = ptoc1.Step(0,0,0,0,0,0,0,0,0)
     print(res)
