@@ -88,7 +88,7 @@ class LVLINRREC:
         sgf5_out = (0 if self.SGF5==0 else GSOZZ) and self.apv_tek_2_cycl
         self.apv_gotov_2 = self.RS2.run(_p011, (not vvod or sgf4_out or _p002 or APV_blk2cycl or self.apv_2_cycl or self.apv_zaderzh_vkl or sgf5_out))
 
-        _p012 = not(self.apv_gotov_1) or self.apv_gotov_2
+        _p012 = self.apv_gotov_1 or not(self.apv_gotov_2)
         self.apv_tek_2_cycl = self.RS4.run(_p009, _p012)
 
         self.T5.IN = self.apv_tek_2_cycl
