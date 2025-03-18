@@ -62,7 +62,7 @@ class LWCBCSWI:
         self.T1.IN = uv_idet_per
         self.uv_prev_vrem_per, ET_t1 = self.T1.start()  
    
-        return vvod, uv_otkluchit, uv_idet_per, self.uv_prev_vrem_per, uv_vkluchit, uv_ne_opredeleno, uv_otklucheno, uv_vklucheno, uv_neispr_neopred, ET_t1, ET_t21, ET_t22, ET_t3, ET_t4, _p001, _p002, _p003, _p004, _p005, _p006  
+        return vvod, uv_otkluchit, uv_idet_per, self.uv_prev_vrem_per, uv_vkluchit, uv_ne_opredeleno, uv_otklucheno, uv_vklucheno, uv_neispr_neopred #, ET_t1, ET_t21, ET_t22, ET_t3, ET_t4, _p001, _p002, _p003, _p004, _p005, _p006  
 
     # Геттеры и сеттеры
     def get_SGF1(self):

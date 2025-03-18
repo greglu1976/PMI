@@ -68,7 +68,7 @@ class LVCBXCBR:
 
         v_vkluchit_rele = (self.RS2.run(0 if self.SGF4==1 else _p006, _p009)) or _p010
 
-        return vvod, v_prom_pol, v_otkluchen, v_vkluchen, v_neisp_pol, v_otkluchit_rele, v_vkluchit_rele, ET_t1, ET_t2, ET_t3, ET_t4, _p001, _p002, _p003, _p004, _p005, _p006, _p007, self._p008, _p009, _p010 
+        return vvod, v_prom_pol, v_otkluchen, v_vkluchen, v_neisp_pol, v_otkluchit_rele, v_vkluchit_rele #, ET_t1, ET_t2, ET_t3, ET_t4, _p001, _p002, _p003, _p004, _p005, _p006, _p007, self._p008, _p009, _p010 
 
     # Геттеры и сеттеры
     def get_SGF1(self):

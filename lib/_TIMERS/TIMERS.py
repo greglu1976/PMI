@@ -127,42 +127,39 @@ class TOF:
 class TP_with_R:
     def __init__(self):
         self.IN = False  # Вход (boolean)
-        self.R = False   # Сигнал принудительного сброса (boolean)
-        self.PT = 0      # Предустановленное время (в секундах)
-        self.ET = 0      # Прошедшее время (в секундах)
-        self.Q = False   # Выход (boolean)
+        self.R = False    # Сигнал принудительного сброса (boolean)
+        self.PT = 0       # Предустановленное время (в секундах)
+        self.ET = 0       # Прошедшее время (в секундах)
+        self.Q = False    # Выход (boolean)
         self.start_time = None  # Время начала отсчета
         self.pulse_active = False  # Флаг активности импульса
-        self.triggered = False  # Флаг, указывающий, что таймер уже сработал
-        self.reset_occurred = False  # Флаг, указывающий, что R был активен хотя бы раз
+        self.IN_prev = False  # Предыдущее состояние IN для обнаружения фронта
 
     def start(self):
         """Обновляет состояние таймера."""
-        # Если сигнал R активен, сбрасываем таймер и устанавливаем флаг reset_occurred
+        # Если сигнал R активен, сбрасываем таймер
         if self.R:
             self.reset()
-            self.reset_occurred = True
             return self.Q, self.ET
 
-        # Если вход IN включен, таймер еще не срабатывал, и R никогда не был активен, запускаем импульс
-        if self.IN and not self.triggered and not self.reset_occurred:
+        # Обнаружение фронта IN (переход из False в True)
+        if self.IN and not self.IN_prev and not self.pulse_active:
             self.Q = True
             self.pulse_active = True
             self.start_time = time.time()
-            self.triggered = True  # Устанавливаем флаг срабатывания
 
         # Если импульс активен, обновляем прошедшее время
         if self.pulse_active:
             self.ET = time.time() - self.start_time
 
-            # Если прошедшее время больше или равно предустановленному, сбрасываем таймер
+            # Если прошедшее время больше или равно PT, завершаем импульс
             if self.ET >= self.PT:
-                self.reset()
+                self.Q = False
+                self.pulse_active = False
+                self.ET = self.PT  # Фиксируем ET на значении PT
 
-        # Если вход IN выключен и импульс не активен, сбрасываем флаги срабатывания и reset_occurred
-        if not self.IN and not self.pulse_active:
-            self.triggered = False
-            self.reset_occurred = False
+        # Обновляем предыдущее состояние IN
+        self.IN_prev = self.IN
 
         return self.Q, self.ET
 
@@ -172,7 +169,6 @@ class TP_with_R:
         self.pulse_active = False
         self.ET = 0
         self.start_time = None
-        self.triggered = False
 
     def set_PT(self, PT):
         """Устанавливает предустановленное время."""

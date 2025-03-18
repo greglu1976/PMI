@@ -88,7 +88,7 @@ class LVTRRCBF:
 
         ksv_v_samoproisv_otkl = not (self.SR1.run((vvod and (lovn_otkl or urov_nasebya)), _p010)) and ksv_v_avar_otkl
  
-        return vvod, oper_vyvod, ksv_v_samoproisv_otkl, ksv_neispr_V, ksv_v_avar_otkl, ksv_rfk, ksv_blok_vkl, ksv_blok_otkl, ksv_neisp_emu, ksv_zashita_emv, ksv_zashita_emo1, ksv_zashita_emo2, ET_t1, ET_t2, ET_t31, ET_t32, ET_t33, _p001, _p002, _p003, _p004, _p005, _p006, _p007, _p008, _p009, _p010
+        return vvod, oper_vyvod, ksv_v_samoproisv_otkl, ksv_neispr_V, ksv_v_avar_otkl, ksv_rfk, ksv_blok_vkl, ksv_blok_otkl, ksv_neisp_emu, ksv_zashita_emv, ksv_zashita_emo1, ksv_zashita_emo2 #, ET_t1, ET_t2, ET_t31, ET_t32, ET_t33, _p001, _p002, _p003, _p004, _p005, _p006, _p007, _p008, _p009, _p010
 
 
     # Геттеры и сеттеры
