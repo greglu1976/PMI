@@ -1,7 +1,7 @@
 # (T_LVALH) Функция ПС - предупредительная сигнализация трансформатора 35 кВ исполнение Т
-# ЕСЛИ НЕ ИСПОЛЬЗУЕТСЯ ТО УДАЛИТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! в папке lib есть!!!!!!
+
 class T_LVALH:
-    def __init__(self, SGF1_t_lvalh, SGF2_t_lvalh, SGF3_t_lvalh, SGF4_t_lvalh, SGF5_t_lvalh, SGF6_t_lvalh, SGF7_t_lvalh, SGF8_t_lvalh, SGF9_t_lvalh, SGF10_t_lvalh, SGF11_t_lvalh, SGF12_t_lvalh, SGF13_t_lvalh, SGF14_t_lvalh):
+    def __init__(self, SGF1_t_lvalh=0, SGF2_t_lvalh=0, SGF3_t_lvalh=0, SGF4_t_lvalh=0, SGF5_t_lvalh=0, SGF6_t_lvalh=0, SGF7_t_lvalh=0, SGF8_t_lvalh=0, SGF9_t_lvalh=0, SGF10_t_lvalh=0, SGF11_t_lvalh=0, SGF12_t_lvalh=0, SGF13_t_lvalh=0, SGF14_t_lvalh=0):
         self.SGF1 = SGF1_t_lvalh # ГЗ сигн
         self.SGF2 = SGF2_t_lvalh # Низк.изол.ГЗ
         self.SGF3 = SGF3_t_lvalh # ГЗ заблокирована
