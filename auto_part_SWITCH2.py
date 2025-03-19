@@ -1,6 +1,5 @@
-# автоматическое тестирование ФСУ в части КСВ, КП, КА, УВ
+# автоматическое тестирование ФСУ в части КСВ, КП, КА, УВ + СС, ПС
 # с графическим интерфейсом
-
 
 import tkinter as tk
 from tkinter import ttk
@@ -17,11 +16,10 @@ import openpyxl
 # Импортируем новый класс part_SWITCH
 from part_SWITCH2 import part_SWITCH
 
-
 class PartOfSwitchGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ в части КСВ, КП, КА, УВ")
+        self.root.title("Тестирование ФСУ в части КСВ, КП, КА, УВ, СС, ПС. 19.03.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -110,7 +108,7 @@ class PartOfSwitchGUI:
             "OV_tsd": tk.IntVar(value=0),
             "lovn_lo_otkl_avar": tk.IntVar(value=0),
             "oper_otkl_v": tk.IntVar(value=0),
-            "sbros": tk.IntVar(value=0),
+            #"sbros": tk.IntVar(value=0),
         }
 
         self.output_labels = {}
@@ -197,7 +195,7 @@ class PartOfSwitchGUI:
             "uv_prev_vrem_per_cbcswi1_swctrl", "uv_vkluchit_cbcswi1_swctrl", "uv_ne_opredeleno_cbcswi1_swctrl",
             "uv_otklucheno_cbcswi1_swctrl", "uv_vklucheno_cbcswi1_swctrl", "uv_neispr_neopred_cbcswi1_swctrl",
             "vvod_cbcswi1_hvbctrl", "oper_vyvod_cbcswi1_hvbctrl", "uv_vkl_cbcswi1_hvbctrl",
-            "vvod_tds", "oper_vyvod_tds", "vvod_xcbr1_tsd", "v_prom_pol_xcbr1_tsd", "v_otkluchen_xcbr1_tsd",
+            "vvod_tsd", "oper_vyvod_tsd", "vvod_xcbr1_tsd", "v_prom_pol_xcbr1_tsd", "v_otkluchen_xcbr1_tsd",
             "v_vkluchen_xcbr1_tsd", "v_neisp_pol_xcbr1_tsd", "v_otkluchit_rele_xcbr1_tsd", "v_vkluchit_rele_xcbr1_tsd", "ss_prev_vrem_per_ka", "pusk_t_lvalh"
         ]
 
@@ -279,7 +277,7 @@ class PartOfSwitchGUI:
                     label.config(background="green", foreground="white")
 
             time.sleep(0.3)  # Время шага опроса
-            self.status_label.config(text="Шаг", background="gray", foreground="gray")
+            self.status_label.config(text="Шаг", background="white", foreground="white")
             time.sleep(0.05)  # Время шага опроса
             self.status_label.config(text="Шаг", background="#F0F0F0", foreground="#F0F0F0")
 

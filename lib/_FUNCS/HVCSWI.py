@@ -26,7 +26,6 @@ class HVCSWI:
         _p001, ET_t1 = self.T1.start()
 
         self.uv_vkl = self.RS1.run(_p001, (ksv_blok_vkl or self.uv_vkl  or not(vvod)))
-  
         return vvod, oper_vyvod, self.uv_vkl #, ET_t1, _p001  
 
     # Геттеры и сеттеры

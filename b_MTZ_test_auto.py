@@ -16,7 +16,7 @@ from b_MTZ import partOfFsuInTOC
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, ПС")
+        self.root.title("Тестирование ФСУ в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС")
         self.part = None
         self.polling_thread = None
         self.is_polling = False

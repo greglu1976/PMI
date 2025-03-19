@@ -1,12 +1,11 @@
 # ЧАСТЬ СХЕМЫ ФСУ ДЛЯ КСВ, КП, КА, УВ
+# ЭТА версия с СС, ПС (Изм. по срав с part_SWITCH - убран второй sbros!)
 # ИСПОЛНЕНИЯ Т
 
 from lib._FBS.LVCBSUP import LVCBSUP # импорт ФБ КСВ
 from lib._FBS.SWCTRL import SWCTRL # импорт ФБ КП
 from lib._FBS.HVBCTRL import HVBCTRL # импорт ФБ УВ
 from lib._FBS.T_SwitchDevice import T_Switch_Device # импорт ФБ КА
-
-
 from lib._FBS.T_SignAssembly import T_SignAssembly # импорт ФБ СС
 from lib._FBS.T_LVALH import T_LVALH # импорт ФБ ПС
 
@@ -48,7 +47,7 @@ class part_SWITCH:
     OV_rcbf1_lvcbsup, ot_emo1emv, ot_emo2, lovn_otkl, urov_nasebya, avar_isol_V, niz_isol_V, pruzh_ne_zaved, Sbros, otkl_ot_knopk, oper_otkl_V, KRV_resurs_V, vnesh_blok_upr_V, kontr_emv, kontr_emo1, kontr_emo2, rabota_emv, rabota_emo1, rabota_emo2,
     OV_swctrl, otkl_v_ot_pu, otkl_v_ichm, mestnoe, otkl_v_ot_tu, otkl_v_asu, kluch_md_priv, vkl_v_ot_pu, vkl_v_ichm, distanz, vkl_v_ot_tu, vkl_v_asu, v_otkl_bk, v_vkl_bk,
     OV_cbcswi1_hvbctrl, oper_vkl_v, 
-    OV_tsd, lovn_lo_otkl_avar, oper_otkl_v, sbros
+    OV_tsd, lovn_lo_otkl_avar, oper_otkl_v
     ):
         vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(VYVOD, OV_rcbf1_lvcbsup, ot_emo1emv, ot_emo2, lovn_otkl, urov_nasebya, avar_isol_V, niz_isol_V, pruzh_ne_zaved, self.v_neisp_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, Sbros, self.uv_otkluchit_cbcswi1_swctrl, otkl_ot_knopk, oper_otkl_V, KRV_resurs_V, vnesh_blok_upr_V, kontr_emv, kontr_emo1, kontr_emo2, rabota_emv, rabota_emo1, rabota_emo2)
 
@@ -56,7 +55,7 @@ class part_SWITCH:
 
         vvod_cbcswi1_hvbctrl, oper_vyvod_cbcswi1_hvbctrl, uv_vkl_cbcswi1_hvbctrl = self.hvbctrl.Step(VYVOD, OV_cbcswi1_hvbctrl, oper_vkl_v, blok_vkl_rcbf1_lvcbsup)
 
-        vvod_tds, oper_vyvod_tds,  vvod_xcbr1_tsd, v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_neisp_pol_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd = self.tsd.Step(VYVOD, OV_tsd, v_otkl_bk, v_vkl_bk, self.uv_otkluchit_cbcswi1_swctrl, lovn_lo_otkl_avar, urov_nasebya, oper_otkl_v, blok_otkl_rcbf1_lvcbsup, rabota_emo1, rabota_emo2, sbros, uv_vkluchit_cbcswi1_swctrl, uv_vkl_cbcswi1_hvbctrl, rabota_emv)
+        vvod_tds, oper_vyvod_tds,  vvod_xcbr1_tsd, v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_neisp_pol_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd = self.tsd.Step(VYVOD, OV_tsd, v_otkl_bk, v_vkl_bk, self.uv_otkluchit_cbcswi1_swctrl, lovn_lo_otkl_avar, urov_nasebya, oper_otkl_v, blok_otkl_rcbf1_lvcbsup, rabota_emo1, rabota_emo2, Sbros, uv_vkluchit_cbcswi1_swctrl, uv_vkl_cbcswi1_hvbctrl, rabota_emv)
 
         ss_prev_vrem_per_ka = self.tsa.Step(VYVOD=VYVOD, prev_vrem_ka=(uv_prev_vrem_per_cbcswi1_swctrl,))[15]
 
