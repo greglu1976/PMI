@@ -1,6 +1,6 @@
 # Функц блок ГЗ РПН
 
-from f_TECHPTRC import TECHPTRC
+from lib._FUNCS.TECHPTRC import TECHPTRC
 
 class TLTCGASLGC:
     def __init__(self, SGF1_ptrc1_tltcgaslgc, SGF2_ptrc1_tltcgaslgc, T1_ptrc1_tltcgaslgc):

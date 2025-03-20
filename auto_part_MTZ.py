@@ -1,3 +1,6 @@
+# автоматическое тестирование ФСУ в части МТЗ, КЦН, ПС Т2
+# с графическим интерфейсом
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
@@ -11,7 +14,7 @@ from openpyxl.worksheet.dimensions import ColumnDimension
 
 import itertools
 import openpyxl
-from b_MTZ import partOfFsuInTOC
+from lib._PARTS.MTZ_T2 import partOfFsuInTOC
 
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):

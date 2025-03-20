@@ -1,11 +1,11 @@
-# Функциональный блок LVTTOC
+# Функциональный блок LVTTOC для Т2
 # Максимальная токовая защита с пуском по напряжению (МТЗ/U) (LVTTOC)
 # SGF1 - Сборка_ток_цепей - Сборка токовых цепей (Звезда/ Треугольник)
 
-from LVTPTOC import LVTPTOC
-from VCPTUV import VCPTUV
-from TOCPHAR import TOCPHAR
-from LBPRBLC import LBPRBLC
+from lib._FUNCS.LVTPTOC import LVTPTOC
+from lib._FUNCS.VCPTUV import VCPTUV
+from lib._FUNCS.TOCPHAR import TOCPHAR
+from lib._FUNCS.LBPRBLC import LBPRBLC
 
 class LVTTOC:
     def __init__(self, SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1,

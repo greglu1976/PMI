@@ -1,14 +1,14 @@
 # ЧАСТЬ СХЕМЫ ФСУ ДЛЯ ПРОВЕРКИ ГАЗОВЫХ И ТЕХНОЛОГИЧЕСКИХ ЗАЩИТ
 # ИСПОЛНЕНИЯ Т
 
-from fb_APTTECHLGC import APTTECHLGC # импорт ТЗ
-from fb_ALMTECHLGC_UIRZ import ALMTECHLGC_UIRZ # импорт ТС
-from fb_TALMGASLGC import TALMGASLGC
-from fb_TTRGASLGC import TTRGASLGC
-from fb_TLTCGASLGC import TLTCGASLGC
-from fb_TOFFLVLGC import TOFFLVLGC # импорт ЛО Т
-from f_T_SignAssembly import T_SignAssembly
-from f_T_LVALH import T_LVALH # импорт ПС
+from lib._FBS.APTTECHLGC import APTTECHLGC # импорт ТЗ
+from lib._FBS.ALMTECHLGC_UIRZ import ALMTECHLGC_UIRZ # импорт ТС
+from lib._FBS.TALMGASLGC import TALMGASLGC
+from lib._FBS.TTRGASLGC import TTRGASLGC
+from lib._FBS.TLTCGASLGC import TLTCGASLGC
+from lib._FBS.TOFFLVLGC import TOFFLVLGC # импорт ЛО Т
+from lib._FBS.T_SignAssembly import T_SignAssembly
+from lib._FBS.T_LVALH import T_LVALH # импорт ПС
 
 class part_TECH_T:
     def __init__(self, SGF1_oilptrc1_apttechlgc, SGF2_oilptrc1_apttechlgc,T1_oilptrc1_apttechlgc, SGF1_winptrc1_apttechlgc, SGF2_winptrc1_apttechlgc, T1_winptrc1_apttechlgc, SGF1_vlvptrc1_apttechlgc, SGF2_vlvptrc1_apttechlgc, T1_vlvptrc1_apttechlgc, SGF1_prvlvptrc1_almtechlgc, SGF1_shvlvptrc1_almtechlgc,SGF1_levptrc1_almtechlgc, SGF1_ptrc1_talmgaslgc, SGF2_ptrc1_talmgaslgc, T1_ptrc1_talmgaslgc, SGF1_ptrc1_ttrgaslgc, SGF2_ptrc1_ttrgaslgc, T1_ptrc1_ttrgaslgc, SGF1_ptrc1_tltcgaslgc, SGF2_ptrc1_tltcgaslgc, T1_ptrc1_tltcgaslgc, SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc, SGF1_t_lvalh, SGF2_t_lvalh, SGF3_t_lvalh, SGF4_t_lvalh, SGF5_t_lvalh, SGF6_t_lvalh, SGF7_t_lvalh, SGF8_t_lvalh, SGF9_t_lvalh, SGF10_t_lvalh, SGF11_t_lvalh, SGF12_t_lvalh, SGF13_t_lvalh, SGF14_t_lvalh, SGF1_t_signassembly, SGF2_t_signassembly, SGF3_t_signassembly, SGF4_t_signassembly, SGF5_t_signassembly, SGF6_t_signassembly, SGF7_t_signassembly, SGF8_t_signassembly, SGF9_t_signassembly, SGF10_t_signassembly, SGF11_t_signassembly, SGF12_t_signassembly, SGF13_t_signassembly):

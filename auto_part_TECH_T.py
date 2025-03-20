@@ -7,7 +7,7 @@ import pandas as pd
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
-from part_TECH_T import part_TECH_T 
+from lib._PARTS.TECH_T import part_TECH_T 
 
 class PartOfTECH_T_GUI:
     def __init__(self, root):

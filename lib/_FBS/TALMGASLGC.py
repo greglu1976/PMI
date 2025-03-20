@@ -1,6 +1,6 @@
 # Функц блок ГЗ сигн
 
-from f_TECHPTRC_2 import TECHPTRC_2
+from lib._FUNCS.TECHPTRC_2 import TECHPTRC_2
 
 class TALMGASLGC:
     def __init__(self, SGF1_ptrc1_talmgaslgc, SGF2_ptrc1_talmgaslgc, T1_ptrc1_talmgaslgc):

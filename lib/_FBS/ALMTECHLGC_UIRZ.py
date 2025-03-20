@@ -2,7 +2,7 @@
 
 # НЕ ТЕСТИРОВАЛСЯ!
 
-from f_TECHPTRC_4 import TECHPTRC_4
+from lib._FUNCS.TECHPTRC_4 import TECHPTRC_4
 
 class ALMTECHLGC_UIRZ:
     def __init__(self, SGF1_prvlvptrc1_almtechlgc, SGF1_shvlvptrc1_almtechlgc,SGF1_levptrc1_almtechlgc):

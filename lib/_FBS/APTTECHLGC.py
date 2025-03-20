@@ -2,8 +2,8 @@
 
 # НЕ ТЕСТИРОВАЛСЯ!
 
-from TECHPTRC_3 import TECHPTRC_3
-from f_TECHPTRC import TECHPTRC
+from lib._FUNCS.TECHPTRC_3 import TECHPTRC_3
+from lib._FUNCS.TECHPTRC import TECHPTRC
 
 class APTTECHLGC:
     def __init__(self, SGF1_oilptrc1_apttechlgc, SGF2_oilptrc1_apttechlgc,T1_oilptrc1_apttechlgc,

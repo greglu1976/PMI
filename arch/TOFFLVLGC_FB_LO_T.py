@@ -1,8 +1,8 @@
 # (TOFFLVLGC) Функция ЛО Т - Логика отключения трансформатора 35 кВ (в составе устройства ЮНИТ-М3-Т)
 
-from T_TJNTPTRC import T_TJNTPTRC
-from T_JNTRBRE import T_JNTRBRE
-from T_BTS1RBLC import T_BTS1RBLC
+from lib._FUNCS.T_TJNTPTRC import T_TJNTPTRC
+from lib._FUNCS.T_JNTRBRE import T_JNTRBRE
+from lib._FUNCS.T_BTS1RBLC import T_BTS1RBLC
 
 class TOFFLVLGC:
     def __init__(self, SGF1_ptrc1, SGF1_rbre1, SGF2_rbre1, SGF3_rbre1, SGF1_rblc1, SGF2_rblc1, SGF3_rblc1):

@@ -14,7 +14,7 @@ from openpyxl.worksheet.dimensions import ColumnDimension
 import openpyxl
 
 # Импортируем новый класс part_SWITCH
-from part_SWITCH2 import part_SWITCH
+from lib._PARTS.SWITCH import SWITCH
 
 class PartOfSwitchGUI:
     def __init__(self, root):
@@ -211,7 +211,7 @@ class PartOfSwitchGUI:
                 col += 2
 
     def init_part(self):
-        self.part = part_SWITCH(
+        self.part = SWITCH(
             SGF1_rcbf1_lvcbsup=self.sgf_params["SGF1_rcbf1_lvcbsup"].get(),
             SGF2_rcbf1_lvcbsup=self.sgf_params["SGF2_rcbf1_lvcbsup"].get(),
             SGF3_rcbf1_lvcbsup=self.sgf_params["SGF3_rcbf1_lvcbsup"].get(),
@@ -230,7 +230,7 @@ class PartOfSwitchGUI:
             T1_cbcswi1_swctrl=self.settings["T1_cbcswi1_swctrl"].get(),
             T2_cbcswi1_swctrl=self.settings["T2_cbcswi1_swctrl"].get(),
             T3_cbcswi1_swctrl=self.settings["T3_cbcswi1_swctrl"].get(),
-            T4_cbcswi1_swctr=self.settings["T4_cbcswi1_swctr"].get(),
+            T4_cbcswi1_swctr=self.settings["T4_cbcswi1_swctrl"].get(),
             SGF1_cbcswi1_hvbctrl=self.sgf_params["SGF1_cbcswi1_hvbctrl"].get(),
             T1_cbcswi1_hvbctrl=self.settings["T1_cbcswi1_hvbctrl"].get(),
             SGF1_tsd=self.sgf_params["SGF1_tsd"].get(),
