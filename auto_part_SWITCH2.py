@@ -60,7 +60,7 @@ class PartOfSwitchGUI:
             "T1_cbcswi1_swctrl": tk.DoubleVar(value=1),
             "T2_cbcswi1_swctrl": tk.DoubleVar(value=1),
             "T3_cbcswi1_swctrl": tk.DoubleVar(value=1),
-            "T4_cbcswi1_swctr": tk.DoubleVar(value=1),
+            "T4_cbcswi1_swctrl": tk.DoubleVar(value=1),
             "T1_cbcswi1_hvbctrl": tk.DoubleVar(value=1),
             "T1_xcbr1_tsd": tk.DoubleVar(value=1),
             "T2_xcbr1_tsd": tk.DoubleVar(value=1),

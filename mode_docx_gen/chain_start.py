@@ -5,10 +5,13 @@ from main import make_par, make_par2
 
 import re
 
-def parse_assembly_file(doc, file_path):
+
+def parse_assembly_file(doc, dir):
     """
     Функция для чтения и разбора файла _assembly.txt.
     """
+    file_path =dir +'/' + '_assembly.txt'
+
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
@@ -37,16 +40,18 @@ def parse_assembly_file(doc, file_path):
                 intro_text=data['intro_text'],
                 func_modes_dir=data['func_modes_dir'],
                 needed_inputs=data['needed_inputs'],
-                needed_outputs=data['needed_outputs']
+                dir = dir
             )
         else:
             print(f"Skipping block due to missing data: {block}")
     return doc
 
-def parse_assembly_file2(doc, file_path):
+def parse_assembly_file2(doc, dir):
     """
     Функция для чтения и разбора файла _assembly.txt.
     """
+    file_path =dir +'/' + '_assembly.txt'
+
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
@@ -74,22 +79,31 @@ def parse_assembly_file2(doc, file_path):
                 heading=data['result_heading'],
                 intro_text=data['result_text'],
                 func_modes_dir=data['func_modes_dir'],
-                needed_inputs=data['needed_inputs'],
-                needed_outputs=data['needed_outputs']
+                needed_outputs=data['needed_outputs'],
+                dir = dir
             )
         else:
             print(f"Skipping block due to missing data: {block}")
     return doc
 
-doc = Document('template.docx')
+##############################################################
+# ЗАПУСК
+# 1. УКАЗЫВАЕМ ПАПКУ С ПМИ
+dir = 'pmi_ka'
+# 2. Добавляем глобальную переменную для управления выводом таблиц в файле main.py
+# Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
+# 3. Указываем, нужно ли перегенерировать режимы в файле main.py
+# Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
+#############################################################
+
+doc = Document(dir +'//' +'template.docx')
 # Укажите путь к файлу _assembly.txt
-file_path = '_assembly.txt'
 
 # Запускаем парсинг файла
-doc = parse_assembly_file(doc, file_path)
+doc = parse_assembly_file(doc, dir)
 
 paragraph = doc.add_heading('РЕЗУЛЬТАТ ИСПЫТАНИЙ', level=1)
-doc = parse_assembly_file2(doc, file_path)
+doc = parse_assembly_file2(doc, dir)
 
 # Сохранение документа
 doc.save('_pmi.docx')

@@ -24,6 +24,7 @@ from docx.oxml.ns import qn
 from analizator import start_analyze
 from create_settings_from_mode2 import start_proceed_modes
 
+
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
 REGENERATE = 1 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
@@ -221,11 +222,13 @@ def add_table_set(doc, data):
             if units == 'мс':
                 units = 'с'
                 table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
+                table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
             else:
                 table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
+                table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
 
         table.cell(row_idx, 3).text = units
-        table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+        #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
         set_value = str(values.get('SetValue', '')).replace('.', ',')
         table.cell(row_idx, 5).text = set_value
 
@@ -593,11 +596,10 @@ def add_json_data_to_doc_opt(folder_path, doc, root_dir=''):
     return doc
 
 
-
 # Основной код
-def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_outputs):
+def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, dir):
     # Корень
-    root_dir = 'pmi_mtz\\'
+    root_dir = dir + '\\'
 
     #print('========================================', heading, intro_text, func_modes_dir, needed_inputs, needed_outputs)
     # Параметры описания
@@ -611,7 +613,6 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_out
     # Путь к папке с файлами
     #folder_path = root_dir + 'bnt_modes' # ПАПКА УКАЗЫВАЕТСЯ ТОЛЬКО ЗДЕСЬ - к режимам в xlsx
     folder_path = root_dir + func_modes_dir
-
 
     if REGENERATE==1:
         # Этап 1: Генерация JSON
@@ -630,7 +631,7 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_out
     with open(root_dir + needed_inputs, 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_inputs.json
-    with open(root_dir+'fsu_mtz_inputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'inputs.json', 'r', encoding='utf-8') as f:
         replacement_titles = json.load(f)
     combined_df = procced_xlsx(folder_path, needed_columns, 'Inputs')
     
@@ -647,9 +648,9 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_out
 
     return doc
 
-def make_par2(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_outputs):
+def make_par2(doc, heading, intro_text, func_modes_dir, needed_outputs, dir):
     # Корень
-    root_dir = 'pmi_mtz\\'
+    root_dir = dir + '\\'
 
     # Параметры описания
     #heading = 'Проверка МТЗ 3 ступень'
@@ -670,7 +671,7 @@ def make_par2(doc, heading, intro_text, func_modes_dir, needed_inputs, needed_ou
     with open(root_dir + needed_outputs, 'r', encoding='utf-8') as f:
         needed_columns = json.load(f)
     # Загрузка словаря для замены заголовков из JSON-файла fsu_mtz_outputs.json
-    with open(root_dir+'fsu_mtz_outputs.json', 'r', encoding='utf-8') as f:
+    with open(root_dir+'outputs.json', 'r', encoding='utf-8') as f:
         replacement_titles = json.load(f)
     combined_df = procced_xlsx(folder_path, needed_columns, 'Outputs')
     doc.add_paragraph('Контролируемые сигналы при проверке', style='ЮИ_Таблица_Название')

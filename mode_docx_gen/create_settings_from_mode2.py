@@ -60,7 +60,7 @@ def load_and_find_data(data, result_dict, set_value, root_dir = ''):
     else:
         row = df[df['alias'] == switch]
         if row.empty:
-            print(f"Значение '{switch}' не найдено в столбце 'alias'")
+            print(f"Значение '{switch}' не найдено в столбце 'alias'{file_path}")
             return
     # Извлекаем нужные столбцы и преобразуем numpy.int64 в стандартные типы Python
     result = {
