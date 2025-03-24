@@ -113,7 +113,7 @@ class PartOfTOKGUI:
         for key, var in self.sgf_params.items():
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
             if isinstance(var, tk.IntVar):
-                ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
+                ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)
             elif isinstance(var, tk.DoubleVar):
                 ttk.Entry(sgf_frame, textvariable=var).grid(row=row, column=col + 1)
             row += 1

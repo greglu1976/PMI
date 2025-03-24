@@ -21,10 +21,9 @@ class LVPTOC:
         oper_vyvod = (OV or VYVOD) and (self.SGF1==1) # ТО: Оперативный вывод
 
         # Переключение с фазных на линейные токи
-        Ia = IA if (self.SGF1==0) else IAB
-        Ib = IB if (self.SGF1==0) else IBC
-        Ic = IC if (self.SGF1==0) else ICA
-
+        Ia = IA if (self.SGF2==0) else IAB
+        Ib = IB if (self.SGF2==0) else IBC
+        Ic = IC if (self.SGF2==0) else ICA
         I = max(Ia, Ib, Ic)
         io = (self.SGF1==1) and (self.RS.run((I>=self.Iset), (I<0.95*self.Iset)))
         pusk = vvod and io
