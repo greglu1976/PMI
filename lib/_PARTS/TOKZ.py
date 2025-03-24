@@ -52,7 +52,7 @@ class partTOKZ:
         Isimm = threeI.calculate_symmetric_components()
         I1 = Isimm['U1']['amplitude']
         I2 = Isimm['U2']['amplitude']
-        I0 = 3*Isimm['U2']['amplitude']        
+        I0 = 3*Isimm['U0']['amplitude']        
 
         # Рассчитываем ТО
         vvod_ptoc1_lvtoc, oper_vyvod_ptoc1_lvtoc, pusk_ptoc1_lvtoc, io_ptoc1_lvtoc, srabsign_ptoc1_lvtoc, srab_ptoc1_lvtoc, ET_ptoc1_lvtoc =  self.lvtoc.Step(VYVOD, OV_ptoc1_lvtoc, NaSign_ptoc1_lvtoc, IA, IB, IC, IAB, IBC, ICA)
