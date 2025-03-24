@@ -11,6 +11,6 @@ class LVTOC:
         return vvod_ptoc1_lvtoc, oper_vyvod_ptoc1_lvtoc, pusk_ptoc1_lvtoc, io_ptoc1_lvtoc, srabsign_ptoc1_lvtoc, srab_ptoc1_lvtoc, ET_ptoc1_lvtoc
 
 if __name__ == "__main__":
-    fb = LVTOC(SGF1=1, SGF1=1, T1=0, Iset=1)
+    fb = LVTOC(SGF1=1, SGF2=1, T1=0, Iset=1)
     res = fb.Step(0,0,0,0,0,0,0,0,0)
     print(res)

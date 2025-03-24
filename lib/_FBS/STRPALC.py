@@ -17,7 +17,7 @@ class STRPALC:
         pusk_strpalc = pusk_hvptoc1_strpalc or pusk_lvptoc1_strpalc or pusk_lvptoc2_strpalc
         vvod_strpalc = vvod_hvptoc1_strpalc or vvod_lvptoc1_strpalc or vvod_lvptoc2_strpalc
 
-        return vvod_hvptoc1_strpalc, oper_vyvod_hvptoc1_strpalc, pusk_hvptoc1_strpalc, io_hvptoc1_strpalc, vvod_lvptoc1_strpalc, oper_vyvod_lvptoc1_strpalc, pusk_lvptoc1_strpalc, io_lvptoc1_strpalc, vvod_lvptoc2_strpalc, oper_vyvod_lvptoc2_strpalc, pusk_lvptoc2_strpalc, io_lvptoc2_strpalc, pusk_strpalc,  vvod_strpalc
+        return vvod_hvptoc1_strpalc, oper_vyvod_hvptoc1_strpalc, pusk_hvptoc1_strpalc, io_hvptoc1_strpalc, vvod_lvptoc1_strpalc, oper_vyvod_lvptoc1_strpalc, pusk_lvptoc1_strpalc, io_lvptoc1_strpalc, vvod_lvptoc2_strpalc, oper_vyvod_lvptoc2_strpalc, pusk_lvptoc2_strpalc, io_lvptoc2_strpalc, pusk_strpalc, vvod_strpalc
 
 if __name__ == "__main__":
     fb = STRPALC(SGF1=1, T1=0, Iset=1)

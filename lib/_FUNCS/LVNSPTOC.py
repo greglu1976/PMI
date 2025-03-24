@@ -10,7 +10,7 @@ class LVNSPTOC:
     def __init__(self, SGF1, SGF2, T1, I2set, RatioSet, In):
         self.SGF1 = SGF1
         self.SGF2 = SGF2        
-        self.Iset = I2set
+        self.I2set = I2set
         self.RatioSet = RatioSet
         self.In = In
         self.T1 = TON()
@@ -25,10 +25,14 @@ class LVNSPTOC:
         oper_vyvod = (OV or VYVOD) and (self.SGF1==1) # ЗОП: Оперативный вывод
 
         io_I2 = (self.SGF1==1) and (self.RS1.run((I2>=self.I2set), (I2<0.95*self.I2set)))
-        io_rat = (self.SGF1==1) and (self.RS2.run(((I2/I1)>=self.RatioSet), ((I2/I1)<0.95*self.RatioSet))) and (self.RS3.run((I1>=0.04*self.In), (I1<0.95*0.04*self.In)))
 
+        if I1!=0:
+            _tr1 = self.RS2.run(((I2/I1)>=self.RatioSet), ((I2/I1)<0.95*self.RatioSet))
+            _tr2 = self.RS3.run((I1>=0.04*self.In), (I1<0.95*0.04*self.In))
+            io_rat = (self.SGF1==1) and _tr1 and _tr2
+        else:
+            io_rat=0
         pusk = vvod and ((io_I2 if self.SGF2==0 else 0) or (io_rat if self.SGF2==1 else 0) or ((io_I2 or io_rat) if self.SGF2==2 else 0))  
-
         self.T1.IN = pusk
         srabsign, ET = self.T1.start()  # Запускаем таймер и получаем выход и прошедшее время   
         srab = srabsign and not NaSign     
