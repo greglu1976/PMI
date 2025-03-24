@@ -37,6 +37,8 @@ class PartOfTOKGUI:
             "SGF1_ptoc1_lvarctoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvarctoc": tk.IntVar(value=0),
             "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),
+            "SGF1_ptoc1_ltcblktoc": tk.IntVar(value=0), 
+            "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=1),
             "SGF1_hvptoc1_strpalc": tk.IntVar(value=0),
             "Iset_hvptoc1_strpalc": tk.DoubleVar(value=1),
             "SGF1_lvptoc1_strpalc": tk.IntVar(value=0),
@@ -84,6 +86,7 @@ class PartOfTOKGUI:
             "mtz1_pusk": tk.IntVar(value=0),
             "mtz2_pusk": tk.IntVar(value=0),
             "mtz3_pusk": tk.IntVar(value=0),
+            "OV_ptoc1_ltcblktoc": tk.IntVar(value=0),            
             "OV_strpalc": tk.IntVar(value=0),
             "OV_hvptoc1_strpalc": tk.IntVar(value=0),
             "OV_lvptoc1_strpalc": tk.IntVar(value=0),
@@ -173,7 +176,9 @@ class PartOfTOKGUI:
             "vvod_nsptoc1_lvnstoc", "oper_vyvod_nsptoc1_lvnstoc", "srab_nsptoc1_lvnstoc", "srabsign_nsptoc1_lvnstoc", "pusk_nsptoc1_lvnstoc", "io_I2_nsptoc1_lvnstoc", "io_rat_nsptoc1_lvnstoc",
             "vvod_ptrc1_ttoclgc", "oper_vyvod_ptrc1_ttoclgc", "pusk_ptrc1_ttoclgc", "srab_ptrc1_ttoclgc",
             "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc", "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc", "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc",
-            "pusk_lvalv", "IAB", "IBC", "ICA", "I1", "I2", "I0"
+            "pusk_lvalv",
+            "vvod_ptoc1_ltcblktoc", "oper_vyvod_ptoc1_ltcblktoc", "pusk_ptoc1_ltcblktoc", "io_ptoc1_ltcblktoc",             
+            "IAB", "IBC", "ICA", "I1", "I2", "I0"
         ]
 
         row = 0
@@ -199,6 +204,8 @@ class PartOfTOKGUI:
             SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
             SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
             Iset_ptoc1_lvarctoc=self.sgf_params["Iset_ptoc1_lvarctoc"].get(),
+            SGF1_ptoc1_ltcblktoc=self.sgf_params["SGF1_ptoc1_ltcblktoc"].get(),
+            Iset_ptoc1_ltcblktoc=self.sgf_params["Iset_ptoc1_ltcblktoc"].get(),                        
             SGF1_hvptoc1_strpalc=self.sgf_params["SGF1_hvptoc1_strpalc"].get(),
             Iset_hvptoc1_strpalc=self.sgf_params["Iset_hvptoc1_strpalc"].get(),
             SGF1_lvptoc1_strpalc=self.sgf_params["SGF1_lvptoc1_strpalc"].get(),
