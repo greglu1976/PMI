@@ -16,7 +16,7 @@ from lib._PARTS.TOKZ import partTOKZ
 class PartOfTOKGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование токовых функций ФСУ, v1.0 от 24.03.25")
+        self.root.title("Тестирование токовых функций ФСУ, v2.0 от 25.03.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -50,24 +50,22 @@ class PartOfTOKGUI:
             "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
             "Номинальный ток входа": tk.IntVar(value=5),            
         }
-
         self.settings = {
             "T1_ptoc1_lvtoc": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvtoc": tk.DoubleVar(value=1),
+            "Iset_ptoc1_lvtoc": tk.DoubleVar(value=0.2),
             "T1_hvptoc1_lovctoc": tk.DoubleVar(value=1),
-            "Iset_hvptoc1_lovctoc": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),
-            "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=1),
+            "Iset_hvptoc1_lovctoc": tk.DoubleVar(value=0.2),
+            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=0.2),
+            "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=0.2),
             #"Iset_hvptoc1_strpalc": tk.DoubleVar(value=1),
             #"Iset_lvptoc1_strpalc": tk.DoubleVar(value=1),
             #"Iset_lvptoc2_strpalc": tk.DoubleVar(value=1),
             "T1_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
-            "I2set_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
+            "I2set_nsptoc1_lvnstoc": tk.DoubleVar(value=0.2),
             "RatioSet_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
             "In_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
             "T1_ptrc1_ttoclgc": tk.DoubleVar(value=1),
         }
-
         self.input_vars = {
             "VYVOD": tk.IntVar(value=0),
             "IA": tk.DoubleVar(value=0),
