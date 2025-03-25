@@ -55,7 +55,7 @@ def load_and_find_data(data, result_dict, set_value, root_dir = ''):
         # Ищем значение в столбце 'AppliedDescription'
         row = df[df['AppliedDescription'] == switch]
         if row.empty:
-            print(f"Значение '{switch}' не найдено в столбце 'AppliedDescription'")
+            print(f"Значение '{switch}' не найдено в столбце 'AppliedDescription' {file_path}")
             return
     else:
         row = df[df['alias'] == switch]
