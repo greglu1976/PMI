@@ -1,20 +1,19 @@
 # Функция КСВ
 
-#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
-#SGF2 - Бл_вкл_от_низ.ур.КИ - Блокировка включения низкого уровня контроля изоляции	(Не предусмотрено/ Предусмотрено)
-#SGF3 - Бл_вкл_от_неисп_пол - Блокировка включения от неисправности положения В (Не предусмотрено/ Предусмотрено)
-#SGF4 - Бл_вкл_от_прев_рес - Блокировка включения от превышения ресурса В (Не предусмотрено/ Предусмотрено)
-#SGF5 - Контроль_ОТ_ЭМ - Контроль ОТ цепей ЭМВ, ЭМО1 и ЭМО2 (Не предусмотрено/ ЭМВ и ЭМО1/ ЭМВ, ЭМО1 и ЭМО2)
-#SGF6 - Контроль_ЭМ - Контроль ЭМВ, ЭМО1 и ЭМО2 при формировании	неисправности цепей ЭМУ 	(Не предусмотрено/ ЭМВ и ЭМО1/ ЭМВ, ЭМО1 и ЭМО2)
-#SGF7 - Контроль_сигн_ст - Контроль низкого уровня изоляции для работы аварийного уровня изоляции (Не предусмотрено/ Предусмотрено)
-#SGF8 - Контроль_кнопки - Разрешение сброса "РФК" от кнопки (Не предусмотрено/ Предусмотрено)
-#SGF9 - Бл_упр_от_ав.ур.КИ - Блокировка управления от аварийного уровня контроля изоляции	(Не предусмотрено/ Предусмотрено)
+# SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
+# SGF2 - Блок_вкл_низ_изол_В - Блокировка включения при низком уровне изоляции В (Не предусмотрено/ Предусмотрено)
+# SGF3 - Блок_вкл_полож_В - Блокировка включения при неисправности положения В (Не предусмотрено/ Предусмотрено)
+# SGF4 - Блок_вкл_ресурса_В - Блокировка включения при превышении ресурса В (Не предусмотрено/ Предусмотрено)
+# SGF5 - Контроль_ОТ_ЭМ - Контроль ОТ цепей ЭМВ, ЭМО1 и ЭМО2 (Не предусмотрено/ ЭМВ и ЭМО1/ ЭМВ, ЭМО1 и ЭМО2)
+# SGF6 - Контроль_ЭМ - Контроль ЭМВ, ЭМО1 и ЭМО2 при формировании	неисправности цепей ЭМУ (Не предусмотрено/ ЭМВ и ЭМО1/ ЭМВ, ЭМО1 и ЭМО2)
+# SGF7 - Контроль_кнопки - Разрешение сброса "РФК" от кнопки (Не предусмотрено/ Предусмотрено)
+# SGF8 - Блок_упр_КИ_В - Блокировка управления при снижениии уровня изоляции В (Не предусмотрено/ От аварийного/ От аврийного и низкого
 
 from lib._TIMERS.TIMERS import TON
 from lib._TRIGGERS.TRIGGERS import SRTrigger
 
 class LVTRRCBF:
-    def __init__(self, SGF1, SGF2, SGF3, SGF4, SGF5, SGF6, SGF7, SGF8, SGF9, T1, T2, T3):
+    def __init__(self, SGF1, SGF2, SGF3, SGF4, SGF5, SGF6, SGF7, SGF8, T1, T2, T3):
         self.SGF1 = SGF1
         self.SGF2 = SGF2
         self.SGF3 = SGF3
@@ -23,7 +22,6 @@ class LVTRRCBF:
         self.SGF6 = SGF6
         self.SGF7 = SGF7
         self.SGF8 = SGF8
-        self.SGF9 = SGF9
         self.T1 = TON()
         self.T1.set_PT(T1)
         self.T2 = TON()
@@ -65,7 +63,15 @@ class LVTRRCBF:
 
         ksv_neisp_emu = _p005 and vvod
 
-        _p006 = 0 if self.SGF9==0 else (avar_isol_V and (1 if self.SGF7==0 else niz_isol_V))
+        ######################## ИЗМ 25-03-25
+        if self.SGF8==1:
+            _p006 = avar_isol_V
+        elif self.SGF8==2:
+            _p006 = avar_isol_V and niz_isol_V
+        else:
+            _p006 = 0
+
+        #_p006 = 0 if self.SGF9==0 else (avar_isol_V and (1 if self.SGF7==0 else niz_isol_V)) старая версия
         ksv_blok_otkl = vvod and (vnesh_blok_upr_V or _p006)
 
         if self.SGF5 == 1:
@@ -79,7 +85,7 @@ class LVTRRCBF:
         _p008, ET_t1 = self.T1.start() 
 
         ksv_neispr_V = (niz_isol_V or avar_isol_V or not(_p007) or _p008 or V_neispr_pol or _p005 or (_p001 or _p002 or _p003) or vnesh_blok_upr_V) and vvod
-        _p009 = UV_otkl or (0 if self.SGF8==0 else otkl_ot_knopk) or oper_otkl_V
+        _p009 = UV_otkl or (0 if self.SGF7==0 else otkl_ot_knopk) or oper_otkl_V # SGF8 поправлен на SGF7
         ksv_blok_vkl = (pruzh_ne_zaved or _p006 or not(_p007) or (0 if self.SGF2==0 else niz_isol_V) or _p005 or (0 if self.SGF3==0 else V_neispr_pol) or _p009 or (0 if self.SGF4==0 else KRV_resurs_V) or (lovn_otkl or urov_nasebya) or (rabota_emo1 or rabota_emo2) or vnesh_blok_upr_V) and vvod
 
         _p010 = not vvod or (V_otkl and Sbros) or _p009
@@ -124,10 +130,6 @@ class LVTRRCBF:
         return self.SGF8
     def set_SGF8(self, value):
         self.SGF8 = value
-    def get_SGF9(self):
-        return self.SGF9
-    def set_SGF9(self, value):
-        self.SGF9 = value
 
     def get_T1(self):
         return self.T1.PT  # Предустановленное время таймера
