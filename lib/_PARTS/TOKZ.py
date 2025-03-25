@@ -17,22 +17,22 @@ class partTOKZ:
                 SGF1_ptoc1_lvarctoc, SGF2_ptoc1_lvarctoc, Iset_ptoc1_lvarctoc,
                 SGF1_ptoc1_ltcblktoc, Iset_ptoc1_ltcblktoc,
                 #SGF1_hvptoc1_strpalc, Iset_hvptoc1_strpalc, SGF1_lvptoc1_strpalc, Iset_lvptoc1_strpalc, SGF1_lvptoc2_strpalc, Iset_lvptoc2_strpalc,
-                SGF1_nsptoc1_lvnstoc, SGF2_nsptoc1_lvnstoc, T1_nsptoc1_lvnstoc, I2set_nsptoc1_lvnstoc, RatioSet_nsptoc1_lvnstoc, In_nsptoc1_lvnstoc,
+                SGF1_nsptoc1_lvnstoc, SGF2_nsptoc1_lvnstoc, T1_nsptoc1_lvnstoc, I2set_nsptoc1_lvnstoc, RatioSet_nsptoc1_lvnstoc, 
                 SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc,
                 SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc,
                 Inom
                 ):
 
-        self.lvtoc = LVTOC(SGF1_ptoc1_lvtoc, SGF2_ptoc1_lvtoc, T1_ptoc1_lvtoc, Iset_ptoc1_lvtoc)
-        self.tovctoc = TOVCTOC(SGF1_hvptoc1_lovctoc, T1_hvptoc1_lovctoc, Iset_hvptoc1_lovctoc)
-        self.lvarctoc = LVARCTOC(SGF1_ptoc1_lvarctoc, SGF2_ptoc1_lvarctoc, Iset_ptoc1_lvarctoc)
-        self.ltcblktoc = LTCBLKTOC(SGF1_ptoc1_ltcblktoc, Iset_ptoc1_ltcblktoc)
+        self.lvtoc = LVTOC(SGF1_ptoc1_lvtoc, SGF2_ptoc1_lvtoc, T1_ptoc1_lvtoc, Iset_ptoc1_lvtoc*Inom)
+        self.tovctoc = TOVCTOC(SGF1_hvptoc1_lovctoc, T1_hvptoc1_lovctoc, Iset_hvptoc1_lovctoc*Inom)
+        self.lvarctoc = LVARCTOC(SGF1_ptoc1_lvarctoc, SGF2_ptoc1_lvarctoc, Iset_ptoc1_lvarctoc*Inom)
+        self.ltcblktoc = LTCBLKTOC(SGF1_ptoc1_ltcblktoc, Iset_ptoc1_ltcblktoc*Inom)
         #self.strpalc = STRPALC(SGF1_hvptoc1_strpalc, Iset_hvptoc1_strpalc, SGF1_lvptoc1_strpalc, Iset_lvptoc1_strpalc, SGF1_lvptoc2_strpalc, Iset_lvptoc2_strpalc)
-        self.lvnstoc = LVNSTOC(SGF1_nsptoc1_lvnstoc, SGF2_nsptoc1_lvnstoc, T1_nsptoc1_lvnstoc, I2set_nsptoc1_lvnstoc, RatioSet_nsptoc1_lvnstoc, In_nsptoc1_lvnstoc)
+        self.lvnstoc = LVNSTOC(SGF1_nsptoc1_lvnstoc, SGF2_nsptoc1_lvnstoc, T1_nsptoc1_lvnstoc, I2set_nsptoc1_lvnstoc*Inom, RatioSet_nsptoc1_lvnstoc, Inom)
         self.ttoclgc = TTOCLGC(SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc)
         self.tofflvlgc = TOFFLVLGC(SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc)
         self.lvalh = T_LVALH()  
-        self.Inom = Inom  
+         
 
     def Step(self, VYVOD, IA, dIA, IB, dIB, IC, dIC,
     OV_ptoc1_lvtoc, NaSign_ptoc1_lvtoc,
@@ -44,11 +44,6 @@ class partTOKZ:
     OV_ptrc1_ttoclgc, vnesh_pusk_ptrc1_ttoclgc, blok_lzt_ptrc1_ttoclgc,
     OV_tofflvlg, OVlo_tofflvlg, OVzapv_tofflvlg, OVzavr_tofflvlg,
     ):
-
-        # Пересчитываем с учетом номинального тока входа
-        IA = IA/self.Inom
-        IB = IB/self.Inom
-        IC = IC/self.Inom
 
         # Расчитываем аналоги
         threeI = ThreePhaseSystem(IA, dIA, IB, dIB, IC, dIC)

@@ -63,7 +63,6 @@ class PartOfTOKGUI:
             "T1_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
             "I2set_nsptoc1_lvnstoc": tk.DoubleVar(value=0.2),
             "RatioSet_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
-            "In_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
             "T1_ptrc1_ttoclgc": tk.DoubleVar(value=1),
         }
         self.input_vars = {
@@ -233,7 +232,6 @@ class PartOfTOKGUI:
             T1_nsptoc1_lvnstoc=self.settings["T1_nsptoc1_lvnstoc"].get(),
             I2set_nsptoc1_lvnstoc=self.settings["I2set_nsptoc1_lvnstoc"].get(),
             RatioSet_nsptoc1_lvnstoc=self.settings["RatioSet_nsptoc1_lvnstoc"].get(),
-            In_nsptoc1_lvnstoc=self.settings["In_nsptoc1_lvnstoc"].get(),
             SGF1_ptrc1_ttoclgc=self.sgf_params["SGF1_ptrc1_ttoclgc"].get(),
             SGF2_ptrc1_ttoclgc=self.sgf_params["SGF2_ptrc1_ttoclgc"].get(),
             SGF3_ptrc1_ttoclgc=self.sgf_params["SGF3_ptrc1_ttoclgc"].get(),
