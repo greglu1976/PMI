@@ -48,6 +48,7 @@ class PartOfTOKGUI:
             "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
+            "Номинальный ток входа": tk.IntVar(value=5),            
         }
 
         self.settings = {
@@ -118,7 +119,10 @@ class PartOfTOKGUI:
         col = 0
         for key, var in self.sgf_params.items():
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
-            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
+            if key=='Номинальный ток входа':
+                ttk.Combobox(sgf_frame, textvariable=var, values=[1, 5], state="readonly").grid(row=row, column=col + 1)
+            else:
+                ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             row += 1
             if row >= 10:
                 row = 0
@@ -243,7 +247,9 @@ class PartOfTOKGUI:
             SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(),
             SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(),
             SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            Inom=self.sgf_params["Номинальный ток входа"].get(),
         )
+
         print("partTOKZ initialized")
 
     def start_polling(self):
@@ -346,6 +352,12 @@ class PartOfTOKGUI:
             for key, var in self.sgf_params.items():
                 if key in sgf_df.columns:
                     var.set(sgf_df.at[0, key])
+
+            # Загрузка Settings
+            settings_df = pd.read_excel(xls, sheet_name="Settings")
+            for key, var in self.settings.items():
+                if key in settings_df.columns:
+                    var.set(settings_df.at[0, key])
 
             inputs_df = pd.read_excel(xls, sheet_name="Inputs")
             for key, var in self.input_vars.items():

@@ -20,6 +20,7 @@ class partTOKZ:
                 SGF1_nsptoc1_lvnstoc, SGF2_nsptoc1_lvnstoc, T1_nsptoc1_lvnstoc, I2set_nsptoc1_lvnstoc, RatioSet_nsptoc1_lvnstoc, In_nsptoc1_lvnstoc,
                 SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc,
                 SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc,
+                Inom
                 ):
 
         self.lvtoc = LVTOC(SGF1_ptoc1_lvtoc, SGF2_ptoc1_lvtoc, T1_ptoc1_lvtoc, Iset_ptoc1_lvtoc)
@@ -30,7 +31,8 @@ class partTOKZ:
         self.lvnstoc = LVNSTOC(SGF1_nsptoc1_lvnstoc, SGF2_nsptoc1_lvnstoc, T1_nsptoc1_lvnstoc, I2set_nsptoc1_lvnstoc, RatioSet_nsptoc1_lvnstoc, In_nsptoc1_lvnstoc)
         self.ttoclgc = TTOCLGC(SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc)
         self.tofflvlgc = TOFFLVLGC(SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc)
-        self.lvalh = T_LVALH()    
+        self.lvalh = T_LVALH()  
+        self.Inom = Inom  
 
     def Step(self, VYVOD, IA, dIA, IB, dIB, IC, dIC,
     OV_ptoc1_lvtoc, NaSign_ptoc1_lvtoc,
@@ -42,6 +44,11 @@ class partTOKZ:
     OV_ptrc1_ttoclgc, vnesh_pusk_ptrc1_ttoclgc, blok_lzt_ptrc1_ttoclgc,
     OV_tofflvlg, OVlo_tofflvlg, OVzapv_tofflvlg, OVzavr_tofflvlg,
     ):
+
+        # Пересчитываем с учетом номинального тока входа
+        IA = IA/self.Inom
+        IB = IB/self.Inom
+        IC = IC/self.Inom
 
         # Расчитываем аналоги
         threeI = ThreePhaseSystem(IA, dIA, IB, dIB, IC, dIC)

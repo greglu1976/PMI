@@ -1,0 +1,12 @@
+{
+    "vvod_ptoc1_lvtoc": "ТО: Ввод",
+    "oper_vyvod_ptoc1_lvtoc": "ТО: Оперативный вывод",
+    "pusk_ptoc1_lvtoc": "ТО: Пуск",
+    "io_ptoc1_lvtoc": "ТО: ИО Iмакс",
+    "srabsign_ptoc1_lvtoc": "ТО: Срабатывание сигн",
+    "srab_ptoc1_lvtoc": "ТО: Срабатывание",
+    "srab_ptrc1_tofflvlgc": "ЛО Т / ЛО: Срабатывание",
+    "zapret_rblc1_tofflvlgc": "ЛО Т / ЗАВР: Запрет АВР",
+    "zapret_rbre1_tofflvlgc": "ЛО Т / ЗАПВ: Запрет АПВ",
+    "pusk_lvalv": "ПС: Пуск"
+}
