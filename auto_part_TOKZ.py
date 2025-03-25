@@ -29,32 +29,18 @@ class PartOfTOKGUI:
         self.sgf_params = {
             "SGF1_ptoc1_lvtoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvtoc": tk.IntVar(value=0),
-            "T1_ptoc1_lvtoc": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvtoc": tk.DoubleVar(value=1),
             "SGF1_hvptoc1_lovctoc": tk.IntVar(value=0),
-            "T1_hvptoc1_lovctoc": tk.DoubleVar(value=1),
-            "Iset_hvptoc1_lovctoc": tk.DoubleVar(value=1),
             "SGF1_ptoc1_lvarctoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvarctoc": tk.IntVar(value=0),
-            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),
             "SGF1_ptoc1_ltcblktoc": tk.IntVar(value=0), 
-            "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=1),
             #"SGF1_hvptoc1_strpalc": tk.IntVar(value=0),
-            #"Iset_hvptoc1_strpalc": tk.DoubleVar(value=1),
             #"SGF1_lvptoc1_strpalc": tk.IntVar(value=0),
-            #"Iset_lvptoc1_strpalc": tk.DoubleVar(value=1),
             #"SGF1_lvptoc2_strpalc": tk.IntVar(value=0),
-            #"Iset_lvptoc2_strpalc": tk.DoubleVar(value=1),
             "SGF1_nsptoc1_lvnstoc": tk.IntVar(value=0),
             "SGF2_nsptoc1_lvnstoc": tk.IntVar(value=0),
-            "T1_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
-            "I2set_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
-            "RatioSet_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
-            "In_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
             "SGF1_ptrc1_ttoclgc": tk.IntVar(value=0),
             "SGF2_ptrc1_ttoclgc": tk.IntVar(value=0),
             "SGF3_ptrc1_ttoclgc": tk.IntVar(value=0),
-            "T1_ptrc1_ttoclgc": tk.DoubleVar(value=1),
             "SGF1_ptrc1_tofflvlgc": tk.IntVar(value=0),
             "SGF1_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rbre1_tofflvlgc": tk.IntVar(value=0),
@@ -62,6 +48,23 @@ class PartOfTOKGUI:
             "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
+        }
+
+        self.settings = {
+            "T1_ptoc1_lvtoc": tk.DoubleVar(value=1),
+            "Iset_ptoc1_lvtoc": tk.DoubleVar(value=1),
+            "T1_hvptoc1_lovctoc": tk.DoubleVar(value=1),
+            "Iset_hvptoc1_lovctoc": tk.DoubleVar(value=1),
+            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),
+            "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=1),
+            #"Iset_hvptoc1_strpalc": tk.DoubleVar(value=1),
+            #"Iset_lvptoc1_strpalc": tk.DoubleVar(value=1),
+            #"Iset_lvptoc2_strpalc": tk.DoubleVar(value=1),
+            "T1_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
+            "I2set_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
+            "RatioSet_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
+            "In_nsptoc1_lvnstoc": tk.DoubleVar(value=1),
+            "T1_ptrc1_ttoclgc": tk.DoubleVar(value=1),
         }
 
         self.input_vars = {
@@ -115,18 +118,29 @@ class PartOfTOKGUI:
         col = 0
         for key, var in self.sgf_params.items():
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
-            if isinstance(var, tk.IntVar):
-                ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)
-            elif isinstance(var, tk.DoubleVar):
-                ttk.Entry(sgf_frame, textvariable=var).grid(row=row, column=col + 1)
+            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             row += 1
             if row >= 10:
                 row = 0
                 col += 2
 
+        # Frame for settings
+        settings_frame = ttk.LabelFrame(self.root, text="Settings")
+        settings_frame.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+        row = 0
+        col = 0
+        for key, var in self.settings.items():
+            ttk.Label(settings_frame, text=key).grid(row=row, column=col, sticky="w")
+            ttk.Entry(settings_frame, textvariable=var).grid(row=row, column=col + 1)
+            row += 1
+            if row >= 9:
+                row = 0
+                col += 2
+
+
         # Frame for buttons
         buttons_frame = ttk.LabelFrame(self.root, text="Buttons")
-        buttons_frame.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+        buttons_frame.grid(row=2, column=0, padx=10, pady=10, sticky="w")
 
         # Button Init
         ttk.Button(buttons_frame, text="Init", command=self.init_part).grid(row=0, column=0, pady=10)
@@ -151,7 +165,7 @@ class PartOfTOKGUI:
 
         # Frame for input values
         input_frame = ttk.LabelFrame(self.root, text="Inputs")
-        input_frame.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+        input_frame.grid(row=3, column=0, padx=10, pady=10, sticky="w")
         row = 0
         col = 0
         for key, var in self.input_vars.items():
@@ -196,32 +210,32 @@ class PartOfTOKGUI:
         self.part = partTOKZ(
             SGF1_ptoc1_lvtoc=self.sgf_params["SGF1_ptoc1_lvtoc"].get(),
             SGF2_ptoc1_lvtoc=self.sgf_params["SGF2_ptoc1_lvtoc"].get(),
-            T1_ptoc1_lvtoc=self.sgf_params["T1_ptoc1_lvtoc"].get(),
-            Iset_ptoc1_lvtoc=self.sgf_params["Iset_ptoc1_lvtoc"].get(),
+            T1_ptoc1_lvtoc=self.settings["T1_ptoc1_lvtoc"].get(),
+            Iset_ptoc1_lvtoc=self.settings["Iset_ptoc1_lvtoc"].get(),
             SGF1_hvptoc1_lovctoc=self.sgf_params["SGF1_hvptoc1_lovctoc"].get(),
-            T1_hvptoc1_lovctoc=self.sgf_params["T1_hvptoc1_lovctoc"].get(),
-            Iset_hvptoc1_lovctoc=self.sgf_params["Iset_hvptoc1_lovctoc"].get(),
+            T1_hvptoc1_lovctoc=self.settings["T1_hvptoc1_lovctoc"].get(),
+            Iset_hvptoc1_lovctoc=self.settings["Iset_hvptoc1_lovctoc"].get(),
             SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
             SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
-            Iset_ptoc1_lvarctoc=self.sgf_params["Iset_ptoc1_lvarctoc"].get(),
+            Iset_ptoc1_lvarctoc=self.settings["Iset_ptoc1_lvarctoc"].get(),
             SGF1_ptoc1_ltcblktoc=self.sgf_params["SGF1_ptoc1_ltcblktoc"].get(),
-            Iset_ptoc1_ltcblktoc=self.sgf_params["Iset_ptoc1_ltcblktoc"].get(),                        
+            Iset_ptoc1_ltcblktoc=self.settings["Iset_ptoc1_ltcblktoc"].get(),                        
             #SGF1_hvptoc1_strpalc=self.sgf_params["SGF1_hvptoc1_strpalc"].get(),
-            #Iset_hvptoc1_strpalc=self.sgf_params["Iset_hvptoc1_strpalc"].get(),
+            #Iset_hvptoc1_strpalc=self.settings["Iset_hvptoc1_strpalc"].get(),
             #SGF1_lvptoc1_strpalc=self.sgf_params["SGF1_lvptoc1_strpalc"].get(),
-            #Iset_lvptoc1_strpalc=self.sgf_params["Iset_lvptoc1_strpalc"].get(),
+            #Iset_lvptoc1_strpalc=self.settings["Iset_lvptoc1_strpalc"].get(),
             #SGF1_lvptoc2_strpalc=self.sgf_params["SGF1_lvptoc2_strpalc"].get(),
-           # Iset_lvptoc2_strpalc=self.sgf_params["Iset_lvptoc2_strpalc"].get(),
+           # Iset_lvptoc2_strpalc=self.settings["Iset_lvptoc2_strpalc"].get(),
             SGF1_nsptoc1_lvnstoc=self.sgf_params["SGF1_nsptoc1_lvnstoc"].get(),
             SGF2_nsptoc1_lvnstoc=self.sgf_params["SGF2_nsptoc1_lvnstoc"].get(),
-            T1_nsptoc1_lvnstoc=self.sgf_params["T1_nsptoc1_lvnstoc"].get(),
-            I2set_nsptoc1_lvnstoc=self.sgf_params["I2set_nsptoc1_lvnstoc"].get(),
-            RatioSet_nsptoc1_lvnstoc=self.sgf_params["RatioSet_nsptoc1_lvnstoc"].get(),
-            In_nsptoc1_lvnstoc=self.sgf_params["In_nsptoc1_lvnstoc"].get(),
+            T1_nsptoc1_lvnstoc=self.settings["T1_nsptoc1_lvnstoc"].get(),
+            I2set_nsptoc1_lvnstoc=self.settings["I2set_nsptoc1_lvnstoc"].get(),
+            RatioSet_nsptoc1_lvnstoc=self.settings["RatioSet_nsptoc1_lvnstoc"].get(),
+            In_nsptoc1_lvnstoc=self.settings["In_nsptoc1_lvnstoc"].get(),
             SGF1_ptrc1_ttoclgc=self.sgf_params["SGF1_ptrc1_ttoclgc"].get(),
             SGF2_ptrc1_ttoclgc=self.sgf_params["SGF2_ptrc1_ttoclgc"].get(),
             SGF3_ptrc1_ttoclgc=self.sgf_params["SGF3_ptrc1_ttoclgc"].get(),
-            T1_ptrc1_ttoclgc=self.sgf_params["T1_ptrc1_ttoclgc"].get(),
+            T1_ptrc1_ttoclgc=self.settings["T1_ptrc1_ttoclgc"].get(),
             SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tofflvlgc"].get(),
             SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tofflvlgc"].get(),
             SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tofflvlgc"].get(),
@@ -278,6 +292,9 @@ class PartOfTOKGUI:
         sgf_df = pd.DataFrame({
             key: [var.get()] for key, var in self.sgf_params.items()
         })
+        settings_df = pd.DataFrame({
+            key: [var.get()] for key, var in self.settings.items()
+        })
         inputs_df = pd.DataFrame({
             key: [var.get()] for key, var in self.input_vars.items()
         })
@@ -288,6 +305,7 @@ class PartOfTOKGUI:
         # Сохраняем данные в Excel
         with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
             sgf_df.to_excel(writer, sheet_name="SGF_Parameters", index=False)
+            settings_df.to_excel(writer, sheet_name="Settings", index=False)
             inputs_df.to_excel(writer, sheet_name="Inputs", index=False)
             outputs_df.to_excel(writer, sheet_name="Outputs", index=False)
 
@@ -311,6 +329,7 @@ class PartOfTOKGUI:
                         pass
 
         format_sheet(wb["SGF_Parameters"], sgf_df)
+        format_sheet(wb["Settings"], settings_df)
         format_sheet(wb["Inputs"], inputs_df)
         format_sheet(wb["Outputs"], outputs_df)
 
