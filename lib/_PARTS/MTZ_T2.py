@@ -20,14 +20,15 @@ class partOfFsuInTOC:
                 SGF1_lvrbvtr1, SGF2_lvrbvtr1, u_min_lvrbvtr1, u2_max_lvrbvtr1, t1_lvrbvtr1,
                 SGF1_lvrbvtr2, SGF2_lvrbvtr2, u_min_lvrbvtr2, u2_max_lvrbvtr2, t1_lvrbvtr2,
                 SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc,
+                Inom
                 ):
         # Инициализируем ФБ МТЗ Т2        
-        self.lvttoc = LVTTOC(SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1,
-                SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2, Icoarse_ptoc2,
-                SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3, Icoarse_ptoc3,
+        self.lvttoc = LVTTOC(SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1*Inom, Icoarse_ptoc1*Inom,
+                SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2*Inom, Icoarse_ptoc2*Inom,
+                SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3*Inom, Icoarse_ptoc3*Inom,
                 SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1,
                 SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2,
-                SGF1_phar1, Imax_phar1, Ratio_phar1,
+                SGF1_phar1, Imax_phar1*Inom, Ratio_phar1,
                 SGF1_rblc1)
         # Инициализируем ФБ КЦН НН1 и КЦН НН2        
         self.lvrbvtr1 = T_LVRVTR(SGF1_lvrbvtr1, SGF2_lvrbvtr1, u_min_lvrbvtr1, u2_max_lvrbvtr1, t1_lvrbvtr1)

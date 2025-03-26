@@ -19,7 +19,7 @@ from lib._PARTS.MTZ_T2 import partOfFsuInTOC
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС")
+        self.root.title("Тестирование ФСУ в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -77,6 +77,7 @@ class PartOfFsuInTOC_GUI:
             "SGF8_lvalv": tk.IntVar(value=0),
             "SGF9_lvalv": tk.IntVar(value=0),
             "SGF10_lvalv": tk.IntVar(value=0),
+            "Номинальный ток входа": tk.IntVar(value=5),            
         }
             #"SGF1_ptrc1_tofflvlgc":tk.IntVar(value=0),
             #"SGF1_rbre1_tofflvlgc":tk.IntVar(value=0),
@@ -89,25 +90,25 @@ class PartOfFsuInTOC_GUI:
 
         self.settings = {
             "T1_ptoc1_lvttoc": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvttoc": tk.DoubleVar(value=1),
-            "Icoarse_ptoc1_lvttoc": tk.DoubleVar(value=3),
+            "Iset_ptoc1_lvttoc": tk.DoubleVar(value=0.2),
+            "Icoarse_ptoc1_lvttoc": tk.DoubleVar(value=0.6),
             "T1_ptoc2_lvttoc": tk.DoubleVar(value=1),
-            "Iset_ptoc2_lvttoc": tk.DoubleVar(value=1),
-            "Icoarse_ptoc2_lvttoc": tk.DoubleVar(value=3),
+            "Iset_ptoc2_lvttoc": tk.DoubleVar(value=0.2),
+            "Icoarse_ptoc2_lvttoc": tk.DoubleVar(value=0.6),
             "T1_ptoc3_lvttoc": tk.DoubleVar(value=1),
-            "Iset_ptoc3_lvttoc": tk.DoubleVar(value=1),
-            "Icoarse_ptoc3_lvttoc": tk.DoubleVar(value=3),
-            "Uop_ptuv1_lvttoc": tk.DoubleVar(value=40),
-            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=5),
-            "Uop_ptuv2_lvttoc": tk.DoubleVar(value=40),
-            "U2op_ptuv2_lvttoc": tk.DoubleVar(value=5),
-            "Imax_phar1_lvttoc": tk.DoubleVar(value=5),
+            "Iset_ptoc3_lvttoc": tk.DoubleVar(value=0.2),
+            "Icoarse_ptoc3_lvttoc": tk.DoubleVar(value=0.6),
+            "Uop_ptuv1_lvttoc": tk.DoubleVar(value=50),
+            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=15),
+            "Uop_ptuv2_lvttoc": tk.DoubleVar(value=50),
+            "U2op_ptuv2_lvttoc": tk.DoubleVar(value=15),
+            "Imax_phar1_lvttoc": tk.DoubleVar(value=1),
             "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
-            "Umin_lvrbvtr1": tk.DoubleVar(value=40),
-            "U2max_lvrbvtr1": tk.DoubleVar(value=5),
+            "Umin_lvrbvtr1": tk.DoubleVar(value=50),
+            "U2max_lvrbvtr1": tk.DoubleVar(value=15),
             "T1_lvrbvtr1": tk.DoubleVar(value=1),
-            "Umin_lvrbvtr2": tk.DoubleVar(value=40),
-            "U2max_lvrbvtr2": tk.DoubleVar(value=5),
+            "Umin_lvrbvtr2": tk.DoubleVar(value=50),
+            "U2max_lvrbvtr2": tk.DoubleVar(value=15),
             "T1_lvrbvtr2": tk.DoubleVar(value=1),
         }
 
@@ -174,7 +175,9 @@ class PartOfFsuInTOC_GUI:
             if key=="SGF7_ptoc1_lvttoc" or key=="SGF7_ptoc2_lvttoc" or key=="SGF7_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             elif key=="SGF1_rblc1_lvttoc":
-                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)   
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)
+            elif key=='Номинальный ток входа':
+                ttk.Combobox(sgf_frame, textvariable=var, values=[1, 5], state="readonly").grid(row=row, column=col + 1)                   
             else:
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
             row += 1
@@ -266,7 +269,7 @@ class PartOfFsuInTOC_GUI:
         row = 0
         col = 0
         for output in outputs:
-            label = ttk.Label(output_frame, text=output, width=20, anchor="w")
+            label = ttk.Label(output_frame, text=output, width=25, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
             row += 1
@@ -334,6 +337,7 @@ class PartOfFsuInTOC_GUI:
             SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(), 
             SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(), 
             SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            Inom=self.sgf_params["Номинальный ток входа"].get(),
         )
 
         print("partOfFsuInTOC initialized")
@@ -364,15 +368,15 @@ class PartOfFsuInTOC_GUI:
                 label = self.output_labels[output]
                 #label.config(text=f"{output}: {int(value)}")
                 label.config(text=f"{output}: {round(value, 2)}")
-                if int(value) != 0:
-                    label.config(background="red")
+                if int(value) != 0 or float(value)!=0:
+                    label.config(background="red", foreground="white")
                 else:
-                    label.config(background="green")
+                    label.config(background="green", foreground="white")
 
             time.sleep(0.3) # Время шага опроса
-            self.status_label.config(text="Шаг", background="red", foreground="white")
+            self.status_label.config(text="Шаг", background="white", foreground="white")
             time.sleep(0.05) # Время шага опроса
-            self.status_label.config(text="Шаг", background="green", foreground="white")
+            self.status_label.config(text="Шаг", background="#F0F0F0", foreground="#F0F0F0")
 
     def save_to_excel(self):
 
@@ -459,17 +463,17 @@ class PartOfFsuInTOC_GUI:
                 if key in sgf_df.columns:
                     var.set(sgf_df.at[0, key])
 
-            # Загрузка Settings
-            settings_df = pd.read_excel(xls, sheet_name="Settings")
-            for key, var in self.settings.items():
-                if key in settings_df.columns:
-                    var.set(settings_df.at[0, key])
-
             # Загрузка Inputs
             inputs_df = pd.read_excel(xls, sheet_name="Inputs")
             for key, var in self.input_vars.items():
                 if key in inputs_df.columns:
                     var.set(inputs_df.at[0, key])
+
+            # Загрузка Settings
+            #settings_df = pd.read_excel(xls, sheet_name="Settings")
+            #for key, var in self.settings.items():
+                #if key in settings_df.columns:
+                    #var.set(settings_df.at[0, key])                    
 
             print("Data loaded successfully")
 
