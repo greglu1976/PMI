@@ -149,6 +149,11 @@ def start_proceed_modes(xlsx_file, root_dir=''):
 
     # Считываем заголовки и первую строку данных
     df = pd.read_excel(xlsx_file, sheet_name=sheet_name, nrows=1)
+    # Проверяем, есть ли столбец с именем "Номинальный ток входа"
+    if "Номинальный ток входа" in df.columns:
+        # Удаляем столбец
+        df = df.drop(columns=["Номинальный ток входа"])
+
 
     # Создаем структуру для хранения результатов
     result_dict = {}

@@ -349,16 +349,16 @@ class PartOfTOKGUI:
                 if key in sgf_df.columns:
                     var.set(sgf_df.at[0, key])
 
-            # Загрузка Settings
-            settings_df = pd.read_excel(xls, sheet_name="Settings")
-            for key, var in self.settings.items():
-                if key in settings_df.columns:
-                    var.set(settings_df.at[0, key])
-
             inputs_df = pd.read_excel(xls, sheet_name="Inputs")
             for key, var in self.input_vars.items():
                 if key in inputs_df.columns:
                     var.set(inputs_df.at[0, key])
+
+            # Загрузка Settings
+            settings_df = pd.read_excel(xls, sheet_name="Settings")
+            for key, var in self.settings.items():
+                if key in settings_df.columns:
+                    var.set(settings_df.at[0, key])                    
 
             print("Data loaded successfully")
         except Exception as e:

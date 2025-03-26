@@ -50,7 +50,7 @@
                 "minValue": "0.1",
                 "maxValue": "30",
                 "step": "0.01",
-                "SetValue": "1",
+                "SetValue": "0.2",
                 "Color": "norm"
             }
         }
@@ -93,7 +93,7 @@
                 "minValue": "0.1",
                 "maxValue": "5",
                 "step": "0.01",
-                "SetValue": "1",
+                "SetValue": "0.2",
                 "Color": "norm"
             }
         }
@@ -136,7 +136,7 @@
                 "minValue": "0.1",
                 "maxValue": "30",
                 "step": "0.01",
-                "SetValue": "1",
+                "SetValue": "0.2",
                 "Color": "norm"
             }
         }
@@ -166,7 +166,7 @@
                 "minValue": "0.1",
                 "maxValue": "30",
                 "step": "0.01",
-                "SetValue": "1",
+                "SetValue": "0.2",
                 "Color": "norm"
             }
         }
@@ -222,7 +222,7 @@
                 "minValue": "0.04",
                 "maxValue": "4",
                 "step": "0.01",
-                "SetValue": "1",
+                "SetValue": "0.2",
                 "Color": "norm"
             },
             "RatioSet": {
