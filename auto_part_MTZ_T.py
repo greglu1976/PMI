@@ -90,11 +90,11 @@ class PartOfFsuInTOC_GUI:
             "Iset_ptoc3_lvttoc": tk.DoubleVar(value=0.2),
             "Icoarse_ptoc3_lvttoc": tk.DoubleVar(value=0.6),
             "Uop_ptuv1_lvttoc": tk.DoubleVar(value=50),
-            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=15),
+            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=20),
             "Imax_phar1_lvttoc": tk.DoubleVar(value=1),
             "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
             "Umin_lvrbvtr1": tk.DoubleVar(value=50),
-            "U2max_lvrbvtr1": tk.DoubleVar(value=15),
+            "U2max_lvrbvtr1": tk.DoubleVar(value=20),
             "T1_lvrbvtr1": tk.DoubleVar(value=1),
             "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),          
         }
@@ -148,7 +148,7 @@ class PartOfFsuInTOC_GUI:
         col = 0
         for key, var in self.sgf_params.items():
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
-            if key=="SGF7_ptoc1_lvttoc" or key=="SGF7_ptoc2_lvttoc" or key=="SGF7_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
+            if key=="SGF6_ptoc1_lvttoc" or key=="SGF6_ptoc2_lvttoc" or key=="SGF6_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             elif key=="SGF1_rblc1_lvttoc" or key=="SGF2_ptoc1_lvarctoc":
                  ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)
@@ -230,7 +230,7 @@ class PartOfFsuInTOC_GUI:
         outputs = [
             "vvod_lvrbvtr1", "oper_vyvod_lvrbvtr1", "u_lin_pusk_lvrbvtr1", "u2_pusk_lvrbvtr1", "pusk_lvrbvtr1", "neispr_zn_lvrbvtr1",
             "vvod_ptoc1_lvttoc", "oper_vyvod_ptoc1_lvttoc", "mtzA_pusk_ptoc1_lvttoc", "mtzB_pusk_ptoc1_lvttoc", "mtzC_pusk_ptoc1_lvttoc",
-            "gen_pusk_ptoc_lvttoc", "mtz_srabsign_ptoc1_lvttoc", "mtz_srab_ptoc1_lvttoc", "io_A_ptoc1_lvttoc", "io_B_ptoc1_lvttoc",
+            "gen_pusk_ptoc1_lvttoc", "mtz_srabsign_ptoc1_lvttoc", "mtz_srab_ptoc1_lvttoc", "io_A_ptoc1_lvttoc", "io_B_ptoc1_lvttoc",
             "io_C_ptoc1_lvttoc", "vvod_ptoc2_lvttoc", "oper_vyvod_ptoc2_lvttoc", "mtzA_pusk_ptoc2_lvttoc", "mtzB_pusk_ptoc2_lvttoc",
             "mtzC_pusk_ptoc2_lvttoc", "gen_pusk_ptoc2_lvttoc", "mtz_srabsign_ptoc2_lvttoc", "mtz_srab_ptoc2_lvttoc", "io_A_ptoc2_lvttoc",
             "io_B_ptoc2_lvttoc", "io_C_ptoc2_lvttoc", "vvod_ptoc3_lvttoc", "oper_vyvod_ptoc3_lvttoc", "mtzA_pusk_ptoc3_lvttoc",
@@ -443,10 +443,10 @@ class PartOfFsuInTOC_GUI:
                     var.set(inputs_df.at[0, key])
 
             # Загрузка Settings
-            #settings_df = pd.read_excel(xls, sheet_name="Settings")
-            #for key, var in self.settings.items():
-                #if key in settings_df.columns:
-                    #var.set(settings_df.at[0, key])                    
+            settings_df = pd.read_excel(xls, sheet_name="Settings")
+            for key, var in self.settings.items():
+                if key in settings_df.columns:
+                    var.set(settings_df.at[0, key])                    
 
             print("Data loaded successfully")
 
