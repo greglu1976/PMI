@@ -1,0 +1,30 @@
+Отчет о ненулевых столбцах (сгруппировано по папкам):
+======================================================================
+Папка: pmi_mtzt\bnt_modes
+Лист 'Inputs': IA, IA2harm, IB, IB2harm, IC, IC2harm, OV_lvttoc, OVst_ptoc1, OVst_ptoc2, OVst_ptoc3, UA1, UB1, UC1, VYVOD, dIB, dIC, dUB1, dUC1
+Лист 'Outputs': gen_pusk_ptoc2_lvttoc, gen_pusk_ptoc3_lvttoc, gen_pusk_ptoc_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, io_A_ptoc1_lvttoc, io_A_ptoc2_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc1_lvttoc, io_B_ptoc2_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc1_lvttoc, io_C_ptoc2_lvttoc, io_C_ptoc3_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc3_lvttoc, mtz_pusk_lvttoc, mtz_srab_ptoc1_lvttoc, mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, oper_vyvod_ptoc1_lvttoc, oper_vyvod_ptoc2_lvttoc, oper_vyvod_ptoc3_lvttoc, oper_vyvod_ptrc1, oper_vyvod_rblc1, oper_vyvod_rbre1, pusk_lvalv, pusk_ptrc1, srab_ptrc1, start_phar1_lvttoc, vvod_ptoc1_lvttoc, vvod_ptoc2_lvttoc, vvod_ptoc3_lvttoc, vvod_ptrc1, vvod_rblc1, vvod_rbre1, zapret_rblc1, zapret_rbre1
+----------------------------------------------------------------------
+Папка: pmi_mtzt\kpon_modes
+Лист 'Inputs': KPONvnesh_ptuv1, VNN1vkl
+Лист 'Outputs': kpon_pusk_ptuv1_lvttoc, vvod_ptoc1_lvttoc, vvod_ptoc2_lvttoc, vvod_ptoc3_lvttoc
+----------------------------------------------------------------------
+Папка: pmi_mtzt\kzn_modes
+Лист 'Inputs': OV_lvrbvtr1, VNN1vkl, VYVOD, vnesh_bnn_srab_lvrbvtr1
+Лист 'Outputs': neispr_zn_lvrbvtr1, oper_vyvod_lvrbvtr1, pusk_lvalv, pusk_lvrbvtr1, u2_pusk_lvrbvtr1, u_lin_pusk_lvrbvtr1, vvod_lvrbvtr1
+----------------------------------------------------------------------
+Папка: pmi_mtzt\mtz1_modes
+Лист 'Inputs': KPONvnesh_ptuv1, NaSign_ptoc1, SV1vkl, VNN1vkl, vnesh_bnn_srab_lvrbvtr1
+Лист 'Outputs': blok_rblc1_lvttoc, dIAB, dIBC, dICA, gen_pusk_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, kpon_pusk_ptuv1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, mtz_pusk_lvttoc, mtz_srab_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, neispr_zn_lvrbvtr1, pusk_lvalv, pusk_ptrc1, srab_ptrc1, vvod_lvrbvtr1, vvod_ptoc1_lvttoc, vvod_ptrc1, vvod_rblc1, vvod_rbre1, zapret_rbre1
+----------------------------------------------------------------------
+Папка: pmi_mtzt\mtz2_modes
+Лист 'Inputs': KPONvnesh_ptuv1, NaSign_ptoc2, SV1vkl,VNN1vkl, vnesh_bnn_srab_lvrbvtr1
+Лист 'Outputs': blok_rblc1_lvttoc, dIAB, dIBC, dICA, gen_pusk_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, kpon_pusk_ptuv1_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, mtz_pusk_lvttoc, mtz_srab_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, neispr_zn_lvrbvtr1, pusk_lvalv, srab_ptrc1, vvod_lvrbvtr1, vvod_ptoc2_lvttoc, vvod_ptrc1, vvod_rblc1, vvod_rbre1, zapret_rblc1, zapret_rbre1
+----------------------------------------------------------------------
+Папка: pmi_mtzt\mtz3_modes
+Лист 'Inputs': KPONvnesh_ptuv1, NaSign_ptoc3, SV1vkl, VNN1vkl, vnesh_bnn_srab_lvrbvtr1
+Лист 'Outputs': blok_rblc1_lvttoc, dIAB, dIBC, dICA, gen_pusk_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, mtz_pusk_lvttoc, mtz_srab_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, neispr_zn_lvrbvtr1, pusk_lvalv, srab_ptrc1, vvod_lvrbvtr1, vvod_ptoc3_lvttoc, vvod_ptrc1, vvod_rblc1, vvod_rbre1, zapret_rblc1, zapret_rbre1
+----------------------------------------------------------------------
+Папка: pmi_mtzt\mtzgen_modes
+Лист 'Inputs': OV_lvttoc, OVst_ptoc1, OVst_ptoc2, OVst_ptoc3, VNN1vkl, VYVOD
+Лист 'Outputs': gen_pusk_ptoc1_lvttoc, gen_pusk_ptoc2_lvttoc, gen_pusk_ptoc3_lvttoc, io_B_ptoc1_lvttoc, io_B_ptoc2_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc1_lvttoc, io_C_ptoc2_lvttoc, io_C_ptoc3_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc3_lvttoc, mtz_pusk_lvttoc, mtz_srab_ptoc1_lvttoc, mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, oper_vyvod_ptoc1_lvttoc, oper_vyvod_ptoc2_lvttoc, oper_vyvod_ptoc3_lvttoc, pusk_lvalv, pusk_ptoc1_lvarctoc, pusk_ptrc1, pusk_ptrc1_ttoclgc, vvod_ptoc1_lvttoc, vvod_ptoc2_lvttoc, vvod_ptoc3_lvttoc
+----------------------------------------------------------------------
