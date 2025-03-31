@@ -17,7 +17,7 @@ class TPRBRF:
         self.SGF3 = SGF3
         self.SGF4 = SGF4
         self.SGF5 = SGF5
-        self.SGF5 = SGF6        
+        self.SGF6 = SGF6        
         self.Iset = Iset
         self.T1 = TON()
         self.T1.set_PT(T1)
@@ -38,7 +38,7 @@ class TPRBRF:
             _p001 = any(Puski)
         else:
             _p001 = 1       
-        srab_na_sebya = pusk_urov_vnesh and (self.SGF1==1) and ()
+        srab_na_sebya = pusk_urov_vnesh and (self.SGF1==1) and _p001
 
         if self.SGF4==1:
             _p002 = kontr_emo1
