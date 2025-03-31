@@ -265,8 +265,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "SGF3": {
                 "ShortDescription": "Пуск_от_МТЗ_ст3",
@@ -278,7 +278,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "T1": {

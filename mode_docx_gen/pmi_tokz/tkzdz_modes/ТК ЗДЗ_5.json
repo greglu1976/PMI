@@ -123,8 +123,8 @@
                 "minValue": "0",
                 "maxValue": "3",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "Iset": {
                 "ShortDescription": "Iср",

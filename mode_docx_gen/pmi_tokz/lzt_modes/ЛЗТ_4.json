@@ -278,8 +278,8 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "1",
+                "Color": "changed"
             },
             "T1": {
                 "ShortDescription": "Tср",
