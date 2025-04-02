@@ -1,6 +1,6 @@
 # автоматическое тестирование ФСУ в части КСВ, КП, КА, УВ + СС, ПС
 # ДОБАВЛЕН УРОВ
-# с графическим интерфейсом
+# использовался для генерации Тестов от 02.04.25 Версия 1.
 
 import tkinter as tk
 from tkinter import ttk
@@ -20,7 +20,7 @@ from lib._PARTS.SWITCH3 import SWITCH
 class PartOfSwitchGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. 31.03.25")
+        self.root.title("Тестирование ФСУ в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. v1.0 02.04.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -57,7 +57,7 @@ class PartOfSwitchGUI:
             "SGF5_rbrf1_tpbrf": tk.IntVar(value=0),
             "SGF6_rbrf1_tpbrf": tk.IntVar(value=0),
             "SGF1_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
-            "SGF13_tsa": tk.IntVar(value=0),
+            "SGF13_lvalh": tk.IntVar(value=0),
         }
 
         self.settings = {
@@ -258,7 +258,7 @@ class PartOfSwitchGUI:
             T2_xcbr1_tsd=self.settings["T2_xcbr1_tsd"].get(),
             T3_xcbr1_tsd=self.settings["T3_xcbr1_tsd"].get(),
             T4_xcbr1_tsd=self.settings["T4_xcbr1_tsd"].get(),
-            SGF13_tsa=self.sgf_params["SGF13_tsa"].get(),
+            SGF13_t_lvalh=self.sgf_params["SGF13_lvalh"].get(),
             SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_rbrf1_tpbrf"].get(),
             SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_rbrf1_tpbrf"].get(),
             SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_rbrf1_tpbrf"].get(),

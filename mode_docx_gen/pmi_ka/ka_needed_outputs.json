@@ -11,8 +11,8 @@
     "v_neisp_pol_xcbr1_tsd": "В: Неиспр. положение",
     "v_otkluchit_rele_xcbr1_tsd": "В: Отключить (реле)",
     "v_vkluchit_rele_xcbr1_tsd": "В: Включить (реле)",
-    "pusk_t_lvalh": "ПС: Пуск",
     "srab_na_sebya_rbrf1_tpbrf": "УРОВ: Сраб «на себя»",
     "otkl_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключение",
-    "otkl_avar_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключить аварийно"
+    "otkl_avar_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключить аварийно",
+    "pusk_t_lvalh": "ПС: Пуск"    
 }
