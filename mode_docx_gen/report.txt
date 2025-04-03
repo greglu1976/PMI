@@ -1,22 +1,6 @@
 Отчет о ненулевых столбцах (сгруппировано по папкам):
 ======================================================================
-Папка: pmi_ka\ka_modes
-Лист 'Inputs': OV_tsd, Sbros, VYVOD, distanz, oper_otkl_V, otkl_v_ot_tu, pusk_urov_vnesh, rabota_emo1, rabota_emo2, rabota_emv, v_otkl_bk, v_vkl_bk, vkl_v_ot_tu, vnesh_blok_upr_V, vnesh_otkl_zdz
-Лист 'Outputs': blok_otkl_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, oper_vyvod_cbcswi1_hvbctrl, oper_vyvod_rcbf1_lvcbsup, oper_vyvod_swctrl, oper_vyvod_tsd, otkl_hvcbptrc1_hvtcboff, pusk_t_lvalh, rfk_rcbf1_lvcbsup, srab_na_sebya_rbrf1_tpbrf, uv_ne_opredeleno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, v_avar_otkl_rcbf1_lvcbsup, v_neisp_pol_xcbr1_tsd, v_otkluchen_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_samoproisv_otkl_rcbf1_lvcbsup, v_vkluchen_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd, vvod_cbcswi1_hvbctrl, vvod_cbcswi1_swctrl, vvod_hvcbptrc1_hvtcboff, vvod_rcbf1_lvcbsup, vvod_swctrl, vvod_tsd, vvod_xcbr1_tsd, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup
-----------------------------------------------------------------------
-Папка: pmi_ka\kp_modes
-Лист 'Inputs': OV_swctrl, Sbros, VYVOD, mestnoe, otkl_v_ot_pu, v_otkl_bk, v_vkl_bk, vkl_v_ot_pu, vnesh_blok_upr_V
-Лист 'Outputs': blok_otkl_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, oper_vyvod_cbcswi1_hvbctrl, oper_vyvod_rcbf1_lvcbsup, oper_vyvod_swctrl, oper_vyvod_tsd, pusk_t_lvalh, rfk_rcbf1_lvcbsup, uv_idet_per_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_otkluchit_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, v_avar_otkl_rcbf1_lvcbsup, v_neisp_pol_xcbr1_tsd, v_otkluchen_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_samoproisv_otkl_rcbf1_lvcbsup, v_vkluchen_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd, vvod_cbcswi1_hvbctrl, vvod_cbcswi1_swctrl, vvod_hvcbptrc1_hvtcboff, vvod_rcbf1_lvcbsup, vvod_swctrl, vvod_tsd, vvod_xcbr1_tsd
-----------------------------------------------------------------------
-Папка: pmi_ka\ksv1_modes
-Лист 'Inputs': OV_rcbf1_lvcbsup, VYVOD, avar_isol_V, kontr_emo1, kontr_emo2, kontr_emv, niz_isol_V, pruzh_ne_zaved, rabota_emo1, rabota_emo2, rabota_emv, v_otkl_bk, v_vkl_bk
-Лист 'Outputs': blok_otkl_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, oper_vyvod_cbcswi1_hvbctrl, oper_vyvod_rcbf1_lvcbsup, oper_vyvod_swctrl, oper_vyvod_tsd, pusk_t_lvalh, rfk_rcbf1_lvcbsup, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, v_avar_otkl_rcbf1_lvcbsup, v_neisp_pol_xcbr1_tsd, v_otkluchen_xcbr1_tsd, v_samoproisv_otkl_rcbf1_lvcbsup, v_vkluchen_xcbr1_tsd, vvod_cbcswi1_hvbctrl, vvod_cbcswi1_swctrl, vvod_hvcbptrc1_hvtcboff, vvod_rcbf1_lvcbsup, vvod_swctrl, vvod_tsd, vvod_xcbr1_tsd, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup
-----------------------------------------------------------------------
-Папка: pmi_ka\ksv2_modes
-Лист 'Inputs': Sbros, distanz, oper_otkl_V, ot_emo1emv, ot_emo2, otkl_ot_knopk, otkl_v_ot_tu, pusk_urov_vnesh, v_otkl_bk, v_vkl_bk, vnesh_otkl_urov
-Лист 'Outputs': blok_vkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, otkl_hvcbptrc1_hvtcboff, pusk_t_lvalh, rfk_rcbf1_lvcbsup, srab_na_sebya_rbrf1_tpbrf, uv_idet_per_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_otkluchit_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, v_avar_otkl_rcbf1_lvcbsup, v_otkluchen_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_samoproisv_otkl_rcbf1_lvcbsup, v_vkluchen_xcbr1_tsd, vvod_cbcswi1_hvbctrl, vvod_cbcswi1_swctrl, vvod_hvcbptrc1_hvtcboff, vvod_rcbf1_lvcbsup, vvod_swctrl, vvod_tsd, vvod_xcbr1_tsd
-----------------------------------------------------------------------
-Папка: pmi_ka\uv_modes
-Лист 'Inputs': OV_cbcswi1_hvbctrl, Sbros, VYVOD, mestnoe, niz_isol_V, oper_vkl_v, v_otkl_bk
-Лист 'Outputs': blok_vkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, oper_vyvod_cbcswi1_hvbctrl, oper_vyvod_rcbf1_lvcbsup, oper_vyvod_swctrl, oper_vyvod_tsd, pusk_t_lvalh, uv_otklucheno_cbcswi1_swctrl, v_otkluchen_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd, vvod_cbcswi1_hvbctrl, vvod_cbcswi1_swctrl, vvod_hvcbptrc1_hvtcboff, vvod_rcbf1_lvcbsup, vvod_swctrl, vvod_tsd, vvod_xcbr1_tsd
+Папка: pmi_gz\gzrpn_modes
+Лист 'Inputs': NaSign_ptrc1_tltcgaslgc, OV_ptrc1_tltcgaslgc, VYVOD, srabKI_ptrc1_tltcgaslgc, srabKont_ptrc1_tltcgaslgc
+Лист 'Outputs': ET_ptrc1_tltcgaslgc, SS_gz_nizk_isol, SS_gz_sign, SS_gz_zablok, oper_vyvod_ptrc1_tltcgaslgc, oper_vyvod_ptrc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, pusk_lvalv, pusk_ptrc1_tofflvlgc, srab_ptrc1_tltcgaslgc, srab_ptrc1_tofflvlgc, srabsign_ptrc1_tltcgaslgc, vvod_ptrc1_tltcgaslgc, vvod_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, zablok_ptrc1_tltcgaslgc, zapret_rbre1_tofflvlgc
 ----------------------------------------------------------------------
