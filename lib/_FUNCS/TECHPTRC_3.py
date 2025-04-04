@@ -25,7 +25,7 @@ class TECHPTRC_3:
 
         # Обсчитываем второй триггер
         _s_SR2 = vvod and Q
-        _r_SR2 = (not vvod) and Sbros
+        _r_SR2 = (not vvod) or Sbros
         _q_SR2 = self.SR.run(_s_SR2, _r_SR2)
 
         _in_Or = 0 if (self.SGF2==0) else _q_SR2
