@@ -54,7 +54,7 @@ class part_LO:
         self.lvcbsup = LVCBSUP(SGF1_rcbf1_lvcbsup, SGF2_rcbf1_lvcbsup, SGF3_rcbf1_lvcbsup, SGF4_rcbf1_lvcbsup, SGF5_rcbf1_lvcbsup, SGF6_rcbf1_lvcbsup, SGF7_rcbf1_lvcbsup,
                 SGF8_rcbf1_lvcbsup, T1_rcbf1_lvcbsup, T2_rcbf1_lvcbsup, T3_rcbf1_lvcbsup)
         # Инициализируем ФБ УРОВ
-        self.tpbrf = TPBRF(SGF1_rbrf1_tpbrf, SGF2_rbrf1_tpbrf, SGF3_rbrf1_tpbrf, SGF4_rbrf1_tpbrf, SGF5_rbrf1_tpbrf, SGF6_rbrf1_tpbrf, T1_rbrf1_tpbrf, Iset_rbrf1_tpbrf)
+        self.tpbrf = TPBRF(SGF1_rbrf1_tpbrf, SGF2_rbrf1_tpbrf, SGF3_rbrf1_tpbrf, SGF4_rbrf1_tpbrf, SGF5_rbrf1_tpbrf, SGF6_rbrf1_tpbrf, T1_rbrf1_tpbrf, Iset_rbrf1_tpbrf*Inom)
         # Инициализируем ФБ ЛО Т       
         self.tofflvlgc = TOFFLVLGC(SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc,
                 SGF3_rblc1_tofflvlgc)
@@ -74,8 +74,8 @@ class part_LO:
         OV_hvcbptrc1_hvtcboff, vnesh_otkl_zdz, vnesh_otkl_urov, 
         OV_lvtcboff, OV_lvcbptrc1_lvtcboff, OV_lvcbrecrbre1_lvtcboff, OV_lvbtsrblc1_lvtcboff,
         OV_rcbf1_lvcbsup, vnesh_blok_upr_V,
-        OV_rbrf1_tpbrf, pusk_urov_vnesh,
-        Polozh_SA1, Polozh_SA2, Polozh_SA3, Polozh_SA4, Polozh_SA5, Polozh_SG1, Polozh_SG2, ot_gz, ot_tz, ot_v, ot_zdz_nn, ot_urov_nn, ot_ieu_tn, vnesh_sign1, vnesh_sign2,vnesh_sign3,vnesh_sign4 
+        OV_rbrf1_tpbrf, pusk_urov_vnesh, kontr_emo1, kontr_emo2,
+        Polozh_SA1, Polozh_SA2, Polozh_SA3, Polozh_SA4, Polozh_SA5, Polozh_SG1, Polozh_SG2, ot_gz, ot_tz, ot_v, ot_zdz_nn, ot_urov_nn, ot_ieu_tn, vnesh_sign1, vnesh_sign2,vnesh_sign3, vnesh_sign4 
         ):
 
         # вычисляем МТЗ
@@ -107,7 +107,8 @@ class part_LO:
         avar_isol_V = niz_isol_V = pruzh_ne_zaved =  v_neisp_pol_xcbr1_tsd = 0
         v_otkluchen_xcbr1_tsd = v_vkluchen_xcbr1_tsd = Sbros = 0
         otkl_ot_knopk = oper_otkl_V = KRV_resurs_V = uv_otkluchit_cbcswi1_swctrl = 0
-        kontr_emv = kontr_emo1 = kontr_emo2 = rabota_emv = rabota_emo1 = rabota_emo2 = 0
+        #kontr_emv = kontr_emo1 = kontr_emo2 = rabota_emv = rabota_emo1 = rabota_emo2 = 0
+        kontr_emv = rabota_emv = rabota_emo1 = rabota_emo2 = 0
         vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(VYVOD, OV_rcbf1_lvcbsup, ot_emo1emv, ot_emo2, otkl_hvcbptrc1_hvtcboff, srab_na_sebya_rbrf1_tpbrf, avar_isol_V, niz_isol_V, pruzh_ne_zaved, v_neisp_pol_xcbr1_tsd, v_otkluchen_xcbr1_tsd, v_vkluchen_xcbr1_tsd, Sbros, uv_otkluchit_cbcswi1_swctrl, otkl_ot_knopk, oper_otkl_V, KRV_resurs_V, vnesh_blok_upr_V, kontr_emv, kontr_emo1, kontr_emo2, rabota_emv, rabota_emo1, rabota_emo2)
 
         # вычисляем УРОВ

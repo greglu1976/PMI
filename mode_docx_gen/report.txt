@@ -1,6 +1,6 @@
 Отчет о ненулевых столбцах (сгруппировано по папкам):
 ======================================================================
-Папка: pmi_gz\gzrpn_modes
-Лист 'Inputs': NaSign_ptrc1_tltcgaslgc, OV_ptrc1_tltcgaslgc, VYVOD, srabKI_ptrc1_tltcgaslgc, srabKont_ptrc1_tltcgaslgc
-Лист 'Outputs': ET_ptrc1_tltcgaslgc, SS_gz_nizk_isol, SS_gz_sign, SS_gz_zablok, oper_vyvod_ptrc1_tltcgaslgc, oper_vyvod_ptrc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, pusk_lvalv, pusk_ptrc1_tofflvlgc, srab_ptrc1_tltcgaslgc, srab_ptrc1_tofflvlgc, srabsign_ptrc1_tltcgaslgc, vvod_ptrc1_tltcgaslgc, vvod_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, zablok_ptrc1_tltcgaslgc, zapret_rbre1_tofflvlgc
+Папка: pmi_lo\urov_modes
+Лист 'Inputs': IA, IB, IC, OV_rbrf1_tpbrf, VYVOD, kontr_emo1, kontr_emo2, pusk_urov_vnesh, vnesh_blok_upr_V
+Лист 'Outputs': blok_otkl_rcbf1_lvcbsup, io_rbrf1_tpbrf, mtz_pusk_lvttoc, mtz_srab_ptoc1_lvttoc, oper_vyvod_hvcbptrc1_hvtcboff, oper_vyvod_ptrc1_tofflvlgc, oper_vyvod_rbrf1_tpbrf, otkl_hvcbptrc1_hvtcboff, pusk_lvalv, pusk_ptoc1_lvtoc, pusk_ptrc1_tofflvlgc, pusk_rbrf1_tpbrf, srab_na_sebya_rbrf1_tpbrf, srab_ptoc1_lvtoc, srab_ptrc1_tofflvlgc, srab_rbrf1_tpbrf, uskorenie_rbrf1_tpbrf, vvod_hvcbptrc1_hvtcboff, vvod_ptrc1_tofflvlgc, vvod_rbrf1_tpbrf
 ----------------------------------------------------------------------

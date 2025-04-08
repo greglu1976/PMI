@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 # Корневая папка
-root_path = 'pmi_mtz'
+root_path = 'pmi_lo'
 
 # Поиск всех папок, содержащих строку 'modes'
 for root, dirs, files in os.walk(root_path):
@@ -16,9 +16,9 @@ for root, dirs, files in os.walk(root_path):
                 
                 # Загрузка файла Excel
                 with pd.ExcelFile(file_path) as xls:
-                    if 'Settings' in xls.sheet_names:  # Проверка наличия листа 'Settings'
+                    if 'SGF_Parameters' in xls.sheet_names:  # Проверка наличия листа 'Settings'
                         # Чтение листа 'Settings' в DataFrame
-                        df = pd.read_excel(xls, sheet_name='Settings')
+                        df = pd.read_excel(xls, sheet_name='SGF_Parameters')
                         
                         # Проверка наличия столбца 'Ratio_phar1_lvttoc'
                         if 'Ratio_phar1_lvttoc' in df.columns:
@@ -27,7 +27,7 @@ for root, dirs, files in os.walk(root_path):
                             
                             # Сохранение изменений обратно в файл
                             with pd.ExcelWriter(file_path, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
-                                df.to_excel(writer, sheet_name='Settings', index=False)
+                                df.to_excel(writer, sheet_name='SGF_Parameters', index=False)
                             
                             print(f"Файл {file_path} обновлен: столбец 'Ratio_phar1_lvttoc' изменен.")
                         else:

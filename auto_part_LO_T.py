@@ -23,28 +23,28 @@ class PartLO_GUI:
 
         # Инициализация SGF-параметров
         self.sgf_params = {
-            "SGF1": tk.IntVar(value=0),
-            "SGF1_ptoc1": tk.IntVar(value=0),
-            "SGF2_ptoc1": tk.IntVar(value=0),
-            "SGF3_ptoc1": tk.IntVar(value=0),
-            "SGF4_ptoc1": tk.IntVar(value=0),
-            "SGF5_ptoc1": tk.IntVar(value=0),
-            "SGF6_ptoc1": tk.IntVar(value=0),
-            "SGF1_ptoc2": tk.IntVar(value=0),
-            "SGF2_ptoc2": tk.IntVar(value=0),
-            "SGF3_ptoc2": tk.IntVar(value=0),
-            "SGF4_ptoc2": tk.IntVar(value=0),
-            "SGF5_ptoc2": tk.IntVar(value=0),
-            "SGF6_ptoc2": tk.IntVar(value=0),
-            "SGF1_ptoc3": tk.IntVar(value=0),
-            "SGF2_ptoc3": tk.IntVar(value=0),
-            "SGF3_ptoc3": tk.IntVar(value=0),
-            "SGF4_ptoc3": tk.IntVar(value=0),
-            "SGF5_ptoc3": tk.IntVar(value=0),
-            "SGF6_ptoc3": tk.IntVar(value=0),
-            "SGF1_ptuv1": tk.IntVar(value=0),
-            "SGF1_phar1": tk.IntVar(value=0),
-            "SGF1_rblc1": tk.IntVar(value=0),
+            "SGF1_lvttoc": tk.IntVar(value=0),
+            "SGF1_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF2_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF3_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF4_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF5_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF6_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF1_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF2_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF3_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF4_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF5_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF6_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF1_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF2_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF3_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF4_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF5_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF6_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF1_ptuv1_lvttoc": tk.IntVar(value=0),
+            "SGF1_phar1_lvttoc": tk.IntVar(value=0),
+            "SGF1_rblc1_lvttoc": tk.IntVar(value=0),
             "SGF1_ptoc1_lvtoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvtoc": tk.IntVar(value=0),
             "SGF1_rcbf1_lvcbsup": tk.IntVar(value=0),
@@ -71,7 +71,8 @@ class PartLO_GUI:
             "SGF1_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
             "SGF1_lvcbptrc1_lvtcboff": tk.IntVar(value=0),
             "SGF1_lvcbrecrbre1_lvtcboff": tk.IntVar(value=0),
-            "SGF1_lvbtsrblc1_lvtcboff": tk.IntVar(value=0),            
+            "SGF1_lvbtsrblc1_lvtcboff": tk.IntVar(value=0), 
+            "SGF1_tsa": tk.IntVar(value=0),                       
             "SGF2_tsa": tk.IntVar(value=0),
             "SGF3_tsa": tk.IntVar(value=0),
             "SGF4_tsa": tk.IntVar(value=0),
@@ -98,24 +99,23 @@ class PartLO_GUI:
             "SGF12_lvalh": tk.IntVar(value=0),
             "SGF13_lvalh": tk.IntVar(value=0),
             "SGF14_lvalh": tk.IntVar(value=0),
-            "SGF1_tsa": tk.IntVar(value=0),
         }
 
         # Настройки (T-параметры)
         self.settings = {
-            "T1_ptoc1": tk.DoubleVar(value=1),            
-            "Iset_ptoc1": tk.DoubleVar(value=1),
-            "Icoarse_ptoc1": tk.DoubleVar(value=1),
-            "T1_ptoc2": tk.DoubleVar(value=1),            
-            "Iset_ptoc2": tk.DoubleVar(value=1),
-            "Icoarse_ptoc2": tk.DoubleVar(value=1),
-            "T1_ptoc3": tk.DoubleVar(value=1),            
-            "Iset_ptoc3": tk.DoubleVar(value=1),
-            "Icoarse_ptoc3": tk.DoubleVar(value=1),
-            "Uop_ptuv1": tk.DoubleVar(value=1),            
-            "U2op_ptuv1": tk.DoubleVar(value=1),
-            "Imax_phar1": tk.DoubleVar(value=1),
-            "Ratio_phar1": tk.DoubleVar(value=40),
+            "T1_ptoc1_lvttoc": tk.DoubleVar(value=1),            
+            "Iset_ptoc1_lvttoc": tk.DoubleVar(value=1),
+            "Icoarse_ptoc1_lvttoc": tk.DoubleVar(value=1),
+            "T1_ptoc2_lvttoc": tk.DoubleVar(value=1),
+            "Iset_ptoc2_lvttoc": tk.DoubleVar(value=1),
+            "Icoarse_ptoc2_lvttoc": tk.DoubleVar(value=1),
+            "T1_ptoc3_lvttoc": tk.DoubleVar(value=1),            
+            "Iset_ptoc3_lvttoc": tk.DoubleVar(value=1),
+            "Icoarse_ptoc3_lvttoc": tk.DoubleVar(value=1),
+            "Uop_ptuv1_lvttoc": tk.DoubleVar(value=1),            
+            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=1),
+            "Imax_phar1_lvttoc": tk.DoubleVar(value=1),
+            "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
             "T1_ptoc1_lvtoc": tk.DoubleVar(value=1),
             "Iset_ptoc1_lvtoc": tk.DoubleVar(value=1),
             "T1_rcbf1_lvcbsup": tk.DoubleVar(value=1),
@@ -147,6 +147,8 @@ class PartLO_GUI:
             "vnesh_blok_upr_V": tk.IntVar(value=0),
             "OV_rbrf1_tpbrf": tk.IntVar(value=0),
             "pusk_urov_vnesh": tk.IntVar(value=0),
+            "kontr_emo1": tk.IntVar(value=0),
+            "kontr_emo2": tk.IntVar(value=0),                        
             "Polozh_SA1": tk.IntVar(value=0),
             "Polozh_SA2": tk.IntVar(value=0),
             "Polozh_SA3": tk.IntVar(value=0),
@@ -154,31 +156,19 @@ class PartLO_GUI:
             "Polozh_SA5": tk.IntVar(value=0),
             "Polozh_SG1": tk.IntVar(value=0),
             "Polozh_SG2": tk.IntVar(value=0),
-
-
             "ot_gz": tk.IntVar(value=0),
             "ot_tz": tk.IntVar(value=0),
-            
-            "OV_ptrc1_talmgaslgc": tk.IntVar(value=0),
-            "NaOtkl_ptrc1_talmgaslgc": tk.IntVar(value=0),
-            "srabKont_ptrc1_talmgaslgc": tk.IntVar(value=0),
-            "srabKI_ptrc1_talmgaslgc": tk.IntVar(value=0),
-            "OV_ptrc1_ttrgaslgc": tk.IntVar(value=0),
-            "NaSign_ptrc1_ttrgaslgc": tk.IntVar(value=0),
-            "srabKont_ptrc1_ttrgaslgc": tk.IntVar(value=0),
-            "srabKI_ptrc1_ttrgaslgc": tk.IntVar(value=0),
-            "OV_ptrc1_tltcgaslgc": tk.IntVar(value=0),
-            "NaSign_ptrc1_tltcgaslgc": tk.IntVar(value=0),
-            "srabKont_ptrc1_tltcgaslgc": tk.IntVar(value=0),
-            "srabKI_ptrc1_tltcgaslgc": tk.IntVar(value=0),
-            "OV_tofflvlg": tk.IntVar(value=0),
-            "OVlo_tofflvlg": tk.IntVar(value=0),
-            "OVzapv_tofflvlg": tk.IntVar(value=0),
-            "OVzavr_tofflvlg": tk.IntVar(value=0),
-            "oil_t_hi_level": tk.IntVar(value=0),
-            "oil_ltc_hi_level": tk.IntVar(value=0),
-            "oil_ltc_lo_level": tk.IntVar(value=0),
-            "oil_ltc_lo_temp": tk.IntVar(value=0),
+            "ot_v": tk.IntVar(value=0),
+            "ot_zdz_nn": tk.IntVar(value=0),
+            "ot_urov_nn": tk.IntVar(value=0),
+            "ot_ieu_tn": tk.IntVar(value=0),
+            "vnesh_sign1": tk.IntVar(value=0),
+            "vnesh_sign2": tk.IntVar(value=0),
+            "vnesh_sign3": tk.IntVar(value=0),
+            "vnesh_sign4": tk.IntVar(value=0),
+            "IA": tk.DoubleVar(value=0),
+            "IB": tk.DoubleVar(value=0),
+            "IC": tk.DoubleVar(value=0),            
         }
 
         self.output_labels = {}  # Для вывода результатов
@@ -191,9 +181,9 @@ class PartLO_GUI:
         row, col = 0, 0
         for key, var in self.sgf_params.items():
             ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
-            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
+            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             row += 1
-            if row >= 14:
+            if row >= 16:
                 row = 0
                 col += 2
 
@@ -205,7 +195,7 @@ class PartLO_GUI:
             ttk.Label(settings_frame, text=key).grid(row=row, column=col, sticky="w")
             ttk.Entry(settings_frame, textvariable=var).grid(row=row, column=col + 1)
             row += 1
-            if row >= 3:
+            if row >= 5:
                 row = 0
                 col += 2
 
@@ -246,25 +236,10 @@ class PartLO_GUI:
         output_frame = ttk.LabelFrame(self.root, text="Выходные параметры")
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
         outputs = [
-            "vvod_oilptrc1_apttechlgc", "oper_vyvod_oilptrc1_apttechlgc", "srab_oilptrc1_apttechlgc", "srabsign_oilptrc1_apttechlgc",
-            "zablok_oilptrc1_apttechlgc", "ET_oilptrc1_apttechlgc", "vvod_winptrc1_apttechlgc", "oper_vyvod_winptrc1_apttechlgc",
-            "srab_winptrc1_apttechlgc", "srabsign_winptrc1_apttechlgc", "zablok_winptrc1_apttechlgc", "ET_winptrc1_apttechlgc",
-            "vvod_vlvptrc1_apttechlgc", "oper_vyvod_vlvptrc1_apttechlgc", "srab_vlvptrc1_apttechlgc", "srabsign_vlvptrc1_apttechlgc",
-            "zablok_vlvptrc1_apttechlgc", "ET_vlvptrc1_apttechlgc", "vvod_prvlvptrc1_almtechlgc", "oper_vyvod_prvlvptrc1_almtechlgc",
-            "srab_prvlvptrc1_almtechlgc", "srabsign_prvlvptrc1_almtechlgc", "vvod_shvlvptrc1_almtechlgc", "oper_vyvod_shvlvptrc1_almtechlgc",
-            "srab_shvlvptrc1_almtechlgc", "srabsign_shvlvptrc1_almtechlgc", "vvod_levptrc1_almtechlgc", "oper_vyvod_levptrc1_almtechlgc",
-            "srab_levptrc1_almtechlgc", "srabsign_levptrc1_almtechlgc", "vvod_ptrc1_talmgaslgc", "oper_vyvod_ptrc1_talmgaslgc",
-            "srab_ptrc1_talmgaslgc", "srabsign_ptrc1_talmgaslgc", "zablok_ptrc1_talmgaslgc", "ET_ptrc1_talmgaslgc",
-            "vvod_ptrc1_ttrgaslgc", "oper_vyvod_ptrc1_ttrgaslgc", "srab_ptrc1_ttrgaslgc", "srabsign_ptrc1_ttrgaslgc",
-            "zablok_ptrc1_ttrgaslgc", "ET_ptrc1_ttrgaslgc", "vvod_ptrc1_tltcgaslgc", "oper_vyvod_ptrc1_tltcgaslgc",
-            "srab_ptrc1_tltcgaslgc", "srabsign_ptrc1_tltcgaslgc", "zablok_ptrc1_tltcgaslgc", "ET_ptrc1_tltcgaslgc",
-            "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc",
-            "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc",
-            "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc",
-            "SS_gz_sign", "SS_gz_zablok", "SS_gz_nizk_isol", "SS_tz_sign", "SS_tz_nizk_isol", "SS_tz_zablok",
-            "SS_ts_sign", "SS_vnesh_otkl", "SS_vyh_zepi_razobr", "SS_bi_vyved", "SS_ot_sign",
-            "SS_neispr_ot_gz", "SS_neispr_ot_tz", "SS_neispr_ot_v", "SS_ot_nn_sign",
-            "SS_prev_vrem_per_ka", "SS_obsh_vnesh_sign", "pusk_lvalv"
+            "mtz_pusk_lvttoc", "mtz_srab_ptoc1_lvttoc", "mtz_srab_ptoc2_lvttoc", "mtz_srab_ptoc3_lvttoc", "pusk_ptoc1_lvtoc", "srab_ptoc1_lvtoc",
+        "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc", "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc", "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc", "vvod_hvcbptrc1_hvtcboff", "oper_vyvod_hvcbptrc1_hvtcboff", "otkl_hvcbptrc1_hvtcboff", "otkl_avar_hvcbptrc1_hvtcboff", "vvod_lvcbptrc1_lvtcboff", "oper_vyvod_lvcbptrc1_lvtcboff", "otkl_lvcbptrc1_lvtcboff", "otkl_avar_lvcbptrc1_lvtcboff", "vvod_lvcbrecrbre1_lvtcboff", "oper_vyvod_lvcbrecrbre1_lvtcboff", "zapret_lvcbrecrbre1_lvtcboff", "vvod_lvbtsrblc1_lvtcboff", "oper_vyvod_lvbtsrblc1_lvtcboff", "zapret_lvbtsrblc1_lvtcboff", "blok_otkl_rcbf1_lvcbsup",
+       "vvod_rbrf1_tpbrf", "oper_vyvod_rbrf1_tpbrf", "uskorenie_rbrf1_tpbrf", "srab_rbrf1_tpbrf", "pusk_rbrf1_tpbrf", "io_rbrf1_tpbrf", "srab_na_sebya_rbrf1_tpbrf",
+        "SS_gz_sign", "SS_gz_zablok", "SS_gz_nizk_isol", "SS_tz_sign", "SS_tz_nizk_isol", "SS_tz_zablok", "SS_ts_sign", "SS_vnesh_otkl", "SS_vyh_zepi_razobr", "SS_bi_vyved", "SS_ot_sign", "SS_neispr_ot_gz",  "SS_neispr_ot_tz", "SS_neispr_ot_v", "SS_ot_nn_sign", "SS_prev_vrem_per_ka", "SS_obsh_vnesh_sign", "pusk_lvalv"
         ]
 
         row, col = 0, 0
@@ -278,30 +253,46 @@ class PartLO_GUI:
                 col += 2
 
     def init_part(self):
-        self.part = part_TECH_T(
+        self.part = part_LO(
             # Передаем SGF-параметры из self.sgf_params
-            SGF1_oilptrc1_apttechlgc=self.sgf_params["SGF1_oilptrc1_apttechlgc"].get(),
-            SGF2_oilptrc1_apttechlgc=self.sgf_params["SGF2_oilptrc1_apttechlgc"].get(),
-            #T1_oilptrc1_apttechlgc=self.settings["T1_oilptrc1_apttechlgc"].get(),
-            SGF1_winptrc1_apttechlgc=self.sgf_params["SGF1_winptrc1_apttechlgc"].get(),
-            SGF2_winptrc1_apttechlgc=self.sgf_params["SGF2_winptrc1_apttechlgc"].get(),
-            #T1_winptrc1_apttechlgc=self.settings["T1_winptrc1_apttechlgc"].get(),
-            SGF1_vlvptrc1_apttechlgc=self.sgf_params["SGF1_vlvptrc1_apttechlgc"].get(),
-            SGF2_vlvptrc1_apttechlgc=self.sgf_params["SGF2_vlvptrc1_apttechlgc"].get(),
-            #T1_vlvptrc1_apttechlgc=self.settings["T1_vlvptrc1_apttechlgc"].get(),
-            T1_apttechlgc=self.settings["T1_apttechlgc"].get(),
-            SGF1_prvlvptrc1_almtechlgc=self.sgf_params["SGF1_prvlvptrc1_almtechlgc"].get(),
-            SGF1_shvlvptrc1_almtechlgc=self.sgf_params["SGF1_shvlvptrc1_almtechlgc"].get(),
-            SGF1_levptrc1_almtechlgc=self.sgf_params["SGF1_levptrc1_almtechlgc"].get(),
-            SGF1_ptrc1_talmgaslgc=self.sgf_params["SGF1_ptrc1_talmgaslgc"].get(),
-            SGF2_ptrc1_talmgaslgc=self.sgf_params["SGF2_ptrc1_talmgaslgc"].get(),
-            T1_ptrc1_talmgaslgc=self.settings["T1_ptrc1_talmgaslgc"].get(),
-            SGF1_ptrc1_ttrgaslgc=self.sgf_params["SGF1_ptrc1_ttrgaslgc"].get(),
-            SGF2_ptrc1_ttrgaslgc=self.sgf_params["SGF2_ptrc1_ttrgaslgc"].get(),
-            T1_ptrc1_ttrgaslgc=self.settings["T1_ttrgaslgc"].get(),
-            SGF1_ptrc1_tltcgaslgc=self.sgf_params["SGF1_ptrc1_tltcgaslgc"].get(),
-            SGF2_ptrc1_tltcgaslgc=self.sgf_params["SGF2_ptrc1_tltcgaslgc"].get(),
-            T1_ptrc1_tltcgaslgc=self.settings["T1_tltcgaslgc"].get(),
+            SGF1=self.sgf_params["SGF1_lvttoc"].get(),
+            SGF1_ptoc1=self.sgf_params["SGF1_ptoc1_lvttoc"].get(),
+            SGF2_ptoc1=self.sgf_params["SGF2_ptoc1_lvttoc"].get(),
+            SGF3_ptoc1=self.sgf_params["SGF3_ptoc1_lvttoc"].get(),
+            SGF4_ptoc1=self.sgf_params["SGF4_ptoc1_lvttoc"].get(),
+            SGF5_ptoc1=self.sgf_params["SGF5_ptoc1_lvttoc"].get(),
+            SGF6_ptoc1=self.sgf_params["SGF6_ptoc1_lvttoc"].get(),
+            SGF1_ptoc2=self.sgf_params["SGF1_ptoc2_lvttoc"].get(),
+            SGF2_ptoc2=self.sgf_params["SGF2_ptoc2_lvttoc"].get(),
+            SGF3_ptoc2=self.sgf_params["SGF3_ptoc2_lvttoc"].get(),
+            SGF4_ptoc2=self.sgf_params["SGF4_ptoc2_lvttoc"].get(),
+            SGF5_ptoc2=self.sgf_params["SGF5_ptoc2_lvttoc"].get(),
+            SGF6_ptoc2=self.sgf_params["SGF6_ptoc2_lvttoc"].get(),
+            SGF1_ptoc3=self.sgf_params["SGF1_ptoc3_lvttoc"].get(),
+            SGF2_ptoc3=self.sgf_params["SGF2_ptoc3_lvttoc"].get(),
+            SGF3_ptoc3=self.sgf_params["SGF3_ptoc3_lvttoc"].get(),
+            SGF4_ptoc3=self.sgf_params["SGF4_ptoc3_lvttoc"].get(),
+            SGF5_ptoc3=self.sgf_params["SGF5_ptoc3_lvttoc"].get(),
+            SGF6_ptoc3=self.sgf_params["SGF6_ptoc3_lvttoc"].get(),
+            SGF1_ptuv1=self.sgf_params["SGF1_ptuv1_lvttoc"].get(),
+            SGF1_phar1=self.sgf_params["SGF1_phar1_lvttoc"].get(),
+            SGF1_rblc1=self.sgf_params["SGF1_rblc1_lvttoc"].get(),
+            SGF1_ptoc1_lvtoc=self.sgf_params["SGF1_ptoc1_lvtoc"].get(),
+            SGF2_ptoc1_lvtoc=self.sgf_params["SGF2_ptoc1_lvtoc"].get(),
+            SGF1_rcbf1_lvcbsup=self.sgf_params["SGF1_rcbf1_lvcbsup"].get(),
+            SGF2_rcbf1_lvcbsup=self.sgf_params["SGF2_rcbf1_lvcbsup"].get(),
+            SGF3_rcbf1_lvcbsup=self.sgf_params["SGF3_rcbf1_lvcbsup"].get(),
+            SGF4_rcbf1_lvcbsup=self.sgf_params["SGF4_rcbf1_lvcbsup"].get(),
+            SGF5_rcbf1_lvcbsup=self.sgf_params["SGF5_rcbf1_lvcbsup"].get(),
+            SGF6_rcbf1_lvcbsup=self.sgf_params["SGF6_rcbf1_lvcbsup"].get(),
+            SGF7_rcbf1_lvcbsup=self.sgf_params["SGF7_rcbf1_lvcbsup"].get(),
+            SGF8_rcbf1_lvcbsup=self.sgf_params["SGF8_rcbf1_lvcbsup"].get(),
+            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_rbrf1_tpbrf"].get(),
+            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_rbrf1_tpbrf"].get(),
+            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_rbrf1_tpbrf"].get(),
+            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_rbrf1_tpbrf"].get(),
+            SGF5_rbrf1_tpbrf=self.sgf_params["SGF5_rbrf1_tpbrf"].get(),
+            SGF6_rbrf1_tpbrf=self.sgf_params["SGF6_rbrf1_tpbrf"].get(),
             SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tofflvlgc"].get(),
             SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tofflvlgc"].get(),
             SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tofflvlgc"].get(),
@@ -309,39 +300,65 @@ class PartLO_GUI:
             SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(),
             SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(),
             SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
-            SGF1_t_lvalh=self.sgf_params["SGF1_lvalh"].get(),
-            SGF2_t_lvalh=self.sgf_params["SGF2_lvalh"].get(),
-            SGF3_t_lvalh=self.sgf_params["SGF3_lvalh"].get(),
-            SGF4_t_lvalh=self.sgf_params["SGF4_lvalh"].get(),
-            SGF5_t_lvalh=self.sgf_params["SGF5_lvalh"].get(),
-            SGF6_t_lvalh=self.sgf_params["SGF6_lvalh"].get(),
-            SGF7_t_lvalh=self.sgf_params["SGF7_lvalh"].get(),
-            SGF8_t_lvalh=self.sgf_params["SGF8_lvalh"].get(),
-            SGF9_t_lvalh=self.sgf_params["SGF9_lvalh"].get(),
-            SGF10_t_lvalh=self.sgf_params["SGF10_lvalh"].get(),
-            SGF11_t_lvalh=self.sgf_params["SGF11_lvalh"].get(),
-            SGF12_t_lvalh=self.sgf_params["SGF12_lvalh"].get(),
-            SGF13_t_lvalh=self.sgf_params["SGF13_lvalh"].get(),
-            SGF14_t_lvalh=self.sgf_params["SGF14_lvalh"].get(),
-            SGF1_t_signassembly=self.sgf_params["SGF1_tsa"].get(),
-            SGF2_t_signassembly=self.sgf_params["SGF2_tsa"].get(),
-            SGF3_t_signassembly=self.sgf_params["SGF3_tsa"].get(),
-            SGF4_t_signassembly=self.sgf_params["SGF4_tsa"].get(),
-            SGF5_t_signassembly=self.sgf_params["SGF5_tsa"].get(),
-            SGF6_t_signassembly=self.sgf_params["SGF6_tsa"].get(),
-            SGF7_t_signassembly=self.sgf_params["SGF7_tsa"].get(),
-            SGF8_t_signassembly=self.sgf_params["SGF8_tsa"].get(),
-            SGF9_t_signassembly=self.sgf_params["SGF9_tsa"].get(),
-            SGF10_t_signassembly=self.sgf_params["SGF10_tsa"].get(),
-            SGF11_t_signassembly=self.sgf_params["SGF11_tsa"].get(),
-            SGF12_t_signassembly=self.sgf_params["SGF12_tsa"].get(),
-            SGF13_t_signassembly=self.sgf_params["SGF13_tsa"].get(),
+            SGF1_hvcbptrc1_hvtcboff=self.sgf_params["SGF1_hvcbptrc1_hvtcboff"].get(),
+            SGF1_lvcbptrc1_lvtcboff=self.sgf_params["SGF1_lvcbptrc1_lvtcboff"].get(),
+            SGF1_lvcbrecrbre1_lvtcboff=self.sgf_params["SGF1_lvcbrecrbre1_lvtcboff"].get(),
+            SGF1_lvbtsrblc1_lvtcboff=self.sgf_params["SGF1_lvbtsrblc1_lvtcboff"].get(),
+            SGF1_lvalh=self.sgf_params["SGF1_lvalh"].get(),
+            SGF2_lvalh=self.sgf_params["SGF2_lvalh"].get(),
+            SGF3_lvalh=self.sgf_params["SGF3_lvalh"].get(),
+            SGF4_lvalh=self.sgf_params["SGF4_lvalh"].get(),
+            SGF5_lvalh=self.sgf_params["SGF5_lvalh"].get(),
+            SGF6_lvalh=self.sgf_params["SGF6_lvalh"].get(),
+            SGF7_lvalh=self.sgf_params["SGF7_lvalh"].get(),
+            SGF8_lvalh=self.sgf_params["SGF8_lvalh"].get(),
+            SGF9_lvalh=self.sgf_params["SGF9_lvalh"].get(),
+            SGF10_lvalh=self.sgf_params["SGF10_lvalh"].get(),
+            SGF11_lvalh=self.sgf_params["SGF11_lvalh"].get(),
+            SGF12_lvalh=self.sgf_params["SGF12_lvalh"].get(),
+            SGF13_lvalh=self.sgf_params["SGF13_lvalh"].get(),
+            SGF14_lvalh=self.sgf_params["SGF14_lvalh"].get(),
+            SGF1_tsa=self.sgf_params["SGF1_tsa"].get(),
+            SGF2_tsa=self.sgf_params["SGF2_tsa"].get(),
+            SGF3_tsa=self.sgf_params["SGF3_tsa"].get(),
+            SGF4_tsa=self.sgf_params["SGF4_tsa"].get(),
+            SGF5_tsa=self.sgf_params["SGF5_tsa"].get(),
+            SGF6_tsa=self.sgf_params["SGF6_tsa"].get(),
+            SGF7_tsa=self.sgf_params["SGF7_tsa"].get(),
+            SGF8_tsa=self.sgf_params["SGF8_tsa"].get(),
+            SGF9_tsa=self.sgf_params["SGF9_tsa"].get(),
+            SGF10_tsa=self.sgf_params["SGF10_tsa"].get(),
+            SGF11_tsa=self.sgf_params["SGF11_tsa"].get(),
+            SGF12_tsa=self.sgf_params["SGF12_tsa"].get(),
+            SGF13_tsa=self.sgf_params["SGF13_tsa"].get(),
+            T1_ptoc1=self.settings["T1_ptoc1_lvttoc"].get(),
+            Iset_ptoc1=self.settings["Iset_ptoc1_lvttoc"].get(),
+            Icoarse_ptoc1=self.settings["Icoarse_ptoc1_lvttoc"].get(),
+            T1_ptoc2=self.settings["T1_ptoc2_lvttoc"].get(),
+            Iset_ptoc2=self.settings["Iset_ptoc2_lvttoc"].get(),
+            Icoarse_ptoc2=self.settings["Icoarse_ptoc2_lvttoc"].get(),
+            T1_ptoc3=self.settings["T1_ptoc3_lvttoc"].get(),
+            Iset_ptoc3=self.settings["Iset_ptoc3_lvttoc"].get(),
+            Icoarse_ptoc3=self.settings["Icoarse_ptoc3_lvttoc"].get(),
+            Uop_ptuv1=self.settings["Uop_ptuv1_lvttoc"].get(),
+            U2op_ptuv1=self.settings["U2op_ptuv1_lvttoc"].get(),
+            Imax_phar1=self.settings["Imax_phar1_lvttoc"].get(),
+            Ratio_phar1=self.settings["Ratio_phar1_lvttoc"].get(),
+            T1_ptoc1_lvtoc=self.settings["T1_ptoc1_lvtoc"].get(),
+            Iset_ptoc1_lvtoc=self.settings["Iset_ptoc1_lvtoc"].get(),
+            T1_rcbf1_lvcbsup=self.settings["T1_rcbf1_lvcbsup"].get(),
+            T2_rcbf1_lvcbsup=self.settings["T2_rcbf1_lvcbsup"].get(),
+            T3_rcbf1_lvcbsup=self.settings["T3_rcbf1_lvcbsup"].get(),
+            T1_rbrf1_tpbrf=self.settings["T1_rbrf1_tpbrf"].get(),
+            Iset_rbrf1_tpbrf=self.settings["Iset_rbrf1_tpbrf"].get(),
+            T1_hvcbptrc1_hvtcboff=self.settings["T1_hvcbptrc1_hvtcboff"].get(),
+            T1_lvcbptrc1_lvtcboff=self.settings["T1_lvcbptrc1_lvtcboff"].get(),
         )
-        print("part_TECH_T initialized")
+        print("part_LO initialized")
 
     def start_polling(self):
         if not self.part:
-            print("part_TECH_T not initialized")
+            print("part_LO not initialized")
             return
         self.is_polling = True
         self.polling_thread = threading.Thread(target=self.poll_inputs, daemon=True)
@@ -460,5 +477,5 @@ class PartLO_GUI:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = PartOfTECH_T_GUI(root)
+    app = PartLO_GUI(root)
     root.mainloop()
