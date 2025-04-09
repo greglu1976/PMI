@@ -27,7 +27,8 @@ from create_settings_from_mode2 import start_proceed_modes
 
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
-REGENERATE = 1 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
+REGENERATE = 0 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
+ADD_DEFAULT_COL = 0 # Добавить в таблицы уставок столбец со значением по умолчанию
 
 def horizont_A4(doc):
     # Настройка страницы формата A4 (297мм x 210мм) горизонтальной ориентации
@@ -230,8 +231,14 @@ def add_table_set(doc, data):
         table.cell(row_idx, 3).text = units
         #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
         set_value = str(values.get('SetValue', '')).replace('.', ',')
-        table.cell(row_idx, 5).text = set_value
 
+        cell_=table.cell(row_idx, 5)
+        cell_.text = set_value
+        # делаем жирным
+        for paragraph in cell_.paragraphs:
+            for run in paragraph.runs:
+                run.bold = True
+                
         # Проверка значения 'Color' и изменение фона ячейки
         if values.get('Color', '') == 'changed':
             cell = table.cell(row_idx, 5)  # Ячейка в столбце 'Уставка'
@@ -257,6 +264,95 @@ def add_table_set(doc, data):
         for cell in table.columns[i].cells:
             cell.width = Inches(width)
     return doc
+
+########################## ТАБЛИЦА СО СТОЛБЦОМ - ЗНАЧЕНИЕ ПО УМОЛЧАНИЮ #####################################
+# ########################################################################################################## 
+# ПОКА НЕ ТРЕБУЕТСЯ
+def add_table_set_default_col(doc, data):
+    # Создаем таблицу
+    table = doc.add_table(rows=len(data) + 1, cols=7)
+
+    # Установка высоты первой строки (заголовок)
+    header_row = table.rows[0]
+    header_row.height = Mm(5)  # Устанавливаем высоту строки заголовка в 45 мм
+    set_repeat_table_header(header_row)
+
+    # Заголовки столбцов
+    headers = ['Параметр', 'Обозначение ФСУ', 'Значение / Диапазон', 'Ед.изм.', 'Шаг', 'Значение по умолчанию', 'Уставка']
+    for i, header in enumerate(headers):
+        cell = table.cell(0, i)
+        cell.text = header
+        # Делаем заголовки жирными
+        cell.paragraphs[0].runs[0].bold = True
+        cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        cell.paragraphs[0].style = 'Текст таблицы'
+        set_cell_vertical_alignment(cell, align="center")
+
+    # Добавление данных в таблицу
+    for row_idx, (switch, values) in enumerate(data.items(), start=1):
+        full_desc_processed = values.get('FullDescription', '').replace('<<','«').replace('>>','»')
+        table.cell(row_idx, 0).text = f"{full_desc_processed} ({values.get('ShortDescription', '')})"
+        units = values.get('units', '')
+        default_value = str(values.get('DefaultValue', ''))  
+
+        if 'SGF' in switch:
+            table.cell(row_idx, 1).text = switch
+            t = values.get('Note', '').replace('\n', '')
+            t = t.replace(', ', '\n')
+            table.cell(row_idx, 2).text = t.replace(',', '\n')
+        else:
+            table.cell(row_idx, 1).text = values.get('AppliedDescription', '')
+            if units == 'мс':
+                units = 'с'
+                table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
+                table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
+                default_value = str(int(default_value) / 1000).replace('.', ',')
+            else:
+                table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
+                table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+                default_value = default_value.replace('.', ',')
+        
+        table.cell(row_idx, 3).text = units
+        table.cell(row_idx, 5).text = default_value
+
+        set_value = str(values.get('SetValue', '')).replace('.', ',')
+        cell_=table.cell(row_idx, 6)
+        cell_.text = set_value
+        # делаем жирным
+        for paragraph in cell_.paragraphs:
+            for run in paragraph.runs:
+                run.bold = True
+
+        # Проверка значения 'Color' и изменение фона ячейки
+        if values.get('Color', '') == 'changed':
+            cell = table.cell(row_idx, 6)  # Ячейка в столбце 'Уставка'
+            shading_elm = parse_xml(r'<w:shd {} w:fill="FFC000"/>'.format(nsdecls('w')))
+            cell._tc.get_or_add_tcPr().append(shading_elm)
+
+        # Настройка выравнивания и отступов для первого столбца
+        first_cell = table.cell(row_idx, 0)  # Ячейка первого столбца
+        for paragraph in first_cell.paragraphs:
+            # Устанавливаем выравнивание по левому краю
+            #paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
+            paragraph.style = "ЮИ_Таблица_Нумерованный"
+
+
+    # Применяем стиль "Текст таблицы" ко всем ячейкам
+    apply_style_to_all_cells(table, 'ЮИ_Таблица_Текст')
+
+    table.style = 'Стиль3'
+    table.allow_autofit = False
+    # Задаем ширину столбцов (в дюймах)
+    widths = [2.0, 1.2, 2.0, 0.7, 0.7, 1.0, 0.7]  # Настройте значения под ваши нужды
+    for i, width in enumerate(widths):
+        for cell in table.columns[i].cells:
+            cell.width = Inches(width)
+    return doc
+
+    ####################################################################
+    ###################################################################
+
+
 
 # Вспомогательная функция для создания XML-элемента с заданным цветом фона
 def parse_xml(xml_string):
@@ -355,7 +451,10 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
                         doc.add_paragraph(f"{func_desc} ({func_short_name})", style='ЮИ_Таблица_Название')
 
                     # Добавляем таблицу для переключателей (switches)
-                    doc = add_table_set(doc, switches)
+                    if ADD_DEFAULT_COL == 1:
+                        doc = add_table_set_default_col(doc, switches)
+                    else:
+                        doc = add_table_set(doc, switches)
 
         # Если это не первый режим и нет изменений, добавляем сообщение
         elif not has_changes:
@@ -406,7 +505,11 @@ def add_json_data_to_doc(folder_path, doc, root_dir=''):
                         doc.add_paragraph(f"{func_desc} ({func_short_name})", style='ЮИ_Таблица_Название')
 
                     # Добавляем таблицу для переключателей (switches)
-                    doc = add_table_set(doc, switches)
+                    if ADD_DEFAULT_COL == 1:
+                        doc = add_table_set_default_col(doc, switches)
+                    else:
+                        doc = add_table_set(doc, switches)
+
 
         # Обновляем данные предыдущего режима
         previous_general_data = current_general_data
@@ -619,6 +722,8 @@ def make_par(doc, heading, intro_text, func_modes_dir, needed_inputs, dir):
         generate_json_for_all_xlsx(folder_path, root_dir)
         # Этап 1.1: Контроль режимов в JSON
         start_analyze(folder_path)
+    else:
+        print(f'!!! Регенерация xlsx->json отключена. Режимы ведь не менялись в {folder_path }?')
 
     # Открытие шаблона документа
     #doc = Document('templ1.docx')
