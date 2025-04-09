@@ -1,0 +1,16 @@
+{
+    "mtz_srab_ptoc1_lvttoc": "МТЗ 1 ст: Срабатывание",
+    "mtz_srab_ptoc2_lvttoc": "МТЗ 2 ст: Срабатывание",
+    "mtz_srab_ptoc3_lvttoc": "МТЗ 3 ст: Срабатывание",
+    "vvod_ptrc1_tofflvlgc": "ЛО Т / ЛО: Ввод",
+    "oper_vyvod_ptrc1_tofflvlgc": "ЛО Т / ЛО: Оперативный вывод",
+    "pusk_ptrc1_tofflvlgc": "ЛО Т / ЛО: Пуск",
+    "srab_ptrc1_tofflvlgc": "ЛО Т / ЛО: Срабатывание",
+    "vvod_rblc1_tofflvlgc": "ЛО Т / ЗАВР: Ввод",
+    "oper_vyvod_rblc1_tofflvlgc": "ЛО Т / ЗАВР: Оперативный вывод",
+    "zapret_rblc1_tofflvlgc": "ЛО Т / ЗАВР: Запрет АВР",
+    "vvod_rbre1_tofflvlgc": "ЛО Т / ЗАПВ: Ввод",
+    "oper_vyvod_rbre1_tofflvlgc": "ЛО Т / ЗАПВ: Оперативный вывод",
+    "zapret_rbre1_tofflvlgc": "ЛО Т / ЗАПВ: Запрет АПВ",
+    "pusk_lvalv": "ПС: Пуск"
+}

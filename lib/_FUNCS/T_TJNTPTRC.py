@@ -8,7 +8,6 @@ class T_TJNTPTRC:
     def Step(self, VYVOD, OV, OVlo, signals = (0,), mtz2_srab=0, mtz3_srab=0):
         vvod = (not(OV or OVlo or VYVOD)) and (self.SGF1==1) # Ввод
         oper_vyvod = (OV or OVlo or VYVOD) and (self.SGF1==1) # Оперативный вывод
-
         pusk = any(signals)
         srab = vvod and (pusk or mtz2_srab or mtz3_srab)
         return vvod, oper_vyvod, pusk, srab

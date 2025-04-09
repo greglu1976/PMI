@@ -90,7 +90,7 @@ class part_LO:
         vvod_ptoc1_lvtoc, oper_vyvod_ptoc1_lvtoc, pusk_ptoc1_lvtoc, io_ptoc1_lvtoc, srabsign_ptoc1_lvtoc, srab_ptoc1_lvtoc, ET_ptoc1_lvtoc =  self.lvtoc.Step(VYVOD, OV_ptoc1_lvtoc, NaSign_ptoc1_lvtoc, IA, IB, IC, IAB, IBC, ICA)
 
         # Собираем кортеж срабатываний
-        signals_tofflvlg = (mtz_srab_ptoc1_lvttoc, mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, srab_ptoc1_lvtoc) 
+        signals_tofflvlg = (mtz_srab_ptoc1_lvttoc, srab_ptoc1_lvtoc) 
 
         # вычисляем ЛО Т
         vvod_ptrc1_tofflvlgc, oper_vyvod_ptrc1_tofflvlgc, pusk_ptrc1_tofflvlgc, srab_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, zapret_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, zapret_rbre1_tofflvlgc = self.tofflvlgc.Step(VYVOD, OV_tofflvlg, OVlo_tofflvlg, signals_tofflvlg, mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, OVzapv_tofflvlg, OVzavr_tofflvlg)
