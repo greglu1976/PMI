@@ -1,6 +1,0 @@
-Отчет о ненулевых столбцах (сгруппировано по папкам):
-======================================================================
-Папка: pmi_lo\urov_modes
-Лист 'Inputs': IA, IB, IC, OV_rbrf1_tpbrf, VYVOD, kontr_emo1, kontr_emo2, pusk_urov_vnesh, vnesh_blok_upr_V
-Лист 'Outputs': blok_otkl_rcbf1_lvcbsup, io_rbrf1_tpbrf, mtz_pusk_lvttoc, mtz_srab_ptoc1_lvttoc, oper_vyvod_hvcbptrc1_hvtcboff, oper_vyvod_ptrc1_tofflvlgc, oper_vyvod_rbrf1_tpbrf, otkl_hvcbptrc1_hvtcboff, pusk_lvalv, pusk_ptoc1_lvtoc, pusk_ptrc1_tofflvlgc, pusk_rbrf1_tpbrf, srab_na_sebya_rbrf1_tpbrf, srab_ptoc1_lvtoc, srab_ptrc1_tofflvlgc, srab_rbrf1_tpbrf, uskorenie_rbrf1_tpbrf, vvod_hvcbptrc1_hvtcboff, vvod_ptrc1_tofflvlgc, vvod_rbrf1_tpbrf
-----------------------------------------------------------------------
