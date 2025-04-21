@@ -1,14 +1,21 @@
-# ДТО (INSPDIF)
+# ДТЗт (RESPDIF)
 
-#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
+# SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
+# SGF2 - Реж_блок - Режим блокировки (Без блокировки / Блокировка по 2 гармонике / Блокировка по 5 гармонике / Блокировка по 2 и 5 гармоникам)
+#SGF3 - Контр_БВКЗ - Контроль от БВКЗ (Без контроля БВКЗ/ С контролем БВКЗ)
+
 
 from lib._TIMERS.TIMERS import TON  
 from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib._ADD.iodzt import ioDZT # импортирует ИО ДТЗ
 
-class INSPDIF:
-    def __init__(self, SGF1, T1, Iset):
+class RESPDIF:
+    def __init__(self, SGF1, SGF2, SGF3, T1, Isr, Isr_zagrub, It1, It2, Kt1, Kt2):
         self.SGF1 = SGF1
-        self.Iset = Iset
+        self.SGF2 = SGF2
+        self.SGF3 = SGF3
+        self.Isr_zagrub = Isr_zagrub
+        self.Iset = Isr
         self.T1a = TON()
         self.T1a.set_PT(T1)
         self.T1b = TON()
@@ -18,6 +25,8 @@ class INSPDIF:
         self.RSa = RSTrigger(state=0)
         self.RSb = RSTrigger(state=0)
         self.RSc = RSTrigger(state=0)
+        self.io = ioDZT(Isr, Isr_zagrub, It1, It2, Kt1, Kt2)
+
 
     def Step(self, VYVOD, OV, OVst, NaSign, IAdiff, IBdiff, ICdiff):
 
