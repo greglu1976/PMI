@@ -4,9 +4,7 @@
 # SGF2 - Реж_блок - Режим блокировки (Без блокировки / Блокировка по 2 гармонике / Блокировка по 5 гармонике / Блокировка по 2 и 5 гармоникам)
 #SGF3 - Контр_БВКЗ - Контроль от БВКЗ (Без контроля БВКЗ/ С контролем БВКЗ)
 
-
 from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import RSTrigger
 from lib._ADD.iodzt import ioDZT # импортирует ИО ДТЗ
 
 class RESPDIF:
@@ -22,24 +20,44 @@ class RESPDIF:
         self.T1b.set_PT(T1)
         self.T1c = TON()
         self.T1c.set_PT(T1)
-        self.RSa = RSTrigger(state=0)
-        self.RSb = RSTrigger(state=0)
-        self.RSc = RSTrigger(state=0)
-        self.io = ioDZT(Isr, Isr_zagrub, It1, It2, Kt1, Kt2)
 
+        self.ioA = ioDZT(Isr, Isr_zagrub, It1, It2, Kt1, Kt2)
+        self.ioB = ioDZT(Isr, Isr_zagrub, It1, It2, Kt1, Kt2)
+        self.ioC = ioDZT(Isr, Isr_zagrub, It1, It2, Kt1, Kt2)
 
-    def Step(self, VYVOD, OV, OVst, NaSign, IAdiff, IBdiff, ICdiff):
+    def Step(self, VYVOD, OV, OVst, NaSign, IAdiff, IBdiff, ICdiff, IAbias, IBbias, ICbias, CurCirc, OpSelA, OpSelB, OpSelC, d2g_pusk_A, d2g_pusk_B, d2g_pusk_C, d5g_pusk_A, d5g_pusk_B, d5g_pusk_C):
 
-        vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # ДТО: Ввод
-        oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # ДТО: Оперативный вывод
+        vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # ДТЗ: Ввод
+        oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # ДТЗ: Оперативный вывод
 
-        io_A = (self.SGF1==1) and (self.RSa.run((IAdiff>=self.Iset), (IAdiff<0.95*self.Iset)))
-        io_B = (self.SGF1==1) and (self.RSb.run((IBdiff>=self.Iset), (IBdiff<0.95*self.Iset)))
-        io_C = (self.SGF1==1) and (self.RSc.run((ICdiff>=self.Iset), (ICdiff<0.95*self.Iset)))
+        io_A = (self.SGF1==1) and self.ioA.Step(IAdiff, IAbias, CurCirc, OpSelA, self.SGF3)
+        io_B = (self.SGF1==1) and self.ioB.Step(IBdiff, IBbias, CurCirc, OpSelB, self.SGF3)
+        io_C = (self.SGF1==1) and self.ioC.Step(ICdiff, ICbias, CurCirc, OpSelC, self.SGF3)
 
-        pusk_A = vvod and io_A
-        pusk_B = vvod and io_B
-        pusk_C = vvod and io_C
+        if self.SGF2==2 or self.SGF2==4:
+            _p0001 = 1
+        else:
+            _p0001 = 0
+        _p001 = d2g_pusk_A and _p0001 
+        _p002 = d2g_pusk_B and _p0001 
+        _p003 = d2g_pusk_C and _p0001
+
+        if self.SGF2==1:
+            _p004 = 1
+        else:
+            _p004 = 0
+
+        if self.SGF2==3 or self.SGF2==4:
+            _p0002 = 1
+        else:
+            _p0002 = 0
+        _p005 = d5g_pusk_A and _p0002
+        _p006 = d5g_pusk_B and _p0002 
+        _p007 = d5g_pusk_C and _p0002
+
+        pusk_A = vvod and io_A and (_p004 or (not(_p001 or _p005)))
+        pusk_B = vvod and io_B and (_p004 or (not(_p002 or _p006)))
+        pusk_C = vvod and io_C and (_p004 or (not(_p003 or _p007)))
 
         self.T1a.IN = pusk_A
         srabsign_A, ET_A = self.T1a.start()
@@ -64,12 +82,49 @@ class RESPDIF:
     def set_SGF1(self, value):
         self.SGF1 = value
 
+    def get_SGF2(self):
+        return self.SGF2
+    def set_SGF2(self, value):
+        self.SGF2 = value
+
+    def get_SGF3(self):
+        return self.SGF3
+    def set_SGF3(self, value):
+        self.SGF3 = value
+
     def get_T1(self):
         return self.T1.PT
     def set_T1(self, T):
         self.T1.set_PT(T)
 
-    def get_Iset(self):
-        return self.Iset
-    def set_Iset(self, Iset):
-        self.Iset=Iset
+    def get_Isr(self):
+        return self.Isr
+    def set_Isr(self, Isr):
+        self.Isr=Isr
+
+    def get_Isr_zagrub(self):
+        return self.Isr_zagrub
+    def set_Isr_zagrub(self, Isr_zagrub):
+        self.Isr_zagrub=Isr_zagrub        
+
+    def get_It1(self):
+        return self.It1
+    def set_It1(self, It1):
+        self.It1=It1
+
+    def get_It2(self):
+        return self.It2
+    def set_It2(self, It2):
+        self.It2=It2
+
+    def get_Kt1(self):
+        return self.Kt1
+    def set_Kt1(self, Kt1):
+        self.Kt1=Kt1
+
+    def get_Kt2(self):
+        return self.Kt2
+    def set_Kt2(self, Kt2):
+        self.Kt2=Kt2
+
+      

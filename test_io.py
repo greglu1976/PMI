@@ -1,11 +1,20 @@
 
+from lib._FUNCS.RESPDIF import RESPDIF
 
-from lib._ADD.iodzt import ioDZT
+pdif1 = RESPDIF(SGF1=1, SGF2=4, SGF3=1, T1=0, Isr=0.2, Isr_zagrub=1.0, It1=1.0, It2=3.0, Kt1=0.25, Kt2=0.7)
 
-io = ioDZT(Isr=0.2, Isr_zagrub=1.0, It1=1.0, It2=3.0, Kt1=0.25, Kt2=0.7)
-res1 = io.Step(IAdiff=1.1, IBdiff=0, ICdiff=0, IAbias=3.1, IBbias=0, ICbias=0)
-#res2 = io.Step(IAdiff=0.5, IBdiff=0, ICdiff=0, IAbias=1.3, IBbias=0, ICbias=0)
-#res3 = io.Step(IAdiff=0.5, IBdiff=0, ICdiff=0, IAbias=1.3, IBbias=0, ICbias=0)
-#print(res1, res2, res3)   
+VYVOD = OV = OVst = 0
+NaSign = 0
+IAdiff = IBdiff = ICdiff = 0.6 
+IAbias = IBbias = ICbias = 2.3
+CurCirc = 0
+OpSelA = OpSelB = OpSelC = 1
+d2g_pusk_A = d2g_pusk_B = d2g_pusk_C = 0
+d5g_pusk_A = d5g_pusk_B = d5g_pusk_C = 1
 
-print(res1)
+r1 = pdif1.Step(VYVOD, OV, OVst, NaSign, IAdiff, IBdiff, ICdiff, IAbias, IBbias, ICbias, CurCirc, OpSelA, OpSelB, OpSelC, d2g_pusk_A, d2g_pusk_B, d2g_pusk_C, d5g_pusk_A, d5g_pusk_B, d5g_pusk_C)
+
+#vod, oper_vyvod, pusk_A, srab_A, srabsign_A, io_A, pusk_B, srab_B, srabsign_B, io_B, pusk_C, srab_C, srabsign_C, io_C, pusk, srabsign, srab
+
+print(r1)
+

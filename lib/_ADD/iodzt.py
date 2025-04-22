@@ -1,4 +1,4 @@
-# Измерительный орган ДЗТ
+# Измерительный орган ДЗТ для одной фазы
 
 from lib._TRIGGERS.TRIGGERS import RSTrigger
 
@@ -10,22 +10,17 @@ class ioDZT:
         self.It2 = It2 
         self.Kt1 = Kt1
         self.Kt2 = Kt2
-        self.RSa1 = RSTrigger(state=0)
-        self.RSa2 = RSTrigger(state=0)
-        self.RSa3 = RSTrigger(state=0)        
-        self.RSb = RSTrigger(state=0)
-        self.RSc = RSTrigger(state=0)
-        self.yt1 = Isr+Kt1*(It2-It1) # находим точку на оси y соответствующую It1
-        self.xk1 = (Isr_zagrub - Isr + Kt1*It1)/Kt1 # точка на оси x пересечение с первой характеристикой
-        self.xk2 = (Isr_zagrub - Isr + Kt2*It2-Kt1*(It2-It1))/Kt2 # точка на оси x пересечение со второй характеристикой
-        self.is_k1 = self.yt1 > self.Isr_zagrub
+        self.RS1 = RSTrigger(state=0)
+        self.RS2 = RSTrigger(state=0)
+        self.RS3 = RSTrigger(state=0)        
 
         # вспомогательные переменные выходов каждой характеристики
         self.out1 = False
         self.out2 = False
         self.out3 = False
+        self.for_bvkz_mode = False
 
-    def _isin_trip_area_krist(self, Ibias, Idiff, CurCirc):
+    def _is_in_trip_area(self, Idiff, Ibias, CurCirc):
 
         if CurCirc==True:
             I = self.Isr_zagrub
@@ -34,7 +29,6 @@ class ioDZT:
 
         _a1 = Idiff - I
         _a1_res = _a1 + 0.05
-        print(_a1, _a1_res)        
         _a2 = Idiff-(self.Kt1*(Ibias-self.It1) + self.Isr)
         _a2_res = _a2 + 0.05
         _a3 = Idiff-(self.Kt2*(Ibias-self.It2) + self.Kt1*(self.It2-self.It1) + self.Isr)
@@ -42,35 +36,36 @@ class ioDZT:
 
         _res_gen = (_a1_res<0) or (_a2_res<0) or (_a3_res<0)
 
-        self.out1 = self.RSa1.run((_a1>=0), (((_a1_res<0) and self.out1) or _res_gen))
-        self.out2 = self.RSa2.run((_a2>=0), (((_a2_res<0) and self.out2) or _res_gen))
-        self.out3 = self.RSa3.run((_a3>=0), (((_a3_res<0) and self.out3) or _res_gen))
+        self.out1 = self.RS1.run((_a1>=0), (((_a1_res<0) and self.out1) or _res_gen))
+        self.out2 = self.RS2.run((_a2>=0), (((_a2_res<0) and self.out2) or _res_gen))
+        self.out3 = self.RS3.run((_a3>=0), (((_a3_res<0) and self.out3) or _res_gen))
 
         return self.out1, self.out2, self.out3
 
-    def _isin_trip_area(self, Ibias, Idiff, CurCirc):
+    def _ctrl_bvkz(self, Ibias, srab1z, srab2z, srab3z, OpSel, EnaDisSelec):
+        _is1 = Ibias - self.It1<=0
+        _is2 = (Ibias - self.It2<=0) and (Ibias - self.It1>0)        
+        _is3 = Ibias - self.It2>0
 
-        print(self.xk1, self.xk2, self.Isr_zagrub, self.yt1, self.is_k1)
-        if Ibias<=self.It1 and Idiff>=self.Isr:
-            return True
-        elif Ibias>self.It1 and Ibias<=self.It2 and Idiff>=self.Kt1*(Ibias-self.It1) + self.Isr:
-            print('2 участок', self.Kt1*(Ibias-self.It1), self.Isr)
-            return True
-        elif Ibias>self.It2 and Idiff>=self.Kt2*(Ibias-self.It2) + self.Kt1*(self.It2-self.It1) + self.Isr:
-            print('3 участок', self.Kt2*(Ibias-self.It2)+ self.Kt1*(self.It2-self.It1)+ self.Isr)
-            return True
-        return False 
+        _out23 = (srab2z and _is2) or (srab3z and _is3)
+        self.for_bvkz_mode = (self.for_bvkz_mode or OpSel) and _out23
+        if EnaDisSelec==0:
+            _out_sel_bvkz = _out23
+        else:
+            _out_sel_bvkz =  self.for_bvkz_mode 
 
-    def Step(self, IAdiff, IBdiff, ICdiff, IAbias, IBbias, ICbias):
+        Op = (srab1z and _is1) or _out_sel_bvkz
+        return Op 
 
-        srab_ioA = self._isin_trip_area_krist(IAbias, IAdiff, CurCirc=1 )
-        #srab_ioB = self._isin_trip_area(IBbias, IBdiff)
-        #srab_ioC = self._isin_trip_area(ICbias, ICdiff)
 
-        return srab_ioA #, srab_ioB, srab_ioC
+    def Step(self, Idiff, Ibias, CurCirc, OpSel, EnaDisSelec):
+        srab_io1, srab_io2, srab_io3 = self._is_in_trip_area(Idiff, Ibias, CurCirc)
+        op = self._ctrl_bvkz(Ibias, srab_io1, srab_io2, srab_io3, OpSel, EnaDisSelec)
+
+        return op
 
       
 if __name__ == "__main__":
     io = ioDZT(Isr=0.2, Isr_zagrub=1.0, It1=1.0, It2=3.0, Kt1=0.25, Kt2=0.7)
-    res = io.Step(IAdiff=0.8, IBdiff=0, ICdiff=0, IAbias=3.0, IBbias=0, ICbias=0)
+    res = io.Step(Idiff=0.8, Ibias=3.0)
     print(res)     
