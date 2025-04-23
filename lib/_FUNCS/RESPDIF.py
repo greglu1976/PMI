@@ -2,7 +2,7 @@
 
 # SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 # SGF2 - Реж_блок - Режим блокировки (Без блокировки / Блокировка по 2 гармонике / Блокировка по 5 гармонике / Блокировка по 2 и 5 гармоникам)
-#SGF3 - Контр_БВКЗ - Контроль от БВКЗ (Без контроля БВКЗ/ С контролем БВКЗ)
+# SGF3 - Контр_БВКЗ - Контроль от БВКЗ (Без контроля БВКЗ/ С контролем БВКЗ)
 
 from lib._TIMERS.TIMERS import TON  
 from lib._ADD.iodzt import ioDZT # импортирует ИО ДТЗ
@@ -26,10 +26,16 @@ class RESPDIF:
         self.ioC = ioDZT(Isr, Isr_zagrub, It1, It2, Kt1, Kt2)
 
     def Step(self, VYVOD, OV, OVst, NaSign, IAdiff, IBdiff, ICdiff, IAbias, IBbias, ICbias, CurCirc, OpSelA, OpSelB, OpSelC, d2g_pusk_A, d2g_pusk_B, d2g_pusk_C, d5g_pusk_A, d5g_pusk_B, d5g_pusk_C):
+        vvod, oper_vyvod = self.PreStep(VYVOD, OV, OVst)
+        pusk_A, srab_A, srabsign_A, io_A, pusk_B, srab_B, srabsign_B, io_B, pusk_C, srab_C, srabsign_C, io_C, pusk, srabsign, srab = self.AfterStep(vvod, NaSign, IAdiff, IBdiff, ICdiff, IAbias, IBbias, ICbias, CurCirc, OpSelA, OpSelB, OpSelC, d2g_pusk_A, d2g_pusk_B, d2g_pusk_C, d5g_pusk_A, d5g_pusk_B, d5g_pusk_C)
+        return vvod, oper_vyvod, pusk_A, srab_A, srabsign_A, io_A, pusk_B, srab_B, srabsign_B, io_B, pusk_C, srab_C, srabsign_C, io_C, pusk, srabsign, srab
 
+    def PreStep(self, VYVOD, OV, OVst):
         vvod = (not(OV or OVst or VYVOD)) and (self.SGF1==1) # ДТЗ: Ввод
         oper_vyvod = (OV or OVst or VYVOD) and (self.SGF1==1) # ДТЗ: Оперативный вывод
+        return vvod, oper_vyvod, self.SGF3
 
+    def AfterStep(self, vvod, NaSign, IAdiff, IBdiff, ICdiff, IAbias, IBbias, ICbias, CurCirc, OpSelA, OpSelB, OpSelC, d2g_pusk_A, d2g_pusk_B, d2g_pusk_C, d5g_pusk_A, d5g_pusk_B, d5g_pusk_C):
         io_A = (self.SGF1==1) and self.ioA.Step(IAdiff, IAbias, CurCirc, OpSelA, self.SGF3)
         io_B = (self.SGF1==1) and self.ioB.Step(IBdiff, IBbias, CurCirc, OpSelB, self.SGF3)
         io_C = (self.SGF1==1) and self.ioC.Step(ICdiff, ICbias, CurCirc, OpSelC, self.SGF3)
@@ -74,7 +80,7 @@ class RESPDIF:
         srabsign = srabsign_A or srabsign_B or srabsign_C
         srab = srab_A or srab_B or srab_C
 
-        return vvod, oper_vyvod, pusk_A, srab_A, srabsign_A, io_A, pusk_B, srab_B, srabsign_B, io_B, pusk_C, srab_C, srabsign_C, io_C, pusk, srabsign, srab 
+        return pusk_A, srab_A, srabsign_A, io_A, pusk_B, srab_B, srabsign_B, io_B, pusk_C, srab_C, srabsign_C, io_C, pusk, srabsign, srab 
 
     # Геттеры и сеттеры
     def get_SGF1(self):
