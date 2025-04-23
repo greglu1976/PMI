@@ -2,7 +2,7 @@
 from lib._FBS.TDIF import TDIF
 
 tdif1 = TDIF(
-        Sbaz=10e+6, Ubaz_vn=36750, Ubaz_nn=10500, Iperv_vn = 1000, Iperv_nn = 5000, Inom_term_vn =1, Inom_term_nn =1, Ivtor_vn =1, Ivtor_nn =5, k_sch_vn =1, k_sch_nn =1, n_sch_vn =0, n_sch_nn=5, compens_3i0_vn=False, compens_3i0_nn=False,
+        Sbaz=10e+6, Ubaz_vn=36750, Ubaz_nn=10500, Iperv_vn = 1000, Iperv_nn = 5000, Inom_term_vn =1, Inom_term_nn =1, Ivtor_vn =1, Ivtor_nn =5, k_sch_vn =1, k_sch_nn =1, n_sch_vn =0, n_sch_nn=0, compens_3i0_vn=False, compens_3i0_nn=False,
         SGF1_pdif1_tdif=1, SGF2_pdif1_tdif=1, SGF3_pdif1_tdif=0, T1_pdif1_tdif=0, Isr_pdif1_tdif=0.2, Isr_zagrub_pdif1_tdif=1.0, It1_pdif1_tdif=1, It2_pdif1_tdif=3, Kt1_pdif1_tdif=0.25, Kt2_pdif1_tdif=0.7,
         SGF1_pdif2_tdif=1, T1_pdif2_tdif=0, Iset_pdif2_tdif=6,
         SGF1_hf2phar1_tdif=0, T1_hf2phar1_tdif=1, T2_hf2phar1_tdif=1, Ratio_hf2phar1_tdif=0.3,
@@ -26,12 +26,12 @@ dIB_nn = -90
 IC_nn = 0.55
 dIC_nn = 150
 '''
-IA_vn = 0.157
+IA_vn = 0.11
 dIA_vn = 0
-IB_vn = 0.0
-dIB_vn = 240
-IC_vn = 0.0
-dIC_vn = 120
+IB_vn = 0.05
+dIB_vn = 180
+IC_vn = 0.05
+dIC_vn = 180
 IA_nn = 0.55
 dIA_nn = 30
 IB_nn = 0.0
