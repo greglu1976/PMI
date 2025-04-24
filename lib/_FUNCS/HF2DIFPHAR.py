@@ -25,7 +25,7 @@ class HF2DIFPHAR:
         self.RSc = RSTrigger(state=0)        
 
     def Step(self, VVOD, IAdiff, IAdiff2h, IBdiff, IBdiff2h, ICdiff, ICdiff2h):
-        
+
         a_ratio = 0 if (IAdiff==0) else IAdiff2h/IAdiff
         a_rat_start = self.RSa.run((a_ratio>=self.Ratio), (a_ratio<0.95*self.Ratio))
         self.T1a.IN = a_rat_start
@@ -57,7 +57,7 @@ class HF2DIFPHAR:
         pusk_C = VVOD and (Qc or (_p003 and _p006))
 
         pusk = pusk_A or pusk_B or pusk_C
-
+     
         return pusk_A, pusk_B, pusk_C, pusk
 
     # Геттеры и сеттеры

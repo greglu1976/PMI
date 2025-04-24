@@ -12,10 +12,6 @@ class CalcDiffBias:
         cur_vn_priv = self.currents_vn.run(IA_vn, dIA_vn, IB_vn, dIB_vn, IC_vn, dIC_vn)
         cur_nn_priv = self.currents_nn.run(IA_nn, dIA_nn, IB_nn, dIB_nn, IC_nn, dIC_nn)
 
-        #print(cur_vn_priv)
-        #print("             ")       
-        #print(cur_nn_priv)
-
         # рассчитываем дифференциальные токи - модуль геометрической суммы 
         diff_currs = abs(cur_vn_priv + cur_nn_priv)
         #print(abs(diff_currs))
