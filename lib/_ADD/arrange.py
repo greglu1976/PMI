@@ -10,8 +10,10 @@ from lib._ADD.matrice import get_matrix
 
 class Arrenger:
     def __init__(self, Sbaz, Ubaz, Iperv, Inom_term, Ivtor, k_sch, n_sch, compens_3i0):
-        self.Ibaz = Sbaz/(Ubaz*math.sqrt(3))
-        self.k_am = (Iperv*Inom_term)/(self.Ibaz*Ivtor*k_sch)
+        self.s3 = math.sqrt(3)
+        self.k_sch_v = 1 if k_sch==0 else self.s3
+        self.Ibaz = Sbaz/(Ubaz*self.s3)
+        self.k_am = (Iperv*Inom_term)/(self.Ibaz*Ivtor*self.k_sch_v)
         self.matrix = get_matrix(n_sch, compens_3i0)
         #print('Kam=',self.k_am, ' Ibaz=', self.Ibaz )
 
@@ -56,4 +58,4 @@ if __name__ == "__main__":
     sumB = Ib1_priv + Ib2_priv
     print(abs(sumB))
     sumC = Ic1_priv - Ic2_priv
-    print(abs(sumC))    
+    print(abs(sumC)) 

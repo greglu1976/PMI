@@ -30,7 +30,8 @@ class DIFRCTR:
 
         Imax = max(IA, IB, IC)
         Imin = min(IA, IB, IC)
-        _rat = Imin/Imax
+        
+        _rat = 0 if Imax==0 else Imin/Imax
 
         io_max = self.RSmax.run((Imax>=self.LIsym), (Imax<0.95*self.LIsym))
         io_min = self.RSmin.run((Imin<=self.Imin), (Imin>1.05*self.Imin))
