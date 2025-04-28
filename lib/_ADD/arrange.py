@@ -39,10 +39,10 @@ class Arrenger:
         angles_radians = np.angle(C)  # Углы в радианах
         angles_degrees = np.degrees(angles_radians)  # Углы в градусах
         # Выводим результаты
-        print("Амплитуды:")
-        print(amplitudes)
-        print("Углы (в градусах):")
-        print(angles_degrees)
+        #print("Амплитуды:")
+        #print(amplitudes)
+        #print("Углы (в градусах):")
+        #print(angles_degrees)
         return C #[0][0], C[1][0], C[2][0] # возвращаем комплексы Ia, Ib, Ic приведенный
 
 if __name__ == "__main__":

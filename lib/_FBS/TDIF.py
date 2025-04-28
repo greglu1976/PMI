@@ -30,9 +30,9 @@ class TDIF:
 
         # вычисляем тормозные и диф токи
         diff_currs, bias_currs  = self.calc.Step(IA_vn, dIA_vn, IB_vn, dIB_vn, IC_vn, dIC_vn, IA_nn, dIA_nn, IB_nn, dIB_nn, IC_nn, dIC_nn)
-        print('IdiffA=', diff_currs[0][0], 'IrestA=', bias_currs[0][0])
-        print('IdiffB=', diff_currs[1][0], 'IrestB=',bias_currs[1][0])
-        print('IdiffC=',diff_currs[2][0], 'IrestC=', bias_currs[2][0])
+        #print('IdiffA=', diff_currs[0][0], 'IrestA=', bias_currs[0][0])
+        #print('IdiffB=', diff_currs[1][0], 'IrestB=',bias_currs[1][0])
+        #print('IdiffC=', diff_currs[2][0], 'IrestC=', bias_currs[2][0])
 
         # вычисляем дифотсечку        
         vvod_pdif2_tdif, oper_vyvod_pdif2_tdif, pusk_A_pdif2_tdif, srab_A_pdif2_tdif, srabsign_A_pdif2_tdif, io_A_pdif2_tdif, pusk_B_pdif2_tdif, srab_B_pdif2_tdif, srabsign_B_pdif2_tdif, io_B_pdif2_tdif, pusk_C_pdif2_tdif, srab_C_pdif2_tdif, srabsign_C_pdif2_tdif, io_C_pdif2_tdif, pusk_pdif2_tdif, srabsign_pdif2_tdif, srab_pdif2_tdif  = self.pdif2.Step(VYVOD, OV_tdif, OV_pdif2_tdif, NaSign_pdif2_tdif, diff_currs[0][0], diff_currs[1][0], diff_currs[2][0])
@@ -60,6 +60,6 @@ class TDIF:
             vvod_pdif1_tdif, oper_vyvod_pdif1_tdif, pusk_A_pdif1_tdif, srab_A_pdif1_tdif, srabsign_A_pdif1_tdif, io_A_pdif1_tdif, pusk_B_pdif1_tdif, srab_B_pdif1_tdif, srabsign_B_pdif1_tdif, io_B_pdif1_tdif, pusk_C_pdif1_tdif, srab_C_pdif1_tdif, srabsign_C_pdif1_tdif, io_C_pdif1_tdif, pusk_pdif1_tdif, srabsign_pdif1_tdif, srab_pdif1_tdif,
             pusk_A_hf2phar1_tdif, pusk_B_hf2phar1_tdif, pusk_C_hf2phar1_tdif, pusk_hf2phar1_tdif,
             pusk_A_hf5phar1_tdif, pusk_B_hf5phar1_tdif, pusk_C_hf5phar1_tdif, pusk_hf5phar1_tdif,
-            vvod_rctr1_tdif, oper_vyvod_rctr1_tdif, srab_A_rctr1_tdif, srab_B_rctr1_tdif, srab_C_rctr1_tdif, srab_rctr1_tdif, neispr_rctr1_tdif)
+            vvod_rctr1_tdif, oper_vyvod_rctr1_tdif, srab_A_rctr1_tdif, srab_B_rctr1_tdif, srab_C_rctr1_tdif, srab_rctr1_tdif, neispr_rctr1_tdif, diff_currs[0][0], bias_currs[0][0], diff_currs[1][0], bias_currs[1][0], diff_currs[2][0], bias_currs[2][0])
 
 

@@ -75,9 +75,9 @@ class PartDZT_GUI:
             "Imin_rctr3_ctr": tk.DoubleVar(value=0.2),
             "Ksym_rctr3_ctr": tk.DoubleVar(value=0.5),
             "LIsym_rctr3_ctr": tk.DoubleVar(value=1),
-            "Sbaz_tdif": tk.DoubleVar(value=10e+6),
-            "Ubaz_rmxu1_tdif": tk.DoubleVar(value=36750),
-            "Ubaz_rmxu2_tdif": tk.DoubleVar(value=10500),
+            "Sbaz_tdif": tk.DoubleVar(value=10),
+            "Ubaz_rmxu1_tdif": tk.DoubleVar(value=36.75),
+            "Ubaz_rmxu2_tdif": tk.DoubleVar(value=10.5),
             "Iperv_rmxu1_tdif": tk.DoubleVar(value=1000),
             "Iperv_rmxu2_tdif": tk.DoubleVar(value=5000),
             "Inomterm_rmxu1_tdif": tk.DoubleVar(value=1),
@@ -88,7 +88,7 @@ class PartDZT_GUI:
             "Nsch_rmxu2_tdif": tk.DoubleVar(value=0),
             "T1_pdif1_tdif": tk.DoubleVar(value=1),
             "Isr_pdif1_tdif": tk.DoubleVar(value=0.3),
-            "Isr_zagrub_pdif1_tdif": tk.DoubleVar(value=1),
+            "Isrzagrub_pdif1_tdif": tk.DoubleVar(value=1),
             "It1_pdif1_tdif": tk.DoubleVar(value=1),
             "It2_pdif1_tdif": tk.DoubleVar(value=3),
             "Kt1_pdif1_tdif": tk.DoubleVar(value=0.25),
@@ -233,7 +233,7 @@ class PartDZT_GUI:
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
 
         outputs = [
-            "vvod_rctr1_ctr", "oper_vyvod_rctr1_ctr", "pusk_obryv_rctr1_ctr", "srab_obryv_rctr1_ctr", "pusk_assym_rctr1_ctr", "srab_assym_rctr1_ctr", "vvod_rctr2_ctr", "oper_vyvod_rctr2_ctr", "pusk_obryv_rctr2_ctr", "srab_obryv_rctr2_ctr", "pusk_assym_rctr2_ctr", "srab_assym_rctr2_ctr", "vvod_rctr3_ctr", "oper_vyvod_rctr3_ctr", "pusk_obryv_rctr3_ctr", "srab_obryv_rctr3_ctr", "pusk_assym_rctr3_ctr", "srab_assym_rctr3_ctr", "srab_ctr", "vvod_pdif2_tdif", "oper_vyvod_pdif2_tdif", "pusk_A_pdif2_tdif", "srab_A_pdif2_tdif", "srabsign_A_pdif2_tdif", "io_A_pdif2_tdif", "pusk_B_pdif2_tdif", "srab_B_pdif2_tdif", "srabsign_B_pdif2_tdif", "io_B_pdif2_tdif", "pusk_C_pdif2_tdif", "srab_C_pdif2_tdif", "srabsign_C_pdif2_tdif", "io_C_pdif2_tdif", "pusk_pdif2_tdif", "srabsign_pdif2_tdif", "srab_pdif2_tdif", "vvod_pdif1_tdif", "oper_vyvod_pdif1_tdif", "pusk_A_pdif1_tdif", "srab_A_pdif1_tdif", "srabsign_A_pdif1_tdif", "io_A_pdif1_tdif", "pusk_B_pdif1_tdif", "srab_B_pdif1_tdif", "srabsign_B_pdif1_tdif", "io_B_pdif1_tdif", "pusk_C_pdif1_tdif", "srab_C_pdif1_tdif", "srabsign_C_pdif1_tdif", "io_C_pdif1_tdif", "pusk_pdif1_tdif", "srabsign_pdif1_tdif", "srab_pdif1_tdif", "pusk_A_hf2phar1_tdif", "pusk_B_hf2phar1_tdif", "pusk_C_hf2phar1_tdif", "pusk_hf2phar1_tdif", "pusk_A_hf5phar1_tdif", "pusk_B_hf5phar1_tdif", "pusk_C_hf5phar1_tdif", "pusk_hf5phar1_tdif", "vvod_rctr1_tdif", "oper_vyvod_rctr1_tdif", "srab_A_rctr1_tdif", "srab_B_rctr1_tdif", "srab_C_rctr1_tdif", "srab_rctr1_tdif", "neispr_rctr1_tdif", "vvod_ptrc1_tprmofflvlgc", "oper_vyvod_ptrc1_tprmofflvlgc", "pusk_ptrc1_tprmofflvlgc", "srab_ptrc1_tprmofflvlgc", "vvod_rbre1_tprmofflvlgc", "oper_vyvod_rbre1_tprmofflvlgc", "zapret_rbre1_tprmofflvlgc", "pusk_lvalh"
+            "vvod_rctr1_ctr", "oper_vyvod_rctr1_ctr", "pusk_obryv_rctr1_ctr", "srab_obryv_rctr1_ctr", "pusk_assym_rctr1_ctr", "srab_assym_rctr1_ctr", "vvod_rctr2_ctr", "oper_vyvod_rctr2_ctr", "pusk_obryv_rctr2_ctr", "srab_obryv_rctr2_ctr", "pusk_assym_rctr2_ctr", "srab_assym_rctr2_ctr", "vvod_rctr3_ctr", "oper_vyvod_rctr3_ctr", "pusk_obryv_rctr3_ctr", "srab_obryv_rctr3_ctr", "pusk_assym_rctr3_ctr", "srab_assym_rctr3_ctr", "srab_ctr", "vvod_pdif2_tdif", "oper_vyvod_pdif2_tdif", "pusk_A_pdif2_tdif", "srab_A_pdif2_tdif", "srabsign_A_pdif2_tdif", "io_A_pdif2_tdif", "pusk_B_pdif2_tdif", "srab_B_pdif2_tdif", "srabsign_B_pdif2_tdif", "io_B_pdif2_tdif", "pusk_C_pdif2_tdif", "srab_C_pdif2_tdif", "srabsign_C_pdif2_tdif", "io_C_pdif2_tdif", "pusk_pdif2_tdif", "srabsign_pdif2_tdif", "srab_pdif2_tdif", "vvod_pdif1_tdif", "oper_vyvod_pdif1_tdif", "pusk_A_pdif1_tdif", "srab_A_pdif1_tdif", "srabsign_A_pdif1_tdif", "io_A_pdif1_tdif", "pusk_B_pdif1_tdif", "srab_B_pdif1_tdif", "srabsign_B_pdif1_tdif", "io_B_pdif1_tdif", "pusk_C_pdif1_tdif", "srab_C_pdif1_tdif", "srabsign_C_pdif1_tdif", "io_C_pdif1_tdif", "pusk_pdif1_tdif", "srabsign_pdif1_tdif", "srab_pdif1_tdif", "pusk_A_hf2phar1_tdif", "pusk_B_hf2phar1_tdif", "pusk_C_hf2phar1_tdif", "pusk_hf2phar1_tdif", "pusk_A_hf5phar1_tdif", "pusk_B_hf5phar1_tdif", "pusk_C_hf5phar1_tdif", "pusk_hf5phar1_tdif", "vvod_rctr1_tdif", "oper_vyvod_rctr1_tdif", "srab_A_rctr1_tdif", "srab_B_rctr1_tdif", "srab_C_rctr1_tdif", "srab_rctr1_tdif", "neispr_rctr1_tdif", "vvod_ptrc1_tprmofflvlgc", "oper_vyvod_ptrc1_tprmofflvlgc", "pusk_ptrc1_tprmofflvlgc", "srab_ptrc1_tprmofflvlgc", "vvod_rbre1_tprmofflvlgc", "oper_vyvod_rbre1_tprmofflvlgc", "zapret_rbre1_tprmofflvlgc", "pusk_lvalh", "diffA", "restA", "diffB", "restB", "diffC", "restC"
         ]
 
         row = 0
@@ -293,9 +293,9 @@ class PartDZT_GUI:
             Ksym_rctr3_ctr = self.settings["Ksym_rctr3_ctr"].get(),
             LIsym_rctr3_ctr = self.settings["LIsym_rctr3_ctr"].get(),
 
-            Sbaz = self.settings["Sbaz_tdif"].get(),
-            Ubaz_vn = self.settings["Ubaz_rmxu1_tdif"].get(),
-            Ubaz_nn = self.settings["Ubaz_rmxu2_tdif"].get(),
+            Sbaz = self.settings["Sbaz_tdif"].get()*1e+6,
+            Ubaz_vn = self.settings["Ubaz_rmxu1_tdif"].get()*1e+3,
+            Ubaz_nn = self.settings["Ubaz_rmxu2_tdif"].get()*1e+3,
             Iperv_vn = self.settings["Iperv_rmxu1_tdif"].get(),
             Iperv_nn = self.settings["Iperv_rmxu2_tdif"].get(),
             Inom_term_vn = self.settings["Inomterm_rmxu1_tdif"].get(),
@@ -309,7 +309,7 @@ class PartDZT_GUI:
 
             T1_pdif1_tdif = self.settings["T1_pdif1_tdif"].get(),
             Isr_pdif1_tdif = self.settings["Isr_pdif1_tdif"].get(),
-            Isr_zagrub_pdif1_tdif = self.settings["Isr_zagrub_pdif1_tdif"].get(),
+            Isr_zagrub_pdif1_tdif = self.settings["Isrzagrub_pdif1_tdif"].get(),
             It1_pdif1_tdif = self.settings["It1_pdif1_tdif"].get(),
             It2_pdif1_tdif = self.settings["It2_pdif1_tdif"].get(),
             Kt1_pdif1_tdif = self.settings["Kt1_pdif1_tdif"].get(),

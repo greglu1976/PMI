@@ -27,7 +27,7 @@ from create_settings_from_mode2 import start_proceed_modes
 
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
-REGENERATE = 0 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
+REGENERATE = 1 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
 ADD_DEFAULT_COL = 0 # Добавить в таблицы уставок столбец со значением по умолчанию
 
 def horizont_A4(doc):
@@ -213,7 +213,7 @@ def add_table_set(doc, data):
         table.cell(row_idx, 0).text = f"{full_desc_processed} ({values.get('ShortDescription', '')})"
         units = values.get('units', '')
         
-        if 'SGF' in switch:
+        if 'SGF' in switch or 'Side' in switch or 'ksch' in switch or 'comp3i0' in switch:
             table.cell(row_idx, 1).text = switch
             t = values.get('Note', '').replace('\n', '')
             t = t.replace(', ', '\n')
@@ -295,7 +295,7 @@ def add_table_set_default_col(doc, data):
         units = values.get('units', '')
         default_value = str(values.get('DefaultValue', ''))  
 
-        if 'SGF' in switch:
+        if 'SGF' in switch or 'Side' in switch or 'ksch' in switch or 'comp3i0' in switch:
             table.cell(row_idx, 1).text = switch
             t = values.get('Note', '').replace('\n', '')
             t = t.replace(', ', '\n')
