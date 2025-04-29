@@ -41,13 +41,12 @@ class RESPDIF:
         io_C = (self.SGF1==1) and self.ioC.Step(ICdiff, ICbias, CurCirc, OpSelC, self.SGF3)
 
         if self.SGF2==2 or self.SGF2==4:
-            _p0001 = 1
+            _p0001 = True
         else:
-            _p0001 = 0
+            _p0001 = False
         _p001 = d2g_pusk_A and _p0001 
         _p002 = d2g_pusk_B and _p0001 
         _p003 = d2g_pusk_C and _p0001
-
         if self.SGF2==1:
             _p004 = 1
         else:

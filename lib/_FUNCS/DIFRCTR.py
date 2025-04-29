@@ -33,8 +33,8 @@ class DIFRCTR:
         
         _rat = 0 if Imax==0 else Imin/Imax
 
-        io_max = self.RSmax.run((Imax>=self.LIsym), (Imax<0.95*self.LIsym))
-        io_min = self.RSmin.run((Imin<=self.Imin), (Imin>1.05*self.Imin))
+        io_max = self.RSmax.run((Imax>=self.LIsym*self.Inom), (Imax<0.95*self.LIsym*self.Inom))
+        io_min = self.RSmin.run((Imin<=self.Imin*self.Inom), (Imin>1.05*self.Imin*self.Inom))
         io_minmax = self.RSminmax.run((_rat<=self.Ksym), (_rat>1.05*self.Ksym))
 
         pusk_assym = vvod and io_max and io_minmax

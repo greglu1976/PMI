@@ -52,6 +52,8 @@ class HF2DIFPHAR:
         self.T2c.IN = _p003
         _p006, ET2c = self.T2c.start() 
 
+        #print(_p004, _p005, _p006, _p001, _p002, _p003, ET2a, ET2b, ET2c)
+
         pusk_A = VVOD and (Qa or (_p001 and _p004))
         pusk_B = VVOD and (Qb or (_p002 and _p005))
         pusk_C = VVOD and (Qc or (_p003 and _p006))

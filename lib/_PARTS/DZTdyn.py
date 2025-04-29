@@ -1,8 +1,8 @@
-# ЧАСТЬ СХЕМЫ ФСУ ДЛЯ ПРОВЕРКИ КЦТ, ДЗТ, ПС, ЛО, 
+# ЧАСТЬ СХЕМЫ ФСУ ДЛЯ ПРОВЕРКИ ДЗТ динамическое вычисление гармоник 2,5 в диф токе
 # ИСПОЛНЕНИЯ ДЗТ2
 
 from lib._FBS.CTR import CTR # импорт ФБ КЦТ
-from lib._FBS.TDIF import TDIF # импорт ФБ ДЗТ
+from lib._FBS.TDIFdyn import TDIF # импорт ФБ ДЗТ динамический
 from lib._FBS.TPRMOFFLVLGC import TPRMOFFLVLGC # импорт ФБ ЛО Т (ДЗТ)
 from lib._FBS.DZT2_LVALH import DZT2_LVALH # импорт ПС
 
@@ -34,7 +34,7 @@ class partDZT:
         self.Side2 = Side2
         self.Side3 = Side3
 
-    def Step(self, VYVOD, OV_ctr, OVst_rctr1, IA, dIA, IB, dIB, IC, dIC, OVst_rctr2, OVst_rctr3, IA1, dIA1, IB1, dIB1, IC1, dIC1, OV_tdif, OV_pdif1_tdif, NaSign_pdif1_tdif, OV_pdif2_tdif, NaSign_pdif2_tdif, IA2harm, IB2harm, IC2harm, IA5harm, IB5harm, IC5harm, OV_rctr1_tdif, OV_tprmofflvlgc, OV_ptrc1_tprmofflvlgc, OV_rbre1_tprmofflvlgc):
+    def Step(self, VYVOD, OV_ctr, OVst_rctr1, IA, dIA, IB, dIB, IC, dIC, OVst_rctr2, IA1, dIA1, IB1, dIB1, IC1, dIC1, OV_tdif, OV_pdif1_tdif, NaSign_pdif1_tdif, OV_pdif2_tdif, NaSign_pdif2_tdif, IA2harm, IB2harm, IC2harm, IA5harm, IB5harm, IC5harm, OV_rctr1_tdif, OV_tprmofflvlgc, OV_ptrc1_tprmofflvlgc, OV_rbre1_tprmofflvlgc):
 
         # Выключаем стороны не используемые
         IA = 0 if self.Side1==0 else IA
@@ -44,9 +44,7 @@ class partDZT:
         IB1 = 0 if self.Side2==0 else IB1
         IC1 = 0 if self.Side2==0 else IC1
 
-        IA_rctr3 = IA1
-        IB_rctr3 = IB1
-        IC_rctr3 = IC1   #0   исключим из расчета токи 3 стороны
+        OVst_rctr3 = IA_rctr3 = IB_rctr3 = IC_rctr3 = 0  # исключим из расчета токи 3 стороны
         vvod_rctr1_ctr, oper_vyvod_rctr1_ctr, pusk_obryv_rctr1_ctr, srab_obryv_rctr1_ctr, pusk_assym_rctr1_ctr, srab_assym_rctr1_ctr, vvod_rctr2_ctr, oper_vyvod_rctr2_ctr, pusk_obryv_rctr2_ctr, srab_obryv_rctr2_ctr, pusk_assym_rctr2_ctr, srab_assym_rctr2_ctr, vvod_rctr3_ctr, oper_vyvod_rctr3_ctr, pusk_obryv_rctr3_ctr, srab_obryv_rctr3_ctr, pusk_assym_rctr3_ctr, srab_assym_rctr3_ctr, srab_ctr = self.ctr.Step(VYVOD, OV_ctr, OVst_rctr1, IA, IB, IC, OVst_rctr2, IA1, IB1, IC1, OVst_rctr3, IA_rctr3, IB_rctr3, IC_rctr3)
 
         vvod_pdif2_tdif, oper_vyvod_pdif2_tdif, pusk_A_pdif2_tdif, srab_A_pdif2_tdif, srabsign_A_pdif2_tdif, io_A_pdif2_tdif, pusk_B_pdif2_tdif, srab_B_pdif2_tdif, srabsign_B_pdif2_tdif, io_B_pdif2_tdif, pusk_C_pdif2_tdif, srab_C_pdif2_tdif, srabsign_C_pdif2_tdif, io_C_pdif2_tdif, pusk_pdif2_tdif, srabsign_pdif2_tdif, srab_pdif2_tdif, vvod_pdif1_tdif, oper_vyvod_pdif1_tdif, pusk_A_pdif1_tdif, srab_A_pdif1_tdif, srabsign_A_pdif1_tdif, io_A_pdif1_tdif, pusk_B_pdif1_tdif, srab_B_pdif1_tdif, srabsign_B_pdif1_tdif, io_B_pdif1_tdif, pusk_C_pdif1_tdif, srab_C_pdif1_tdif, srabsign_C_pdif1_tdif, io_C_pdif1_tdif, pusk_pdif1_tdif, srabsign_pdif1_tdif, srab_pdif1_tdif, pusk_A_hf2phar1_tdif, pusk_B_hf2phar1_tdif, pusk_C_hf2phar1_tdif, pusk_hf2phar1_tdif, pusk_A_hf5phar1_tdif, pusk_B_hf5phar1_tdif, pusk_C_hf5phar1_tdif, pusk_hf5phar1_tdif, vvod_rctr1_tdif, oper_vyvod_rctr1_tdif, srab_A_rctr1_tdif, srab_B_rctr1_tdif, srab_C_rctr1_tdif, srab_rctr1_tdif, neispr_rctr1_tdif, diffA, restA, diffB, restB, diffC, restC = self.tdif.Step(VYVOD, IA, dIA, IB, dIB, IC, dIC, IA1, dIA1, IB1, dIB1, IC1, dIC1, OV_tdif, OV_pdif2_tdif, NaSign_pdif2_tdif, OV_pdif1_tdif, NaSign_pdif1_tdif, srab_ctr, IA2harm, IB2harm, IC2harm, IA5harm, IB5harm, IC5harm, OV_rctr1_tdif)

@@ -14,18 +14,23 @@ from openpyxl.worksheet.dimensions import ColumnDimension
 
 import itertools
 import openpyxl
-from lib._PARTS.DZT import partDZT
+from lib._PARTS.DZTdyn import partDZT
 
 import numpy as np
+
+from lib._ADD.comtrade_data import ComtradeData
+
 
 class PartDZT_GUI:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.1 от 25.04.25")
+        self.root.title("Тестирование ДЗТ в динамике через comtrade")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
+
+        self.comtrade_data = ComtradeData("1.xlsx")
 
         # Инициализация переменных для имени файла
         self.function_name = tk.StringVar(value="Функция")
@@ -110,7 +115,6 @@ class PartDZT_GUI:
             "OV_ctr": tk.IntVar(value=0),
             "OVst_rctr1": tk.IntVar(value=0),
             "OVst_rctr2": tk.IntVar(value=0),
-            "OVst_rctr3": tk.IntVar(value=0),
             "OV_tdif": tk.IntVar(value=0),
             "OV_pdif1_tdif": tk.IntVar(value=0),
             "NaSign_pdif1_tdif": tk.IntVar(value=0),
@@ -349,7 +353,31 @@ class PartDZT_GUI:
         print("Polling stopped")
 
     def poll_inputs(self):
+        step = 0
         while self.is_polling:
+            self.input_vars["IA"].set(self.comtrade_data[step][0])
+            self.input_vars["dIA"].set(self.comtrade_data[step][1])
+            self.input_vars["IB"].set(self.comtrade_data[step][2])
+            self.input_vars["dIB"].set(self.comtrade_data[step][3])
+            self.input_vars["IC"].set(self.comtrade_data[step][4])
+            self.input_vars["dIC"].set(self.comtrade_data[step][5])
+            self.input_vars["IA2harm"].set(self.comtrade_data[step][6])
+            self.input_vars["IB2harm"].set(self.comtrade_data[step][7])
+            self.input_vars["IC2harm"].set(self.comtrade_data[step][8])
+            self.input_vars["IA5harm"].set(self.comtrade_data[step][9])
+            self.input_vars["IB5harm"].set(self.comtrade_data[step][10])
+            self.input_vars["IC5harm"].set(self.comtrade_data[step][11])
+
+            self.input_vars["IA1"].set(self.comtrade_data[step][12])
+            self.input_vars["dIA1"].set(self.comtrade_data[step][13])
+            self.input_vars["IB1"].set(self.comtrade_data[step][14])
+            self.input_vars["dIB1"].set(self.comtrade_data[step][15])
+            self.input_vars["IC1"].set(self.comtrade_data[step][16])
+            self.input_vars["dIC1"].set(self.comtrade_data[step][17])
+
+
+            step+=1
+
             inputs = {key: var.get() for key, var in self.input_vars.items()}
             #print(inputs)
             result = self.part.Step(**inputs)
@@ -367,10 +395,10 @@ class PartDZT_GUI:
                 else:
                     label.config(background="green", foreground="white")
 
-            time.sleep(0.3) # Время шага опроса
+            time.sleep(0.001) # Время шага опроса
             self.status_label.config(text="Шаг", background="white", foreground="white")
-            time.sleep(0.05) # Время шага опроса
-            self.status_label.config(text="Шаг", background="#F0F0F0", foreground="#F0F0F0")
+            #time.sleep(0.001) # Время шага опроса
+            #self.status_label.config(text="Шаг", background="#F0F0F0", foreground="#F0F0F0")
 
     def save_to_excel(self):
 
