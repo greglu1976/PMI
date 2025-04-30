@@ -205,7 +205,6 @@ def add_table_set(doc, data):
         cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         cell.paragraphs[0].style = 'Текст таблицы'
         set_cell_vertical_alignment(cell, align="center")
-
     # Добавление данных в таблицу
     for row_idx, (switch, values) in enumerate(data.items(), start=1):
         full_desc_processed = values.get('FullDescription', '').replace('<<','«').replace('>>','»')
