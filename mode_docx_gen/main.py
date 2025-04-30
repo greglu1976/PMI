@@ -28,7 +28,7 @@ from create_settings_from_mode2 import start_proceed_modes
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
 REGENERATE = 0 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
-ADD_DEFAULT_COL = 0 # Добавить в таблицы уставок столбец со значением по умолчанию
+ADD_DEFAULT_COL = 1 # Добавить в таблицы уставок столбец со значением по умолчанию
 
 def horizont_A4(doc):
     # Настройка страницы формата A4 (297мм x 210мм) горизонтальной ориентации
@@ -221,6 +221,7 @@ def add_table_set(doc, data):
             t = t.replace(', ', '\n')
             table.cell(row_idx, 2).text = t.replace(',', '\n')
             set_value = str(values.get('SetValue', '')).replace('.', ',')
+            table.cell(row_idx, 4).text = '-' # Ставим прочерк в графе шаг для переключателя
             cell_=table.cell(row_idx, 5)
             cell_.text = set_value
             # делаем жирным
@@ -229,45 +230,84 @@ def add_table_set(doc, data):
                     run.bold = True
         else:
             table.cell(row_idx, 1).text = values.get('AppliedDescription', '')
+            _minVal = values.get('minValue', '')
+            _maxVal = values.get('maxValue', '')
+            _step = values.get('step', '')
+            if float(_step)==1:
+                _step=str(int(round(float(_step))))
+
             if units == 'мс':
                 units = 'с'
-                table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
-                table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
-            else:
-                if 'INT' in values.get('type', ''):
-                    # Для INT значений убираем все после точки/запятой
-                    min_val = values.get('minValue', '').split('.')[0].split(',')[0]
-                    max_val = values.get('maxValue', '').split('.')[0].split(',')[0]
-                    step_val = values.get('step', '').split('.')[0].split(',')[0]
-                    table.cell(row_idx, 2).text = f"{min_val} ... {max_val}"
-                    table.cell(row_idx, 4).text = step_val
+                _minVal = str(int(_minVal)/1000)
+                _maxVal = str(int(_maxVal)/1000)
+                _step = str(int(_step)/1000)
+                #table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
+                #table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
+
+            if 'INT' not in values.get('type', '') or units == 'с':
+                #table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
+                #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+                # Для не-INT значений определяем количество знаков после запятой в step
+                step_str = _step.replace(',', '.')  # Нормализуем разделитель
+                if '.' in step_str:
+                    decimal_places = len(step_str.split('.')[1])
                 else:
-                    #table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
-                    #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
-                    # Для не-INT значений определяем количество знаков после запятой в step
-                    step_str = values.get('step', '').replace(',', '.')
-                    decimal_places = len(step_str.split('.')[1]) if '.' in step_str else 0
-                    
-                    # Форматируем minValue и maxValue с таким же количеством знаков
-                    min_val = round(float(values.get('minValue', '0').replace(',', '.')), decimal_places)
-                    max_val = round(float(values.get('maxValue', '0').replace(',', '.')), decimal_places)
-                    
-                    # Заменяем точку на запятую в результате
-                    table.cell(row_idx, 2).text = f"{str(min_val).replace('.', ',')} ... {str(max_val).replace('.', ',')}"
-                    table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+                    decimal_places = 0
+                
+                # Обрабатываем minValue
+                min_val_str = _minVal.replace(',', '.')
+                try:
+                    min_val = float(min_val_str)
+                    min_val_formatted = f"{min_val:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    min_val_formatted = min_val_str.replace('.', ',')  # Если не число
+                
+                # Обрабатываем maxValue
+                max_val_str = _maxVal.replace(',', '.')
+                try:
+                    max_val = float(max_val_str)
+                    max_val_formatted = f"{max_val:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    max_val_formatted = max_val_str.replace('.', ',')  # Если не число
+                
+                # Обрабатываем step (просто заменяем точку на запятую)
+                step_formatted = _step.replace('.', ',')
+                
+                # Записываем в таблицу
+                table.cell(row_idx, 2).text = f"{min_val_formatted} ... {max_val_formatted}"
+                table.cell(row_idx, 4).text = step_formatted
 
-            set_value = str(values.get('SetValue', '')).replace('.', ',')
+                # Обрабатываем setValue
+                set_value_str = str(values.get('SetValue', '')).replace(',', '.')
+                try:
+                    set_value = float(set_value_str)
+                    set_value_formatted = f"{set_value:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    set_value_formatted = set_value_str.replace('.', ',')  # Если не число
+                cell_=table.cell(row_idx, 5)
+                cell_.text = set_value_formatted
+                # делаем жирным
+                for paragraph in cell_.paragraphs:
+                    for run in paragraph.runs:
+                        run.bold = True
+            else:
+                # Для INT значений убираем все после точки/запятой
+                min_val = _minVal.split('.')[0].split(',')[0]
+                max_val = _maxVal.split('.')[0].split(',')[0]
+                step_val = _step.split('.')[0].split(',')[0]
+                table.cell(row_idx, 2).text = f"{min_val} ... {max_val}"
+                table.cell(row_idx, 4).text = step_val
 
-            cell_=table.cell(row_idx, 5)
-            cell_.text = set_value
-            # делаем жирным
-            for paragraph in cell_.paragraphs:
-                for run in paragraph.runs:
-                    run.bold = True
+                set_value = str(values.get('SetValue', '')).replace('.', ',')
+
+                cell_=table.cell(row_idx, 5)
+                cell_.text = set_value
+                # делаем жирным
+                for paragraph in cell_.paragraphs:
+                    for run in paragraph.runs:
+                        run.bold = True
 
         table.cell(row_idx, 3).text = units
-        #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
-
                 
         # Проверка значения 'Color' и изменение фона ячейки
         if values.get('Color', '') == 'changed':
@@ -281,7 +321,6 @@ def add_table_set(doc, data):
             # Устанавливаем выравнивание по левому краю
             #paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
             paragraph.style = "ЮИ_Таблица_Нумерованный"
-
 
     # Применяем стиль "Текст таблицы" ко всем ячейкам
     apply_style_to_all_cells(table, 'ЮИ_Таблица_Текст')
@@ -333,28 +372,108 @@ def add_table_set_default_col(doc, data):
             t = values.get('Note', '').replace('\n', '')
             t = t.replace(', ', '\n')
             table.cell(row_idx, 2).text = t.replace(',', '\n')
+            set_value = str(values.get('SetValue', '')).replace('.', ',')
+            table.cell(row_idx, 4).text = '-' # Ставим прочерк в графе шаг для переключателя
+            table.cell(row_idx, 5).text = default_value
+            cell_=table.cell(row_idx, 6)
+            cell_.text = set_value
+            # делаем жирным
+            for paragraph in cell_.paragraphs:
+                for run in paragraph.runs:
+                    run.bold = True
+
         else:
             table.cell(row_idx, 1).text = values.get('AppliedDescription', '')
+            _minVal = values.get('minValue', '')
+            _maxVal = values.get('maxValue', '')
+            _step = values.get('step', '')
+            if float(_step)==1:
+                _step=str(int(round(float(_step))))
+
             if units == 'мс':
                 units = 'с'
-                table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
-                table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
-                default_value = str(int(default_value) / 1000).replace('.', ',')
+                _minVal = str(int(_minVal)/1000)
+                _maxVal = str(int(_maxVal)/1000)
+                _step = str(int(_step)/1000)
+                #table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
+                #table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
+
+            if 'INT' not in values.get('type', '') or units == 'с':
+                #table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
+                #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+                # Для не-INT значений определяем количество знаков после запятой в step
+                step_str = _step.replace(',', '.')  # Нормализуем разделитель
+                if '.' in step_str:
+                    decimal_places = len(step_str.split('.')[1])
+                else:
+                    decimal_places = 0
+                
+                # Обрабатываем minValue
+                min_val_str = _minVal.replace(',', '.')
+                try:
+                    min_val = float(min_val_str)
+                    min_val_formatted = f"{min_val:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    min_val_formatted = min_val_str.replace('.', ',')  # Если не число
+                
+                # Обрабатываем maxValue
+                max_val_str = _maxVal.replace(',', '.')
+                try:
+                    max_val = float(max_val_str)
+                    max_val_formatted = f"{max_val:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    max_val_formatted = max_val_str.replace('.', ',')  # Если не число
+                
+                # Обрабатываем step (просто заменяем точку на запятую)
+                step_formatted = _step.replace('.', ',')
+                
+                # Записываем в таблицу
+                table.cell(row_idx, 2).text = f"{min_val_formatted} ... {max_val_formatted}"
+                table.cell(row_idx, 4).text = step_formatted
+
+
+                # Обрабатываем defaultValue
+                default_value_str = default_value.replace(',', '.')
+                try:
+                    default_value = float(default_value_str)
+                    default_value_formatted = f"{default_value:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    default_value_formatted = default_value_str.replace('.', ',')  # Если не число
+                cell_=table.cell(row_idx, 5)
+                cell_.text = default_value_formatted
+
+                # Обрабатываем setValue
+                set_value_str = str(values.get('SetValue', '')).replace(',', '.')
+                try:
+                    set_value = float(set_value_str)
+                    set_value_formatted = f"{set_value:.{decimal_places}f}".replace('.', ',')
+                except ValueError:
+                    set_value_formatted = set_value_str.replace('.', ',')  # Если не число
+                cell_=table.cell(row_idx, 6)
+                cell_.text = set_value_formatted
+                # делаем жирным
+                for paragraph in cell_.paragraphs:
+                    for run in paragraph.runs:
+                        run.bold = True
             else:
-                table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
-                table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
-                default_value = default_value.replace('.', ',')
+                # Для INT значений убираем все после точки/запятой
+                min_val = _minVal.split('.')[0].split(',')[0]
+                max_val = _maxVal.split('.')[0].split(',')[0]
+                step_val = _step.split('.')[0].split(',')[0]
+                table.cell(row_idx, 2).text = f"{min_val} ... {max_val}"
+                table.cell(row_idx, 4).text = step_val
+                table.cell(row_idx, 5).text = default_value
+                set_value = str(values.get('SetValue', '')).replace('.', ',')
+
+                cell_=table.cell(row_idx, 6)
+                cell_.text = set_value
+                # делаем жирным
+                for paragraph in cell_.paragraphs:
+                    for run in paragraph.runs:
+                        run.bold = True
         
         table.cell(row_idx, 3).text = units
-        table.cell(row_idx, 5).text = default_value
-
-        set_value = str(values.get('SetValue', '')).replace('.', ',')
-        cell_=table.cell(row_idx, 6)
-        cell_.text = set_value
-        # делаем жирным
-        for paragraph in cell_.paragraphs:
-            for run in paragraph.runs:
-                run.bold = True
+        #table.cell(row_idx, 5).text = default_value
 
         # Проверка значения 'Color' и изменение фона ячейки
         if values.get('Color', '') == 'changed':
