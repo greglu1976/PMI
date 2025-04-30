@@ -11,7 +11,6 @@ from docx.enum.section import WD_ORIENTATION
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from lxml import etree
 import json
-import re
 from natsort import natsorted  # Импортируем natsorted для естественной сортировки
 
 from docx.shared import Inches
