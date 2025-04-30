@@ -22,7 +22,7 @@ class PartDZT_GUI:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.1 от 25.04.25")
+        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.2 от 30.04.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False

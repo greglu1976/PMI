@@ -72,7 +72,8 @@ def load_and_find_data(data, result_dict, set_value, root_dir = ''):
         'units': str(row['units'].values[0]),
         'minValue': str(row['minValue'].values[0]),
         'maxValue': str(row['maxValue'].values[0]),
-        'step': str(row['step'].values[0]),        
+        'step': str(row['step'].values[0]),
+        'type': str(row['type'].values[0]),      
         'SetValue': str(set_value) if pd.notna(set_value) else None,
         'Color': 'norm'
     }

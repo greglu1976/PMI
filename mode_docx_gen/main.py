@@ -27,7 +27,7 @@ from create_settings_from_mode2 import start_proceed_modes
 
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
-REGENERATE = 1 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
+REGENERATE = 0 # Перегенерировать XLSX в JSON - если =1, иначе не перегенерируются 
 ADD_DEFAULT_COL = 0 # Добавить в таблицы уставок столбец со значением по умолчанию
 
 def horizont_A4(doc):
@@ -190,7 +190,6 @@ def apply_style_to_all_cells(table, style_name, numbered_style="ЮИ_Табли�
 def add_table_set(doc, data):
     # Создаем таблицу
     table = doc.add_table(rows=len(data) + 1, cols=6)
-
     # Установка высоты первой строки (заголовок)
     header_row = table.rows[0]
     header_row.height = Mm(5)  # Устанавливаем высоту строки заголовка в 45 мм
@@ -214,10 +213,20 @@ def add_table_set(doc, data):
         units = values.get('units', '')
         
         if 'SGF' in switch or 'Side' in switch or 'ksch' in switch or 'comp3i0' in switch:
-            table.cell(row_idx, 1).text = switch
+            # Если есть 'Side', 'ksch' или 'comp3i0' — ставим '-', иначе оставляем switch
+            tt = '-' if any(substring in switch for substring in ['Side', 'ksch', 'comp3i0']) else switch
+            table.cell(row_idx, 1).text = tt
+            #table.cell(row_idx, 1).text = switch
             t = values.get('Note', '').replace('\n', '')
             t = t.replace(', ', '\n')
             table.cell(row_idx, 2).text = t.replace(',', '\n')
+            set_value = str(values.get('SetValue', '')).replace('.', ',')
+            cell_=table.cell(row_idx, 5)
+            cell_.text = set_value
+            # делаем жирным
+            for paragraph in cell_.paragraphs:
+                for run in paragraph.runs:
+                    run.bold = True
         else:
             table.cell(row_idx, 1).text = values.get('AppliedDescription', '')
             if units == 'мс':
@@ -225,19 +234,40 @@ def add_table_set(doc, data):
                 table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
                 table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
             else:
-                table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
-                table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+                if 'INT' in values.get('type', ''):
+                    # Для INT значений убираем все после точки/запятой
+                    min_val = values.get('minValue', '').split('.')[0].split(',')[0]
+                    max_val = values.get('maxValue', '').split('.')[0].split(',')[0]
+                    step_val = values.get('step', '').split('.')[0].split(',')[0]
+                    table.cell(row_idx, 2).text = f"{min_val} ... {max_val}"
+                    table.cell(row_idx, 4).text = step_val
+                else:
+                    #table.cell(row_idx, 2).text = f"{values.get('minValue', '').replace('.', ',')} ... {values.get('maxValue', '').replace('.', ',')} "
+                    #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+                    # Для не-INT значений определяем количество знаков после запятой в step
+                    step_str = values.get('step', '').replace(',', '.')
+                    decimal_places = len(step_str.split('.')[1]) if '.' in step_str else 0
+                    
+                    # Форматируем minValue и maxValue с таким же количеством знаков
+                    min_val = round(float(values.get('minValue', '0').replace(',', '.')), decimal_places)
+                    max_val = round(float(values.get('maxValue', '0').replace(',', '.')), decimal_places)
+                    
+                    # Заменяем точку на запятую в результате
+                    table.cell(row_idx, 2).text = f"{str(min_val).replace('.', ',')} ... {str(max_val).replace('.', ',')}"
+                    table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
+
+            set_value = str(values.get('SetValue', '')).replace('.', ',')
+
+            cell_=table.cell(row_idx, 5)
+            cell_.text = set_value
+            # делаем жирным
+            for paragraph in cell_.paragraphs:
+                for run in paragraph.runs:
+                    run.bold = True
 
         table.cell(row_idx, 3).text = units
         #table.cell(row_idx, 4).text = values.get('step', '').replace('.', ',')
-        set_value = str(values.get('SetValue', '')).replace('.', ',')
 
-        cell_=table.cell(row_idx, 5)
-        cell_.text = set_value
-        # делаем жирным
-        for paragraph in cell_.paragraphs:
-            for run in paragraph.runs:
-                run.bold = True
                 
         # Проверка значения 'Color' и изменение фона ячейки
         if values.get('Color', '') == 'changed':
@@ -296,7 +326,10 @@ def add_table_set_default_col(doc, data):
         default_value = str(values.get('DefaultValue', ''))  
 
         if 'SGF' in switch or 'Side' in switch or 'ksch' in switch or 'comp3i0' in switch:
-            table.cell(row_idx, 1).text = switch
+            # Если есть 'Side', 'ksch' или 'comp3i0' — ставим '-', иначе оставляем switch
+            tt = '-' if any(substring in switch for substring in ['Side', 'ksch', 'comp3i0']) else switch
+            table.cell(row_idx, 1).text = tt
+            #table.cell(row_idx, 1).text = switch
             t = values.get('Note', '').replace('\n', '')
             t = t.replace(', ', '\n')
             table.cell(row_idx, 2).text = t.replace(',', '\n')

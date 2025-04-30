@@ -5,5 +5,7 @@
     "srab_obryv_rctr1_ctr": "КЦТст1: Срабатывание обрыв",
     "pusk_assym_rctr1_ctr": "КЦТст1: Пуск ассиметрия",
     "srab_assym_rctr1_ctr": "КЦТст1: Сраб. ассиметрия",
-    "neispr_rctr1_tdif": "КЦТнеб:  Неисправность"
+    "srab_ctr": "КЦТ: Срабатывание",
+    "neispr_rctr1_tdif": "КЦТнеб: Неисправность",
+	"pusk_lvalh": "ПС: Пуск"
 }
