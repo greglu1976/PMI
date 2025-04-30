@@ -1,7 +1,7 @@
 # coding=utf-8
 
 # Изменения - вместо генерации все уставок, если не было изменений по сравнению с предыдущем режимом. Добавляется строка - Параметры не изменились
-# ВЕРСИЯ 6
+# ВЕРСИЯ 0.8
 
 import os
 import pandas as pd
@@ -20,10 +20,8 @@ from docx.oxml.ns import nsdecls
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
-
 from analizator import start_analyze
 from create_settings_from_mode2 import start_proceed_modes
-
 
 # Добавляем глобальную переменную для управления выводом таблиц
 GEN_MODE = 1  # Если 1 - таблицы без изменений не выводятся, если = 2 - то выводятся все таблицы режимов с изменениями, =3 - то таблицы сохраняются в свой файл
