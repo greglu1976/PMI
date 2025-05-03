@@ -71,6 +71,20 @@
                 "SetValue": "0",
                 "Color": "norm"
             },
+            "ksch3": {
+                "ShortDescription": "KсхемСт3",
+                "FullDescription": "Схема соединения трансформаторов тока стороны 3",
+                "Note": "0 - Звезда, 1 - Треугольник",
+                "DefaultValue": "0",
+                "AppliedDescription": "-",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1.0",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
             "Sbaz": {
                 "ShortDescription": "Sbase",
                 "FullDescription": "Базисная мощность",
@@ -112,7 +126,7 @@
                 "maxValue": "250",
                 "step": "0.1",
                 "type": "FLOAT32",
-                "SetValue": "36.75",
+                "SetValue": "35",
                 "Color": "norm"
             },
             "Iperv": {
@@ -255,6 +269,92 @@
                 "step": "1.0",
                 "type": "INT32",
                 "SetValue": "6",
+                "Color": "norm"
+            }
+        },
+        "rmxu3": {
+            "comp3i0": {
+                "ShortDescription": "Компенс3I0ст3",
+                "FullDescription": "Компенсация токов 3I0 для стороны 3",
+                "Note": "0 - Без компенсации токов 3I0, 1 - С компенсацией токов 3I0",
+                "DefaultValue": "0",
+                "AppliedDescription": "-",
+                "units": "-",
+                "minValue": "0.0",
+                "maxValue": "1",
+                "step": "1.0",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Ubaz": {
+                "ShortDescription": "Uном3",
+                "FullDescription": "Номинальное напряжение стороны 3",
+                "Note": "-",
+                "DefaultValue": "115",
+                "AppliedDescription": "-",
+                "units": "кВ",
+                "minValue": "6.0",
+                "maxValue": "250",
+                "step": "0.1",
+                "type": "FLOAT32",
+                "SetValue": "10.5",
+                "Color": "norm"
+            },
+            "Iperv": {
+                "ShortDescription": "IпервСт3",
+                "FullDescription": "Номинальный первичный ток трансформатора тока стороны 3",
+                "Note": "-",
+                "DefaultValue": "1000",
+                "AppliedDescription": "-",
+                "units": "А",
+                "minValue": "1.0",
+                "maxValue": "40000",
+                "step": "1.0",
+                "type": "FLOAT32",
+                "SetValue": "5000",
+                "Color": "norm"
+            },
+            "Inomterm": {
+                "ShortDescription": "Iном_термСт3",
+                "FullDescription": "Номинальный ток терминала стороны 3",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "-",
+                "units": "А",
+                "minValue": "1.0",
+                "maxValue": "5",
+                "step": "1.0",
+                "type": "FLOAT32",
+                "SetValue": "1",
+                "Color": "norm"
+            },
+            "Ivtor": {
+                "ShortDescription": "IвторСт3",
+                "FullDescription": "Номинальный вторичный ток трансформатора тока стороны 3",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "-",
+                "units": "А",
+                "minValue": "0.2",
+                "maxValue": "5",
+                "step": "0.1",
+                "type": "FLOAT32",
+                "SetValue": "5",
+                "Color": "norm"
+            },
+            "Nsch": {
+                "ShortDescription": "Nсх3",
+                "FullDescription": "Векторная группа стороны 3",
+                "Note": "-",
+                "DefaultValue": "0",
+                "AppliedDescription": "-",
+                "units": "-",
+                "minValue": "0.0",
+                "maxValue": "11",
+                "step": "1.0",
+                "type": "INT32",
+                "SetValue": "0",
                 "Color": "norm"
             }
         },

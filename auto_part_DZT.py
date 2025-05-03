@@ -22,7 +22,7 @@ class PartDZT_GUI:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.2 от 30.04.25")
+        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.21 от 03.05.25 - Третья сторона не вычисляется в ДТЗ!!!")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -38,8 +38,10 @@ class PartDZT_GUI:
             "Side3_tdif": tk.IntVar(value=0),
             "ksch1_tdif": tk.IntVar(value=0),
             "ksch2_tdif": tk.IntVar(value=0), 
+            "ksch3_tdif": tk.IntVar(value=0),           # Третья сторона 03.05.2025
             "comp3i0_rmxu1_tdif": tk.IntVar(value=0),
-            "comp3i0_rmxu2_tdif": tk.IntVar(value=0), 
+            "comp3i0_rmxu2_tdif": tk.IntVar(value=0),
+            "comp3i0_rmxu3_tdif": tk.IntVar(value=0),   # Третья сторона  03.05.2025         
             "SGF1_rctr1_ctr": tk.IntVar(value=0),
             "SGF2_rctr1_ctr": tk.IntVar(value=0),
             "SGF1_rctr2_ctr": tk.IntVar(value=0),
@@ -76,16 +78,21 @@ class PartDZT_GUI:
             "Ksym_rctr3_ctr": tk.DoubleVar(value=0.5),
             "LIsym_rctr3_ctr": tk.DoubleVar(value=1),
             "Sbaz_tdif": tk.DoubleVar(value=10),
-            "Ubaz_rmxu1_tdif": tk.DoubleVar(value=36.75),
+            "Ubaz_rmxu1_tdif": tk.DoubleVar(value=35),
             "Ubaz_rmxu2_tdif": tk.DoubleVar(value=10.5),
+            "Ubaz_rmxu3_tdif": tk.DoubleVar(value=10.5),  # Третья сторона  03.05.2025 
             "Iperv_rmxu1_tdif": tk.DoubleVar(value=1000),
             "Iperv_rmxu2_tdif": tk.DoubleVar(value=5000),
+            "Iperv_rmxu3_tdif": tk.DoubleVar(value=5000), # Третья сторона  03.05.2025 
             "Inomterm_rmxu1_tdif": tk.DoubleVar(value=1),
             "Inomterm_rmxu2_tdif": tk.DoubleVar(value=1),
+            "Inomterm_rmxu3_tdif": tk.DoubleVar(value=1), # Третья сторона  03.05.2025 
             "Ivtor_rmxu1_tdif": tk.DoubleVar(value=1),
             "Ivtor_rmxu2_tdif": tk.DoubleVar(value=5),
+            "Ivtor_rmxu3_tdif": tk.DoubleVar(value=5),    # Третья сторона  03.05.2025
             "Nsch_rmxu1_tdif": tk.DoubleVar(value=0),
             "Nsch_rmxu2_tdif": tk.DoubleVar(value=0),
+            "Nsch_rmxu3_tdif": tk.DoubleVar(value=0),    # Третья сторона  03.05.2025
             "T1_pdif1_tdif": tk.DoubleVar(value=1),
             "Isr_pdif1_tdif": tk.DoubleVar(value=0.3),
             "Isrzagrub_pdif1_tdif": tk.DoubleVar(value=1),
