@@ -14,7 +14,8 @@ class CTR:
     def Step(self, VYVOD, OV, OVst_rctr1, IA_rctr1, IB_rctr1, IC_rctr1, OVst_rctr2, IA_rctr2, IB_rctr2, IC_rctr2, OVst_rctr3, IA_rctr3, IB_rctr3, IC_rctr3):
 
         vvod_rctr1, oper_vyvod_rctr1, pusk_obryv_rctr1, srab_obryv_rctr1, pusk_assym_rctr1, srab_assym_rctr1 = self.rctr1.Step(VYVOD, OV, OVst_rctr1, IA_rctr1, IB_rctr1, IC_rctr1)
-        vvod_rctr2, oper_vyvod_rctr2, pusk_obryv_rctr2, srab_obryv_rctr2, pusk_assym_rctr2, srab_assym_rctr2 = self.rctr2.Step(VYVOD, OV, OVst_rctr2, IA_rctr2, IB_rctr2, IC_rctr2)        
+        vvod_rctr2, oper_vyvod_rctr2, pusk_obryv_rctr2, srab_obryv_rctr2, pusk_assym_rctr2, srab_assym_rctr2 = self.rctr2.Step(VYVOD, OV, OVst_rctr2, IA_rctr2, IB_rctr2, IC_rctr2)
+
         vvod_rctr3, oper_vyvod_rctr3, pusk_obryv_rctr3, srab_obryv_rctr3, pusk_assym_rctr3, srab_assym_rctr3 = self.rctr3.Step(VYVOD, OV, OVst_rctr3, IA_rctr3, IB_rctr3, IC_rctr3)
         # Общие цепи
         srab = srab_assym_rctr1 or srab_assym_rctr2 or srab_assym_rctr3

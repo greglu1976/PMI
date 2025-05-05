@@ -24,7 +24,7 @@ class partDZT:
             SGF1_rctr2_ctr, SGF2_rctr2_ctr, T1_rctr2_ctr, T2_rctr2_ctr, Inom_rctr2_ctr, Imin_rctr2_ctr, Ksym_rctr2_ctr, LIsym_rctr2_ctr,
             SGF1_rctr3_ctr, SGF2_rctr3_ctr, T1_rctr3_ctr, T2_rctr3_ctr, Inom_rctr3_ctr, Imin_rctr3_ctr, Ksym_rctr3_ctr, LIsym_rctr3_ctr) 
         # Инициализируем ФБ ДЗТ
-        self.tdif = TDIF(Sbaz, Ubaz_vn, Ubaz_nn, Iperv_vn, Iperv_nn, Inom_term_vn, Inom_term_nn, Ivtor_vn, Ivtor_nn, k_sch_vn, k_sch_nn, n_sch_vn, n_sch_nn,    compens_3i0_vn, compens_3i0_nn, SGF1_pdif1_tdif, SGF2_pdif1_tdif, SGF3_pdif1_tdif, T1_pdif1_tdif, Isr_pdif1_tdif, Isr_zagrub_pdif1_tdif, It1_pdif1_tdif, It2_pdif1_tdif, Kt1_pdif1_tdif, Kt2_pdif1_tdif, SGF1_pdif2_tdif, T1_pdif2_tdif, Iset_pdif2_tdif, SGF1_hf2phar1_tdif, T1_hf2phar1_tdif, T2_hf2phar1_tdif, Ratio_hf2phar1_tdif, SGF1_hf5phar1_tdif, T1_hf5phar1_tdif, T2_hf5phar1_tdif, Ratio_hf5phar1_tdif, SGF1_rctr1_tdif, T1_rctr1_tdif, Iset_rctr1_tdif)
+        self.tdif = TDIF(Sbaz, Ubaz_vn, Ubaz_nn, Iperv_vn, Iperv_nn, Inom_term_vn, Inom_term_nn, Ivtor_vn, Ivtor_nn, k_sch_vn, k_sch_nn, n_sch_vn, n_sch_nn, compens_3i0_vn, compens_3i0_nn, SGF1_pdif1_tdif, SGF2_pdif1_tdif, SGF3_pdif1_tdif, T1_pdif1_tdif, Isr_pdif1_tdif, Isr_zagrub_pdif1_tdif, It1_pdif1_tdif, It2_pdif1_tdif, Kt1_pdif1_tdif, Kt2_pdif1_tdif, SGF1_pdif2_tdif, T1_pdif2_tdif, Iset_pdif2_tdif, SGF1_hf2phar1_tdif, T1_hf2phar1_tdif, T2_hf2phar1_tdif, Ratio_hf2phar1_tdif, SGF1_hf5phar1_tdif, T1_hf5phar1_tdif, T2_hf5phar1_tdif, Ratio_hf5phar1_tdif, SGF1_rctr1_tdif, T1_rctr1_tdif, Iset_rctr1_tdif)
         # Инициализируем ФБ ЛО Т
         self.tprmofflvlgc = TPRMOFFLVLGC(SGF1_ptrc1_tprmofflvlgc, SGF1_rbre1_tprmofflvlgc)
         # Инициализируем ПС
