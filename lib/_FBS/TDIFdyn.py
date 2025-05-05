@@ -53,7 +53,7 @@ class TDIF:
         pusk_A_hf2phar1_tdif, pusk_B_hf2phar1_tdif, pusk_C_hf2phar1_tdif, pusk_hf2phar1_tdif = self.hf2phar1.Step(vvod_pdif1_tdif, diff_currs[0][0], diff_currs2h[0][0], diff_currs[1][0], diff_currs2h[1][0], diff_currs[2][0], diff_currs2h[2][0])
 
         # вычисляем 5 гармонику в диф токе
-        diff_currs5h, bias_currs5h  = self.calc2h.Step(IAdiff5h, dIA_vn, IBdiff5h, dIB_vn, ICdiff5h, dIC_vn, IA_nn=0, dIA_nn=0, IB_nn=0, dIB_nn=0, IC_nn=0, dIC_nn=0)
+        diff_currs5h, bias_currs5h  = self.calc5h.Step(IAdiff5h, dIA_vn, IBdiff5h, dIB_vn, ICdiff5h, dIC_vn, IA_nn=0, dIA_nn=0, IB_nn=0, dIB_nn=0, IC_nn=0, dIC_nn=0)
         pusk_A_hf5phar1_tdif, pusk_B_hf5phar1_tdif, pusk_C_hf5phar1_tdif, pusk_hf5phar1_tdif = self.hf5phar1.Step(vvod_pdif1_tdif, diff_currs[0][0], diff_currs5h[0][0], diff_currs[1][0], diff_currs5h[1][0], diff_currs[2][0], diff_currs5h[2][0])
 
         # вычисляем ДТЗт - второй шаг

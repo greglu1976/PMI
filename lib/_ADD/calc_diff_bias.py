@@ -15,11 +15,10 @@ class CalcDiffBias:
         cur_nn2_priv = self.currents_nn2.run(IA_nn2, dIA_nn2, IB_nn2, dIB_nn2, IC_nn2, dIC_nn2)
         # рассчитываем дифференциальные токи - модуль геометрической суммы 
         diff_currs = abs(cur_vn_priv + cur_nn_priv + cur_nn2_priv)
-        #print(abs(diff_currs))
 
         # рассчитываем тормозные токи - полусумма модулей токов
         bias_currs = 0.5*(abs(cur_vn_priv) + abs(cur_nn_priv)+ abs(cur_nn2_priv))
-        #print(bias_currs)
+        
         return diff_currs, bias_currs   
 
 
