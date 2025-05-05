@@ -22,7 +22,7 @@ class PartDZT_GUI:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.21 от 03.05.25 - Третья сторона не вычисляется в ДТЗ!!!")
+        self.root.title("Тестирование ФСУ (исполнение ДЗТ2) в части КЦТ, ДЗТ, ЛО Т, ПС, v1.3 от 05.05.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -94,7 +94,7 @@ class PartDZT_GUI:
             "Nsch_rmxu2_tdif": tk.DoubleVar(value=0),
             "Nsch_rmxu3_tdif": tk.DoubleVar(value=0),    # Третья сторона  03.05.2025
             "T1_pdif1_tdif": tk.DoubleVar(value=1),
-            "Isr_pdif1_tdif": tk.DoubleVar(value=0.3),
+            "Isr_pdif1_tdif": tk.DoubleVar(value=0.2),
             "Isrzagrub_pdif1_tdif": tk.DoubleVar(value=1),
             "It1_pdif1_tdif": tk.DoubleVar(value=1),
             "It2_pdif1_tdif": tk.DoubleVar(value=3),
@@ -277,9 +277,10 @@ class PartDZT_GUI:
             SGF1_rbre1_tprmofflvlgc=self.sgf_params["SGF1_rbre1_tprmofflvlgc"].get(),
             k_sch_vn = self.sgf_params["ksch1_tdif"].get(),
             k_sch_nn = self.sgf_params["ksch2_tdif"].get(),
+            k_sch_nn2 = self.sgf_params["ksch3_tdif"].get(),                        # Третья сторона
             compens_3i0_vn = self.sgf_params["comp3i0_rmxu1_tdif"].get(),
             compens_3i0_nn = self.sgf_params["comp3i0_rmxu2_tdif"].get(),
-
+            compens_3i0_nn2 = self.sgf_params["comp3i0_rmxu3_tdif"].get(),          # Третья сторона
             T1_rctr1_ctr = self.settings["T1_rctr1_ctr"].get(),
             T2_rctr1_ctr = self.settings["T2_rctr1_ctr"].get(),
             Inom_rctr1_ctr = self.settings["Inom_rctr1_ctr"].get(),
@@ -304,16 +305,19 @@ class PartDZT_GUI:
             Sbaz = self.settings["Sbaz_tdif"].get()*1e+6,
             Ubaz_vn = self.settings["Ubaz_rmxu1_tdif"].get()*1e+3,
             Ubaz_nn = self.settings["Ubaz_rmxu2_tdif"].get()*1e+3,
+            Ubaz_nn2 = self.settings["Ubaz_rmxu3_tdif"].get()*1e+3,            # Третья сторона
             Iperv_vn = self.settings["Iperv_rmxu1_tdif"].get(),
             Iperv_nn = self.settings["Iperv_rmxu2_tdif"].get(),
+            Iperv_nn2 = self.settings["Iperv_rmxu3_tdif"].get(),               # Третья сторона          
             Inom_term_vn = self.settings["Inomterm_rmxu1_tdif"].get(),
             Inom_term_nn = self.settings["Inomterm_rmxu2_tdif"].get(),
+            Inom_term_nn2 = self.settings["Inomterm_rmxu3_tdif"].get(),        # Третья сторона            
             Ivtor_vn = self.settings["Ivtor_rmxu1_tdif"].get(),
             Ivtor_nn = self.settings["Ivtor_rmxu2_tdif"].get(),
-
+            Ivtor_nn2 = self.settings["Ivtor_rmxu3_tdif"].get(),               # Третья сторона 
             n_sch_vn = self.settings["Nsch_rmxu1_tdif"].get(),
             n_sch_nn = self.settings["Nsch_rmxu2_tdif"].get(),
-
+            n_sch_nn2 = self.settings["Nsch_rmxu3_tdif"].get(),                # Третья сторона 
 
             T1_pdif1_tdif = self.settings["T1_pdif1_tdif"].get(),
             Isr_pdif1_tdif = self.settings["Isr_pdif1_tdif"].get(),

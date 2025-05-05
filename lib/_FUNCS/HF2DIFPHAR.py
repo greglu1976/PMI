@@ -59,7 +59,7 @@ class HF2DIFPHAR:
         pusk_C = VVOD and (Qc or (_p003 and _p006))
 
         pusk = pusk_A or pusk_B or pusk_C
-     
+        
         return pusk_A, pusk_B, pusk_C, pusk
 
     # Геттеры и сеттеры
