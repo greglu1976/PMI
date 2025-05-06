@@ -40,7 +40,7 @@
                 "maxValue": "1",
                 "step": "1.0",
                 "type": "BOOL",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "ksch1": {
@@ -140,7 +140,7 @@
                 "maxValue": "40000",
                 "step": "1.0",
                 "type": "FLOAT32",
-                "SetValue": "1000",
+                "SetValue": "750",
                 "Color": "norm"
             },
             "Inomterm": {
@@ -168,7 +168,7 @@
                 "maxValue": "5",
                 "step": "0.1",
                 "type": "FLOAT32",
-                "SetValue": "1",
+                "SetValue": "5",
                 "Color": "norm"
             },
             "Nsch": {
@@ -226,7 +226,7 @@
                 "maxValue": "40000",
                 "step": "1.0",
                 "type": "FLOAT32",
-                "SetValue": "5000",
+                "SetValue": "3000",
                 "Color": "norm"
             },
             "Inomterm": {
@@ -312,7 +312,7 @@
                 "maxValue": "40000",
                 "step": "1.0",
                 "type": "FLOAT32",
-                "SetValue": "5000",
+                "SetValue": "3000",
                 "Color": "norm"
             },
             "Inomterm": {
@@ -354,7 +354,7 @@
                 "maxValue": "11",
                 "step": "1.0",
                 "type": "INT32",
-                "SetValue": "0",
+                "SetValue": "6",
                 "Color": "norm"
             }
         },
@@ -426,7 +426,7 @@
                 "maxValue": "0.6",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "0.3",
+                "SetValue": "0.2",
                 "Color": "norm"
             },
             "Isrzagrub": {
@@ -440,7 +440,7 @@
                 "maxValue": "10",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "1",
+                "SetValue": "1.2",
                 "Color": "norm"
             },
             "It1": {
@@ -540,7 +540,7 @@
                 "maxValue": "20",
                 "step": "0.1",
                 "type": "FLOAT32",
-                "SetValue": "5",
+                "SetValue": "4",
                 "Color": "norm"
             }
         },
@@ -700,7 +700,7 @@
                 "maxValue": "2",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "1",
+                "SetValue": "0.1",
                 "Color": "norm"
             }
         }
@@ -746,7 +746,7 @@
                 "maxValue": "100",
                 "step": "0.01",
                 "type": "INT32",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "T2": {
@@ -760,7 +760,7 @@
                 "maxValue": "100",
                 "step": "0.01",
                 "type": "INT32",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "Inom": {
@@ -774,7 +774,7 @@
                 "maxValue": "5",
                 "step": "0.1",
                 "type": "FLOAT32",
-                "SetValue": "1",
+                "SetValue": "5",
                 "Color": "norm"
             },
             "Imin": {
@@ -788,7 +788,7 @@
                 "maxValue": "1",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "0.2",
+                "SetValue": "0.05",
                 "Color": "norm"
             },
             "Ksym": {
@@ -816,7 +816,7 @@
                 "maxValue": "2",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "0.5",
+                "SetValue": "0.02",
                 "Color": "norm"
             }
         },
@@ -860,7 +860,7 @@
                 "maxValue": "100",
                 "step": "0.01",
                 "type": "INT32",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "T2": {
@@ -874,7 +874,7 @@
                 "maxValue": "100",
                 "step": "0.01",
                 "type": "INT32",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "Inom": {
@@ -902,7 +902,7 @@
                 "maxValue": "1",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "0.2",
+                "SetValue": "0.05",
                 "Color": "norm"
             },
             "Ksym": {
@@ -930,7 +930,7 @@
                 "maxValue": "2",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "1",
+                "SetValue": "0.02",
                 "Color": "norm"
             }
         },
@@ -974,7 +974,7 @@
                 "maxValue": "100",
                 "step": "0.01",
                 "type": "INT32",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "T2": {
@@ -988,7 +988,7 @@
                 "maxValue": "100",
                 "step": "0.01",
                 "type": "INT32",
-                "SetValue": "1",
+                "SetValue": "0",
                 "Color": "norm"
             },
             "Inom": {
@@ -1016,7 +1016,7 @@
                 "maxValue": "1",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "0.2",
+                "SetValue": "0.05",
                 "Color": "norm"
             },
             "Ksym": {
@@ -1044,7 +1044,7 @@
                 "maxValue": "2",
                 "step": "0.01",
                 "type": "FLOAT32",
-                "SetValue": "1",
+                "SetValue": "0.02",
                 "Color": "norm"
             }
         }

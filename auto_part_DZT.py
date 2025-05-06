@@ -1,5 +1,7 @@
 # автоматическое тестирование ФСУ в части ДЗТ, КЦТ, ПС для исполнения ДЗТ
 # с графическим интерфейсом
+# 2, 5 заводятся не в процентах а в rms - угол 2,5 гармоник для упрощения совпадает с 1 гармоникой
+# для упрощения также 2,5 гармоники только на сторону ВН (НН1, НН2 - нет)
 
 import tkinter as tk
 from tkinter import ttk
@@ -35,7 +37,7 @@ class PartDZT_GUI:
         self.sgf_params = {
             "Side1_tdif": tk.IntVar(value=1),
             "Side2_tdif": tk.IntVar(value=1),
-            "Side3_tdif": tk.IntVar(value=0),
+            "Side3_tdif": tk.IntVar(value=1),
             "ksch1_tdif": tk.IntVar(value=0),
             "ksch2_tdif": tk.IntVar(value=0), 
             "ksch3_tdif": tk.IntVar(value=0),           # Третья сторона 03.05.2025
@@ -61,55 +63,55 @@ class PartDZT_GUI:
         self.settings = {
             "T1_rctr1_ctr": tk.DoubleVar(value=0),
             "T2_rctr1_ctr": tk.DoubleVar(value=0),
-            "Inom_rctr1_ctr": tk.DoubleVar(value=1),
-            "Imin_rctr1_ctr": tk.DoubleVar(value=0.2),
+            "Inom_rctr1_ctr": tk.DoubleVar(value=5),
+            "Imin_rctr1_ctr": tk.DoubleVar(value=0.05),
             "Ksym_rctr1_ctr": tk.DoubleVar(value=0.5),
-            "LIsym_rctr1_ctr": tk.DoubleVar(value=1),
+            "LIsym_rctr1_ctr": tk.DoubleVar(value=0.02),
             "T1_rctr2_ctr": tk.DoubleVar(value=0),
             "T2_rctr2_ctr": tk.DoubleVar(value=0),
-            "Inom_rctr2_ctr": tk.DoubleVar(value=1),
-            "Imin_rctr2_ctr": tk.DoubleVar(value=0.2),
+            "Inom_rctr2_ctr": tk.DoubleVar(value=5),
+            "Imin_rctr2_ctr": tk.DoubleVar(value=0.05),
             "Ksym_rctr2_ctr": tk.DoubleVar(value=0.5),
-            "LIsym_rctr2_ctr": tk.DoubleVar(value=1),
+            "LIsym_rctr2_ctr": tk.DoubleVar(value=0.02),
             "T1_rctr3_ctr": tk.DoubleVar(value=0),
             "T2_rctr3_ctr": tk.DoubleVar(value=0),
-            "Inom_rctr3_ctr": tk.DoubleVar(value=1),
-            "Imin_rctr3_ctr": tk.DoubleVar(value=0.2),
+            "Inom_rctr3_ctr": tk.DoubleVar(value=5),
+            "Imin_rctr3_ctr": tk.DoubleVar(value=0.05),
             "Ksym_rctr3_ctr": tk.DoubleVar(value=0.5),
-            "LIsym_rctr3_ctr": tk.DoubleVar(value=1),
+            "LIsym_rctr3_ctr": tk.DoubleVar(value=0.02),
             "Sbaz_tdif": tk.DoubleVar(value=10),
             "Ubaz_rmxu1_tdif": tk.DoubleVar(value=35),
             "Ubaz_rmxu2_tdif": tk.DoubleVar(value=10.5),
             "Ubaz_rmxu3_tdif": tk.DoubleVar(value=10.5),  # Третья сторона  03.05.2025 
-            "Iperv_rmxu1_tdif": tk.DoubleVar(value=1000),
-            "Iperv_rmxu2_tdif": tk.DoubleVar(value=5000),
-            "Iperv_rmxu3_tdif": tk.DoubleVar(value=5000), # Третья сторона  03.05.2025 
+            "Iperv_rmxu1_tdif": tk.DoubleVar(value=750),
+            "Iperv_rmxu2_tdif": tk.DoubleVar(value=3000),
+            "Iperv_rmxu3_tdif": tk.DoubleVar(value=3000), # Третья сторона  03.05.2025 
             "Inomterm_rmxu1_tdif": tk.DoubleVar(value=1),
             "Inomterm_rmxu2_tdif": tk.DoubleVar(value=1),
             "Inomterm_rmxu3_tdif": tk.DoubleVar(value=1), # Третья сторона  03.05.2025 
-            "Ivtor_rmxu1_tdif": tk.DoubleVar(value=1),
+            "Ivtor_rmxu1_tdif": tk.DoubleVar(value=5),
             "Ivtor_rmxu2_tdif": tk.DoubleVar(value=5),
             "Ivtor_rmxu3_tdif": tk.DoubleVar(value=5),    # Третья сторона  03.05.2025
             "Nsch_rmxu1_tdif": tk.DoubleVar(value=0),
-            "Nsch_rmxu2_tdif": tk.DoubleVar(value=0),
-            "Nsch_rmxu3_tdif": tk.DoubleVar(value=0),    # Третья сторона  03.05.2025
+            "Nsch_rmxu2_tdif": tk.DoubleVar(value=6),
+            "Nsch_rmxu3_tdif": tk.DoubleVar(value=6),    # Третья сторона  03.05.2025
             "T1_pdif1_tdif": tk.DoubleVar(value=1),
             "Isr_pdif1_tdif": tk.DoubleVar(value=0.2),
-            "Isrzagrub_pdif1_tdif": tk.DoubleVar(value=1),
+            "Isrzagrub_pdif1_tdif": tk.DoubleVar(value=1.2),
             "It1_pdif1_tdif": tk.DoubleVar(value=1),
             "It2_pdif1_tdif": tk.DoubleVar(value=3),
             "Kt1_pdif1_tdif": tk.DoubleVar(value=0.25),
             "Kt2_pdif1_tdif": tk.DoubleVar(value=0.7), 
             "T1_pdif2_tdif": tk.DoubleVar(value=1),
-            "Iset_pdif2_tdif": tk.DoubleVar(value=5),
-            "T1_hf2phar1_tdif": tk.DoubleVar(value=1),
-            "T2_hf2phar1_tdif": tk.DoubleVar(value=1),
-            "Ratio_hf2phar1_tdif": tk.DoubleVar(value=0.3),
-            "T1_hf5phar1_tdif": tk.DoubleVar(value=1),
-            "T2_hf5phar1_tdif": tk.DoubleVar(value=1),
-            "Ratio_hf5phar1_tdif": tk.DoubleVar(value=0.5), 
+            "Iset_pdif2_tdif": tk.DoubleVar(value=4),
+            "T1_hf2phar1_tdif": tk.DoubleVar(value=0.5),
+            "T2_hf2phar1_tdif": tk.DoubleVar(value=0.5),
+            "Ratio_hf2phar1_tdif": tk.DoubleVar(value=0.2),
+            "T1_hf5phar1_tdif": tk.DoubleVar(value=0.5),
+            "T2_hf5phar1_tdif": tk.DoubleVar(value=0.5),
+            "Ratio_hf5phar1_tdif": tk.DoubleVar(value=0.3), 
             "T1_rctr1_tdif": tk.DoubleVar(value=1),
-            "Iset_rctr1_tdif": tk.DoubleVar(value=1), 
+            "Iset_rctr1_tdif": tk.DoubleVar(value=0.1), 
         }
 
         self.input_vars = {
