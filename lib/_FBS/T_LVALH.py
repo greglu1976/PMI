@@ -1,4 +1,4 @@
-# (T_LVALH) Функция ПС - предупредительная сигнализация трансформатора 35 кВ исполнение Т
+# (T_LVALH) Функция ПС - предупредительная сигнализация трансформатора 35 кВ исполнение Т, для исполнения ДЗТ используется 13 ключей
 
 class T_LVALH:
     def __init__(self, SGF1_t_lvalh=0, SGF2_t_lvalh=0, SGF3_t_lvalh=0, SGF4_t_lvalh=0, SGF5_t_lvalh=0, SGF6_t_lvalh=0, SGF7_t_lvalh=0, SGF8_t_lvalh=0, SGF9_t_lvalh=0, SGF10_t_lvalh=0, SGF11_t_lvalh=0, SGF12_t_lvalh=0, SGF13_t_lvalh=0, SGF14_t_lvalh=0):
