@@ -57,12 +57,12 @@ class PartOfTOKGUI:
             "Iset_ptoc2_tovctoc": tk.DoubleVar(value=0.2),
             "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=0.2),
             "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=0.2),
-            "Iset_hvptoc1_strpalc": tk.DoubleVar(value=1),
-            "Iset_lvptoc1_strpalc": tk.DoubleVar(value=1),
-            "Iset_lvptoc2_strpalc": tk.DoubleVar(value=1),
-            "Iset_hvptoc1_tpalc": tk.DoubleVar(value=1),
-            "Iset_lvptoc1_tpalc": tk.DoubleVar(value=1),
-            "Iset_lvptoc2_tpalc": tk.DoubleVar(value=1),
+            "Iset_hvptoc1_strpalc": tk.DoubleVar(value=0.2),
+            "Iset_lvptoc1_strpalc": tk.DoubleVar(value=0.2),
+            "Iset_lvptoc2_strpalc": tk.DoubleVar(value=0.2),
+            "Iset_hvptoc1_tpalc": tk.DoubleVar(value=0.2),
+            "Iset_lvptoc1_tpalc": tk.DoubleVar(value=0.2),
+            "Iset_lvptoc2_tpalc": tk.DoubleVar(value=0.2),
             "T1_lvoileqpalc_eqpalc": tk.DoubleVar(value=1),
         }
 
