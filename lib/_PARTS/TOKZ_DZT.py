@@ -41,7 +41,7 @@ class partTOKZ:
          
 
     def Step(self, VYVOD, 
-    OV_tovctoc, OV_hvptoc1_tovctoc, NaOtkl_hvptoc1_tovctoc, IA, IB, IC, OV_ptoc1_tovctoc, NaOtkl_ptoc1_tovctoc, IA1, IB1, IC1,  OV_ptoc2_tovctoc, NaOtkl_ptoc2_tovctoc,
+    OV_tovctoc, OV_hvptoc1_tovctoc, NaOtkl_tovctoc, IA, IB, IC, OV_ptoc1_tovctoc, IA1, IB1, IC1,  OV_ptoc2_tovctoc, 
     OV_ptoc1_lvarctoc,
     OV_ptoc1_ltcblktoc,
     OV_strpalc, OV_hvptoc1_strpalc, OV_lvptoc1_strpalc, OV_lvptoc2_strpalc,
@@ -53,8 +53,11 @@ class partTOKZ:
         IA2=IA1
         IB2=IB1
         IC2=IC1
+        NaOtkl_hvptoc1_tovctoc = NaOtkl_tovctoc
+        NaOtkl_ptoc1_tovctoc = NaOtkl_tovctoc
+        NaOtkl_ptoc2_tovctoc = NaOtkl_tovctoc
         # Рассчитываем ЗП
-        vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctocc = self.tovctoc.Step(VYVOD, OV_tovctoc, OV_hvptoc1_tovctoc, NaOtkl_hvptoc1_tovctoc, IA, IB, IC, OV_ptoc1_tovctoc, NaOtkl_ptoc1_tovctoc, IA1, IB1, IC1, OV_ptoc2_tovctoc, NaOtkl_ptoc2_tovctoc, IA2, IB2, IC2)
+        vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctoc = self.tovctoc.Step(VYVOD, OV_tovctoc, OV_hvptoc1_tovctoc, NaOtkl_hvptoc1_tovctoc, IA, IB, IC, OV_ptoc1_tovctoc, NaOtkl_ptoc1_tovctoc, IA1, IB1, IC1, OV_ptoc2_tovctoc, NaOtkl_ptoc2_tovctoc, IA2, IB2, IC2)
         # Рассчитываем ТК ЗДЗ
         mtz1_pusk=mtz2_pusk=mtz3_pusk=0
         vvod_ptoc1_lvarctoc, oper_vyvod_ptoc1_lvarctoc, pusk_ptoc1_lvarctoc, io_ptoc1_lvarctoc =  self.lvarctoc.Step(VYVOD, OV_ptoc1_lvarctoc, IA, IB, IC, mtz1_pusk, mtz2_pusk, mtz3_pusk) 
@@ -73,7 +76,7 @@ class partTOKZ:
         pusk_lvalh = self.lvalh.Step(VYVOD, COMM_SIGN=(pusk_lvoileqpalc_eqpalc, srab_hvptoc1_tovctoc, srab_ptoc1_tovctoc, srab_ptoc2_tovctoc, srab_ptrc1_tprmofflvlgc))
 
         return  (
-            vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctocc,
+            vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctoc,
 
             vvod_ptoc1_lvarctoc, oper_vyvod_ptoc1_lvarctoc, pusk_ptoc1_lvarctoc, io_ptoc1_lvarctoc,
 

@@ -1,0 +1,478 @@
+{
+    "tovctoc": {
+        "hvptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "9000",
+                "AppliedDescription": "T1",
+                "units": "мс",
+                "minValue": "0",
+                "maxValue": "3600000",
+                "step": "100",
+                "type": "INT32",
+                "SetValue": "1",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "5",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        },
+        "ptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "9000",
+                "AppliedDescription": "T1",
+                "units": "мс",
+                "minValue": "0",
+                "maxValue": "3600000",
+                "step": "100",
+                "type": "INT32",
+                "SetValue": "1",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "5",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        },
+        "ptoc2": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "9000",
+                "AppliedDescription": "T1",
+                "units": "мс",
+                "minValue": "0",
+                "maxValue": "3600000",
+                "step": "100",
+                "type": "INT32",
+                "SetValue": "1",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "5",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        }
+    },
+    "lvarctoc": {
+        "ptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        }
+    },
+    "ltcblktoc": {
+        "ptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        }
+    },
+    "strpalc": {
+        "hvptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        },
+        "lvptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        },
+        "lvptoc2": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        }
+    },
+    "tpalc": {
+        "hvptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "changed"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        },
+        "lvptoc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        },
+        "lvptoc2": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "Iset": {
+                "ShortDescription": "Iср",
+                "FullDescription": "Ток срабатывания",
+                "Note": "-",
+                "DefaultValue": "1",
+                "AppliedDescription": "I>",
+                "units": "о.е.",
+                "minValue": "0.1",
+                "maxValue": "30",
+                "step": "0.01",
+                "type": "FLOAT32",
+                "SetValue": "0.2",
+                "Color": "norm"
+            }
+        }
+    },
+    "eqpalc": {
+        "lvoileqpalc": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF2": {
+                "ShortDescription": "Контр_тока",
+                "FullDescription": "Контроль тока",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF2",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "SGF3": {
+                "ShortDescription": "Контр_темп_масла",
+                "FullDescription": "Контроль температуры масла",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF3",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "0",
+                "Color": "norm"
+            },
+            "T1": {
+                "ShortDescription": "Tср",
+                "FullDescription": "Выдержка времени срабатывания",
+                "Note": "-",
+                "DefaultValue": "10",
+                "AppliedDescription": "T1",
+                "units": "с",
+                "minValue": "0",
+                "maxValue": "3600",
+                "step": "1",
+                "type": "INT32",
+                "SetValue": "1",
+                "Color": "norm"
+            }
+        }
+    },
+    "tprmofflvlgc": {
+        "ptrc1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "1",
+                "Color": "norm"
+            }
+        },
+        "rbre1": {
+            "SGF1": {
+                "ShortDescription": "Ввод_функции",
+                "FullDescription": "Ввод функции в работу",
+                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
+                "DefaultValue": "0",
+                "AppliedDescription": "SGF1",
+                "units": "-",
+                "minValue": "0",
+                "maxValue": "1",
+                "step": "1",
+                "type": "BOOL",
+                "SetValue": "1",
+                "Color": "norm"
+            }
+        }
+    }
+}

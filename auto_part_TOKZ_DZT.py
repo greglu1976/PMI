@@ -16,7 +16,7 @@ from lib._PARTS.TOKZ_DZT import partTOKZ
 class PartOfTOKGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование токовых функций ФСУ ДЗТ2, v0.0 от 14.05.25")
+        self.root.title("Тестирование токовых функций ФСУ ДЗТ2, v0.1 от 15.05.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -76,11 +76,12 @@ class PartOfTOKGUI:
             "VYVOD": tk.IntVar(value=0),
             "OV_tovctoc": tk.IntVar(value=0),
             "OV_hvptoc1_tovctoc": tk.IntVar(value=0),
-            "NaOtkl_hvptoc1_tovctoc": tk.IntVar(value=0),
+            "NaOtkl_tovctoc": tk.IntVar(value=0),            
+            #"NaOtkl_hvptoc1_tovctoc": tk.IntVar(value=0),
             "OV_ptoc1_tovctoc": tk.IntVar(value=0),
-            "NaOtkl_ptoc1_tovctoc": tk.IntVar(value=0),
+            #"NaOtkl_ptoc1_tovctoc": tk.IntVar(value=0),
             "OV_ptoc2_tovctoc": tk.IntVar(value=0),
-            "NaOtkl_ptoc2_tovctoc": tk.IntVar(value=0),
+            #"NaOtkl_ptoc2_tovctoc": tk.IntVar(value=0),
             "OV_ptoc1_lvarctoc": tk.IntVar(value=0),
             "OV_ptoc1_ltcblktoc": tk.IntVar(value=0),            
             "OV_strpalc": tk.IntVar(value=0),
@@ -181,7 +182,7 @@ class PartOfTOKGUI:
         output_frame = ttk.LabelFrame(self.root, text="Outputs")
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
         outputs = [
-                "vvod_hvptoc1_tovctoc", "oper_vyvod_hvptoc1_tovctoc", "pusk_hvptoc1_tovctoc", "io_hvptoc1_tovctoc", "srab_hvptoc1_tovctoc", "srabotkl_hvptoc1_tovctoc", "vvod_ptoc1_tovctoc", "oper_vyvod_ptoc1_tovctoc", "pusk_ptoc1_tovctoc", "io_ptoc1_tovctoc", "srab_ptoc1_tovctoc", "srabotkl_ptoc1_tovctoc", "vvod_ptoc2_tovctoc", "oper_vyvod_ptoc2_tovctoc", "pusk_ptoc2_tovctoc", "io_ptoc2_tovctoc", "srab_ptoc2_tovctoc", "srabotkl_ptoc2_tovctoc", "srab_tovctocc",
+                "vvod_hvptoc1_tovctoc", "oper_vyvod_hvptoc1_tovctoc", "pusk_hvptoc1_tovctoc", "io_hvptoc1_tovctoc", "srab_hvptoc1_tovctoc", "srabotkl_hvptoc1_tovctoc", "vvod_ptoc1_tovctoc", "oper_vyvod_ptoc1_tovctoc", "pusk_ptoc1_tovctoc", "io_ptoc1_tovctoc", "srab_ptoc1_tovctoc", "srabotkl_ptoc1_tovctoc", "vvod_ptoc2_tovctoc", "oper_vyvod_ptoc2_tovctoc", "pusk_ptoc2_tovctoc", "io_ptoc2_tovctoc", "srab_ptoc2_tovctoc", "srabotkl_ptoc2_tovctoc", "srab_tovctoc",
                 "vvod_ptoc1_lvarctoc", "oper_vyvod_ptoc1_lvarctoc", "pusk_ptoc1_lvarctoc", "io_ptoc1_lvarctoc",
                 "vvod_ptoc1_ltcblktoc", "oper_vyvod_ptoc1_ltcblktoc", "pusk_ptoc1_ltcblktoc", "io_ptoc1_ltcblktoc",
                 "vvod_hvptoc1_strpalc", "oper_vyvod_hvptoc1_strpalc", "pusk_hvptoc1_strpalc", "io_hvptoc1_strpalc", "vvod_lvptoc1_strpalc", "oper_vyvod_lvptoc1_strpalc", "pusk_lvptoc1_strpalc", "io_lvptoc1_strpalc", "vvod_lvptoc2_strpalc", "oper_vyvod_lvptoc2_strpalc", "pusk_lvptoc2_strpalc", "io_lvptoc2_strpalc", "pusk_strpalc", "vvod_strpalc",

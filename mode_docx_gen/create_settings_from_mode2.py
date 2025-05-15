@@ -151,10 +151,21 @@ def start_proceed_modes(xlsx_file, root_dir=''):
     # Считываем заголовки и первую строку данных
     df = pd.read_excel(xlsx_file, sheet_name=sheet_name, nrows=1)
     # Проверяем, есть ли столбец с именем "Номинальный ток входа"
-    if "Номинальный ток входа" in df.columns:
+    #if "Номинальный ток входа" in df.columns:
         # Удаляем столбец
-        df = df.drop(columns=["Номинальный ток входа"])
-
+        #df = df.drop(columns=["Номинальный ток входа"])
+    # СОВЕРШЕНСТВУЕМ Проверяем, есть ли столбец с именем "Номинальный ток входа"
+    columns_to_check = [
+        "Номинальный ток входа",
+        "Номинальный ток входа ВН", 
+        "Номинальный ток входа НН1", 
+        "Номинальный ток входа НН2"
+    ]
+    # Находим столбцы, которые существуют в DataFrame
+    existing_columns = [col for col in columns_to_check if col in df.columns]
+    # Если такие столбцы есть - удаляем их
+    if existing_columns:
+        df = df.drop(columns=existing_columns)
 
     # Создаем структуру для хранения результатов
     result_dict = {}
