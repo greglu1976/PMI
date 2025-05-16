@@ -4,11 +4,10 @@
     "srab_ptrc1_tltcgaslgc": "ЛО ГЗ РПН / ЛО: Срабатывание",
     "srabsign_ptrc1_tltcgaslgc": "ЛО ГЗ РПН / ЛО: Срабатывание сигн",
     "zablok_ptrc1_tltcgaslgc": "ЛО ГЗ РПН / ЛО: Заблокировано",
-    "srab_ptrc1_tofflvlgc": "ЛО Т / ЛО: Срабатывание",
-    "zapret_rblc1_tofflvlgc": "ЛО Т / ЗАВР: Запрет АВР",
-    "zapret_rbre1_tofflvlgc": "ЛО Т / ЗАПВ: Запрет АПВ",
+    "srab_ptrc1_tprmofflvlgc": "ЛО Т / ЛО: Срабатывание",
+    "zapret_rbre1_tprmofflvlgc": "ЛО Т / ЗАПВ: Запрет АПВ",
     "SS_gz_sign": "СС: ГЗ сигн",
     "SS_gz_zablok": "СС: ГЗ заблокирована",
     "SS_gz_nizk_isol": "СС: Низ.изол. ГЗ",
-    "pusk_lvalv": "ПС: Пуск"
+    "pusk_lvalh": "ПС: Пуск"
 }

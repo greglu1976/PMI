@@ -11,6 +11,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -24,6 +25,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -39,6 +41,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -52,6 +55,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -67,6 +71,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -80,6 +85,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -95,6 +101,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -112,6 +119,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -127,6 +135,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -142,6 +151,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -159,6 +169,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -172,6 +183,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -185,6 +197,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -202,6 +215,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -215,6 +229,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -230,6 +245,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -247,6 +263,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -260,6 +277,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -275,12 +293,13 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
         }
     },
-    "tofflvlgc": {
+    "tprmofflvlgc": {
         "ptrc1": {
             "SGF1": {
                 "ShortDescription": "Ввод_функции",
@@ -292,6 +311,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -307,73 +327,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
-            },
-            "SGF2": {
-                "ShortDescription": "ЗАПВ_МТЗ_ст2",
-                "FullDescription": "Запрет АПВ при срабатывании 2 ступени МТЗ",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF2",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
-            },
-            "SGF3": {
-                "ShortDescription": "ЗАПВ_МТЗ_ст3",
-                "FullDescription": "Запрет АПВ при срабатывании 3 ступени МТЗ",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF3",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
-            }
-        },
-        "rblc1": {
-            "SGF1": {
-                "ShortDescription": "Ввод_функции",
-                "FullDescription": "Ввод функции в работу",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF1",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
-            },
-            "SGF2": {
-                "ShortDescription": "ЗАВР_МТЗ_ст2",
-                "FullDescription": "Запрет АВР при срабатывании 2 ступени МТЗ",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF2",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
-                "SetValue": "1",
-                "Color": "norm"
-            },
-            "SGF3": {
-                "ShortDescription": "ЗАВР_МТЗ_ст3",
-                "FullDescription": "Запрет АВР при срабатывании 3 ступени МТЗ",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF3",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -391,6 +345,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -404,6 +359,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -417,6 +373,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -430,6 +387,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -443,6 +401,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -456,6 +415,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -469,6 +429,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -482,6 +443,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -495,6 +457,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -508,6 +471,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -521,6 +485,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -534,12 +499,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF13": {
-                "ShortDescription": "Контр_Вр_пркл_КА",
-                "FullDescription": "Контроль сигнала <<Прев. вр. пер. КА>>",
+                "ShortDescription": "Контр_общ_внеш_сигн",
+                "FullDescription": "Контроль общего внешнего сигнала",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF13",
@@ -547,19 +513,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
-                "SetValue": "0",
-                "Color": "norm"
-            },
-            "SGF14": {
-                "ShortDescription": "Контр_общ_внеш_сигн",
-                "FullDescription": "Контроль общего внешнего сигнала",
-                "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
-                "DefaultValue": "0",
-                "AppliedDescription": "SGF14",
-                "units": "-",
-                "minValue": "0",
-                "maxValue": "1",
-                "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -577,6 +531,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -590,6 +545,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -603,6 +559,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -616,12 +573,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF5": {
-                "ShortDescription": "Контр_полож_SA5",
-                "FullDescription": "Контроль положения SA5",
+                "ShortDescription": "Контр_полож_SG1",
+                "FullDescription": "Контроль положения SG1",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF5",
@@ -629,12 +587,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF6": {
-                "ShortDescription": "Контр_полож_SG1",
-                "FullDescription": "Контроль положения SG1",
+                "ShortDescription": "Контр_полож_SG2",
+                "FullDescription": "Контроль положения SG2",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF6",
@@ -642,12 +601,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF7": {
-                "ShortDescription": "Контр_полож_SG2",
-                "FullDescription": "Контроль положения SG2",
+                "ShortDescription": "Контр_полож_SG3",
+                "FullDescription": "Контроль положения SG3",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF7",
@@ -655,6 +615,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -668,6 +629,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -681,12 +643,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF10": {
-                "ShortDescription": "Контр_ОТ_сигн_В",
-                "FullDescription": "Контроль опер. тока цепей сигнализации выключателя",
+                "ShortDescription": "Контр_ОТ_ЗДЗ1",
+                "FullDescription": "Контроль опер. тока цепей ЗДЗ НН1",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF10",
@@ -694,12 +657,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF11": {
-                "ShortDescription": "Контр_ОТ_ЗДЗ",
-                "FullDescription": "Контроль опер. тока цепей ЗДЗ НН",
+                "ShortDescription": "Контр_ОТ_ЗДЗ2",
+                "FullDescription": "Контроль опер. тока цепей ЗДЗ НН2",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF11",
@@ -707,12 +671,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF12": {
-                "ShortDescription": "Контр_ОТ_УРОВ",
-                "FullDescription": "Контроль опер. тока цепей УРОВ НН",
+                "ShortDescription": "Контр_ОТ_УРОВ1",
+                "FullDescription": "Контроль опер. тока цепей УРОВ НН1",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF12",
@@ -720,12 +685,13 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
             "SGF13": {
-                "ShortDescription": "Контр_ОТ_ТН",
-                "FullDescription": "Контроль опер. тока ИЭУ ТН",
+                "ShortDescription": "Контр_ОТ_УРОВ2",
+                "FullDescription": "Контроль опер. тока цепей УРОВ НН2",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF13",
@@ -733,6 +699,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }

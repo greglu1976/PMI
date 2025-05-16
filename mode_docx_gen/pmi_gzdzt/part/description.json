@@ -1,10 +1,9 @@
 {
     "lvalh": {"fbname":"ПС", 
                 "desc":"Предупредительная сигнализация"},
-    "tofflvlgc": {"fbname":"ЛО Т",
+    "tprmofflvlgc": {"fbname":"ЛО Т",
                 "desc":"Логика отключения трансформатора",
                 "ptrc1":{"funcname":"Логика отключения", "func_short_name":"ЛО"},
-                "rblc1":{"funcname":"Логика запрета АВР", "func_short_name":"ЗАВР"},
                 "rbre1":{"funcname":"Логика запрета АПВ", "func_short_name":"ЗАПВ"}},
     "tsa": {"fbname":"СС",
                 "desc":"Сборка сигналов"},

@@ -1,17 +1,6 @@
 {
-    "T1_hvptoc1_tovctoc": "",
-    "Iset_hvptoc1_tovctoc": "",
-    "T1_ptoc1_tovctoc": "",
-    "Iset_ptoc1_tovctoc": "",
-    "T1_ptoc2_tovctoc": "",
-    "Iset_ptoc2_tovctoc": "",
-    "Iset_ptoc1_lvarctoc": "",
-    "Iset_ptoc1_ltcblktoc": "",
-    "Iset_hvptoc1_strpalc": "",
-    "Iset_lvptoc1_strpalc": "",
-    "Iset_lvptoc2_strpalc": "",
-    "Iset_hvptoc1_tpalc": "",
-    "Iset_lvptoc1_tpalc": "",
-    "Iset_lvptoc2_tpalc": "",
-    "T1_lvoileqpalc_eqpalc": ""
+    "T1_apttechlgc": "",
+    "T1_ptrc1_talmgaslgc": "",
+    "T1_ttrgaslgc": "",
+    "T1_tltcgaslgc": ""
 }
