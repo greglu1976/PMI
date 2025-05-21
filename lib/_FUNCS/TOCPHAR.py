@@ -25,19 +25,24 @@ class TOCPHAR:
         im = max(IA, IB, IC)
         blk = self.RSblock.run((im>=self.Imax), (im<0.95*self.Imax))
 
-        ia_ratio = 0 if (IA==0) else IA2harm # ток 2 гарм задается в процентах от тока фазы
+        #ia_ratio = 0 if (IA==0) else IA2harm # ток 2 гарм задается в процентах от тока фазы
+        ia_ratio = 0 if (IA==0) else (IA2harm/IA)*100 # ток 2 гарм задается в амперах
+        print((IA2harm/IA)*100, self.Ratio, 0.95*self.Ratio)
+
         ia_rat_start = self.RSa.run((ia_ratio>=self.Ratio), (ia_ratio<0.95*self.Ratio))
         self.T1a.IN = ia_rat_start
         Qa, ETa = self.T1a.start()  # Запускаем таймер и получаем выход и прошедшее время
         ia_start = VVOD and not(blk) and any(mtz_ioA) and Qa
 
-        ib_ratio = 0 if (IB==0) else IB2harm
+        #ib_ratio = 0 if (IB==0) else IB2harm
+        ib_ratio = 0 if (IB==0) else (IB2harm/IB)*100       
         ib_rat_start = self.RSb.run((ib_ratio>=self.Ratio), (ib_ratio<0.95*self.Ratio))
         self.T1b.IN = ib_rat_start
         Qb, ETb = self.T1b.start()  # Запускаем таймер и получаем выход и прошедшее время
         ib_start = VVOD and not(blk) and any(mtz_ioB) and Qb
 
-        ic_ratio = 0 if (IC==0) else IC2harm
+        #ic_ratio = 0 if (IC==0) else IC2harm
+        ic_ratio = 0 if (IC==0) else (IC2harm/IC)*100        
         ic_rat_start = self.RSc.run((ic_ratio>=self.Ratio), (ic_ratio<0.95*self.Ratio))
         self.T1c.IN = ic_rat_start
         Qc, ETc = self.T1c.start()  # Запускаем таймер и получаем выход и прошедшее время
