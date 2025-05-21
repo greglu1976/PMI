@@ -27,7 +27,7 @@ class TOCPHAR:
 
         #ia_ratio = 0 if (IA==0) else IA2harm # ток 2 гарм задается в процентах от тока фазы
         ia_ratio = 0 if (IA==0) else (IA2harm/IA)*100 # ток 2 гарм задается в амперах
-        print((IA2harm/IA)*100, self.Ratio, 0.95*self.Ratio)
+        #print((IA2harm/IA)*100, self.Ratio, 0.95*self.Ratio)
 
         ia_rat_start = self.RSa.run((ia_ratio>=self.Ratio), (ia_ratio<0.95*self.Ratio))
         self.T1a.IN = ia_rat_start

@@ -19,7 +19,7 @@ from lib._PARTS.MTZ_T import partOfFsuInTOC
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ (исполнение Т) в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, ТК ЗДЗ, ЛЗТ v1.0 от 26.03.25")
+        self.root.title("Тестирование ФСУ (исполнение Т) в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, ТК ЗДЗ, ЛЗТ v2.0 от 21.05.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False

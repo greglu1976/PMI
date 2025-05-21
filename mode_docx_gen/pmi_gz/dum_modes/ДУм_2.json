@@ -11,6 +11,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -24,6 +25,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -39,6 +41,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -52,6 +55,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -67,6 +71,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -80,6 +85,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -95,6 +101,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -112,6 +119,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -127,6 +135,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -142,6 +151,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -159,6 +169,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -172,6 +183,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -185,6 +197,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -202,6 +215,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -215,6 +229,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -230,6 +245,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -247,6 +263,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -260,6 +277,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -275,6 +293,7 @@
                 "minValue": "0",
                 "maxValue": "30000",
                 "step": "10",
+                "type": "INT32",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -292,6 +311,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -307,6 +327,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -320,6 +341,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -333,6 +355,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -348,6 +371,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -361,6 +385,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -374,6 +399,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             }
@@ -391,6 +417,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -404,6 +431,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -417,6 +445,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -430,6 +459,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -443,6 +473,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -456,6 +487,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -469,6 +501,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "1",
                 "Color": "norm"
             },
@@ -482,6 +515,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -495,6 +529,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -508,6 +543,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -521,6 +557,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -534,6 +571,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -547,6 +585,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -560,6 +599,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
@@ -577,6 +617,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -590,6 +631,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -603,6 +645,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -616,6 +659,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -629,6 +673,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -642,6 +687,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -655,6 +701,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -668,6 +715,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -681,6 +729,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -694,6 +743,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -707,6 +757,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -720,6 +771,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             },
@@ -733,6 +785,7 @@
                 "minValue": "0",
                 "maxValue": "1",
                 "step": "1",
+                "type": "BOOL",
                 "SetValue": "0",
                 "Color": "norm"
             }
