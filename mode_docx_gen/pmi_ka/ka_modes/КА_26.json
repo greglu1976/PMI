@@ -40,8 +40,8 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "SGF4": {
                 "ShortDescription": "Бл_вкл_от_прев_рес",
@@ -294,7 +294,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF3": {
@@ -308,7 +308,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF4": {
@@ -336,8 +336,8 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "1",
+                "Color": "changed"
             },
             "SGF6": {
                 "ShortDescription": "Блок_откл_от_КСВ",
