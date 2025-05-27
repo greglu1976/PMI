@@ -45,7 +45,7 @@
             },
             "SGF4": {
                 "ShortDescription": "Бл_вкл_от_прев_рес",
-                "FullDescription": "Блокировка включения от превышения ресурса В",
+                "FullDescription": "Блокировка включения при превышении ресурса В",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF4",

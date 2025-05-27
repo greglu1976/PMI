@@ -391,6 +391,7 @@ def add_table_set_default_col(doc, data):
                 _minVal = str(int(_minVal)/1000)
                 _maxVal = str(int(_maxVal)/1000)
                 _step = str(int(_step)/1000)
+                default_value = str(int(default_value)/1000)
                 #table.cell(row_idx, 2).text = f"{str(int(values.get('minValue', ''))/1000).replace('.', ',')} ... {str(int(values.get('maxValue', ''))/1000).replace('.', ',')} "
                 #table.cell(row_idx, 4).text = str(int(values.get('step', ''))/1000).replace('.', ',')
 
