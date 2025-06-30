@@ -2,35 +2,35 @@
 # Максимальная токовая защита с пуском по напряжению (МТЗ/U) (LVTTOC)
 # SGF1 - Сборка_ток_цепей - Сборка токовых цепей (Звезда/ Треугольник)
 
-from lib._FUNCS.LVTPTOC_T2 import T2_LVTPTOC
+from lib._FUNCS.LVTPTOC import LVTPTOC
 from lib._FUNCS.VCPTUV import VCPTUV
 from lib._FUNCS.TOCPHAR import TOCPHAR
 from lib._FUNCS.LBPRBLC import LBPRBLC
 
-class T2_LVTTOC:
+class LVTTOC:
     def __init__(self, SGF1, SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1,
                     SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2, Icoarse_ptoc2,
                     SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3, Icoarse_ptoc3,
-                    SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1, SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2,
+                    SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1,
+                    SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2,
                     SGF1_phar1, Imax_phar1, Ratio_phar1,
                     SGF1_rblc1
     ):
-        self.ptoc1 = T2_LVTPTOC(SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1)
-        self.ptoc2 = T2_LVTPTOC(SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2, Icoarse_ptoc2)
-        self.ptoc3 = T2_LVTPTOC(SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3, Icoarse_ptoc3)
+        self.ptoc1 = LVTPTOC(SGF1_ptoc1, SGF2_ptoc1, SGF3_ptoc1, SGF4_ptoc1, SGF5_ptoc1, SGF6_ptoc1, SGF7_ptoc1, T1_ptoc1, Iset_ptoc1, Icoarse_ptoc1)
+        self.ptoc2 = LVTPTOC(SGF1_ptoc2, SGF2_ptoc2, SGF3_ptoc2, SGF4_ptoc2, SGF5_ptoc2, SGF6_ptoc2, SGF7_ptoc2, T1_ptoc2, Iset_ptoc2, Icoarse_ptoc2)
+        self.ptoc3 = LVTPTOC(SGF1_ptoc3, SGF2_ptoc3, SGF3_ptoc3, SGF4_ptoc3, SGF5_ptoc3, SGF6_ptoc3, SGF7_ptoc3, T1_ptoc3, Iset_ptoc3, Icoarse_ptoc3)
         self.ptuv1 = VCPTUV(SGF1_ptuv1, Uop_ptuv1, U2op_ptuv1)
         self.ptuv2 = VCPTUV(SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2)
         self.phar1 = TOCPHAR(SGF1_phar1, Imax_phar1, Ratio_phar1)
         self.rblc1 = LBPRBLC(SGF1_rblc1)
         self.SGF1 = SGF1
 
-
     def Step(self, VYVOD, OV, SV1vkl, SV2vkl, IA, IAB, IB, IBC, IC, ICA, KZN1neipr, VNN1vkl, KZN2neipr, VNN2vkl, 
         OVst_ptoc1, NaSign_ptoc1,
         OVst_ptoc2, NaSign_ptoc2,
         OVst_ptoc3, NaSign_ptoc3,
         KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, 
-        KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2, 
+        KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2,
         IA2harm, IB2harm, IC2harm):
 
         # Переключение с фазных на линейные токи
