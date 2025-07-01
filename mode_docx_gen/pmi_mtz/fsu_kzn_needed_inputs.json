@@ -14,6 +14,10 @@
     "dUC2": "∠  UC НН2",
     "OV_lvrbvtr1": "ОВ КЦН1",
     "vnesh_bnn_srab_lvrbvtr1": "Срабатывание внешнего БНН1",
+    "VNN1vkl": "В НН1 включен",
+    "KPONvnesh_ptuv1": "КПОН1 внеш.",
     "OV_lvrbvtr2": "ОВ КЦН2",
-    "vnesh_bnn_srab_lvrbvtr2": "Срабатывание внешнего БНН2"
+    "vnesh_bnn_srab_lvrbvtr2": "Срабатывание внешнего БНН2",
+    "VNN2vkl": "В НН2 включен",
+    "KPONvnesh_ptuv2": "КПОН2 внеш."
 }

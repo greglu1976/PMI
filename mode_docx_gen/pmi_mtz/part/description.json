@@ -1,5 +1,5 @@
 {
-    "lvalv": {"fbname":"ПС", 
+    "lvalh": {"fbname":"ПС", 
                 "desc":"Предупредительная сигнализация"},
     "lvrbvtr1": {"fbname":"КЦН НН1",
                 "desc":"Сигнализация неисправности цепей напряжения НН1"},
@@ -18,5 +18,11 @@
                 "desc":"Логика отключения трансформатора",
                 "ptrc1":{"funcname":"Логика отключения", "func_short_name":"ЛО"},
                 "rblc1":{"funcname":"Логика запрета АВР", "func_short_name":"ЗАВР"},
-                "rbre1":{"funcname":"Логика запрета АПВ", "func_short_name":"ЗАПВ"}}
+                "rbre1":{"funcname":"Логика запрета АПВ", "func_short_name":"ЗАПВ"}},
+    "lvarctoc": {"fbname": "ТК ЗДЗ", 
+                "desc": "Токовый контроль ЗДЗ", 
+                "ptoc1":{"funcname":"Токовый орган", "func_short_name":"ТО"}},
+    "ttoclgc": {"fbname": "ЛЗТ", 
+                "desc": "Логическая защита трансформатора", 
+                "ptrc1":{"funcname":"Логическая защита трансформатора", "func_short_name":"ЛЗТ"}}   
 }

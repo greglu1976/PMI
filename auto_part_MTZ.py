@@ -19,7 +19,7 @@ from lib._PARTS.MTZ_T2 import partOfFsuInTOC
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25")
+        self.root.title("Тестирование ФСУ Т2 в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25, v2.1 01.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -67,16 +67,21 @@ class PartOfFsuInTOC_GUI:
             "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_lvalv": tk.IntVar(value=0),
-            "SGF2_lvalv": tk.IntVar(value=0),
-            "SGF3_lvalv": tk.IntVar(value=0),
-            "SGF4_lvalv": tk.IntVar(value=0),
-            "SGF5_lvalv": tk.IntVar(value=0),
-            "SGF6_lvalv": tk.IntVar(value=0),
-            "SGF7_lvalv": tk.IntVar(value=0),
-            "SGF8_lvalv": tk.IntVar(value=0),
-            "SGF9_lvalv": tk.IntVar(value=0),
-            "SGF10_lvalv": tk.IntVar(value=0),
+            "SGF1_lvalh": tk.IntVar(value=0),
+            "SGF2_lvalh": tk.IntVar(value=0),
+            "SGF3_lvalh": tk.IntVar(value=0),
+            "SGF4_lvalh": tk.IntVar(value=0),
+            "SGF5_lvalh": tk.IntVar(value=0),
+            "SGF6_lvalh": tk.IntVar(value=0),
+            "SGF7_lvalh": tk.IntVar(value=0),
+            "SGF8_lvalh": tk.IntVar(value=0),
+            "SGF9_lvalh": tk.IntVar(value=0),
+            "SGF10_lvalh": tk.IntVar(value=0),
+            "SGF1_ptoc1_lvarctoc": tk.IntVar(value=0),
+            "SGF2_ptoc1_lvarctoc": tk.IntVar(value=0),
+            "SGF1_ptrc1_ttoclgc": tk.IntVar(value=0),
+            "SGF2_ptrc1_ttoclgc": tk.IntVar(value=0),
+            "SGF3_ptrc1_ttoclgc": tk.IntVar(value=0),              
             "Номинальный ток входа": tk.IntVar(value=5),            
         }
             #"SGF1_ptrc1_tofflvlgc":tk.IntVar(value=0),
@@ -110,6 +115,7 @@ class PartOfFsuInTOC_GUI:
             "Umin_lvrbvtr2": tk.DoubleVar(value=50),
             "U2max_lvrbvtr2": tk.DoubleVar(value=15),
             "T1_lvrbvtr2": tk.DoubleVar(value=1),
+            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),             
         }
 
         self.input_vars = {
@@ -181,7 +187,7 @@ class PartOfFsuInTOC_GUI:
             else:
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
             row += 1
-            if row >= 10:
+            if row >= 11:
                 row = 0
                 col += 2
 
@@ -263,7 +269,10 @@ class PartOfFsuInTOC_GUI:
             "io_A_ptoc3_lvttoc", "io_B_ptoc3_lvttoc", "io_C_ptoc3_lvttoc", "kpon_pusk_ptuv1_lvttoc", "kpon_pusk_ptuv2_lvttoc",
             "ia_start_out_phar1_lvttoc", "ib_start_out_phar1_lvttoc", "ic_start_out_phar1_lvttoc", "start_phar1_lvttoc", "blok_rblc1_lvttoc",
             "mtz_pusk_lvttoc", "vvod_ptrc1", "oper_vyvod_ptrc1", "pusk_ptrc1", "srab_ptrc1", "vvod_rblc1", "oper_vyvod_rblc1", "zapret_rblc1",
-            "vvod_rbre1", "oper_vyvod_rbre1", "zapret_rbre1", "pusk_lvalv", "IAB", "dIAB", "IBC", "dIBC", "ICA", "dICA", "I2", "I0", "I1", "UAB_ptuv1", "UBC_ptuv1", "UCA_ptuv1", "U2_ptuv1", "U0_ptuv1", "U1_ptuv1", "UAB_ptuv2", "UBC_ptuv2", "UCA_ptuv2", "U2_ptuv2",  "U0_ptuv2", "U1_ptuv2"
+            "vvod_rbre1", "oper_vyvod_rbre1", "zapret_rbre1", "pusk_lvalh", 
+            "pusk_ptoc1_lvarctoc", 
+            "pusk_ptrc1_ttoclgc", 
+            "IAB", "dIAB", "IBC", "dIBC", "ICA", "dICA", "I2", "I0", "I1", "UAB_ptuv1", "UBC_ptuv1", "UCA_ptuv1", "U2_ptuv1", "U0_ptuv1", "U1_ptuv1", "UAB_ptuv2", "UBC_ptuv2", "UCA_ptuv2", "U2_ptuv2",  "U0_ptuv2", "U1_ptuv2"
         ]
 
         row = 0
@@ -337,6 +346,12 @@ class PartOfFsuInTOC_GUI:
             SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(), 
             SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(), 
             SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
+            SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
+            SGF1_ptrc1_ttoclgc=self.sgf_params["SGF1_ptrc1_ttoclgc"].get(),
+            SGF2_ptrc1_ttoclgc=self.sgf_params["SGF2_ptrc1_ttoclgc"].get(),
+            SGF3_ptrc1_ttoclgc=self.sgf_params["SGF3_ptrc1_ttoclgc"].get(),
+            Iset_ptoc1_lvarctoc=self.settings["Iset_ptoc1_lvarctoc"].get(),
             Inom=self.sgf_params["Номинальный ток входа"].get(),
         )
 
@@ -470,10 +485,10 @@ class PartOfFsuInTOC_GUI:
                     var.set(inputs_df.at[0, key])
 
             # Загрузка Settings
-            #settings_df = pd.read_excel(xls, sheet_name="Settings")
-            #for key, var in self.settings.items():
-                #if key in settings_df.columns:
-                    #var.set(settings_df.at[0, key])                    
+            settings_df = pd.read_excel(xls, sheet_name="Settings")
+            for key, var in self.settings.items():
+                if key in settings_df.columns:
+                    var.set(settings_df.at[0, key])                    
 
             print("Data loaded successfully")
 

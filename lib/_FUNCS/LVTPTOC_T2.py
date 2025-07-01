@@ -59,7 +59,7 @@ class T2_LVTPTOC:
         mtzB_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_B) and not(0 if (self.SGF3==0) else BNTpuskB)
         # Логика фазы C
         mtzC_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_C) and not(0 if (self.SGF3==0) else BNTpuskC)
-        sv_ctl = 0 if (self.SGF6==0) else (SV1vkl or SV2vkl) if (self.SGF6==1) else not(SV1vkl or SV2vkl) 
+        sv_ctl = 0 if (self.SGF7==0) else (SV1vkl or SV2vkl) if (self.SGF7==1) else not(SV1vkl or SV2vkl)
         gen_pusk = not(sv_ctl) and (mtzA_pusk or mtzB_pusk or mtzC_pusk)
         self.T1.IN = gen_pusk
         Q, ET = self.T1.start()  # Запускаем таймер и получаем выход и прошедшее время

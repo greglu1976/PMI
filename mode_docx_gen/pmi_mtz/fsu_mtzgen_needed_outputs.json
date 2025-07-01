@@ -1,12 +1,14 @@
 {
-    "mtzA_pusk_ptoc1_lvttoc": "М9.К1",
-    "mtzB_pusk_ptoc1_lvttoc": "М9.К2",
-    "mtzC_pusk_ptoc1_lvttoc": "М9.К3",
-    "mtzA_pusk_ptoc2_lvttoc": "М9.К4",
-    "mtzB_pusk_ptoc2_lvttoc": "М9.К5",
-    "mtzC_pusk_ptoc2_lvttoc": "М9.К6",
-    "mtzA_pusk_ptoc3_lvttoc": "М9.К7",
-    "mtzB_pusk_ptoc3_lvttoc": "М9.К8",
-    "mtzC_pusk_ptoc3_lvttoc": "М10.К1",
-    "pusk_lvalv": "М1.К1"
+    "vvod_ptoc1_lvttoc": "МТЗ 1 ст: Ввод",
+    "oper_vyvod_ptoc1_lvttoc": "МТЗ 1 ст: Оперативный вывод",
+    "vvod_ptoc2_lvttoc": "МТЗ 2 ст: Ввод",
+    "oper_vyvod_ptoc2_lvttoc": "МТЗ 2 ст: Оперативный вывод",
+    "vvod_ptoc3_lvttoc": "МТЗ 3 ст: Ввод",
+    "oper_vyvod_ptoc3_lvttoc": "МТЗ 3 ст: Оперативный вывод",
+    "mtz_srab_ptoc1_lvttoc": "МТЗ 1 ст: Срабатывание",
+    "mtz_srab_ptoc2_lvttoc": "МТЗ 2 ст: Срабатывание",
+    "mtz_srab_ptoc3_lvttoc": "МТЗ 3 ст: Срабатывание",
+    "pusk_ptoc1_lvarctoc": "ТК ЗДЗ: Пуск",
+    "pusk_ptrc1_ttoclgc": "ЛЗТ: Пуск",    
+    "pusk_lvalh": "ПС: Пуск"
 }

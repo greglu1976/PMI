@@ -2,6 +2,10 @@
 # Максимальная токовая защита с пуском по напряжению (МТЗ/U) (LVTTOC)
 # SGF1 - Сборка_ток_цепей - Сборка токовых цепей (Звезда/ Треугольник)
 
+# Разница по сравнению с ФБ для Т
+# принимает дополнительно INIT: SGF7_ptoc1, SGF7_ptoc2, SGF7_ptoc3, SGF1_ptuv2, Uop_ptuv2, U2op_ptuv2, Step: KZN2neipr, VNN2vkl, KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2
+# Возващает дополнительно kpon_pusk_ptuv2
+
 from lib._FUNCS.LVTPTOC_T2 import T2_LVTPTOC
 from lib._FUNCS.VCPTUV import VCPTUV
 from lib._FUNCS.TOCPHAR import TOCPHAR
