@@ -559,11 +559,11 @@
             }
         }
     },
-    "tsa": {
+    "lvalh": {
         "": {
             "SGF13": {
-                "ShortDescription": "Контр_ОТ_ТН",
-                "FullDescription": "Контроль опер. тока ИЭУ ТН",
+                "ShortDescription": "Контр_Вр_пркл_КА",
+                "FullDescription": "Контроль сигнала <<Прев. вр. пер. КА>>",
                 "Note": "0 - Не предусмотрено, 1 - Предусмотрено",
                 "DefaultValue": "0",
                 "AppliedDescription": "SGF13",

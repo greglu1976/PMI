@@ -214,7 +214,7 @@
                 "maxValue": "10000",
                 "step": "10",
                 "type": "INT32",
-                "SetValue": "10",
+                "SetValue": "3",
                 "Color": "norm"
             },
             "T2": {

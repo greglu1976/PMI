@@ -214,8 +214,8 @@
                 "maxValue": "10000",
                 "step": "10",
                 "type": "INT32",
-                "SetValue": "10",
-                "Color": "changed"
+                "SetValue": "3",
+                "Color": "norm"
             },
             "T2": {
                 "ShortDescription": "Тблк",
@@ -229,7 +229,7 @@
                 "step": "10",
                 "type": "INT32",
                 "SetValue": "1",
-                "Color": "changed"
+                "Color": "norm"
             }
         }
     },

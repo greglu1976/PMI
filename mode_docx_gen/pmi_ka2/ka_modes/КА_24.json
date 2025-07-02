@@ -294,8 +294,8 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "SGF3": {
                 "ShortDescription": "Контр_раб_ЭМО",

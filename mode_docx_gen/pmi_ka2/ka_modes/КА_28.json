@@ -295,7 +295,7 @@
                 "step": "1",
                 "type": "BOOL",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF3": {
                 "ShortDescription": "Контр_раб_ЭМО",

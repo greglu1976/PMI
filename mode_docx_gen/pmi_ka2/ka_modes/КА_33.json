@@ -322,8 +322,8 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "1",
-                "Color": "changed"
+                "SetValue": "0",
+                "Color": "norm"
             },
             "SGF5": {
                 "ShortDescription": "Контр_раб_ЭМВ",
@@ -337,7 +337,7 @@
                 "step": "1",
                 "type": "BOOL",
                 "SetValue": "1",
-                "Color": "norm"
+                "Color": "changed"
             },
             "SGF6": {
                 "ShortDescription": "Блок_откл_от_КСВ",
