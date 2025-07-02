@@ -89,7 +89,7 @@ class LVTRRCBF:
         ksv_blok_vkl = (pruzh_ne_zaved or _p006 or not(_p007) or (0 if self.SGF2==0 else niz_isol_V) or _p005 or (0 if self.SGF3==0 else V_neispr_pol) or _p009 or (0 if self.SGF4==0 else KRV_resurs_V) or (lovn_otkl or urov_nasebya) or (rabota_emo1 or rabota_emo2) or vnesh_blok_upr_V) and vvod
 
         _p010 = not vvod or (V_otkl and Sbros) or _p009
-        ksv_rfk = self.SR2.run((vvod and V_vkl), _p010) 
+        ksv_rfk = self.SR2.run((vvod and V_vkl), _p010)
         ksv_v_avar_otkl = ksv_rfk and V_otkl
 
         ksv_v_samoproisv_otkl = not (self.SR1.run((vvod and (lovn_otkl or urov_nasebya)), _p010)) and ksv_v_avar_otkl
