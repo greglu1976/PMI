@@ -1,0 +1,10 @@
+{
+    "vvod_ptrc1_tofflvlgc": "ЛО Т / ЛО: Ввод",
+    "oper_vyvod_ptrc1_tofflvlgc": "ЛО Т / ЛО: Оперативный вывод",
+    "vvod_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Ввод",
+    "oper_vyvod_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Оперативный вывод",
+    "otkl_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключение",
+    "otkl_avar_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключить аварийно",
+    "SS_vnesh_otkl": "СС: Внеш. откл",
+    "pusk_lvalh": "ПС: Пуск"
+}

@@ -49,5 +49,5 @@ def check_non_zero_columns(dir_path, report_file='report.txt'):
     print(f"Отчёт сохранён в файл: {report_file}")
 
 # Запуск
-dir_path = 'pmi_ka2'
+dir_path = 'pmi_lot2'
 check_non_zero_columns(dir_path)
