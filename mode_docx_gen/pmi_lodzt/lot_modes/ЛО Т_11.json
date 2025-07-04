@@ -574,8 +574,8 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "0",
-                "Color": "norm"
+                "SetValue": "1",
+                "Color": "changed"
             },
             "SGF11": {
                 "ShortDescription": "Контр_Вых_цеп_разоб",

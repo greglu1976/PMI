@@ -16,7 +16,7 @@ from lib._PARTS.LO_DZT import part_LO
 class PartLO_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-ДЗТ2. вер.0 от 07.05.25)")
+        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-ДЗТ2. вер.1 от 04.07.25)")
         self.part = None
         self.polling_thread = None
         self.is_polling = False

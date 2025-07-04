@@ -101,7 +101,7 @@
                 "step": "1",
                 "type": "BOOL",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             }
         },
         "rbre1": {
@@ -117,7 +117,7 @@
                 "step": "1",
                 "type": "BOOL",
                 "SetValue": "0",
-                "Color": "norm"
+                "Color": "changed"
             }
         }
     },
@@ -134,7 +134,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "T1": {
@@ -574,7 +574,7 @@
                 "maxValue": "1",
                 "step": "1",
                 "type": "BOOL",
-                "SetValue": "0",
+                "SetValue": "1",
                 "Color": "norm"
             },
             "SGF11": {

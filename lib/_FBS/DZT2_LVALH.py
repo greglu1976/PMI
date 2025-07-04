@@ -30,6 +30,9 @@ class DZT2_LVALH:
         sign11 = 0 if self.SGF11==0 else sgf11_sign 
         sign12 = 0 if self.SGF12==0 else sgf12_sign
         sign13 = 0 if self.SGF13==0 else sgf13_sign
+
+        #print(self.SGF10, sgf10_sign)
+
         pusk = not(VYVOD) and (comm_signs or any((sign1,sign2,sign3,sign4,sign5,sign6,sign7,sign8,sign9,sign10,sign11,sign12,sign13)))
         return pusk
 
