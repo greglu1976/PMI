@@ -1,24 +1,34 @@
 from typing import Optional, List  # Для Python 3.8 и ниже
-
-from mode import Mode
+import pathlib
+from modes import Modes
 
 class PMI:
     """
     Класс для работы с документацией ПМИ.
     При инициализации загружает все режимы из указанной директории.
     """
-    def __init__(self, modes_directory: str):
-        """
-        :param modes_directory: путь к директории с файлами режимов (.xlsx)
-        """
-        self._modes = self._load_modes(modes_directory)  # список объектов Mode
+    def __init__(self, part_of_modes_dir):
+
+        self._part_of_modes_dir = part_of_modes_dir
+        self._part_of_modes_list = []
+
+        self._load_part_of_modes()
     
-    def _load_modes(self, directory: str) -> List['Mode']:
+    def _load_part_of_modes(self):
         """Приватный метод для загрузки режимов из директории"""
-        # Реализация загрузки и парсинга xlsx файлов
-        # Возвращает список объектов Mode
-        pass
-    
+        self._part_of_modes_list = []  # Очищаем список перед загрузкой
+
+        # Ищем все поддиректории (игнорируем файлы)
+        for mode_dir in self._part_of_modes_dir.iterdir():
+            if mode_dir.is_dir() and mode_dir.name.endswith('_modes'):
+                try:
+                    modes = Modes(mode_dir)
+                    self._part_of_modes_list.append(modes)
+                    print(f"Загружена группа режимов из: {mode_dir.name}")
+                except Exception as e:
+                    print(f"Ошибка при загрузке режимов из {mode_dir}: {str(e)}")
+
+
     def get_docx(self) -> bytes:
         """
         Генерирует отчет в формате DOCX
@@ -35,3 +45,11 @@ class PMI:
         """
         # Необязательная реализация
         return None
+
+if __name__ == "__main__":
+
+    # автоматическое построение
+    current_dir = pathlib.Path(__file__).parent
+    part_of_modes_dir = current_dir / "pmi_dzt" 
+
+    pmi = PMI(part_of_modes_dir)
