@@ -2,6 +2,12 @@ from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
 
+from docx import Document
+
+from utils import parse_assembly_ini, add_checking_funcs_par
+
+from tables import add_table_infuences
+
 class PMI:
     """
     Класс для работы с документацией ПМИ.
@@ -13,6 +19,8 @@ class PMI:
         self._part_of_modes_list = []
 
         self._load_part_of_modes()
+
+        self.get_docx()
     
     def _load_part_of_modes(self):
         """Приватный метод для загрузки режимов из директории"""
@@ -24,10 +32,9 @@ class PMI:
                 try:
                     modes = Modes(mode_dir)
                     self._part_of_modes_list.append(modes)
-                    print(f"Загружена группа режимов из: {mode_dir.name}")
+                    #print(f"Загружена группа режимов из: {mode_dir.name}")
                 except Exception as e:
                     print(f"Ошибка при загрузке режимов из {mode_dir}: {str(e)}")
-
 
     def get_docx(self) -> bytes:
         """
@@ -35,16 +42,30 @@ class PMI:
         :return: bytes - содержимое файла docx
         :raises: PMIReportError - если генерация не удалась
         """
-        # Обязательная реализация
-        pass
+        # Парсим _assembly.ini
+        path_to_assembly = self._part_of_modes_dir / "_assembly.ini"
+        parsed_assembly = parse_assembly_ini(path_to_assembly)
+        # Создаем docx файл из шаблона, загружаем шаблон
+        path_to_docx_templ = self._part_of_modes_dir / "template.docx"
+        doc = Document(path_to_docx_templ)
+        # Добавляем заголовок раздела       
+        doc.add_heading('МЕТОДИКИ ПРОВЕДЕНИЯ ИСПЫТАНИЙ', level=1)
+        # Добавляем подразделы с описанием режимов
+        doc = add_checking_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
+        for item in self._part_of_modes_list:
+            print(item.modes.modes_name)
+
+
+
+
+        # Сохраняем документ ПМИ
+        doc.save('_pmi.docx')
     
-    def get_latex(self) -> Optional[bytes]:
-        """
-        Генерирует отчет в формате LaTeX (опционально)
-        :return: bytes или None, если функционал не реализован
-        """
-        # Необязательная реализация
-        return None
+
+
+
+
+
 
 if __name__ == "__main__":
 

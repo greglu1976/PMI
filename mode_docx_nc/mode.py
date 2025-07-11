@@ -11,7 +11,6 @@ class ModeData(NamedTuple):
     inputs: dict
     outputs: dict
 
-
 class Mode:
     """
     Класс, представляющий отдельный режим ПМИ.
@@ -83,5 +82,5 @@ if __name__ == "__main__":
     mode_path = current_dir / "pmi_dzt" / "dtz1_modes" / "ДТЗ_2.xlsx"
 
     mode = Mode(str(mode_path))
-    print(mode.get_mode_data())
+    #print(mode.get_mode_data())
 

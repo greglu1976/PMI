@@ -34,7 +34,7 @@ class Modes:
                 try:
                     mode = Mode(xlsx_file)
                     self._list_of_modes.append(mode)
-                    print(f"Загружен режим: {mode.name}")
+                    #print(f"Загружен режим: {mode.name}")
                 except Exception as e:
                     print(f"Ошибка при загрузке файла {xlsx_file}: {str(e)}")
                     
@@ -48,7 +48,7 @@ class Modes:
         """Возвращает список всех режимов в виде именованного кортежа"""
         return ModesData(
             modes_name = self._modes_name,
-            data=self.self._list_of_modes
+            data=self._list_of_modes
         )
 
 if __name__ == "__main__":
