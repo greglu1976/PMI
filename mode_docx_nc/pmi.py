@@ -4,9 +4,8 @@ from modes import Modes
 
 from docx import Document
 
-from utils import parse_assembly_ini, add_checking_funcs_par
+from utils import parse_assembly_ini, add_checking_funcs_par, add_results_funcs_par
 
-from tables import add_table_infuences
 
 class PMI:
     """
@@ -39,8 +38,6 @@ class PMI:
     def get_docx(self) -> bytes:
         """
         Генерирует отчет в формате DOCX
-        :return: bytes - содержимое файла docx
-        :raises: PMIReportError - если генерация не удалась
         """
         # Парсим _assembly.ini
         path_to_assembly = self._part_of_modes_dir / "_assembly.ini"
@@ -48,16 +45,19 @@ class PMI:
         # Создаем docx файл из шаблона, загружаем шаблон
         path_to_docx_templ = self._part_of_modes_dir / "template.docx"
         doc = Document(path_to_docx_templ)
-        # Добавляем заголовок раздела       
+
+        # Добавляем заголовок раздела (РАЗДЕЛ 2)       
         doc.add_heading('МЕТОДИКИ ПРОВЕДЕНИЯ ИСПЫТАНИЙ', level=1)
         # Добавляем подразделы с описанием режимов
         doc = add_checking_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
-        for item in self._part_of_modes_list:
-            print(item.modes.modes_name)
+        #for item in self._part_of_modes_list:
+            #print(item.modes.modes_name)
 
-
-
-
+        # Добавляем заголовок раздела (РАЗДЕЛ 3)       
+        doc.add_heading('РЕЗУЛЬТАТ ИСПЫТАНИЙ', level=1)
+        # Добавляем подразделы с результатами
+        doc = add_results_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
+        
         # Сохраняем документ ПМИ
         doc.save('_pmi.docx')
     

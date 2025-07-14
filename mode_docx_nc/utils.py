@@ -1,8 +1,7 @@
 import configparser
 import json
-from io import StringIO
 
-from tables import add_table_infuences
+from tables import add_table_infuences, add_table_results
 
 
 def parse_assembly_ini(assemply_path):
@@ -69,8 +68,52 @@ def add_checking_funcs_par(doc, assembly, path_to_pmi, modes_list):
             
             table_rows.append(row)
 
-        print(table_rows)
+        #print(table_rows)
         doc = add_table_infuences(doc, table_rows)
 
     return doc
 
+######################## РАЗДЕЛ 3 ###################################
+# Автоматическая генерация раздела с результатами
+def add_results_funcs_par(doc, assembly, path_to_pmi, modes_list):
+
+    for section in assembly:
+        # Ищем описание режимов для данного режима
+        curr_modes = None
+        for item in modes_list:
+            if item.modes.modes_name == section['section_name']:
+                curr_modes = item.modes.data
+                break
+        if not curr_modes:
+            continue  # Пропускаем секцию, если режим не найден
+
+        # Проставляем заголовки
+        doc.add_heading(section['result_heading'], level=2)
+        doc.add_heading(section['result_text'], level=3)
+
+        # Загружаем необходимые входы
+        path_to_inputs = path_to_pmi / section['needed_outputs']
+        with open(path_to_inputs, 'r', encoding='utf-8') as file:
+            data_dict = json.load(file)
+        #print(data_dict)  # Выводим полученный словарь - это фактически заголовки таблицы
+
+        # Создаем заголовок
+        header = ['Номер режима']
+        header.extend(value for key, value in data_dict.items())
+        table_rows = [header] # модель таблицы для сборки
+
+        for i, mode in enumerate(curr_modes, start=1):
+            # Получаем значения для текущего режима
+            mode_values = mode.mode_data.outputs
+            
+            # Формируем строку: номер режима + значения в порядке заголовков
+            row = [str(i)]  # Номер режима
+            for key in data_dict:
+                row.append(str(mode_values.get(key, '')))
+            
+            table_rows.append(row)
+
+        #print(table_rows)
+        doc = add_table_results(doc, table_rows)
+
+    return doc
