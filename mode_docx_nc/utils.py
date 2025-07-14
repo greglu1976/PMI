@@ -22,7 +22,8 @@ def parse_assembly_ini(assemply_path):
             'needed_inputs': config.get(section_name, 'needed_inputs', fallback=''),
             'needed_outputs': config.get(section_name, 'needed_outputs', fallback=''),
             'result_heading': config.get(section_name, 'result_heading', fallback=''),
-            'result_text': config.get(section_name, 'result_text', fallback='')
+            'result_text': config.get(section_name, 'result_text', fallback=''),
+            'setting_heading': config.get(section_name, 'setting_heading', fallback='')
         }
         sections.append(section_data)
     #print(sections)

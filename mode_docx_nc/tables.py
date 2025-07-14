@@ -29,7 +29,6 @@ def set_cell_vertical_alignment(cell, align="center"):
         tcValign.set(qn('w:val'), align)
         tcPr.append(tcValign)
 
-
 # Функция для установки отступов в ячейке
 def set_cell_margins(cell, top=0.05, bottom=0.05, left=0.05, right=0.05):
     tc = cell._tc
@@ -49,7 +48,6 @@ def set_vertical_text(cell):
     text_direction = etree.Element('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}textDirection')
     text_direction.set('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}val', 'btLr')
     tcPr.append(text_direction)
-
 
 def set_repeat_table_header(row):
     """ set repeat table row on every new page
@@ -77,7 +75,6 @@ def add_table_infuences(doc, table_rows):
     doc.add_paragraph('Подаваемые воздействия при проверке', style='ЮИ_Таблица_Название')
     table = doc.add_table(rows=1, cols=len(table_rows[0]))
     table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
-
 
     # Рассчитываем высоту заголовка
     header_row_height = 25  # Базовая высота (для 'Номер режима')
@@ -124,7 +121,6 @@ def add_table_results(doc, table_rows):
     doc.add_paragraph('Контролируемые сигналы при проверке', style='ЮИ_Таблица_Название')
     table = doc.add_table(rows=1, cols=len(table_rows[0]))
     table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
-
 
     # Рассчитываем высоту заголовка
     header_row_height = 25  # Базовая высота (для 'Номер режима')
