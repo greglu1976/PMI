@@ -51,18 +51,18 @@ class PMI:
         # Добавляем заголовок раздела (РАЗДЕЛ 2)       
         doc.add_heading('МЕТОДИКИ ПРОВЕДЕНИЯ ИСПЫТАНИЙ', level=1)
         # Добавляем подразделы с описанием режимов
-        #doc = add_checking_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
+        doc = add_checking_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
 
         # Добавляем заголовок раздела (РАЗДЕЛ 3)       
         doc.add_heading('РЕЗУЛЬТАТ ИСПЫТАНИЙ', level=1)
         # Добавляем подразделы с результатами
-        #doc = add_results_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
+        doc = add_results_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
 
         # Тестируем генератор уставок
-        generate_settings(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)     
+        doc = generate_settings(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)     
 
         # Сохраняем документ ПМИ
-        #doc.save('_pmi.docx')
+        doc.save('_pmi.docx')
     
 
 

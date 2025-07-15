@@ -1,8 +1,12 @@
 from pathlib import Path
 import pandas as pd
 
-from mode_docx_nc._prim_data_handler import start_data_convert
-from mode_docx_nc._function2 import Function2
+import pathlib
+
+from _prim_data_handler import start_data_convert
+from _function2 import Function2
+
+from tables import add_table_settings
 
 import json
 
@@ -63,6 +67,8 @@ class FB2:
             self.raw_settings_df['reserved1'] = '-'
         if 'reserved2' not in self.raw_settings_df.columns:
             self.raw_settings_df['reserved2'] = '-'
+        if 'alias' not in self.raw_settings_df.columns:
+            self.raw_settings_df['alias'] = '-'            
         if 'reserved1' not in self.raw_controls_df.columns:
             self.raw_controls_df['reserved1'] = '-'
         if 'reserved2' not in self.raw_controls_df.columns:
@@ -85,7 +91,8 @@ class FB2:
             name=self.name, # ПРОТЕСТИРОВАТЬ!!!!!
             description='Общие уставки',
             iec_name='LLN0',
-            fb_name=self.name
+            fb_name=self.name,
+            fb_iec_name = self.iec_name
         )
         self.functions.insert(0, self.mainfunc)
 
@@ -128,7 +135,8 @@ class FB2:
                         name=name_,
                         description=description_,
                         iec_name=iec_name_,
-                        fb_name=self.name
+                        fb_name=self.name,
+                        fb_iec_name = self.iec_name
                     )
                     self.functions.append(func)
 
@@ -157,7 +165,6 @@ class FB2:
             }
             df_control_list.append(dict)
         return df_control_list
-
     def _process_control(self):
         self._df_control = self.raw_controls_df[self.raw_controls_df['Категория (group)'] ==  'control']
         self._df_control = self._df_control.reset_index(drop=True)
@@ -173,14 +180,12 @@ class FB2:
             self.switches_list = self.__process_ctrl(self.df_switches)
         else:
             self.switches_list = [] 
-
     def _process_inputs(self):
         self._df_inputs = self.raw_controls_df[self.raw_controls_df['Категория (group)'] == 'input']
         self._df_inputs = self._df_inputs.reset_index(drop=True)
         if self._df_inputs is None:
             return 
         self.inputs_list = self.__process_ctrl(self._df_inputs)
-
     def _collect_statuses(self):
         self.statuses = [status for func in self.functions for status in func.get_list_status()]
 
@@ -242,3 +247,38 @@ class FB2:
             self._create_formatted_signals_for_latex()
         #print(self._fb_signals_latex)
         return self._fb_signals_latex
+
+
+def create_fbs(list_of_names):
+    list_of_fbs = []
+    current_dir = pathlib.Path(__file__).parent
+    for name in list_of_names:
+        part_of_modes_dir = current_dir / "fsu" / f"{name}.xlsx"
+        fb = FB2(part_of_modes_dir)
+        list_of_fbs.append(fb)
+    return list_of_fbs
+
+
+if __name__ == "__main__":
+
+    from docx import Document
+
+    # автоматическое построение
+    current_dir = pathlib.Path(__file__).parent
+    part_of_modes_dir = current_dir / "fsu" / "TDIF.xlsx"
+    print(part_of_modes_dir)
+    fb = FB2(part_of_modes_dir)
+    
+    # Создаем docx файл из шаблона, загружаем шаблон
+    path_to_docx_templ = "pmi_dzt/template.docx"
+    doc = Document(path_to_docx_templ)
+    # Добавляем заголовок раздела (РАЗДЕЛ 4 или ПРИЛОЖЕНИЕ)       
+    doc.add_heading('ПАРАМЕТРЫ И УСТАВКИ РЕЖИМОВ', level=1)
+    t = fb.get_functions()
+    for function in t:
+        # Проставляем заголовки
+
+        doc = add_table_settings(doc, function.settings_for_pmi)
+
+    doc.save('_set.docx')
+

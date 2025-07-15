@@ -4,13 +4,14 @@
 import pandas as pd
 
 class Function2:
-    def __init__(self, df_signals=None,  name = '', description = '', iec_name='', fb_name = ''):
+    def __init__(self, df_signals=None,  name = '', description = '', iec_name='', fb_name = '', fb_iec_name = ''):
         self.df_signals = df_signals
 
         self.name = name
         self.description = description
         self.iec_name = iec_name
         self.fb_name = fb_name
+        self.fb_iec_name = fb_iec_name
         self.weight = '' # deprecated
 
         self.df_setting = None  # для хранения уставок
@@ -19,6 +20,8 @@ class Function2:
         self._func_signals_latex = [] # хранение отформатированых под latex сигналов вместе с заголовком
         self.list_bu = []
         self.list_re = []
+
+        self.list_pmi = []
 
         self.list_status = []
 
@@ -65,6 +68,7 @@ class Function2:
             step = row['step']
             default_value =  row['DefaultValue']
             type = row['type']
+            alias = row['alias']
             znach_diap = ''
             isKey = False
             if 'Del' in row['reserved2']:
@@ -145,8 +149,12 @@ class Function2:
             # словарь для руководства по эксплуатации
             dict_re = {'Параметр на ИЧМ': desc +' (' + short_desc + ')', 'Условное обозначение на схеме': applied_desc, 'Значение / Диапазон': znach_diap.replace('-', '='), 'Ед.изм.': units, 'Шаг': step }
 
+            # словарь для ПМИ
+            dict_pmi = {'Параметр': desc +' (' + short_desc + ')', 'Обозначение ФСУ': applied_desc, 'Значение / Диапазон': znach_diap, 'Ед.изм.': units, 'Шаг': step, 'Значение по умолчанию': default_value, 'Уставка': None, 'alias': alias, 'LN': self.iec_name, 'LD' : self.fb_iec_name }
+
             self.list_bu.append(dict_bu)
-            self.list_re.append(dict_re)            
+            self.list_re.append(dict_re)   
+            self.list_pmi.append(dict_pmi)                       
 
     def _format_status(self, value):
         """Форматирование числового статуса в символьное представление
@@ -170,7 +178,6 @@ class Function2:
         }
         str_value = str(int(float(str(value).strip())))
         return status_mapping.get(str_value, '?')
-
     def _get_statuses(self):
         if self.df_status is None:
             return
@@ -193,27 +200,10 @@ class Function2:
             }
             self.list_status.append(dict)
 
-    def save_to_xlsx(self, filename='split_data.xlsx'):
-        # Проверяем, есть ли данные для записи
-        if self.df_setting is None or self.df_setting.empty:
-            print("Нет данных для листа 'Setting'. Пропускаем запись.")
-        if self.df_status is None or self.df_status.empty:
-            print("Нет данных для листа 'Status'. Пропускаем запись.")
 
-        if (self.df_setting is None or self.df_setting.empty) and \
-        (self.df_status is None or self.df_status.empty):
-            print("Нет данных для сохранения.")
-            return
-
-        # Записываем только те листы, которые содержат данные
-        with pd.ExcelWriter(filename, engine='openpyxl') as writer:
-            if self.df_setting is not None and not self.df_setting.empty:
-                self.df_setting.to_excel(writer, sheet_name='Setting', index=False)
-            if self.df_status is not None and not self.df_status.empty:
-                self.df_status.to_excel(writer, sheet_name='Status', index=False)
-
-        print(f"Файл успешно сохранён как {filename}")
-
+    @property
+    def settings_for_pmi(self):
+        return self.list_pmi
 
     def get_settings_for_bu(self):
         return self.list_bu

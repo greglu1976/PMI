@@ -4,29 +4,37 @@ import json
 from tables import add_table_infuences, add_table_results
 
 
-def parse_assembly_ini(assemply_path):
-    # Создаем объект ConfigParser
+def parse_assembly_ini(assembly_path):
     config = configparser.ConfigParser()
+    config.read(assembly_path, encoding="utf-8")
     
-    # Читаем содержимое файла
-    config.read(assemply_path, encoding="utf-8")  
-    
-    # Преобразуем в список словарей
     sections = []
+    
     for section_name in config.sections():
-        section_data = {
-            'section_name': section_name,
-            'heading': config.get(section_name, 'heading', fallback=''),
-            'intro_text': config.get(section_name, 'intro_text', fallback=''),
-            'func_modes_dir': config.get(section_name, 'func_modes_dir', fallback=''),
-            'needed_inputs': config.get(section_name, 'needed_inputs', fallback=''),
-            'needed_outputs': config.get(section_name, 'needed_outputs', fallback=''),
-            'result_heading': config.get(section_name, 'result_heading', fallback=''),
-            'result_text': config.get(section_name, 'result_text', fallback=''),
-            'setting_heading': config.get(section_name, 'setting_heading', fallback='')
-        }
+        section_data = {'section_name': section_name}
+        
+        # Обрабатываем секцию [settings_general] особым образом
+        if section_name == 'settings_general':
+            # Получаем список FBS из строки
+            fbs_str = config.get(section_name, 'fbs', fallback='')
+            # Преобразуем строку вида "['CTR_UIRZ', 'TDIF', 'TPRMOFFLVLGC']" в список
+            fbs_list = [item.strip("' ") for item in fbs_str.strip("[]").split(',')]
+            section_data['fbs'] = fbs_list
+        else:
+            # Обрабатываем остальные секции как раньше
+            section_data.update({
+                'heading': config.get(section_name, 'heading', fallback=''),
+                'intro_text': config.get(section_name, 'intro_text', fallback=''),
+                'func_modes_dir': config.get(section_name, 'func_modes_dir', fallback=''),
+                'needed_inputs': config.get(section_name, 'needed_inputs', fallback=''),
+                'needed_outputs': config.get(section_name, 'needed_outputs', fallback=''),
+                'result_heading': config.get(section_name, 'result_heading', fallback=''),
+                'result_text': config.get(section_name, 'result_text', fallback=''),
+                'setting_heading': config.get(section_name, 'setting_heading', fallback='')
+            })
+        
         sections.append(section_data)
-    #print(sections)
+    
     return sections
 
 # Автоматическая генерация раздела с проверкой функций из режимов

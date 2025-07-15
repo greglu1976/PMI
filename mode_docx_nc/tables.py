@@ -3,6 +3,11 @@ from docx.shared import Pt, Mm
 
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
+from docx.enum.section import WD_ORIENTATION
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Inches
 
 from lxml import etree
 
@@ -171,4 +176,94 @@ def add_table_results(doc, table_rows):
     # Применяем стиль ко всем ячейкам
     apply_style_to_all_cells(table, 'Текст таблицы', numbered_style='Текст таблицы')
 
+    return doc
+
+
+##### ДЛЯ БЛАНКА УСТАВОК ПМИ
+
+def add_table_settings(doc, data_list, descriptions):
+    #print(data_list)
+    if not data_list:
+        return doc
+   
+    key1 = data_list[0]['LD'].lower()
+    key2 = data_list[0]['LN'].lower()
+    func_name = descriptions[key1][key2]['funcname']
+    func_short_name = descriptions[key1][key2]['func_short_name']
+
+    #doc.add_heading(key_desc, level=4)
+    header_func = func_name + f' ({func_short_name})'
+    if func_name == 'Общие уставки':
+        header_func = 'Общие уставки'
+    
+    doc.add_paragraph(header_func, style='ЮИ_Таблица_Название')
+    # Создаем таблицу
+    table = doc.add_table(rows=1, cols=7)
+    # Установка высоты первой строки (заголовок)
+    header_row = table.rows[0]
+    header_row.height = Mm(5)  # Устанавливаем высоту строки заголовка в 45 мм
+    set_repeat_table_header(header_row)
+
+    # Заголовки столбцов
+    headers = ['Параметр', 'Обозначение ФСУ', 'Значение / Диапазон', 'Ед.изм.', 'Шаг', 'Значение по умолчанию', 'Уставка']
+    for i, header in enumerate(headers):
+        cell = table.cell(0, i)
+        cell.text = header
+        # Делаем заголовки жирными
+        cell.paragraphs[0].runs[0].bold = True
+        cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        cell.paragraphs[0].style = 'Текст таблицы'
+        set_cell_vertical_alignment(cell, align="center")
+
+    for item in data_list:
+        row = table.add_row()
+        is_changed =item.get('IsChanged', 0)
+        
+        # Заполнение ячеек
+        row.cells[0].text = item.get('Параметр', '')
+        row.cells[1].text = item.get('Обозначение ФСУ', '-')
+        row.cells[2].text = item.get('Значение / Диапазон', '')
+        row.cells[3].text = item.get('Ед.изм.', '-')
+        row.cells[4].text = item.get('Шаг', '-')
+        row.cells[5].text = item.get('Значение по умолчанию', '')
+
+        cell_ust = row.cells[6]
+        cell_ust.text = str(item.get('Уставка', ''))
+        
+        # Выравнивание текста по центру (если нужно)
+        for cell in row.cells:
+            for paragraph in cell.paragraphs:
+                paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+                paragraph.style = 'Текст таблицы'
+
+
+        # Цветовая индикация для ячейки "Уставка"
+        if is_changed == 1:
+            shading_color = "FFC000"  # Желтый
+        elif is_changed == 2:
+            shading_color = "FF0000"  # Красный
+        else:
+            shading_color = None  # Нет заливки
+
+        if shading_color:
+
+            #shading_elm = parse_xml(r'<w:shd {} w:fill="FFC000"/>'.format(nsdecls('w')))
+            shading_elm = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{shading_color}"/>')
+            cell_ust._tc.get_or_add_tcPr().append(shading_elm)
+            # Добавляем заливку только для ячейки с уставкой
+            #tc = cell_ust._tc
+            #tcPr = tc.get_or_add_tcPr()
+            #shading_elm = tcPr._element.xml
+            #shading_elm = f'<w:shd w:fill="{shading_color}"/>'
+            #tcPr._element.insert_element_before(shading_elm, "w:tcBorders")
+
+
+
+    table.style = 'Стиль3'
+    table.allow_autofit = False
+    # Задаем ширину столбцов (в дюймах)
+    widths = [2.0, 1.2, 2.0, 0.7, 0.7, 0.7, 0.7]
+    for i, width in enumerate(widths):
+        for cell in table.columns[i].cells:
+            cell.width = Inches(width)    
     return doc
