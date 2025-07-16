@@ -104,10 +104,6 @@ def fill_template(modes_params, template_list):
         filled_template.append(row)
     return filled_template
     
-
-
-
-
 def generate_settings(doc, parsed_assembly, part_of_modes_dir, part_of_modes_list):
     # загружаем словарь с расшифровками
     with open('description.json', 'r', encoding='utf-8') as f:
@@ -144,9 +140,9 @@ def generate_settings(doc, parsed_assembly, part_of_modes_dir, part_of_modes_lis
             header = header_list[0]
         doc.add_heading(header, level=2)            
         for key in target_keys:
-            #print('>>>>>>',key)
-            #print(result[key])
-            doc.add_heading(key.split('.')[-1], level=3)             
+            print('>>>>>>',key)
+            print(result[key])
+            doc.add_heading(key.split('.')[-1], level=3)  # Вывод номера режима в заголовке Режим №1 ...            
             # выводим таблицы уставок
             for fb in list_of_fbs:
                 fb_name = descriptions[fb.get_fb_iec_name().lower()]['fbname']

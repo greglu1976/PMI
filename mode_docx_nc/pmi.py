@@ -14,10 +14,12 @@ class PMI:
     Класс для работы с документацией ПМИ.
     При инициализации загружает все режимы из указанной директории.
     """
-    def __init__(self, part_of_modes_dir):
+    def __init__(self, part_of_modes_dir, settings):
 
         self._part_of_modes_dir = part_of_modes_dir
         self._part_of_modes_list = []
+
+        self.GENERATE_SETTINGS = settings
 
         self._load_part_of_modes()
 
@@ -58,22 +60,28 @@ class PMI:
         # Добавляем подразделы с результатами
         doc = add_results_funcs_par(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
 
-        # Тестируем генератор уставок
-        doc = generate_settings(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)     
+
+
+        if self.GENERATE_SETTINGS == 1:
+            path_to_docx_templ_apx = self._part_of_modes_dir / "template_apx.docx"
+            doc_apx = Document(path_to_docx_templ_apx)
+            doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
+            doc_apx.save('ПМИ. Приложение.docx')
+        else: # Вариант в котором бланки уставок генерятся прямо в общем документе ПМИ
+            doc = generate_settings(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)     
 
         # Сохраняем документ ПМИ
-        doc.save('_pmi.docx')
+        doc.save('ПМИ.docx')
     
 
 
-
-
-
-
 if __name__ == "__main__":
+    # НАСТРОЙКИ
+    # GENERATE_SETTINGS = 1 - генерация в отдельный файл Приложение - полностью все таблицы
+    GENERATE_SETTINGS = 1
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
     part_of_modes_dir = current_dir / "pmi_dzt" 
 
-    pmi = PMI(part_of_modes_dir)
+    pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)

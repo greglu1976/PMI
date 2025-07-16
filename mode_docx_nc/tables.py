@@ -79,7 +79,6 @@ def add_table_infuences(doc, table_rows):
 
     doc.add_paragraph('Подаваемые воздействия при проверке', style='ЮИ_Таблица_Название')
     table = doc.add_table(rows=1, cols=len(table_rows[0]))
-    table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
 
     # Рассчитываем высоту заголовка
     header_row_height = 25  # Базовая высота (для 'Номер режима')
@@ -103,7 +102,13 @@ def add_table_infuences(doc, table_rows):
     # Добавление заголовков
     for i, header in enumerate(table_rows[0]):
         cell = header_row.cells[i]
-        run = cell.paragraphs[0].add_run(header)
+
+        paragraph = cell.paragraphs[0]
+        paragraph.text = header
+        paragraph.style = 'Текст таблицы'  # Применяем стиль
+        #paragraph.runs[0].bold = True      # Делаем жирным (если нужно)
+
+        #run = cell.paragraphs[0].add_run(header) # так было
         set_vertical_text(cell)
         set_cell_vertical_alignment(cell, align="center")
         set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
@@ -117,7 +122,9 @@ def add_table_infuences(doc, table_rows):
             set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
     
     # Применяем стиль ко всем ячейкам
+
     apply_style_to_all_cells(table, 'Текст таблицы', numbered_style='Текст таблицы')
+    table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
 
     return doc
 
@@ -149,7 +156,13 @@ def add_table_results(doc, table_rows):
     # Добавление заголовков
     for i, header in enumerate(table_rows[0]):
         cell = header_row.cells[i]
-        run = cell.paragraphs[0].add_run(header)
+
+        paragraph = cell.paragraphs[0]
+        paragraph.text = header
+        paragraph.style = 'Текст таблицы'  # Применяем стиль
+        #paragraph.runs[0].bold = True      # Делаем жирным (если нужно)
+
+        #run = cell.paragraphs[0].add_run(header)
         set_vertical_text(cell)
         set_cell_vertical_alignment(cell, align="center")
         set_cell_margins(cell, top=0.0, bottom=0.0, left=0.0, right=0.0)
@@ -175,6 +188,7 @@ def add_table_results(doc, table_rows):
 
     # Применяем стиль ко всем ячейкам
     apply_style_to_all_cells(table, 'Текст таблицы', numbered_style='Текст таблицы')
+    table.style = 'Стиль3'  # Применение стиля таблицы из шаблона
 
     return doc
 
@@ -205,7 +219,7 @@ def add_table_settings(doc, data_list, descriptions):
     set_repeat_table_header(header_row)
 
     # Заголовки столбцов
-    headers = ['Параметр', 'Обозначение ФСУ', 'Значение / Диапазон', 'Ед.изм.', 'Шаг', 'Значение по умолчанию', 'Уставка']
+    headers = ['Параметр', 'Обозначение ФСУ', 'Значение / Диапазон', 'Ед. изм.', 'Шаг', 'Значение по умолчанию', 'Уставка']
     for i, header in enumerate(headers):
         cell = table.cell(0, i)
         cell.text = header
@@ -229,7 +243,12 @@ def add_table_settings(doc, data_list, descriptions):
 
         cell_ust = row.cells[6]
         cell_ust.text = str(item.get('Уставка', ''))
-        
+
+        # делаем жирным
+        for paragraph in cell_ust.paragraphs:
+            for run in paragraph.runs:
+                run.bold = True
+
         # Выравнивание текста по центру (если нужно)
         for cell in row.cells:
             for paragraph in cell.paragraphs:
@@ -261,8 +280,9 @@ def add_table_settings(doc, data_list, descriptions):
 
     table.style = 'Стиль3'
     table.allow_autofit = False
+    table.autofit = False
     # Задаем ширину столбцов (в дюймах)
-    widths = [2.0, 1.2, 2.0, 0.7, 0.7, 0.7, 0.7]
+    widths = [1.75, 0.98, 1.4, 0.48, 0.47, 1.0, 0.6]
     for i, width in enumerate(widths):
         for cell in table.columns[i].cells:
             cell.width = Inches(width)    
