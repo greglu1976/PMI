@@ -65,10 +65,10 @@ class PMI:
         if self.GENERATE_SETTINGS == 1:
             path_to_docx_templ_apx = self._part_of_modes_dir / "template_apx.docx"
             doc_apx = Document(path_to_docx_templ_apx)
-            doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)
+            doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_list)
             doc_apx.save('ПМИ. Приложение.docx')
         else: # Вариант в котором бланки уставок генерятся прямо в общем документе ПМИ
-            doc = generate_settings(doc, parsed_assembly, self._part_of_modes_dir, self._part_of_modes_list)     
+            doc = generate_settings(doc, parsed_assembly, self._part_of_modes_list)     
 
         # Сохраняем документ ПМИ
         doc.save('ПМИ.docx')
@@ -77,7 +77,7 @@ class PMI:
 
 if __name__ == "__main__":
     # НАСТРОЙКИ
-    # GENERATE_SETTINGS = 1 - генерация в отдельный файл Приложение - полностью все таблицы
+    # GENERATE_SETTINGS = 1 - генерация в отдельный файл Приложение - полностью все таблицы. Больше пока ничего не предусмотрено - По 1 самая урезанная версия!!!
     GENERATE_SETTINGS = 1
 
     # автоматическое построение

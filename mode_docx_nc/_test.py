@@ -2,6 +2,8 @@
 # потом удалить
 import json
 
+from docx.shared import RGBColor
+
 from tables import add_table_settings
 from _fb2 import create_fbs
 
@@ -104,7 +106,7 @@ def fill_template(modes_params, template_list):
         filled_template.append(row)
     return filled_template
     
-def generate_settings(doc, parsed_assembly, part_of_modes_dir, part_of_modes_list):
+def generate_settings(doc, parsed_assembly, part_of_modes_list):
     # загружаем словарь с расшифровками
     with open('description.json', 'r', encoding='utf-8') as f:
         descriptions = json.load(f)
@@ -117,7 +119,7 @@ def generate_settings(doc, parsed_assembly, part_of_modes_dir, part_of_modes_lis
                 list_of_fbs = create_fbs(fbs)
     #print(list_of_fbs)
 
-    doc.add_heading('ПАРАМЕТРЫ И УСТАВКИ РЕЖИМОВ', level=1)
+    #doc.add_heading('ПАРАМЕТРЫ И УСТАВКИ РЕЖИМОВ', level=1) # Убран заголовок для генерации в приложение НЕ требуется
 
     for section in parsed_assembly:
     # Ищем описание режимов для данного режима
@@ -138,27 +140,74 @@ def generate_settings(doc, parsed_assembly, part_of_modes_dir, part_of_modes_lis
             header = header_list[0] + '.' + header_list[1]
         else:
             header = header_list[0]
-        doc.add_heading(header, level=2)            
+        #doc.add_heading(header, level=2)
+        doc.add_heading(header, level=1) # для генерации в приложение повышаем уровень заголовка
+
+        isFirstPass = True           
         for key in target_keys:
-            print('>>>>>>',key)
-            print(result[key])
-            doc.add_heading(key.split('.')[-1], level=3)  # Вывод номера режима в заголовке Режим №1 ...            
+            #print('>>>>>>',key)
+            #print(result[key])
+            if not isFirstPass and all(item['IsChanged'] == 0 for item in result[key].values()):
+                #doc.add_heading(f"{key.split('.')[-1]}", level=3)
+                doc.add_heading(f"{key.split('.')[-1]}", level=2)  # для генерации в приложение повышаем уровень заголовка              
+                # Создаем параграф и задаем стиль
+                paragraph = doc.add_paragraph(style='ЮИ_Обычный')
+                run = paragraph.add_run(f"Уставки и параметры задействованных функций идентичны предыдущему режиму.")
+                run.font.color.rgb = RGBColor(0, 128, 0)  # Зеленый цвет (R, G, B)
+                #run.bold = True  # Жирный шрифт (как заголовок)
+                continue
+
+            #doc.add_heading(f"{key.split('.')[-1]}. Уставки и параметры задействованных функций", level=3)  # Вывод номера режима в заголовке Режим №1 ...  
+            doc.add_heading(f"{key.split('.')[-1]}", level=2)  # для генерации в приложение повышаем уровень заголовка 
+            #paragraph = doc.add_paragraph(style='ЮИ_Обычный')
+            #run = paragraph.add_run(f"Уставки и параметры задействованных функций.")  
+
             # выводим таблицы уставок
             for fb in list_of_fbs:
+                #print(fb, fb.get_fb_name())
                 fb_name = descriptions[fb.get_fb_iec_name().lower()]['fbname']
                 fb_desc = descriptions[fb.get_fb_iec_name().lower()]['desc']
-                doc.add_heading(fb_desc + f' ({fb_name})', level=4)
+                #doc.add_heading(fb_desc + f' ({fb_name})', level=4)
+                doc.add_heading(fb_desc + f' ({fb_name})', level=3) # для генерации в приложение повышаем уровень заголовка                
                 t = fb.get_functions()
-                for function in t:
-                    #print(function.settings_for_pmi)
-                    templ = fill_template(result[key], function.settings_for_pmi)
-                    doc = add_table_settings(doc, templ, descriptions)
 
-        break
+                check = False    
+                for function in t:
+                    #print(result[key])
+                    f = function.settings_for_pmi
+
+                    templ = fill_template(result[key], f)
+
+                    if not isFirstPass and not(check_ischanged(templ)):
+                        continue
+                    check = True
+                    doc = add_table_settings(doc, templ, descriptions)
+                if not check:
+                        paragraph = doc.add_paragraph(style='ЮИ_Обычный')
+                        run = paragraph.add_run(f"Уставки и параметры функции идентичны предыдущему режиму.")
+                        run.font.color.rgb = RGBColor(0, 0, 255)  # Зеленый цвет (R, G, B)                    
+            isFirstPass = False
+        #break # для целей тестирования
 
     return doc
 
 
+def check_ischanged(data):
+    #if not data:
+        #print('Пустой список - False')
+        #return False
+    #print(data)
+    for item in data:
+        #print(item)
+        #if not isinstance(item, dict):
+            #print("В списке найден элемент, не являющийся словарём - False")
+            #return False
+        if item.get('IsChanged') == 1:
+            #print("Найден элемент с IsChanged == 1")
+            return True
+
+    #print("нет IsChanged == 1")
+    return False
 
 
 if __name__ == "__main__":
