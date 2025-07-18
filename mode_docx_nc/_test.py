@@ -98,6 +98,10 @@ def fill_template(modes_params, template_list):
             ld = 'tsa'
             ln = ''
 
+        if 'lvalh' in ld:
+            ld = 'lvalh'
+            ln = ''
+
         key = alias + ln +'_'+ ld
         if alias !='-':
             #print('>>>>>',key)
