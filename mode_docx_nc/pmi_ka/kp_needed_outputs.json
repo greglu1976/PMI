@@ -1,0 +1,18 @@
+{
+    "vvod_swctrl": "КП: Ввод",
+    "oper_vyvod_swctrl": "КП: Оперативный вывод",
+    "uv_otkluchit_cbcswi1_swctrl": "КП / УВ: Отключить",
+    "uv_idet_per_cbcswi1_swctrl": "КП / УВ: Идет переключение",
+    "uv_prev_vrem_per_cbcswi1_swctrl": "КП / УВ: Прев. времени пер.",
+    "uv_vkluchit_cbcswi1_swctrl": "КП / УВ: Включить",
+    "uv_ne_opredeleno_cbcswi1_swctrl": "КП / УВ: Не определено",
+    "uv_otklucheno_cbcswi1_swctrl": "КП / УВ: Отключено",
+    "uv_vklucheno_cbcswi1_swctrl": "КП / УВ: Включено",
+    "uv_neispr_neopred_cbcswi1_swctrl": "КП / УВ: Неисправность",
+    "v_otkluchit_rele_xcbr1_tsd": "В: Отключить (реле)",
+    "v_vkluchit_rele_xcbr1_tsd": "В: Включить (реле)",
+    "v_avar_otkl_rcbf1_lvcbsup": "КСВ: В аварийно отключен",
+    "blok_otkl_rcbf1_lvcbsup": "КСВ: Блокировка откл",
+    "ss_prev_vrem_per_ka": "СС: Прев. вр. пер. КА",
+    "pusk_t_lvalh": "ПС: Пуск"
+}

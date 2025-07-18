@@ -1,0 +1,18 @@
+{
+    "blok_otkl_rcbf1_lvcbsup": "КСВ: Блокировка откл",
+    "uv_otkluchit_cbcswi1_swctrl": "КП / УВ: Отключить",
+    "uv_vkluchit_cbcswi1_swctrl": "КП / УВ: Включить",
+    "uv_vkl_cbcswi1_hvbctrl": "УВ / УВ: Включить",
+    "vvod_tsd": "КА: Ввод",
+    "oper_vyvod_tsd": "КА: Оперативный вывод",
+    "v_prom_pol_xcbr1_tsd": "В: Промеж. положение",
+    "v_otkluchen_xcbr1_tsd": "В: Отключен",
+    "v_vkluchen_xcbr1_tsd": "В: Включен",
+    "v_neisp_pol_xcbr1_tsd": "В: Неиспр. положение",
+    "v_otkluchit_rele_xcbr1_tsd": "В: Отключить (реле)",
+    "v_vkluchit_rele_xcbr1_tsd": "В: Включить (реле)",
+    "srab_na_sebya_rbrf1_tpbrf": "УРОВ: Сраб «на себя»",
+    "otkl_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключение",
+    "otkl_avar_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключить аварийно",
+    "pusk_t_lvalh": "ПС: Пуск"    
+}

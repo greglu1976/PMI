@@ -67,6 +67,9 @@
     "ttrgaslgc": {"fbname":"ЛО ГЗоткл",
                 "desc":"Логика отключения отключающей ступени ГЗ",
                 "lln0":{"funcname":"Общие уставки", "func_short_name":""},
-                "ptrc1":{"funcname":"Логика отключения", "func_short_name":"ЛО"}}  
+                "ptrc1":{"funcname":"Логика отключения", "func_short_name":"ЛО"}},
+    "t_hvbctrl": {"fbname":"УВ",
+                "desc":"Управление выключателем",
+                "cbcswi1":{"funcname":"Управление выключателем", "func_short_name":"УВ"}}                
 
 }
