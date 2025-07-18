@@ -2,6 +2,9 @@
 # 1. Для работы с режимами pmi_gz требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc. 
 # Либо доработать файл генерации режимов auto_part_TECH_T.py и все перегенерировать заново. 
 
+# 2. Для работы с режимами pmi_gzt2 требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc. 
+# Либо доработать файл генерации режимов auto_part_TECH_T2.py и все перегенерировать заново. 
+
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
@@ -87,6 +90,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_gzdzt" 
+    part_of_modes_dir = current_dir / "pmi_gzt2" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)
