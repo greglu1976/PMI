@@ -202,6 +202,7 @@ def add_table_settings(doc, data_list, descriptions):
    
     key1 = data_list[0]['LD'].lower()
     key2 = data_list[0]['LN'].lower()
+    #print('>>>', key1, key2)
     func_name = descriptions[key1][key2]['funcname']
     func_short_name = descriptions[key1][key2]['func_short_name']
 

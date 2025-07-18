@@ -93,9 +93,15 @@ def fill_template(modes_params, template_list):
         if ln == '_lln0':
             ln =''
         alias = row['alias']
+
+        if 'signassembly' in ld:
+            ld = 'tsa'
+            ln = ''
+
         key = alias + ln +'_'+ ld
         if alias !='-':
-            #print(modes_params[key])
+            #print('>>>>>',key)
+            #print(modes_params)
             aa = modes_params[key]['Value']
             a = format_value_by_step(aa, row['Шаг'])
             row['Уставка'] = a

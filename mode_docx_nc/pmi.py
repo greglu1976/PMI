@@ -1,3 +1,7 @@
+
+# 1. Для работы с режимами pmi_gz требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc. 
+# Либо доработать файл генерации режимов auto_part_TECH_T.py и все перегенерировать заново. 
+
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
@@ -63,7 +67,8 @@ class PMI:
 
 
         if self.GENERATE_SETTINGS == 1:
-            path_to_docx_templ_apx = self._part_of_modes_dir / "template_apx.docx"
+            #path_to_docx_templ_apx = self._part_of_modes_dir / "template_apx.docx"
+            path_to_docx_templ_apx = "template_apx.docx"
             doc_apx = Document(path_to_docx_templ_apx)
             doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_list)
             doc_apx.save('ПМИ. Приложение.docx')
