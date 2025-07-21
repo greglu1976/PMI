@@ -11,6 +11,12 @@
 # 4. Для работы с режимами pmi_ka требуется добавить столбцы в файлах режимов _lvalh со значением =0. по SGF14 (SGF13 уже есть)
 # Либо доработать файл генерации режимов auto_part_SWITCH3.py и все перегенерировать заново. Сделана версия 2 учитывающая пп. 3,4. Но режиме НЕ перегенерировались - были добавлены столбцы для lvalh
 
+# 5. Для работы с режимами pmi_ka2 требуется добавить столбцы в файлах режимов _lvalh со значением =0. по SGF10 (SGF9 уже есть)
+# Либо доработать файл генерации режимов auto_part_SWITCH3.py и все перегенерировать заново. Сделана версия 2 учитывающая пп. 3,4. Но режиме НЕ перегенерировались - были добавлены столбцы для lvalh
+
+# 6. Для работы с режимами pmi_lo требуется обновить по пп.1,3 (changer_xlsx.py, changer_xlsx2.py).
+
+
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
@@ -96,6 +102,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_ka2" 
+    part_of_modes_dir = current_dir / "pmi_lo" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)

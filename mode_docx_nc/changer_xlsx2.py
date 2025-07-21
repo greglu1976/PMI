@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 # Корневая папка
-root_path = 'pmi_ka2'
+root_path = 'pmi_lo'
 
 # Поиск всех папок, содержащих строку 'modes'
 for root, dirs, files in os.walk(root_path):

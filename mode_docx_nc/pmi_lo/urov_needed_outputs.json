@@ -1,0 +1,15 @@
+{
+    "vvod_rbrf1_tpbrf": "УРОВ: Ввод",
+    "oper_vyvod_rbrf1_tpbrf": "УРОВ: Оперативный вывод",
+    "uskorenie_rbrf1_tpbrf": "УРОВ: Ускорение",
+    "srab_rbrf1_tpbrf": "УРОВ: Срабатывание",
+    "pusk_rbrf1_tpbrf": "УРОВ: Пуск",
+    "io_rbrf1_tpbrf": "УРОВ: ИО Iмакс",
+    "srab_na_sebya_rbrf1_tpbrf": "УРОВ: Сраб «на себя»",
+    "mtz_pusk_lvttoc": "МТЗ: Пуск",
+    "pusk_ptoc1_lvtoc": "ТО: Пуск",
+    "srab_ptrc1_tofflvlgc": "ЛО Т / ЛО: Срабатывание",
+    "otkl_hvcbptrc1_hvtcboff": "ЛО ВН / ЛО: Отключение",
+    "blok_otkl_rcbf1_lvcbsup": "КСВ: Блокировка откл",
+    "pusk_lvalv": "ПС: Пуск"
+}
