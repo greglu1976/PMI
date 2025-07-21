@@ -70,6 +70,23 @@
                 "ptrc1":{"funcname":"Логика отключения", "func_short_name":"ЛО"}},
     "t_hvbctrl": {"fbname":"УВ",
                 "desc":"Управление выключателем",
-                "cbcswi1":{"funcname":"Управление выключателем", "func_short_name":"УВ"}}                
+                "cbcswi1":{"funcname":"Управление выключателем", "func_short_name":"УВ"}},
+    "t_hvtcboff": {"fbname":"ЛО ВН",
+                "desc":"Логика отключения стороны ВН",
+                "hvcbptrc1":{"funcname":"Логика отключения", "func_short_name":"ЛО"}},
+    "t_swctrl": {"fbname":"КП",
+                "lln0":{"funcname":"Общие уставки", "func_short_name":""},
+                "desc":"Контроллер присоединения",
+                "cbcswi1":{"funcname":"Управление выключателем", "func_short_name":"УВ"}},
+    "t_lvcbsup": {"fbname":"КСВ",
+                "desc":"Контроль силового выключателя",
+                "rcbf1":{"funcname":"Контроль силового выключателя", "func_short_name":"КСВ"}}, 
+    "t_switchdevice": {"fbname":"КА",
+                "lln0":{"funcname":"Общие уставки", "func_short_name":""},
+                "desc":"Коммутационные аппараты",
+                "xcbr1":{"funcname":"Выключатель", "func_short_name":"В"}},
+    "t_tpbrf": {"fbname":"УРОВ ВН",
+                "desc":"Устройство резервирования при отказе выключателя стороны ВН",
+                "genrbrf1":{"funcname":"Устройство резервирования при отказе выключателя", "func_short_name":"УРОВ"}}                                                                            
 
 }

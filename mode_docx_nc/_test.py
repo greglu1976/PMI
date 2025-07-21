@@ -94,6 +94,9 @@ def fill_template(modes_params, template_list):
             ln =''
         alias = row['alias']
 
+        if 'switchdevice' in ld:
+            ld = 'tsd'
+
         if 'signassembly' in ld:
             ld = 'tsa'
             ln = ''

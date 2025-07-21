@@ -5,6 +5,12 @@
 # 2. Для работы с режимами pmi_gzt2 требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc. 
 # Либо доработать файл генерации режимов auto_part_TECH_T2.py и все перегенерировать заново. 
 
+# 3. Для работы с режимами pmi_ka требуется переименовать столбцы в файлах режимов _rbrf1_ в _genrbrf1_ с помощью changer_xlsx2.py
+# Либо доработать файл генерации режимов auto_part_SWITCH3.py и все перегенерировать заново.
+
+# 4. Для работы с режимами pmi_ka требуется добавить столбцы в файлах режимов _lvalh со значением =0. по SGF14 (SGF13 уже есть)
+# Либо доработать файл генерации режимов auto_part_SWITCH3.py и все перегенерировать заново. Сделана версия 2 учитывающая пп. 3,4. Но режиме НЕ перегенерировались - были добавлены столбцы для lvalh
+
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
@@ -90,6 +96,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_gzt2" 
+    part_of_modes_dir = current_dir / "pmi_ka" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)
