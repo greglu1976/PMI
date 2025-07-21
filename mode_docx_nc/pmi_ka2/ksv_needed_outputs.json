@@ -1,0 +1,15 @@
+{
+    "vvod_rcbf1_lvcbsup": "КСВ: Ввод",
+    "oper_vyvod_rcbf1_lvcbsup": "КСВ: Оперативный вывод",
+    "v_samoproisv_otkl_rcbf1_lvcbsup": "КСВ: В самопр. отключен",
+    "neispr_V_rcbf1_lvcbsup": "КСВ: Неисправность В",
+    "v_avar_otkl_rcbf1_lvcbsup": "КСВ: В аварийно отключен",
+    "rfk_rcbf1_lvcbsup": "КСВ: РФК",
+    "blok_vkl_rcbf1_lvcbsup": "КСВ: Блокировка вкл",
+    "blok_otkl_rcbf1_lvcbsup": "КСВ: Блокировка откл",
+    "neisp_emu_rcbf1_lvcbsup": "КСВ: Неиспр. цепей ЭМУ",
+    "zashita_emv_rcbf1_lvcbsup": "КСВ: Защита ЭМВ",
+    "zashita_emo1_rcbf1_lvcbsup": "КСВ: Защита ЭМО1",
+    "zashita_emo2_rcbf1_lvcbsup": "КСВ: Защита ЭМО2",
+    "pusk_t_lvalh": "ПС: Пуск"
+}
