@@ -22,6 +22,8 @@
 
 #9 В режимах pmi_mtz нет столбца T1_ptrc1_ttoclgc = 1. Добавлялся вручную!!!
 
+#10 В режимах pmi_mtzt столбцов SGF11_lvalh ... SGF14_lvalh. Добавлялся вручную!!!
+
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
@@ -107,6 +109,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_mtz" 
+    part_of_modes_dir = current_dir / "pmi_mtzt" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)
