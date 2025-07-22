@@ -14,8 +14,11 @@
 # 5. Для работы с режимами pmi_ka2 требуется добавить столбцы в файлах режимов _lvalh со значением =0. по SGF10 (SGF9 уже есть)
 # Либо доработать файл генерации режимов auto_part_SWITCH3.py и все перегенерировать заново. Сделана версия 2 учитывающая пп. 3,4. Но режиме НЕ перегенерировались - были добавлены столбцы для lvalh
 
-# 6. Для работы с режимами pmi_lo требуется обновить по пп.1,3 (changer_xlsx.py, changer_xlsx2.py).
+#6. Для работы с режимами pmi_lo требуется обновить по пп.1,3 (changer_xlsx.py, changer_xlsx2.py).
 
+#7. Почему то для ЛО ДЗТ pmi_lodzt. В качестве ЛО НН1, НН2 взят узел lvtcboff1. Хотя должен быть LVTPRMCBOFF. Оставлен LVTPRMCBOFF. Изменить auto_part_LO_DZT.py. Так же _rbrf1_ в _genrbrf1_ с помощью changer_xlsx2.py
+
+#8. Для работы с режимами pmi_lot2 требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc.
 
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
@@ -102,6 +105,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_lo" 
+    part_of_modes_dir = current_dir / "pmi_lot2" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)
