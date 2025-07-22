@@ -1,0 +1,16 @@
+{
+    "mtzA_pusk_ptoc1_lvttoc": "МТЗ 1 ст: Пуск ф.А",
+    "mtzB_pusk_ptoc1_lvttoc": "МТЗ 1 ст: Пуск ф.В",
+    "mtzC_pusk_ptoc1_lvttoc": "МТЗ 1 ст: Пуск ф.С",
+    "gen_pusk_ptoc_lvttoc": "МТЗ 1 ст: Пуск",
+    "mtz_srabsign_ptoc1_lvttoc": "МТЗ 1 ст: Срабатывание сигн",    
+    "mtz_srab_ptoc1_lvttoc": "МТЗ 1 ст: Срабатывание",    
+    "io_A_ptoc1_lvttoc": "МТЗ 1 ст: ИО IА",
+    "io_B_ptoc1_lvttoc": "МТЗ 1 ст: ИО IВ",
+    "io_C_ptoc1_lvttoc": "МТЗ 1 ст: ИО IС",
+    "srab_ptrc1": "ЛО Т / ЛО: Срабатывание",
+    "zapret_rbre1": "ЛО Т / ЗАПВ: Запрет АПВ",
+    "zapret_rblc1": "ЛО Т / ЗАВР: Запрет АВР",
+    "blok_rblc1_lvttoc": "БЛЗШ: Блокировка",    
+    "pusk_lvalh": "ПС: Пуск"
+}

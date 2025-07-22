@@ -18,7 +18,9 @@
 
 #7. Почему то для ЛО ДЗТ pmi_lodzt. В качестве ЛО НН1, НН2 взят узел lvtcboff1. Хотя должен быть LVTPRMCBOFF. Оставлен LVTPRMCBOFF. Изменить auto_part_LO_DZT.py. Так же _rbrf1_ в _genrbrf1_ с помощью changer_xlsx2.py
 
-#8. Для работы с режимами pmi_lot2 требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc.
+#8. Для работы с режимами pmi_lot2 требуется переименовать столбцы в файлах режимов - _rblc1_tofflvlgc в _lvcbrblc1_tofflvlgc. Таже логика отключениея НН1, НН2 и ЛО Т
+
+#9 В режимах pmi_mtz нет столбца T1_ptrc1_ttoclgc = 1. Добавлялся вручную!!!
 
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
@@ -105,6 +107,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_lot2" 
+    part_of_modes_dir = current_dir / "pmi_mtz" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)

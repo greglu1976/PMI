@@ -1,0 +1,18 @@
+{
+    "mtzA_pusk_ptoc1_lvttoc": "МТЗ 1 ст: Пуск ф.А",
+    "mtzB_pusk_ptoc1_lvttoc": "МТЗ 1 ст: Пуск ф.В",
+    "mtzC_pusk_ptoc1_lvttoc": "МТЗ 1 ст: Пуск ф.С",
+    "io_A_ptoc1_lvttoc": "МТЗ 1 ст: ИО IА",
+    "mtzA_pusk_ptoc2_lvttoc": "МТЗ 2 ст: Пуск ф.А",
+    "mtzB_pusk_ptoc2_lvttoc": "МТЗ 2 ст: Пуск ф.В",
+    "mtzC_pusk_ptoc2_lvttoc": "МТЗ 2 ст: Пуск ф.С",
+    "io_B_ptoc2_lvttoc": "МТЗ 2 ст: ИО IВ",    
+    "mtzA_pusk_ptoc3_lvttoc": "МТЗ 3 ст: Пуск ф.А",
+    "mtzB_pusk_ptoc3_lvttoc": "МТЗ 3 ст: Пуск ф.В",
+    "mtzC_pusk_ptoc3_lvttoc": "МТЗ 3 ст: Пуск ф.С",
+    "io_C_ptoc3_lvttoc": "МТЗ 3 ст: ИО IС",
+    "start_phar1_lvttoc": "БНТ: Пуск",
+    "ia_start_out_phar1_lvttoc": "БНТ: Пуск ф.А",
+    "ib_start_out_phar1_lvttoc": "БНТ: Пуск ф.В",
+    "ic_start_out_phar1_lvttoc": "БНТ: Пуск ф.С"
+}

@@ -1,0 +1,23 @@
+{
+    "VYVOD": "Вывод терминала",
+    "UA1": "UA НН1",
+    "dUA1": "∠  UA НН1",
+    "UB1": "UB НН1",
+    "dUB1": "∠  UB НН1",
+    "UC1": "UC НН1",
+    "dUC1": "∠  UC НН1",
+    "UA2": "UA НН2",
+    "dUA2": "∠  UA НН2",
+    "UB2": "UB НН2",
+    "dUB2": "∠  UB НН2",
+    "UC2": "UC НН2",
+    "dUC2": "∠  UC НН2",
+    "OV_lvrbvtr1": "ОВ КЦН1",
+    "vnesh_bnn_srab_lvrbvtr1": "Срабатывание внешнего БНН1",
+    "VNN1vkl": "В НН1 включен",
+    "KPONvnesh_ptuv1": "КПОН1 внеш.",
+    "OV_lvrbvtr2": "ОВ КЦН2",
+    "vnesh_bnn_srab_lvrbvtr2": "Срабатывание внешнего БНН2",
+    "VNN2vkl": "В НН2 включен",
+    "KPONvnesh_ptuv2": "КПОН2 внеш."
+}
