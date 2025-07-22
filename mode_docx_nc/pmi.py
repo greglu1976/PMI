@@ -109,6 +109,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_mtzt" 
+    part_of_modes_dir = current_dir / "pmi_tokz" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)

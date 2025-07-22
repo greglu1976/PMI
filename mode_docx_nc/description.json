@@ -161,6 +161,15 @@
                 "ptrc1":{"funcname":"Логическая защита трансформатора", "func_short_name":"ЛЗТ"}},                
     "t_lvarctoc": {"fbname": "ТК ЗДЗ", 
                 "desc": "Токовый контроль ЗДЗ", 
-                "ptoc1":{"funcname":"Токовый орган", "func_short_name":"ТО"}}      
+                "ptoc1":{"funcname":"Токовый орган", "func_short_name":"ТО"}},
+    "t2_tovctoc": {"fbname": "ЗП", 
+                "desc": "Защита от перегрузки", 
+                "hvptoc1":{"funcname":"Защита от перегрузки", "func_short_name":"ЗП"}},
+    "ltcblktoc": {"fbname": "ТО РПН", 
+                "desc": "Токовый орган блокировки РПН", 
+                "ptoc1":{"funcname":"Токовый орган", "func_short_name":"ТО"}}, 
+    "lvnstoc": {"fbname": "ЗОП", 
+                "desc": "Защита от обрыва провода", 
+                "nsptoc1":{"funcname":"Защита от обрыва провода", "func_short_name":"ЗОП"}}                                                    
                 
 }
