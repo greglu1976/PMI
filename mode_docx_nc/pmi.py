@@ -95,7 +95,7 @@ class PMI:
             path_to_docx_templ_apx = "template_apx.docx"
             doc_apx = Document(path_to_docx_templ_apx)
             doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_list)
-            doc_apx.save('ПМИ. Приложение.docx')
+            doc_apx.save('Бланки уставок.docx')
         else: # Вариант в котором бланки уставок генерятся прямо в общем документе ПМИ
             doc = generate_settings(doc, parsed_assembly, self._part_of_modes_list)     
 
