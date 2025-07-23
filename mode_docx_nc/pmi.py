@@ -24,6 +24,8 @@
 
 #10 В режимах pmi_mtzt столбцов SGF11_lvalh ... SGF14_lvalh. Добавлялся вручную!!!
 
+#11 В режимах pmi_todzt есть столбец _lvoileqpalc_eqpalc (!!! исправить в генераторе режимов), должен быть _palc1_eqpalc. Почему то вместо strtpalc в сигналах обозначение strpalc!!!
+
 from typing import Optional, List  # Для Python 3.8 и ниже
 import pathlib
 from modes import Modes
@@ -109,6 +111,6 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_tokz" 
+    part_of_modes_dir = current_dir / "pmi_tokzdzt" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)

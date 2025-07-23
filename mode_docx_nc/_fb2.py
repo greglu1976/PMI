@@ -76,6 +76,7 @@ class FB2:
         self.raw_settings_df = self.raw_settings_df.fillna('-')
 
     def _get_fb_data(self):
+        #print(self.path)
         """Обработка специального файла LLN0.xlsx"""
         self.iec_name = self.raw_info_df[self.raw_info_df['Parameter'] == 'IEC61850Name']['Value'].iloc[0]
         self.name = self.raw_info_df[self.raw_info_df['Parameter'] == 'RussianName']['Value'].iloc[0]
