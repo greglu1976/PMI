@@ -18,7 +18,7 @@ from lib._PARTS.SWITCH_T2 import SWITCH
 class PartOfSwitchGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ Т2 в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. v1.0 01.07.25")
+        self.root.title("Тестирование ФСУ Т2 в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. v1.0 01.07.25, v1.1 24.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -48,14 +48,23 @@ class PartOfSwitchGUI:
             "SGF4_xcbr1_tsd": tk.IntVar(value=0),
             "SGF5_xcbr1_tsd": tk.IntVar(value=0),
             "SGF6_xcbr1_tsd": tk.IntVar(value=0),
-            "SGF1_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF2_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF3_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF4_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF5_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF6_rbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF1_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF2_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF3_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF4_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF5_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF6_genrbrf1_tpbrf": tk.IntVar(value=0),
             "SGF1_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
+            "SGF1_lvalh": tk.IntVar(value=0),
+            "SGF2_lvalh": tk.IntVar(value=0),
+            "SGF3_lvalh": tk.IntVar(value=0),
+            "SGF4_lvalh": tk.IntVar(value=0),
+            "SGF5_lvalh": tk.IntVar(value=0),
+            "SGF6_lvalh": tk.IntVar(value=0),
+            "SGF7_lvalh": tk.IntVar(value=0),
+            "SGF8_lvalh": tk.IntVar(value=0),
             "SGF9_lvalh": tk.IntVar(value=0),
+            "SGF10_lvalh": tk.IntVar(value=0),
         }
 
         self.settings = {
@@ -71,8 +80,8 @@ class PartOfSwitchGUI:
             "T2_xcbr1_tsd": tk.DoubleVar(value=1),
             "T3_xcbr1_tsd": tk.DoubleVar(value=1),
             "T4_xcbr1_tsd": tk.DoubleVar(value=1),
-            "T1_rbrf1_tpbrf": tk.DoubleVar(value=1),
-            "Iset_rbrf1_tpbrf": tk.DoubleVar(value=0.2),
+            "T1_genrbrf1_tpbrf": tk.DoubleVar(value=1),
+            "Iset_genrbrf1_tpbrf": tk.DoubleVar(value=0.2),
             "T1_hvcbptrc1_hvtcboff": tk.DoubleVar(value=1),            
         }
 
@@ -258,15 +267,24 @@ class PartOfSwitchGUI:
             T2_xcbr1_tsd=self.settings["T2_xcbr1_tsd"].get(),
             T3_xcbr1_tsd=self.settings["T3_xcbr1_tsd"].get(),
             T4_xcbr1_tsd=self.settings["T4_xcbr1_tsd"].get(),
-            SGF9_t_lvalh=self.sgf_params["SGF9_lvalh"].get(),
-            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_rbrf1_tpbrf"].get(),
-            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_rbrf1_tpbrf"].get(),
-            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_rbrf1_tpbrf"].get(),
-            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_rbrf1_tpbrf"].get(),
-            SGF5_rbrf1_tpbrf=self.sgf_params["SGF5_rbrf1_tpbrf"].get(),
-            SGF6_rbrf1_tpbrf=self.sgf_params["SGF6_rbrf1_tpbrf"].get(),
-            T1_rbrf1_tpbrf=self.settings["T1_rbrf1_tpbrf"].get(),
-            Iset_rbrf1_tpbrf=self.settings["Iset_rbrf1_tpbrf"].get(),
+            SGF1_lvalh=self.sgf_params["SGF1_lvalh"].get(),
+            SGF2_lvalh=self.sgf_params["SGF2_lvalh"].get(),
+            SGF3_lvalh=self.sgf_params["SGF3_lvalh"].get(),
+            SGF4_lvalh=self.sgf_params["SGF4_lvalh"].get(),
+            SGF5_lvalh=self.sgf_params["SGF5_lvalh"].get(),
+            SGF6_lvalh=self.sgf_params["SGF6_lvalh"].get(),
+            SGF7_lvalh=self.sgf_params["SGF7_lvalh"].get(),
+            SGF8_lvalh=self.sgf_params["SGF8_lvalh"].get(),
+            SGF9_lvalh=self.sgf_params["SGF9_lvalh"].get(),
+            SGF10_lvalh=self.sgf_params["SGF10_lvalh"].get(),
+            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_genrbrf1_tpbrf"].get(),
+            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_genrbrf1_tpbrf"].get(),
+            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_genrbrf1_tpbrf"].get(),
+            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_genrbrf1_tpbrf"].get(),
+            SGF5_rbrf1_tpbrf=self.sgf_params["SGF5_genrbrf1_tpbrf"].get(),
+            SGF6_rbrf1_tpbrf=self.sgf_params["SGF6_genrbrf1_tpbrf"].get(),
+            T1_rbrf1_tpbrf=self.settings["T1_genrbrf1_tpbrf"].get(),
+            Iset_rbrf1_tpbrf=self.settings["Iset_genrbrf1_tpbrf"].get(),
             SGF1_hvcbptrc1_hvtcboff=self.sgf_params["SGF1_hvcbptrc1_hvtcboff"].get(),
             T1_hvcbptrc1_hvtcboff=self.settings["T1_hvcbptrc1_hvtcboff"].get(),
         )

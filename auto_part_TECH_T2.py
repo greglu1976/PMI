@@ -14,7 +14,7 @@ from lib._PARTS.TECH_T2 import part_TECH_T2
 class PartOfTECH_T2_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование Газовых Защит М300-Т2. вер.0 от 03.07.25)")
+        self.root.title("Тестирование Газовых Защит М300-Т2. вер.0 от 03.07.25, вер.1 от 24.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -33,9 +33,9 @@ class PartOfTECH_T2_GUI:
             "SGF1_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rbre1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF1_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF2_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF3_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
             "SGF1_lvalh": tk.IntVar(value=0),
             "SGF2_lvalh": tk.IntVar(value=0),
             "SGF3_lvalh": tk.IntVar(value=0),
@@ -202,9 +202,9 @@ class PartOfTECH_T2_GUI:
             SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tofflvlgc"].get(),
             SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tofflvlgc"].get(),
             SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tofflvlgc"].get(),
-            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(),
-            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(),
-            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tofflvlgc"].get(),
+            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tofflvlgc"].get(),
+            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tofflvlgc"].get(),
             SGF1_t_lvalh=self.sgf_params["SGF1_lvalh"].get(),
             SGF2_t_lvalh=self.sgf_params["SGF2_lvalh"].get(),
             SGF3_t_lvalh=self.sgf_params["SGF3_lvalh"].get(),
