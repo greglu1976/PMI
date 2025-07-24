@@ -119,7 +119,7 @@ def fill_template(modes_params, template_list):
         filled_template.append(row)
     return filled_template
     
-def generate_settings(doc, parsed_assembly, part_of_modes_list):
+def generate_settings(doc, parsed_assembly, part_of_modes_list, path_to_fsu):
     # загружаем словарь с расшифровками
     with open('description.json', 'r', encoding='utf-8') as f:
         descriptions = json.load(f)
@@ -129,7 +129,7 @@ def generate_settings(doc, parsed_assembly, part_of_modes_list):
         if section['section_name'] == 'settings_general':
             fbs = section.get('fbs', [])
             if fbs:
-                list_of_fbs = create_fbs(fbs)
+                list_of_fbs = create_fbs(fbs, path_to_fsu)
     #print(list_of_fbs)
 
     #doc.add_heading('ПАРАМЕТРЫ И УСТАВКИ РЕЖИМОВ', level=1) # Убран заголовок для генерации в приложение НЕ требуется

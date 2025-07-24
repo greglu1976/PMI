@@ -250,11 +250,12 @@ class FB2:
         return self._fb_signals_latex
 
 
-def create_fbs(list_of_names):
+def create_fbs(list_of_names, path_to_fsu):
     list_of_fbs = []
-    current_dir = pathlib.Path(__file__).parent
+    #current_dir = pathlib.Path(__file__).parent
     for name in list_of_names:
-        part_of_modes_dir = current_dir / "fsu" / f"{name}.xlsx"
+        #part_of_modes_dir = current_dir / "fsu" / f"{name}.xlsx"
+        part_of_modes_dir = path_to_fsu / f"{name}.xlsx"
         fb = FB2(part_of_modes_dir)
         list_of_fbs.append(fb)
     return list_of_fbs

@@ -42,9 +42,10 @@ class PMI:
     Класс для работы с документацией ПМИ.
     При инициализации загружает все режимы из указанной директории.
     """
-    def __init__(self, part_of_modes_dir, settings):
+    def __init__(self, part_of_modes_dir, settings, path_to_fsu):
 
         self._part_of_modes_dir = part_of_modes_dir
+        self.path_to_fsu = path_to_fsu
         self._part_of_modes_list = []
 
         self.GENERATE_SETTINGS = settings
@@ -94,10 +95,10 @@ class PMI:
             #path_to_docx_templ_apx = self._part_of_modes_dir / "template_apx.docx"
             path_to_docx_templ_apx = "template_apx.docx"
             doc_apx = Document(path_to_docx_templ_apx)
-            doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_list)
+            doc_apx = generate_settings(doc_apx, parsed_assembly, self._part_of_modes_list, self.path_to_fsu)
             doc_apx.save('Бланки уставок.docx')
         else: # Вариант в котором бланки уставок генерятся прямо в общем документе ПМИ
-            doc = generate_settings(doc, parsed_assembly, self._part_of_modes_list)     
+            doc = generate_settings(doc, parsed_assembly, self._part_of_modes_list, self.path_to_fsu)     
 
         # Сохраняем документ ПМИ
         doc.save('ПМИ.docx')
@@ -112,5 +113,7 @@ if __name__ == "__main__":
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
     part_of_modes_dir = current_dir / "pmi_tokzdzt" 
+    path_to_fsu = pathlib.Path(r"\\192.168.11.240\Company\Ivanovo\Документация ЮНИТ М300\Разработка\Схемы ФБ ЮНИТ-М3\Трансформатор\ИЭУ Т 35 кВ Россети\0000. fsu")
+    #path_to_fsu = current_dir / "fsu" 
 
-    pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS)
+    pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS, path_to_fsu)
