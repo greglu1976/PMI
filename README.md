@@ -49,3 +49,4 @@ _initial commit_
 В обозначении версий 0.3 - версия генератора отчетов по ПМИ, 0.1 - Версия модулей генерации режимов
 **initial** Отработан и проверен auto_part_TECH_T.py (замечание pmi.py #1)
 **fix1** Отработан и проверен auto_part_TECH_T2.py (замечание pmi.py #2), auto_part_SWITCHT2.py (замечание pmi.py #5)
+**fix2** Отработан и проверен auto_part_LO_T.py (замечание pmi.py #6).
