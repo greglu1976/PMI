@@ -16,7 +16,7 @@ from lib._PARTS.TOKZ import partTOKZ
 class PartOfTOKGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование токовых функций ФСУ, v2.0 от 25.03.25")
+        self.root.title("Тестирование токовых функций ФСУ, v2.0 от 25.03.25, v2.1 от 25.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -29,7 +29,7 @@ class PartOfTOKGUI:
         self.sgf_params = {
             "SGF1_ptoc1_lvtoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvtoc": tk.IntVar(value=0),
-            "SGF1_hvptoc1_lovctoc": tk.IntVar(value=0),
+            "SGF1_hvptoc1_tovctoc": tk.IntVar(value=0),
             "SGF1_ptoc1_lvarctoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvarctoc": tk.IntVar(value=0),
             "SGF1_ptoc1_ltcblktoc": tk.IntVar(value=0), 
@@ -45,16 +45,16 @@ class PartOfTOKGUI:
             "SGF1_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rbre1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF1_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF2_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF3_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
             "Номинальный ток входа": tk.IntVar(value=5),            
         }
         self.settings = {
             "T1_ptoc1_lvtoc": tk.DoubleVar(value=1),
             "Iset_ptoc1_lvtoc": tk.DoubleVar(value=0.2),
-            "T1_hvptoc1_lovctoc": tk.DoubleVar(value=1),
-            "Iset_hvptoc1_lovctoc": tk.DoubleVar(value=0.2),
+            "T1_hvptoc1_tovctoc": tk.DoubleVar(value=1),
+            "Iset_hvptoc1_tovctoc": tk.DoubleVar(value=0.2),
             "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=0.2),
             "Iset_ptoc1_ltcblktoc": tk.DoubleVar(value=0.2),
             #"Iset_hvptoc1_strpalc": tk.DoubleVar(value=1),
@@ -213,9 +213,9 @@ class PartOfTOKGUI:
             SGF2_ptoc1_lvtoc=self.sgf_params["SGF2_ptoc1_lvtoc"].get(),
             T1_ptoc1_lvtoc=self.settings["T1_ptoc1_lvtoc"].get(),
             Iset_ptoc1_lvtoc=self.settings["Iset_ptoc1_lvtoc"].get(),
-            SGF1_hvptoc1_lovctoc=self.sgf_params["SGF1_hvptoc1_lovctoc"].get(),
-            T1_hvptoc1_lovctoc=self.settings["T1_hvptoc1_lovctoc"].get(),
-            Iset_hvptoc1_lovctoc=self.settings["Iset_hvptoc1_lovctoc"].get(),
+            SGF1_hvptoc1_lovctoc=self.sgf_params["SGF1_hvptoc1_tovctoc"].get(),
+            T1_hvptoc1_lovctoc=self.settings["T1_hvptoc1_tovctoc"].get(),
+            Iset_hvptoc1_lovctoc=self.settings["Iset_hvptoc1_tovctoc"].get(),
             SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
             SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
             Iset_ptoc1_lvarctoc=self.settings["Iset_ptoc1_lvarctoc"].get(),
@@ -240,9 +240,9 @@ class PartOfTOKGUI:
             SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tofflvlgc"].get(),
             SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tofflvlgc"].get(),
             SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tofflvlgc"].get(),
-            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(),
-            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(),
-            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tofflvlgc"].get(),
+            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tofflvlgc"].get(),
+            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tofflvlgc"].get(),
             Inom=self.sgf_params["Номинальный ток входа"].get(),
         )
 

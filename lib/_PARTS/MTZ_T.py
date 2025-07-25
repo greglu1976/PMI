@@ -25,7 +25,7 @@ class partOfFsuInTOC:
                 SGF1_lvrbvtr1, SGF2_lvrbvtr1, u_min_lvrbvtr1, u2_max_lvrbvtr1, t1_lvrbvtr1,
                 SGF1_ptrc1_tofflvlgc, SGF1_rbre1_tofflvlgc, SGF2_rbre1_tofflvlgc, SGF3_rbre1_tofflvlgc, SGF1_rblc1_tofflvlgc, SGF2_rblc1_tofflvlgc, SGF3_rblc1_tofflvlgc,
                 SGF1_ptoc1_lvarctoc, SGF2_ptoc1_lvarctoc, Iset_ptoc1_lvarctoc,
-                SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, 
+                SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc,
                 Inom
                 ):
         # Инициализируем ФБ МТЗ Т       
@@ -46,7 +46,7 @@ class partOfFsuInTOC:
 
         ################################################################################################
         self.lvarctoc = LVARCTOC(SGF1_ptoc1_lvarctoc, SGF2_ptoc1_lvarctoc, Iset_ptoc1_lvarctoc*Inom)
-        self.ttoclgc = TTOCLGC(SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc=1)
+        self.ttoclgc = TTOCLGC(SGF1_ptrc1_ttoclgc, SGF2_ptrc1_ttoclgc, SGF3_ptrc1_ttoclgc, T1_ptrc1_ttoclgc)
         ##################################################################################################
 
     def Step(self, VYVOD, OV_lvttoc, SV1vkl, IA, dIA, IB, dIB, IC, dIC, VNN1vkl, 

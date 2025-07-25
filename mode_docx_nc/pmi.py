@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_lo" 
+    part_of_modes_dir = current_dir / "pmi_tokzdzt" 
     path_to_fsu = pathlib.Path(r"\\192.168.11.240\Company\Ivanovo\Документация ЮНИТ М300\Разработка\Схемы ФБ ЮНИТ-М3\Трансформатор\ИЭУ Т 35 кВ Россети\0000. fsu")
     #path_to_fsu = current_dir / "fsu" 
 

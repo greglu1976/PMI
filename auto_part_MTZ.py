@@ -19,7 +19,7 @@ from lib._PARTS.MTZ_T2 import partOfFsuInTOC
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ Т2 в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25, v2.1 01.07.25")
+        self.root.title("Тестирование ФСУ Т2 в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25, v2.1 01.07.25, v2.2 25.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -64,9 +64,9 @@ class PartOfFsuInTOC_GUI:
             "SGF1_rbre1_tresofflvlgc": tk.IntVar(value=0),
             "SGF2_rbre1_tresofflvlgc": tk.IntVar(value=0),
             "SGF3_rbre1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF1_rblc1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF2_rblc1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF3_rblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF1_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF2_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF3_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
             "SGF1_lvalh": tk.IntVar(value=0),
             "SGF2_lvalh": tk.IntVar(value=0),
             "SGF3_lvalh": tk.IntVar(value=0),
@@ -344,9 +344,9 @@ class PartOfFsuInTOC_GUI:
             SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tresofflvlgc"].get(), 
             SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tresofflvlgc"].get(), 
             SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tresofflvlgc"].get(), 
-            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tresofflvlgc"].get(), 
-            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tresofflvlgc"].get(), 
-            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tresofflvlgc"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tresofflvlgc"].get(), 
+            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tresofflvlgc"].get(), 
+            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tresofflvlgc"].get(),
             SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
             SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
             SGF1_ptrc1_ttoclgc=self.sgf_params["SGF1_ptrc1_ttoclgc"].get(),

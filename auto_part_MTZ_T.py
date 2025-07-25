@@ -19,7 +19,7 @@ from lib._PARTS.MTZ_T import partOfFsuInTOC
 class PartOfFsuInTOC_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ (исполнение Т) в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, ТК ЗДЗ, ЛЗТ v2.0 от 21.05.25")
+        self.root.title("Тестирование ФСУ (исполнение Т) в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, ТК ЗДЗ, ЛЗТ v2.0 от 21.05.25, v2.1 от 25.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -52,30 +52,34 @@ class PartOfFsuInTOC_GUI:
             "SGF1_ptuv1_lvttoc": tk.IntVar(value=0),
             "SGF1_phar1_lvttoc": tk.IntVar(value=0),
             "SGF1_rblc1_lvttoc": tk.IntVar(value=0),
-            "SGF1_lvrbvtr1": tk.IntVar(value=0),
-            "SGF2_lvrbvtr1": tk.IntVar(value=0),
+            "SGF1_rvtr1_lvrbvtr": tk.IntVar(value=0),
+            "SGF2_rvtr1_lvrbvtr": tk.IntVar(value=0),
             "SGF1_ptrc1_tofflvlgc": tk.IntVar(value=0), 
             "SGF1_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF2_rbre1_tofflvlgc": tk.IntVar(value=0),
             "SGF3_rbre1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_lvalv": tk.IntVar(value=0),
-            "SGF2_lvalv": tk.IntVar(value=0),
-            "SGF3_lvalv": tk.IntVar(value=0),
-            "SGF4_lvalv": tk.IntVar(value=0),
-            "SGF5_lvalv": tk.IntVar(value=0),
-            "SGF6_lvalv": tk.IntVar(value=0),
-            "SGF7_lvalv": tk.IntVar(value=0),
-            "SGF8_lvalv": tk.IntVar(value=0),
-            "SGF9_lvalv": tk.IntVar(value=0),
-            "SGF10_lvalv": tk.IntVar(value=0),
+            "SGF1_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF2_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF3_lvcbrblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF1_lvalh": tk.IntVar(value=0),
+            "SGF2_lvalh": tk.IntVar(value=0),
+            "SGF3_lvalh": tk.IntVar(value=0),
+            "SGF4_lvalh": tk.IntVar(value=0),
+            "SGF5_lvalh": tk.IntVar(value=0),
+            "SGF6_lvalh": tk.IntVar(value=0),
+            "SGF7_lvalh": tk.IntVar(value=0),
+            "SGF8_lvalh": tk.IntVar(value=0),
+            "SGF9_lvalh": tk.IntVar(value=0),
+            "SGF10_lvalh": tk.IntVar(value=0),
+            "SGF11_lvalh": tk.IntVar(value=0),
+            "SGF12_lvalh": tk.IntVar(value=0),
+            "SGF13_lvalh": tk.IntVar(value=0),
+            "SGF14_lvalh": tk.IntVar(value=0),            
             "SGF1_ptoc1_lvarctoc": tk.IntVar(value=0),
             "SGF2_ptoc1_lvarctoc": tk.IntVar(value=0),
             "SGF1_ptrc1_ttoclgc": tk.IntVar(value=0),
             "SGF2_ptrc1_ttoclgc": tk.IntVar(value=0),
-            "SGF3_ptrc1_ttoclgc": tk.IntVar(value=0),                        
+            "SGF3_ptrc1_ttoclgc": tk.IntVar(value=0), 
             "Номинальный ток входа": tk.IntVar(value=5),            
         }
 
@@ -93,10 +97,11 @@ class PartOfFsuInTOC_GUI:
             "U2op_ptuv1_lvttoc": tk.DoubleVar(value=20),
             "Imax_phar1_lvttoc": tk.DoubleVar(value=1),
             "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
-            "Umin_lvrbvtr1": tk.DoubleVar(value=50),
-            "U2max_lvrbvtr1": tk.DoubleVar(value=20),
-            "T1_lvrbvtr1": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),          
+            "Umin_rvtr1_lvrbvtr": tk.DoubleVar(value=50),
+            "U2max_rvtr1_lvrbvtr": tk.DoubleVar(value=20),
+            "T1_rvtr1_lvrbvtr": tk.DoubleVar(value=1),
+            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1), 
+            "T1_ptrc1_ttoclgc": tk.DoubleVar(value=1),                       
         }
 
         self.input_vars = {
@@ -292,18 +297,18 @@ class PartOfFsuInTOC_GUI:
             Imax_phar1=self.settings["Imax_phar1_lvttoc"].get(),
             Ratio_phar1=self.settings["Ratio_phar1_lvttoc"].get(),
             SGF1_rblc1=self.sgf_params["SGF1_rblc1_lvttoc"].get(),
-            SGF1_lvrbvtr1=self.sgf_params["SGF1_lvrbvtr1"].get(),
-            SGF2_lvrbvtr1=self.sgf_params["SGF2_lvrbvtr1"].get(),
-            u_min_lvrbvtr1=self.settings["Umin_lvrbvtr1"].get(),
-            u2_max_lvrbvtr1=self.settings["U2max_lvrbvtr1"].get(),
-            t1_lvrbvtr1=self.settings["T1_lvrbvtr1"].get(),
+            SGF1_lvrbvtr1=self.sgf_params["SGF1_rvtr1_lvrbvtr"].get(),
+            SGF2_lvrbvtr1=self.sgf_params["SGF2_rvtr1_lvrbvtr"].get(),
+            u_min_lvrbvtr1=self.settings["Umin_rvtr1_lvrbvtr"].get(),
+            u2_max_lvrbvtr1=self.settings["U2max_rvtr1_lvrbvtr"].get(),
+            t1_lvrbvtr1=self.settings["T1_rvtr1_lvrbvtr"].get(),
             SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tofflvlgc"].get(),
             SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tofflvlgc"].get(), 
             SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tofflvlgc"].get(), 
             SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tofflvlgc"].get(), 
-            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(), 
-            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(), 
-            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tofflvlgc"].get(), 
+            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tofflvlgc"].get(), 
+            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tofflvlgc"].get(),
             SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
             SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
             SGF1_ptrc1_ttoclgc=self.sgf_params["SGF1_ptrc1_ttoclgc"].get(),
@@ -311,6 +316,7 @@ class PartOfFsuInTOC_GUI:
             SGF3_ptrc1_ttoclgc=self.sgf_params["SGF3_ptrc1_ttoclgc"].get(),
             Iset_ptoc1_lvarctoc=self.settings["Iset_ptoc1_lvarctoc"].get(),
             Inom=self.sgf_params["Номинальный ток входа"].get(),
+            T1_ptrc1_ttoclgc=self.settings["T1_ptrc1_ttoclgc"].get() 
         )
 
         print("partOfFsuInTOC initialized")

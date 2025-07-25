@@ -14,7 +14,7 @@ from lib._PARTS.LO_T2 import part_LO
 class PartLO_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-Т2. вер.0 от 03.07.25)")
+        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-Т2. вер.0 от 03.07.25, вер.1 от 25.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -59,26 +59,26 @@ class PartLO_GUI:
             "SGF6_rcbf1_lvcbsup": tk.IntVar(value=0),
             "SGF7_rcbf1_lvcbsup": tk.IntVar(value=0),
             "SGF8_rcbf1_lvcbsup": tk.IntVar(value=0),
-            "SGF1_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF2_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF3_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF4_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF5_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF6_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF1_ptrc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_rbre1_tofflvlgc": tk.IntVar(value=0),
-            "SGF2_rbre1_tofflvlgc": tk.IntVar(value=0),
-            "SGF3_rbre1_tofflvlgc": tk.IntVar(value=0),
-            "SGF1_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF2_rblc1_tofflvlgc": tk.IntVar(value=0),
-            "SGF3_rblc1_tofflvlgc": tk.IntVar(value=0),
+            "SGF1_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF2_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF3_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF4_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF5_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF6_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF1_ptrc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF1_rbre1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF2_rbre1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF3_rbre1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF1_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF2_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF3_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
             "SGF1_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
-            "SGF1_lvcbptrc1_lvtcboff1": tk.IntVar(value=0), # 5
-            "SGF1_lvcbrecrbre1_lvtcboff1": tk.IntVar(value=0), # 6
-            "SGF1_lvbtsrblc1_lvtcboff1": tk.IntVar(value=0), # 7
-            "SGF1_lvcbptrc1_lvtcboff2": tk.IntVar(value=0), # 8
-            "SGF1_lvcbrecrbre1_lvtcboff2": tk.IntVar(value=0), # 9
-            "SGF1_lvbtsrblc1_lvtcboff2": tk.IntVar(value=0),   # 10          
+            "SGF1_lvcbptrc1_lvtrescboff1": tk.IntVar(value=0), # 5
+            "SGF1_lvcbrecrbre1_lvtrescboff1": tk.IntVar(value=0), # 6
+            "SGF1_lvbtsrblc1_lvtrescboff1": tk.IntVar(value=0), # 7
+            "SGF1_lvcbptrc1_lvtrescboff2": tk.IntVar(value=0), # 8
+            "SGF1_lvcbrecrbre1_lvtrescboff2": tk.IntVar(value=0), # 9
+            "SGF1_lvbtsrblc1_lvtrescboff2": tk.IntVar(value=0),   # 10          
             "SGF1_tsa": tk.IntVar(value=0),                       
             "SGF2_tsa": tk.IntVar(value=0),
             "SGF3_tsa": tk.IntVar(value=0),
@@ -134,11 +134,11 @@ class PartLO_GUI:
             "T1_rcbf1_lvcbsup": tk.DoubleVar(value=1),
             "T2_rcbf1_lvcbsup": tk.DoubleVar(value=1),
             "T3_rcbf1_lvcbsup": tk.DoubleVar(value=1),
-            "T1_rbrf1_tpbrf": tk.DoubleVar(value=1),
-            "Iset_rbrf1_tpbrf": tk.DoubleVar(value=0.5),
+            "T1_genrbrf1_tpbrf": tk.DoubleVar(value=1),
+            "Iset_genrbrf1_tpbrf": tk.DoubleVar(value=0.5),
             "T1_hvcbptrc1_hvtcboff": tk.DoubleVar(value=1),
-            "T1_lvcbptrc1_lvtcboff1": tk.DoubleVar(value=1), # 19
-            "T1_lvcbptrc1_lvtcboff2": tk.DoubleVar(value=1), # 20           
+            "T1_lvcbptrc1_lvtrescboff1": tk.DoubleVar(value=1), # 19
+            "T1_lvcbptrc1_lvtrescboff2": tk.DoubleVar(value=1), # 20           
         }
 
         # Входные параметры для Step()
@@ -323,26 +323,26 @@ class PartLO_GUI:
             SGF6_rcbf1_lvcbsup=self.sgf_params["SGF6_rcbf1_lvcbsup"].get(),
             SGF7_rcbf1_lvcbsup=self.sgf_params["SGF7_rcbf1_lvcbsup"].get(),
             SGF8_rcbf1_lvcbsup=self.sgf_params["SGF8_rcbf1_lvcbsup"].get(),
-            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_rbrf1_tpbrf"].get(),
-            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_rbrf1_tpbrf"].get(),
-            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_rbrf1_tpbrf"].get(),
-            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_rbrf1_tpbrf"].get(),
-            SGF5_rbrf1_tpbrf=self.sgf_params["SGF5_rbrf1_tpbrf"].get(),
-            SGF6_rbrf1_tpbrf=self.sgf_params["SGF6_rbrf1_tpbrf"].get(),
-            SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tofflvlgc"].get(),
-            SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tofflvlgc"].get(),
-            SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tofflvlgc"].get(),
-            SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tofflvlgc"].get(),
-            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_rblc1_tofflvlgc"].get(),
-            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_rblc1_tofflvlgc"].get(),
-            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_rblc1_tofflvlgc"].get(),
+            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_genrbrf1_tpbrf"].get(),
+            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_genrbrf1_tpbrf"].get(),
+            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_genrbrf1_tpbrf"].get(),
+            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_genrbrf1_tpbrf"].get(),
+            SGF5_rbrf1_tpbrf=self.sgf_params["SGF5_genrbrf1_tpbrf"].get(),
+            SGF6_rbrf1_tpbrf=self.sgf_params["SGF6_genrbrf1_tpbrf"].get(),
+            SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tresofflvlgc"].get(),
+            SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tresofflvlgc"].get(),
+            SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tresofflvlgc"].get(),
+            SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tresofflvlgc"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tresofflvlgc"].get(),
+            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tresofflvlgc"].get(),
+            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tresofflvlgc"].get(),
             SGF1_hvcbptrc1_hvtcboff=self.sgf_params["SGF1_hvcbptrc1_hvtcboff"].get(),
-            SGF1_lvcbptrc1_lvtcboff1=self.sgf_params["SGF1_lvcbptrc1_lvtcboff1"].get(), ##
-            SGF1_lvcbrecrbre1_lvtcboff1=self.sgf_params["SGF1_lvcbrecrbre1_lvtcboff1"].get(), ##
-            SGF1_lvbtsrblc1_lvtcboff1=self.sgf_params["SGF1_lvbtsrblc1_lvtcboff1"].get(), ##
-            SGF1_lvcbptrc1_lvtcboff2=self.sgf_params["SGF1_lvcbptrc1_lvtcboff2"].get(), ##
-            SGF1_lvcbrecrbre1_lvtcboff2=self.sgf_params["SGF1_lvcbrecrbre1_lvtcboff2"].get(), ##
-            SGF1_lvbtsrblc1_lvtcboff2=self.sgf_params["SGF1_lvbtsrblc1_lvtcboff2"].get(), ##          
+            SGF1_lvcbptrc1_lvtcboff1=self.sgf_params["SGF1_lvcbptrc1_lvtrescboff1"].get(), ##
+            SGF1_lvcbrecrbre1_lvtcboff1=self.sgf_params["SGF1_lvcbrecrbre1_lvtrescboff1"].get(), ##
+            SGF1_lvbtsrblc1_lvtcboff1=self.sgf_params["SGF1_lvbtsrblc1_lvtrescboff1"].get(), ##
+            SGF1_lvcbptrc1_lvtcboff2=self.sgf_params["SGF1_lvcbptrc1_lvtrescboff2"].get(), ##
+            SGF1_lvcbrecrbre1_lvtcboff2=self.sgf_params["SGF1_lvcbrecrbre1_lvtrescboff2"].get(), ##
+            SGF1_lvbtsrblc1_lvtcboff2=self.sgf_params["SGF1_lvbtsrblc1_lvtrescboff2"].get(), ##          
             SGF1_lvalh=self.sgf_params["SGF1_lvalh"].get(),
             SGF2_lvalh=self.sgf_params["SGF2_lvalh"].get(),
             SGF3_lvalh=self.sgf_params["SGF3_lvalh"].get(),
@@ -394,11 +394,11 @@ class PartLO_GUI:
             T1_rcbf1_lvcbsup=self.settings["T1_rcbf1_lvcbsup"].get(),
             T2_rcbf1_lvcbsup=self.settings["T2_rcbf1_lvcbsup"].get(),
             T3_rcbf1_lvcbsup=self.settings["T3_rcbf1_lvcbsup"].get(),
-            T1_rbrf1_tpbrf=self.settings["T1_rbrf1_tpbrf"].get(),
-            Iset_rbrf1_tpbrf=self.settings["Iset_rbrf1_tpbrf"].get(),
+            T1_rbrf1_tpbrf=self.settings["T1_genrbrf1_tpbrf"].get(),
+            Iset_rbrf1_tpbrf=self.settings["Iset_genrbrf1_tpbrf"].get(),
             T1_hvcbptrc1_hvtcboff=self.settings["T1_hvcbptrc1_hvtcboff"].get(),
-            T1_lvcbptrc1_lvtcboff1=self.settings["T1_lvcbptrc1_lvtcboff1"].get(), ##
-            T1_lvcbptrc1_lvtcboff2=self.settings["T1_lvcbptrc1_lvtcboff2"].get(), ##            
+            T1_lvcbptrc1_lvtcboff1=self.settings["T1_lvcbptrc1_lvtrescboff1"].get(), ##
+            T1_lvcbptrc1_lvtcboff2=self.settings["T1_lvcbptrc1_lvtrescboff2"].get(), ##            
         )
         print("part_LO initialized")
 

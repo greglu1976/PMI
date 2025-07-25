@@ -16,7 +16,7 @@ from lib._PARTS.LO_DZT import part_LO
 class PartLO_GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-ДЗТ2. вер.1 от 04.07.25)")
+        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-ДЗТ2. вер.1 от 04.07.25, вер.2 от 25.07.25")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -25,17 +25,17 @@ class PartLO_GUI:
 
         # Инициализация SGF-параметров
         self.sgf_params = {
-            "SGF1_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF2_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF3_rbrf1_tpbrf": tk.IntVar(value=0),
-            "SGF4_rbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF1_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF2_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF3_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF4_genrbrf1_tpbrf": tk.IntVar(value=0),
             "SGF1_ptrc1_tprmofflvlgc": tk.IntVar(value=0),
             "SGF1_rbre1_tprmofflvlgc": tk.IntVar(value=0),
             "SGF1_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
-            "SGF1_lvcbptrc1_lvtcboff1": tk.IntVar(value=0),
-            "SGF1_lvcbrecrbre1_lvtcboff1": tk.IntVar(value=0),
-            "SGF1_lvcbptrc1_lvtcboff2": tk.IntVar(value=0),
-            "SGF1_lvcbrecrbre1_lvtcboff2": tk.IntVar(value=0),
+            "SGF1_lvcbptrc1_lvtprmcboff1": tk.IntVar(value=0),
+            "SGF1_lvcbrecrbre1_lvtprmcboff1": tk.IntVar(value=0),
+            "SGF1_lvcbptrc1_lvtprmcboff2": tk.IntVar(value=0),
+            "SGF1_lvcbrecrbre1_lvtprmcboff2": tk.IntVar(value=0),
             "SGF1_tsa": tk.IntVar(value=0),                       
             "SGF2_tsa": tk.IntVar(value=0),
             "SGF3_tsa": tk.IntVar(value=0),
@@ -66,11 +66,11 @@ class PartLO_GUI:
 
         # Настройки (T-параметры)
         self.settings = {
-            "T1_rbrf1_tpbrf": tk.DoubleVar(value=1),
-            "Iset_rbrf1_tpbrf": tk.DoubleVar(value=1),
+            "T1_genrbrf1_tpbrf": tk.DoubleVar(value=1),
+            "Iset_genrbrf1_tpbrf": tk.DoubleVar(value=1),
             "T1_hvcbptrc1_hvtcboff": tk.DoubleVar(value=1),
-            "T1_lvcbptrc1_lvtcboff1": tk.DoubleVar(value=1),
-            "T1_lvcbptrc1_lvtcboff2": tk.DoubleVar(value=1),
+            "T1_lvcbptrc1_lvtprmcboff1": tk.DoubleVar(value=1),
+            "T1_lvcbptrc1_lvtprmcboff2": tk.DoubleVar(value=1),
         }
 
         # Входные параметры для Step()
@@ -202,17 +202,17 @@ class PartLO_GUI:
     def init_part(self):
         self.part = part_LO(
             # Передаем SGF-параметры из self.sgf_params
-            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_rbrf1_tpbrf"].get(),
-            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_rbrf1_tpbrf"].get(),
-            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_rbrf1_tpbrf"].get(),
-            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_rbrf1_tpbrf"].get(),
+            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_genrbrf1_tpbrf"].get(),
+            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_genrbrf1_tpbrf"].get(),
+            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_genrbrf1_tpbrf"].get(),
+            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_genrbrf1_tpbrf"].get(),
             SGF1_ptrc1_tprmofflvlgc=self.sgf_params["SGF1_ptrc1_tprmofflvlgc"].get(),
             SGF1_rbre1_tprmofflvlgc=self.sgf_params["SGF1_rbre1_tprmofflvlgc"].get(),
             SGF1_hvcbptrc1_hvtcboff=self.sgf_params["SGF1_hvcbptrc1_hvtcboff"].get(),
-            SGF1_lvcbptrc1_lvtcboff1=self.sgf_params["SGF1_lvcbptrc1_lvtcboff1"].get(),
-            SGF1_lvcbrecrbre1_lvtcboff1=self.sgf_params["SGF1_lvcbrecrbre1_lvtcboff1"].get(),
-            SGF1_lvcbptrc1_lvtcboff2=self.sgf_params["SGF1_lvcbptrc1_lvtcboff2"].get(),
-            SGF1_lvcbrecrbre1_lvtcboff2=self.sgf_params["SGF1_lvcbrecrbre1_lvtcboff2"].get(),
+            SGF1_lvcbptrc1_lvtcboff1=self.sgf_params["SGF1_lvcbptrc1_lvtprmcboff1"].get(),
+            SGF1_lvcbrecrbre1_lvtcboff1=self.sgf_params["SGF1_lvcbrecrbre1_lvtprmcboff1"].get(),
+            SGF1_lvcbptrc1_lvtcboff2=self.sgf_params["SGF1_lvcbptrc1_lvtprmcboff2"].get(),
+            SGF1_lvcbrecrbre1_lvtcboff2=self.sgf_params["SGF1_lvcbrecrbre1_lvtprmcboff2"].get(),
             SGF1_lvalh=self.sgf_params["SGF1_lvalh"].get(),
             SGF2_lvalh=self.sgf_params["SGF2_lvalh"].get(),
             SGF3_lvalh=self.sgf_params["SGF3_lvalh"].get(),
@@ -239,11 +239,11 @@ class PartLO_GUI:
             SGF11_tsa=self.sgf_params["SGF11_tsa"].get(),
             SGF12_tsa=self.sgf_params["SGF12_tsa"].get(),
             SGF13_tsa=self.sgf_params["SGF13_tsa"].get(),
-            T1_rbrf1_tpbrf=self.settings["T1_rbrf1_tpbrf"].get(),
-            Iset_rbrf1_tpbrf=self.settings["Iset_rbrf1_tpbrf"].get(),
+            T1_rbrf1_tpbrf=self.settings["T1_genrbrf1_tpbrf"].get(),
+            Iset_rbrf1_tpbrf=self.settings["Iset_genrbrf1_tpbrf"].get(),
             T1_hvcbptrc1_hvtcboff=self.settings["T1_hvcbptrc1_hvtcboff"].get(),
-            T1_lvcbptrc1_lvtcboff1=self.settings["T1_lvcbptrc1_lvtcboff1"].get(),
-            T1_lvcbptrc1_lvtcboff2=self.settings["T1_lvcbptrc1_lvtcboff2"].get(),
+            T1_lvcbptrc1_lvtcboff1=self.settings["T1_lvcbptrc1_lvtprmcboff1"].get(),
+            T1_lvcbptrc1_lvtcboff2=self.settings["T1_lvcbptrc1_lvtprmcboff2"].get(),
         )
         print("part_LO initialized")
 
