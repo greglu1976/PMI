@@ -52,3 +52,5 @@ _initial commit_
 **fix2** Отработан и проверен auto_part_LO_T.py (замечание pmi.py #6).
 **25.07.25**
 **fix3**  auto_part_LO_DZT.py (замечание pmi.py #7), auto_part_LO_T2.py (замечание pmi.py #8), auto_part_MTZ.py (замечание pmi.py #9), auto_part_MTZ_T.py (замечание pmi.py #10), auto_part_TOKZ.py, auto_part_TOKZ_DZT.py (замечание pmi.py #11
+
+**final** Перегенерированы все ПМИ
