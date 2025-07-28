@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Корневая папка
-root_path = 'pmi_tokzdzt'
+root_path = 'pmi_lot2'
 
 # Поиск всех папок, содержащих строку 'modes'
 for root, dirs, files in os.walk(root_path):
@@ -20,12 +20,12 @@ for root, dirs, files in os.walk(root_path):
                             
                             # Поиск столбцов содержащих '_rblc1_tofflvlgc'
                             target_columns = [col for col in df.columns 
-                                            if '_strpalc' in col]
+                                            if '_lvtcboff2' in col]
                             
                             if target_columns:
                                 # Переименование столбцов
                                 renamed_columns = {
-                                    col: col.replace('_strpalc', '_strtpalc') 
+                                    col: col.replace('_lvtcboff2', '_lvtrescboff2') 
                                     for col in target_columns
                                 }
                                 
