@@ -54,3 +54,6 @@ _initial commit_
 **fix3**  auto_part_LO_DZT.py (замечание pmi.py #7), auto_part_LO_T2.py (замечание pmi.py #8), auto_part_MTZ.py (замечание pmi.py #9), auto_part_MTZ_T.py (замечание pmi.py #10), auto_part_TOKZ.py, auto_part_TOKZ_DZT.py (замечание pmi.py #11
 
 **final** Перегенерированы все ПМИ
+
+**28.07.25**
+**final-fix1** Шаблон ПМИ ДЗТ там косяк был в названии КЦТст1, КЦТст2 - исправлен КЦТст2,КЦТст3
