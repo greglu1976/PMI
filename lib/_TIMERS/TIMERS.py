@@ -1,9 +1,9 @@
 import time
 
 class TON:
-    def __init__(self):
+    def __init__(self, PT=0):
         self.IN = False  # Вход (boolean)
-        self.PT = 0      # Предустановленное время (в секундах)
+        self.PT = PT      # Предустановленное время (в секундах)
         self.ET = 0      # Прошедшее время (в секундах)
         self.Q = False   # Выход (boolean)
         self.start_time = None  # Время начала отсчета
@@ -35,9 +35,9 @@ class TON:
         self.PT = PT
 
 class TP:
-    def __init__(self):
+    def __init__(self, PT=0):
         self.IN = False  # Вход (boolean)
-        self.PT = 0      # Предустановленное время (в секундах)
+        self.PT = PT      # Предустановленное время (в секундах)
         self.ET = 0      # Прошедшее время (в секундах)
         self.Q = False   # Выход (boolean)
         self.start_time = None  # Время начала отсчета
@@ -83,9 +83,9 @@ class TP:
         self.PT = PT
 
 class TOF:
-    def __init__(self):
+    def __init__(self, PT=0):
         self.IN = False  # Вход (boolean)
-        self.PT = 0      # Предустановленное время (в секундах)
+        self.PT = PT      # Предустановленное время (в секундах)
         self.ET = 0      # Прошедшее время (в секундах)
         self.Q = False   # Выход (boolean)
         self.start_time = None  # Время начала отсчета

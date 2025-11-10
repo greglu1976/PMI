@@ -65,6 +65,8 @@ class partOfFsuInTOC:
         IAB = Is['Uab']['amplitude']/(3**0.5)
         IBC = Is['Ubc']['amplitude']/(3**0.5)
         ICA = Is['Uca']['amplitude']/(3**0.5)
+
+        
         threeU1 = ThreePhaseSystem(UA1, dUA1, UB1, dUB1, UC1, dUC1)
         U1s = threeU1.calculate_line_voltages()
         UAB_ptuv1 = U1s['Uab']['amplitude']
