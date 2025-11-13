@@ -11,20 +11,25 @@ class PolarComplex:
         self.ang = angle_deg
 
 class MFTO:
-    def __init__(self, SGF1, SGF2, T, Iset):
+    def __init__(self, SGF1, SGF2, T1, Iset):
         self.SGF1 = SGF1
         self.SGF2 = SGF2 # БСТО
         self.Iset = Iset
-        self.T1 = TON(T)
+        self.T1 = TON(T1)
         self.RS_Ia = RSTrigger(state=0)
         self.RS_Ib = RSTrigger(state=0)
         self.RS_Ic = RSTrigger(state=0)        
 
-    def Step(self, VYVOD, BSTO, IA, IB, IC):
+    def Step(self, Vyvod_MFTO, Vyvod_terminala, BSTO, IA, dIA1, IB, dIB1, IC, dIC1):
+        
+        I_A = PolarComplex(IA, dIA1)
+        I_B = PolarComplex(IB, dIB1)
+        I_C = PolarComplex(IC, dIC1)
 
-        ia = self.RS_Ia.run((IA.amp>=self.Iset), (IA.amp<0.95*self.Iset))
-        ib = self.RS_Ib.run((IB.amp>=self.Iset), (IB.amp<0.95*self.Iset))
-        ic = self.RS_Ic.run((IC.amp>=self.Iset), (IC.amp<0.95*self.Iset))
+        VYVOD = Vyvod_MFTO or Vyvod_terminala
+        ia = self.RS_Ia.run((I_A.amp>=self.Iset), (I_A.amp<0.95*self.Iset))
+        ib = self.RS_Ib.run((I_B.amp>=self.Iset), (I_B.amp<0.95*self.Iset))
+        ic = self.RS_Ic.run((I_C.amp>=self.Iset), (I_C.amp<0.95*self.Iset))
 
         _p01 = (ia and ib) or (ib and ic) or (ic and ia)
         _p02 = 0 if self.SGF2 == 0 else BSTO
