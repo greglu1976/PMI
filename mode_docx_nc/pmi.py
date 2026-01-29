@@ -112,8 +112,8 @@ if __name__ == "__main__":
 
     # автоматическое построение
     current_dir = pathlib.Path(__file__).parent
-    part_of_modes_dir = current_dir / "pmi_zdz" 
-    path_to_fsu = pathlib.Path(r"\\192.168.11.240\Company\Ivanovo\Документация ЮНИТ М300\Разработка\Схемы ФБ ЮНИТ-М3\Проект\БД\funcs")
+    part_of_modes_dir = current_dir / "pmi_gz" 
+    path_to_fsu = pathlib.Path(r"\\uni-eng.ru\unit\Ivanovo\Документация ЮНИТ М300\Разработка\Схемы ФБ ЮНИТ-М300\Проект\БД\db\funcs")
     #path_to_fsu = current_dir / "fsu" 
 
     pmi = PMI(part_of_modes_dir, GENERATE_SETTINGS, path_to_fsu)

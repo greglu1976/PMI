@@ -1,5 +1,6 @@
 __pycache__/
 арх/
 venv/
+env/
 output/
 config.ini
