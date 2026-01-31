@@ -398,43 +398,189 @@ class PartOfTECH_T_GUI:
 
         try:
             handler = SettingsHandler.from_json_file(file_path)
-
+            
+            if not self.meta_handler:
+                messagebox.showwarning("Предупреждение", "Метаданные не загружены. Используется стандартная обработка.")
+            
             # --- Обновление SGF-параметров (с _SG1) ---
             for key in self.sgf_params:
                 json_key = key + "_SG1"
                 value_str = handler.get_value_by_parameter(json_key)
-                if value_str is not None:
-                    try:
-                        if value_str.lower() in ("true", "1", "on"):
-                            self.sgf_params[key].set(1)
-                        elif value_str.lower() in ("false", "0", "off"):
-                            self.sgf_params[key].set(0)
+                if value_str is None:
+                    continue
+                    
+                try:
+                    # Определяем тип из метаданных
+                    type_str = None
+                    if self.meta_handler:
+                        param_info = self.meta_handler.get_param_info(json_key)
+                        if param_info:
+                            type_str = param_info.get("type")
+                            print(f"{json_key}: type={type_str}, value='{value_str}'")
+                    
+                    # Преобразование значения в зависимости от типа
+                    if type_str == "3":  # Булевое значение
+                        value_lower = str(value_str).lower().strip()
+                        bool_map = {
+                            "true": 1, "1": 1, "on": 1, "вкл": 1, "да": 1, "yes": 1, "enabled": 1,
+                            "false": 0, "0": 0, "off": 0, "выкл": 0, "нет": 0, "no": 0, "disabled": 0
+                        }
+                        
+                        if value_lower in bool_map:
+                            self.sgf_params[key].set(bool_map[value_lower])
                         else:
-                            print(f"⚠️ Неизвестное значение для {json_key}: '{value_str}'")
-                    except Exception as e:
-                        print(f"Ошибка при обработке {json_key}: {e}")
+                            # Пробуем числовое преобразование
+                            try:
+                                num_val = float(value_str)
+                                self.sgf_params[key].set(1 if num_val != 0 else 0)
+                            except ValueError:
+                                print(f"⚠️ Неизвестное булевое значение для {json_key}: '{value_str}'")
+                                self.sgf_params[key].set(0)
+                                
+                    elif type_str == "130":  # Integer
+                        try:
+                            # Удаляем возможные единицы измерения
+                            value_clean = str(value_str).strip()
+                            for suffix in ['%', '°', '°C', 'мс', 'с', 'м']:
+                                if value_clean.endswith(suffix):
+                                    value_clean = value_clean[:-len(suffix)].strip()
+                            
+                            # Преобразуем в int
+                            int_val = int(float(value_clean.replace(',', '.')))  # Обрабатываем 1.0, 1,5
+                            self.sgf_params[key].set(int_val)
+                        except (ValueError, TypeError) as e:
+                            print(f"⚠️ Ошибка преобразования int для {json_key}: '{value_str}' - {e}")
+                            self.sgf_params[key].set(0)
+                            
+                    else:  # По умолчанию или неизвестный тип - пробуем как int
+                        try:
+                            # Пробуем разные форматы
+                            value_clean = str(value_str).strip()
+                            
+                            # Сначала пробуем как булевое
+                            value_lower = value_clean.lower()
+                            bool_map = {
+                                "true": 1, "1": 1, "on": 1, "вкл": 1,
+                                "false": 0, "0": 0, "off": 0, "выкл": 0
+                            }
+                            
+                            if value_lower in bool_map:
+                                self.sgf_params[key].set(bool_map[value_lower])
+                            else:
+                                # Пробуем как число
+                                int_val = int(float(value_clean.replace(',', '.')))
+                                self.sgf_params[key].set(int_val)
+                        except (ValueError, TypeError) as e:
+                            print(f"⚠️ Не удалось преобразовать значение для {json_key}: '{value_str}' - {e}")
+                            self.sgf_params[key].set(0)
+                            
+                except Exception as e:
+                    print(f"Ошибка при обработке {json_key}: {e}")
 
-            # --- Обновление T-параметров (тоже с _SG1, если требуется) ---
+            # --- Обновление T-параметров (с _SG1) ---
             for key in self.settings:
                 json_key = key + "_SG1"
                 value_str = handler.get_value_by_parameter(json_key)
-                if value_str is not None:
+                if value_str is None:
+                    continue
+                    
+                try:
+                    # Определяем тип из метаданных
+                    type_str = None
+                    if self.meta_handler:
+                        param_info = self.meta_handler.get_param_info(json_key)
+                        if param_info:
+                            type_str = param_info.get("type")
+                            print(f"{json_key}: type={type_str}, value='{value_str}'")
+                    
+                    # Для settings обычно используются float значения
+                    value_clean = str(value_str).strip()
+                    
+                    # Убираем единицы измерения
+                    units_to_remove = ['%', '°', '°c', '°с', 'мс', 'с', 'м', 'мм', 'кг', 'кпа', 'па']
+                    for unit in units_to_remove:
+                        if value_clean.lower().endswith(unit):
+                            value_clean = value_clean[:-len(unit)].strip()
+                    
+                    # Заменяем запятую на точку
+                    value_clean = value_clean.replace(',', '.')
+                    
+                    # Пробуем преобразовать в float
                     try:
-                        val = float(value_str)
-                        self.settings[key].set(val)
-                    except ValueError:
-                        print(f"⚠️ Невозможно преобразовать в число: {json_key} = {value_str}")
+                        float_val = float(value_clean)
+                        
+                        # Проверяем разумные пределы для settings
+                        if abs(float_val) > 1000000:
+                            print(f"⚠️ Подозрительно большое значение для {json_key}: {float_val}")
+                            # Можно установить значение по умолчанию
+                            # self.settings[key].set(1.0)
+                        else:
+                            self.settings[key].set(float_val)
+                            
+                    except ValueError as e:
+                        print(f"⚠️ Невозможно преобразовать в число: {json_key} = '{value_str}' - {e}")
+                        
+                except Exception as e:
+                    print(f"Ошибка при обработке {json_key}: {e}")
 
             messagebox.showinfo("Успех", "Уставки успешно загружены из JSON-файла.")
             print("Параметры обновлены из JSON (с суффиксом _SG1)")
 
+        except FileNotFoundError:
+            messagebox.showerror("Ошибка", f"Файл не найден: {file_path}")
         except Exception as e:
-            messagebox.showerror("Ошибка", f"Не удалось загрузить уставки:\n{e}")
+            messagebox.showerror("Ошибка", f"Не удалось загрузить уставки:\n{str(e)}")
             print(f"Ошибка загрузки JSON: {e}")
 
 
     def save_settings_to_json(self):
-        pass
+        """Сохраняет SGF и T-параметры в JSON-файл с суффиксом _SG1, учитывая типы из метаданных."""
+        file_path = askopenfilename(
+            title="Сохранить уставки как...",
+            filetypes=[("JSON files", "*.json")],
+            defaultextension=".json"
+        )
+        if not file_path:
+            return
+
+        try:
+            # Пытаемся загрузить существующий файл, иначе создаём пустой
+            try:
+                handler = SettingsHandler.from_json_file(file_path)
+            except (FileNotFoundError, json.JSONDecodeError, KeyError, ValueError):
+                handler = SettingsHandler([])  # пустой обработчик
+
+            # --- Подготовка данных ---
+            for base_key in self.sgf_params:
+                json_key = base_key + "_SG1"
+                value = self.sgf_params[base_key].get()
+                param_type = "3"
+                if self.meta_handler:
+                    param_info = self.meta_handler.get_param_info(json_key)
+                    if param_info and "type" in param_info:
+                        param_type = param_info["type"]
+                formatted = "1" if value != 0 else "0" if param_type == "3" else str(int(value))
+                handler.add_or_update_parameter(json_key, formatted)
+
+            for base_key in self.settings:
+                json_key = base_key + "_SG1"
+                value = self.settings[base_key].get()
+                try:
+                    float_val = float(value)
+                    formatted = str(int(float_val)) if float_val.is_integer() else str(float_val)
+                except (ValueError, TypeError):
+                    formatted = "1.0"
+                handler.add_or_update_parameter(json_key, formatted)
+
+            # Сохраняем
+            handler.save_to_json_file(file_path)
+            messagebox.showinfo("Успех", f"Уставки сохранены в:\n{file_path}")
+            print(f"✅ Уставки сохранены в {file_path}")
+
+        except Exception as e:
+            error_msg = f"Ошибка при сохранении уставок:\n{str(e)}"
+            messagebox.showerror("Ошибка", error_msg)
+            print(f"❌ {error_msg}")
 
 
 

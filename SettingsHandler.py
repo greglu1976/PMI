@@ -46,6 +46,20 @@ class SettingsHandler:
             return True
         return False
 
+    def add_or_update_parameter(self, parameter_name: str, value: str):
+        """
+        Добавляет новый параметр или обновляет существующий.
+        Если параметр новый — он добавляется в конец списка порядка.
+        
+        :param parameter_name: Имя параметра
+        :param value: Значение параметра (будет приведено к строке)
+        """
+        value_str = str(value)
+        if parameter_name not in self._settings:
+            self._parameter_order.append(parameter_name)
+        self._settings[parameter_name] = value_str
+
+
     def to_original_format(self) -> List[Dict[str, str]]:
         """
         Экспортирует текущие уставки в исходной разметке:
