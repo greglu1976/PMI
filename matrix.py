@@ -16,7 +16,7 @@ class MatrixEditorApp:
         self.matrix_file_path = matrix_file_path
 
         # === Настройка диапазонов (можно менять) ===
-        self.ins = ["8-14", "9-2"]   # формат: "банк-количество"
+        self.ins = ["8-14", "9-2"]   # формат: "слот-количество"
         self.outs = ["3-8", "4-8"]
 
         # Генерация допустимых значений
@@ -26,17 +26,25 @@ class MatrixEditorApp:
         self.root.title("Редактор матрицы входов/выходов")
         self.root.geometry("950x600")
 
-        # Кнопка сохранения
-        save_btn = tk.Button(root, text="💾 Сохранить в JSON", command=self.save_changes)
-        save_btn.pack(pady=5)
+        # === Кнопки ===
+        button_frame = tk.Frame(self.root)
+        button_frame.pack(pady=5)
+
+        reset_btn = tk.Button(button_frame, text="🧹 Сбросить входы и выходы", command=self.reset_all_io)
+        reset_btn.pack(side=tk.LEFT, padx=5)
+
+        save_btn = tk.Button(button_frame, text="💾 Сохранить в JSON", command=self.save_changes)
+        save_btn.pack(side=tk.LEFT, padx=5)
 
         # Таблица
-        columns = ("param_desc", "discrete", "digital", "relay")
+        # В __init__ замените:
+        columns = ("param_desc", "applied_desc", "discrete", "digital", "relay")
         self.tree = ttk.Treeview(root, columns=columns, show="headings", height=25)
         self.tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
 
         headings = {
-            "param_desc": "Параметр (описание)",
+            "param_desc": "Имя параметра",
+            "applied_desc": "Применяемое описание",
             "discrete": "Дискр.Вход",
             "digital": "Двоич.Вход",
             "relay": "Вых. Реле"
@@ -45,7 +53,12 @@ class MatrixEditorApp:
 
         for col, text in headings.items():
             self.tree.heading(col, text=text, command=lambda c=col: self.sort_by_column(c))
-            width = 300 if col == "param_desc" else 150
+            if col == "param_desc":
+                width = 200
+            elif col == "applied_desc":
+                width = 300
+            else:
+                width = 120
             self.tree.column(col, width=width)
 
         self.tree.bind("<Double-1>", self.on_double_click)
@@ -78,14 +91,18 @@ class MatrixEditorApp:
         self.item_param_map.clear()
 
         for param_name in self.inouts_handler.get_all_parameter_names():
-            param_info = self.config_handler.get_param_info(param_name)
-            description = param_info.get("description", param_name) if param_info else param_name
+            # Имя параметра
+            param_label = param_name
 
+            # Применяемое описание
+            applied_desc = self.config_handler.get_applied_description(param_name)
+
+            # Сигналы
             disc = ", ".join(self.inouts_handler.get_discrete_inputs(param_name)) or "-"
             digi = ", ".join(self.inouts_handler.get_digital_inputs(param_name)) or "-"
             rel  = ", ".join(self.inouts_handler.get_output_relays(param_name)) or "-"
 
-            iid = self.tree.insert("", "end", values=(description, disc, digi, rel))
+            iid = self.tree.insert("", "end", values=(param_label, applied_desc, disc, digi, rel))
             self.item_param_map[iid] = param_name
 
     def on_double_click(self, event):
@@ -100,49 +117,55 @@ class MatrixEditorApp:
             return
 
         col_index = int(column.replace("#", "")) - 1
-        if col_index not in (1, 2, 3):
+        if col_index not in (2, 3, 4):  # discrete=2, digital=3, relay=4
             return
 
         current_value = self.tree.item(row, "values")[col_index]
         if current_value == "-":
             current_value = ""
 
-        x, y, width, height = self.tree.bbox(row, column)
-
-        # === Выбор редактора в зависимости от столбца ===
-        if col_index == 1:  # Дискр.Вход → Combobox
-            widget = ttk.Combobox(self.tree, values=self.discrete_options, state="readonly")
-            widget.set(current_value if current_value in self.discrete_options else "-")
-        elif col_index == 3:  # Вых. Реле → Combobox
-            widget = ttk.Combobox(self.tree, values=self.relay_options, state="readonly")
-            widget.set(current_value if current_value in self.relay_options else "-")
-        else:  # Двоич.Вход → обычное поле
+        # === Новое: модальное окно для столбцов 1 и 3 ===
+        if col_index == 1:  # Дискр.Вход
+            new_val = self.open_checkbox_editor(
+                row, col_index, current_value,
+                self.discrete_options,
+                "Выберите дискретные входы"
+            )
+        elif col_index == 3:  # Вых. Реле
+            new_val = self.open_checkbox_editor(
+                row, col_index, current_value,
+                self.relay_options,
+                "Выберите выходные реле"
+            )
+        else:  # Двоич.Вход — остаётся Entry
+            x, y, width, height = self.tree.bbox(row, column)
             widget = ttk.Entry(self.tree)
             widget.insert(0, current_value)
             widget.select_range(0, tk.END)
+            widget.place(x=x, y=y, width=width, height=height)
+            widget.focus()
 
-        widget.place(x=x, y=y, width=width, height=height)
-        widget.focus()
+            def save_edit(_):
+                new_val_inner = widget.get().strip()
+                values = list(self.tree.item(row, "values"))
+                values[col_index] = new_val_inner if new_val_inner else "-"
+                self.tree.item(row, values=values)
+                widget.destroy()
+                param_name = self.item_param_map[row]
+                self.update_inouts_data(param_name, values[2], values[3], values[4])
 
-        def save_edit(_):
-            if isinstance(widget, ttk.Combobox):
-                new_val = widget.get()
-            else:
-                new_val = widget.get().strip()
+            widget.bind("<Return>", save_edit)
+            widget.bind("<FocusOut>", save_edit)
+            widget.bind("<Escape>", lambda _: widget.destroy())
+            return
+
+        # Применяем результат из модального окна
+        if new_val is not None:
             values = list(self.tree.item(row, "values"))
-            values[col_index] = new_val if new_val else "-"
+            values[col_index] = new_val
             self.tree.item(row, values=values)
-            widget.destroy()
-
             param_name = self.item_param_map[row]
-            self.update_inouts_data(param_name, values[1], values[2], values[3])
-
-        widget.bind("<Return>", save_edit)
-        widget.bind("<FocusOut>", save_edit)
-        widget.bind("<Escape>", lambda _: widget.destroy())
-
-        if isinstance(widget, ttk.Combobox):
-            widget.bind("<<ComboboxSelected>>", save_edit)
+            self.update_inouts_data(param_name, values[2], values[3], values[4])
 
     def parse_input_list(self, s: str) -> List[str]:
         if not s or s == "-":
@@ -182,7 +205,7 @@ class MatrixEditorApp:
                 param_name = self.item_param_map[item]
 
                 # Дискр.Вход
-                disc_str = values[1]
+                disc_str = values[2]
                 if disc_str != "-":
                     parts = [p.strip() for p in disc_str.split(",") if p.strip()]
                     for addr in parts:
@@ -195,7 +218,7 @@ class MatrixEditorApp:
                         discrete_addresses.append(addr)
 
                 # Вых. Реле
-                relay_str = values[3]
+                relay_str = values[4]
                 if relay_str != "-":
                     parts = [p.strip() for p in relay_str.split(",") if p.strip()]
                     for addr in parts:
@@ -226,6 +249,63 @@ class MatrixEditorApp:
             messagebox.showerror("Ошибка", f"Не удалось сохранить файл:\n{e}")
 
 
+    def open_checkbox_editor(self, parent_item, col_index, current_value, options, title):
+        """Открывает модальное окно с чекбоксами для выбора нескольких значений."""
+        dialog = tk.Toplevel(self.root)
+        dialog.title(title)
+        dialog.geometry("300x400")
+        dialog.transient(self.root)
+        dialog.grab_set()  # модальное
+
+        # Текущие выбранные значения
+        current_set = set(current_value.split(", ")) if current_value != "-" else set()
+
+        # Переменные для чекбоксов
+        var_dict = {}
+        for opt in options:
+            if opt == "-":
+                continue
+            var = tk.BooleanVar(value=(opt in current_set))
+            cb = tk.Checkbutton(dialog, text=opt, variable=var)
+            cb.pack(anchor="w", padx=10, pady=2)
+            var_dict[opt] = var
+
+        result = [None]  # mutable container
+
+        def on_ok():
+            selected = [opt for opt, var in var_dict.items() if var.get()]
+            result[0] = ", ".join(selected) if selected else "-"
+            dialog.destroy()
+
+        def on_cancel():
+            result[0] = None
+            dialog.destroy()
+
+        btn_frame = tk.Frame(dialog)
+        btn_frame.pack(pady=10)
+        tk.Button(btn_frame, text="OK", command=on_ok, width=10).pack(side=tk.LEFT, padx=5)
+        tk.Button(btn_frame, text="Отмена", command=on_cancel, width=10).pack(side=tk.LEFT, padx=5)
+
+        self.root.wait_window(dialog)
+        return result[0]
+
+
+    def reset_all_io(self):
+        if not messagebox.askyesno("Подтверждение", "Вы уверены, что хотите сбросить все входы и выходы?"):
+            return
+
+        for item in self.tree.get_children():
+            values = list(self.tree.item(item, "values"))
+            values[2] = "-"  # discrete
+            values[4] = "-"  # relay
+            self.tree.item(item, values=values)
+
+            param_name = self.item_param_map[item]
+            self.update_inouts_data(param_name, "-", values[3], "-")
+        
+        messagebox.showinfo("Готово", "Все входы и выходы сброшены.")
+
+
 def create_editor_window(inouts_handler: InOutsMatrixHandler, config_handler: MainConfigHandler, matrix_file_path: str):
     root = tk.Tk()
     app = MatrixEditorApp(root, inouts_handler, config_handler, matrix_file_path)
@@ -234,7 +314,7 @@ def create_editor_window(inouts_handler: InOutsMatrixHandler, config_handler: Ma
 
 if __name__ == "__main__":
     METADATA_FILE = "meta.json"
-    MATRIX_FILE = "ЮНИТ-М319 Т Матрица входов и выходных реле 2026-02-02 14_32_56.json"
+    MATRIX_FILE = "ЮНИТ-М319 Т Матрица входов и выходных реле 2026-02-02 16_19_23.json"
 
     try:
         config_handler = MainConfigHandler.from_json_file(METADATA_FILE)

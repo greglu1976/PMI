@@ -127,3 +127,23 @@ class MainConfigHandler:
         if param and param.get("group") == "measurement":
             return param
         return None
+    
+    def get_applied_description(self, name: str) -> str:
+        """
+        Возвращает значение поля 'appliedDescription' для параметра.
+        Если поле отсутствует или пустое — возвращает description.
+        Если и description нет — возвращает имя параметра.
+        """
+        info = self.get_param_info(name)
+        if not info:
+            return name
+        
+        applied = info.get("appliedDescription")
+        if applied:
+            return applied
+        
+        description = info.get("description")
+        if description:
+            return description
+        
+        return name
