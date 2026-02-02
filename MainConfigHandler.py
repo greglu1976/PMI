@@ -116,3 +116,14 @@ class MainConfigHandler:
         if param and "description" in param:
             return param["description"]
         return None
+    
+
+    def find_measurement_by_name(self, name: str) -> Optional[Dict[str, Any]]:
+        """
+        Возвращает параметр с указанным именем, только если он принадлежит группе 'measurement'.
+        Если параметр не найден или его группа не 'measurement' — возвращает None.
+        """
+        param = self._params.get(name)
+        if param and param.get("group") == "measurement":
+            return param
+        return None

@@ -12,8 +12,10 @@ from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 import openpyxl
+import json
 
-from lib._PARTS.TECH_T import part_TECH_T
+
+from lib2.PARTS.TECH_T import part_TECH_T
 
 from MainConfigHandler import MainConfigHandler
 from SettingsHandler import SettingsHandler
