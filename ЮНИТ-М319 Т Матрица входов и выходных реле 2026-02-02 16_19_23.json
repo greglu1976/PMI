@@ -38,31 +38,41 @@
       "ParameterName": "TLTCGASLGC_1_PTRC1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K1"
+      ]
     },
     {
       "ParameterName": "TLTCGASLGC_1_PTRC1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K2"
+      ]
     },
     {
       "ParameterName": "TLTCGASLGC_1_PTRC1_BlockGASLTCProt",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K5"
+      ]
     },
     {
       "ParameterName": "TLTCGASLGC_1_PTRC1_OpOnSignal",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K4"
+      ]
     },
     {
       "ParameterName": "TLTCGASLGC_1_PTRC1_Op",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K3"
+      ]
     },
     {
       "ParameterName": "TOFFLVLGC_1_PTRC1_FuncEnabled",
@@ -86,7 +96,9 @@
       "ParameterName": "TOFFLVLGC_1_PTRC1_Op",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K6"
+      ]
     },
     {
       "ParameterName": "TOFFLVLGC_1_RBRE1_FuncEnabled",
@@ -104,7 +116,9 @@
       "ParameterName": "TOFFLVLGC_1_RBRE1_BlkOp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K8"
+      ]
     },
     {
       "ParameterName": "TOFFLVLGC_1_LVCBRBLC1_FuncEnabled",
@@ -122,31 +136,41 @@
       "ParameterName": "TOFFLVLGC_1_LVCBRBLC1_BlkOp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K7"
+      ]
     },
     {
       "ParameterName": "T_LVALH_1_CALH1_Alarm",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K4"
+      ]
     },
     {
       "ParameterName": "T_SignAssembly_1_GASSign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K1"
+      ]
     },
     {
       "ParameterName": "T_SignAssembly_1_LowIsolGAS",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K3"
+      ]
     },
     {
       "ParameterName": "T_SignAssembly_1_GASBlock",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K2"
+      ]
     }
   ]
 }

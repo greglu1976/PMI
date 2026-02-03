@@ -125,13 +125,13 @@ class MatrixEditorApp:
             current_value = ""
 
         # === Новое: модальное окно для столбцов 1 и 3 ===
-        if col_index == 1:  # Дискр.Вход
+        if col_index == 2:  # Дискр.Вход
             new_val = self.open_checkbox_editor(
                 row, col_index, current_value,
                 self.discrete_options,
                 "Выберите дискретные входы"
             )
-        elif col_index == 3:  # Вых. Реле
+        elif col_index == 4:  # Вых. Реле
             new_val = self.open_checkbox_editor(
                 row, col_index, current_value,
                 self.relay_options,
