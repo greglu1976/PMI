@@ -250,42 +250,85 @@ class MatrixEditorApp:
 
 
     def open_checkbox_editor(self, parent_item, col_index, current_value, options, title):
-        """Открывает модальное окно с чекбоксами для выбора нескольких значений."""
+        """Открывает модальное окно с чекбоксами рядом с главным окном."""
         dialog = tk.Toplevel(self.root)
         dialog.title(title)
-        dialog.geometry("300x400")
         dialog.transient(self.root)
         dialog.grab_set()  # модальное
-
-        # Текущие выбранные значения
+        
+        # === Текущие выбранные значения ===
         current_set = set(current_value.split(", ")) if current_value != "-" else set()
-
-        # Переменные для чекбоксов
+        
+        # === Контейнер для чекбоксов (с прокруткой если много опций) ===
+        canvas = tk.Canvas(dialog, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(dialog, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas)
+        
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+        
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # === Переменные для чекбоксов ===
         var_dict = {}
         for opt in options:
             if opt == "-":
                 continue
             var = tk.BooleanVar(value=(opt in current_set))
-            cb = tk.Checkbutton(dialog, text=opt, variable=var)
-            cb.pack(anchor="w", padx=10, pady=2)
+            cb = tk.Checkbutton(scrollable_frame, text=opt, variable=var, font=("Arial", 10))
+            cb.pack(anchor="w", padx=10, pady=3)
             var_dict[opt] = var
-
-        result = [None]  # mutable container
-
+        
+        # === Расположение canvas и scrollbar ===
+        canvas.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        if len(var_dict) > 8:  # показываем scrollbar если много опций
+            scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # === Кнопки ===
+        result = [None]
+        
         def on_ok():
             selected = [opt for opt, var in var_dict.items() if var.get()]
             result[0] = ", ".join(selected) if selected else "-"
             dialog.destroy()
-
+        
         def on_cancel():
             result[0] = None
             dialog.destroy()
-
+        
         btn_frame = tk.Frame(dialog)
         btn_frame.pack(pady=10)
         tk.Button(btn_frame, text="OK", command=on_ok, width=10).pack(side=tk.LEFT, padx=5)
         tk.Button(btn_frame, text="Отмена", command=on_cancel, width=10).pack(side=tk.LEFT, padx=5)
-
+        
+        # === Вычисляем размер окна ===
+        dialog.update_idletasks()
+        
+        # Высота: количество опций × ~25 пикселей + место для кнопок
+        option_count = len(var_dict)
+        calculated_height = min(option_count * 25 + 80, 500)  # макс. 500 пикселей
+        dialog.geometry(f"320x{calculated_height}")
+        
+        # === Позиционируем окно рядом с главным ===
+        main_x = self.root.winfo_x()
+        main_y = self.root.winfo_y()
+        main_width = self.root.winfo_width()
+        main_height = self.root.winfo_height()
+        
+        # Открываем справа от главного окна
+        dialog_x = main_x + main_width + 10
+        dialog_y = main_y + 50
+        
+        # Проверяем, не выходит ли за экран
+        screen_width = self.root.winfo_screenwidth()
+        if dialog_x + 320 > screen_width:
+            dialog_x = main_x - 330  # открываем слева
+        
+        dialog.geometry(f"+{dialog_x}+{dialog_y}")
+        
         self.root.wait_window(dialog)
         return result[0]
 
@@ -314,7 +357,7 @@ def create_editor_window(inouts_handler: InOutsMatrixHandler, config_handler: Ma
 
 if __name__ == "__main__":
     METADATA_FILE = "meta.json"
-    MATRIX_FILE = "ПМИ ГЗ Матрица.json"
+    MATRIX_FILE = "ПМИ ТЗ Матрица.json"
 
     try:
         config_handler = MainConfigHandler.from_json_file(METADATA_FILE)

@@ -3,15 +3,15 @@
   "DeviceModel": "ЮНИТ-М319-Т-Р02с-х-К001-К001-К001-К001-К001-В021-В021-В021-В021-М044.3010-х-С01.00-1-1",
   "SignalMappings": [
     {
-      "ParameterName": "SignContact",
+      "ParameterName": "OILTempHigh",
       "DiscreteInputs": [
-        "8B4"
+        "8B6"
       ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "GASSignIsolOp",
+      "ParameterName": "OILTempEmerg",
       "DiscreteInputs": [
         "8B5"
       ],
@@ -19,25 +19,39 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "TripContact",
+      "ParameterName": "OILIsolOp",
+      "DiscreteInputs": [
+        "8B7"
+      ],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "WINTempHigh",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "GASTripIsolOp",
+      "ParameterName": "WINTempEmerg",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "JetRelayContact",
+      "ParameterName": "WINIsolOp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "GASLTCIsolOp",
+      "ParameterName": "VLVop",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "VLVIsolOp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -45,7 +59,7 @@
     {
       "ParameterName": "Reset",
       "DiscreteInputs": [
-        "8B6"
+        "8B8"
       ],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -59,7 +73,7 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TALMGASLGC",
+      "ParameterName": "DI_APTTECHLGC",
       "DiscreteInputs": [
         "8B2"
       ],
@@ -67,7 +81,7 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TALMGASLGC_Sign",
+      "ParameterName": "DI_OILPTRC1",
       "DiscreteInputs": [
         "8B3"
       ],
@@ -75,25 +89,33 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TTRGASLGC",
+      "ParameterName": "DI_OILPTRC1_Sign",
+      "DiscreteInputs": [
+        "8B4"
+      ],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "DI_WINPTRC1",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TTRGASLGC_Sign",
+      "ParameterName": "DI_WINPTRC1_Sign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TLTCGASLGC",
+      "ParameterName": "DI_VLVPTRC1",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TLTCGASLGC_Sign",
+      "ParameterName": "DI_VLVPTRC1_Sign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -102,98 +124,28 @@
       "ParameterName": "TALMGASLGC_1_PTRC1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K1"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "TALMGASLGC_1_PTRC1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K2"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "TALMGASLGC_1_PTRC1_BlockGASProtSign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K5"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "TALMGASLGC_1_PTRC1_OpOnSignal",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K4"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "TALMGASLGC_1_PTRC1_Op",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": [
-        "3K3"
-      ]
-    },
-    {
-      "ParameterName": "TTRGASLGC_1_PTRC1_FuncEnabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TTRGASLGC_1_PTRC1_FuncOperDisabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TTRGASLGC_1_PTRC1_BlockGASProtTrip",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TTRGASLGC_1_PTRC1_OpOnSignal",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TTRGASLGC_1_PTRC1_Op",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TLTCGASLGC_1_PTRC1_FuncEnabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TLTCGASLGC_1_PTRC1_FuncOperDisabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TLTCGASLGC_1_PTRC1_BlockGASLTCProt",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TLTCGASLGC_1_PTRC1_OpOnSignal",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TLTCGASLGC_1_PTRC1_Op",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -202,31 +154,41 @@
       "ParameterName": "APTTECHLGC_1_OILPTRC1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K1"
+      ]
     },
     {
       "ParameterName": "APTTECHLGC_1_OILPTRC1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K2"
+      ]
     },
     {
       "ParameterName": "APTTECHLGC_1_OILPTRC1_BlockOIL",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K5"
+      ]
     },
     {
       "ParameterName": "APTTECHLGC_1_OILPTRC1_OpOnSignal",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K4"
+      ]
     },
     {
       "ParameterName": "APTTECHLGC_1_OILPTRC1_OpOIL",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K3"
+      ]
     },
     {
       "ParameterName": "APTTECHLGC_1_WINPTRC1_FuncEnabled",
@@ -355,12 +317,6 @@
       ]
     },
     {
-      "ParameterName": "T_LVALH_1_CALH1_AlarmPulse",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
       "ParameterName": "T_LVALH_1_CALH1_Alarm",
       "DiscreteInputs": [],
       "DigitalInputs": [],
@@ -369,7 +325,7 @@
       ]
     },
     {
-      "ParameterName": "T_SignAssembly_1_GASSign",
+      "ParameterName": "T_SignAssembly_1_TECHSign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -377,15 +333,7 @@
       ]
     },
     {
-      "ParameterName": "T_SignAssembly_1_LowIsolGAS",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": [
-        "4K3"
-      ]
-    },
-    {
-      "ParameterName": "T_SignAssembly_1_GASBlock",
+      "ParameterName": "T_SignAssembly_1_LowIsolTECH",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -393,28 +341,12 @@
       ]
     },
     {
-      "ParameterName": "T_SignAssembly_1_TECHSign",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_SignAssembly_1_LowIsolTECH",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
       "ParameterName": "T_SignAssembly_1_TECHBlock",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_SignAssembly_1_ALMSign",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K3"
+      ]
     }
   ]
 }
