@@ -147,3 +147,11 @@ class MainConfigHandler:
             return description
         
         return name
+    
+    def find_parameters_starting_with(self, prefix: str) -> List[Dict[str, Any]]:
+        """Находит параметры, имя которых начинается с заданного префикса"""
+        matches = []
+        for name, param in self._params.items():
+            if name.startswith(prefix):
+                matches.append(param)
+        return matches
