@@ -554,7 +554,7 @@ class PartOfTECH_T_GUI:
             except (FileNotFoundError, json.JSONDecodeError, KeyError, ValueError):
                 handler = SettingsHandler([])  # пустой обработчик
             
-            # --- Подготовка данных SGF ---
+            # --- 1. Сохраняем SGF-параметры ---
             for base_key in self.sgf_params:
                 json_key = base_key + "_SG1"
                 raw_value = self.sgf_params[base_key].get()
@@ -566,31 +566,49 @@ class PartOfTECH_T_GUI:
                     if param_info and "type" in param_info:
                         param_type = str(param_info["type"])
 
-                # Преобразуем значение в число, если возможно
+                # Преобразуем значение в число
                 try:
                     numeric_value = float(raw_value)
                     if not numeric_value.is_integer():
-                        # Если не целое — округляем или выдаём ошибку? Решите по логике.
-                        # Здесь просто конвертируем в int с округлением или обрезкой
                         numeric_value = int(round(numeric_value))
                     else:
                         numeric_value = int(numeric_value)
                 except (ValueError, TypeError):
-                    numeric_value = 0  # или оставить как есть? Но лучше предсказуемо
+                    numeric_value = 0
 
                 # Форматируем в зависимости от типа
                 if param_type == "3":
-                    # Бинарный: только 0 или 1
                     formatted = "1" if numeric_value != 0 else "0"
                 elif param_type == "130":
-                    # Многопозиционный: сохраняем точное целое значение
                     formatted = str(numeric_value)
                 else:
-                    # Для всех остальных типов — тоже сохраняем как целое (или float, если нужно)
                     formatted = str(numeric_value)
 
                 handler.add_or_update_parameter(json_key, formatted)
-                print(f"💾 {json_key} = {formatted} (type={param_type}, raw={raw_value})")
+                print(f"💾 SGF {json_key} = {formatted} (type={param_type}, raw={raw_value})")
+            
+            # --- 2. Сохраняем T-параметры (settings) ---
+            for base_key in self.settings:
+                json_key = base_key + "_SG1"  # ← ВАЖНО: тоже добавляем _SG1!
+                raw_value = self.settings[base_key].get()
+
+                # Определяем тип параметра из метаданных
+                param_type = None
+                if self.meta_handler:
+                    param_info = self.meta_handler.get_param_info(json_key)
+                    if param_info and "type" in param_info:
+                        param_type = str(param_info["type"])
+
+                # Для T-параметров обычно используется float
+                try:
+                    float_val = float(raw_value)
+                    # Сохраняем с разумной точностью (убираем лишние нули)
+                    formatted = f"{float_val:.6g}"
+                except (ValueError, TypeError):
+                    formatted = "0.0"
+
+                handler.add_or_update_parameter(json_key, formatted)
+                print(f"💾 T   {json_key} = {formatted} (type={param_type}, raw={raw_value})")
             
             # Сохраняем
             handler.save_to_json_file(file_path)
@@ -600,7 +618,8 @@ class PartOfTECH_T_GUI:
             error_msg = f"Ошибка при сохранении уставок:\n{str(e)}"
             messagebox.showerror("Ошибка", error_msg)
             print(f"❌ {error_msg}")
-
+            import traceback
+            traceback.print_exc()
 
 
 if __name__ == "__main__":
