@@ -48,9 +48,9 @@ class partTOKZ:
         # Расчитываем аналоги
         threeI = ThreePhaseSystem(IA, dIA, IB, dIB, IC, dIC)
         Is = threeI.calculate_line_voltages()
-        IAB = Is['Uab']['amplitude']/(3**0.5)
-        IBC = Is['Ubc']['amplitude']/(3**0.5)
-        ICA = Is['Uca']['amplitude']/(3**0.5)
+        IAB = Is['Uab']['amplitude']   #/(3**0.5) убрал приведение к базису, вроде в Сириусе-Т не приводится
+        IBC = Is['Ubc']['amplitude']   #/(3**0.5)
+        ICA = Is['Uca']['amplitude']   #/(3**0.5)
         Isimm = threeI.calculate_symmetric_components()
         I1 = Isimm['U1']['amplitude']
         I2 = Isimm['U2']['amplitude']
@@ -75,7 +75,7 @@ class partTOKZ:
         # Рассчитываем ЛО Т
         vvod_ptrc1_tofflvlgc, oper_vyvod_ptrc1_tofflvlgc, pusk_ptrc1_tofflvlgc, srab_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, zapret_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, zapret_rbre1_tofflvlgc = self.tofflvlgc.Step(VYVOD, OV_tofflvlg, OVlo_tofflvlg, signals_tofflvlg=(srab_ptoc1_lvtoc, srabotkl_hvptoc1_lovctoc, srab_nsptoc1_lvnstoc, srab_ptrc1_ttoclgc), mtz2_srab_tofflvlg=0, mtz3_srab_tofflvlg=0, OVzapv_tofflvlg=OVzapv_tofflvlg, OVzavr_tofflvlg=OVzavr_tofflvlg)
         # вычисляем ПС
-        pusk_lvalh = self.lvalh.Step(VYVOD, sign_ps_tuple = (srab_hvptoc1_lovctoc, srabsign_nsptoc1_lvnstoc, srab_ptrc1_tofflvlgc))
+        pusk_lvalh = self.lvalh.Step(VYVOD, sign_ps_tuple = (srab_hvptoc1_lovctoc, srabsign_nsptoc1_lvnstoc, srabsign_ptoc1_lvtoc, srab_ptrc1_tofflvlgc))
         return (
             vvod_ptoc1_lvtoc, oper_vyvod_ptoc1_lvtoc, pusk_ptoc1_lvtoc, io_ptoc1_lvtoc, srabsign_ptoc1_lvtoc, srab_ptoc1_lvtoc,
             vvod_hvptoc1_lovctoc, oper_vyvod_hvptoc1_lovctoc, pusk_hvptoc1_lovctoc, io_hvptoc1_lovctoc, srab_hvptoc1_lovctoc, srabotkl_hvptoc1_lovctoc,
