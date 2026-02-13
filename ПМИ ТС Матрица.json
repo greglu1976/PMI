@@ -3,13 +3,27 @@
   "DeviceModel": "ЮНИТ-М319-Т-Р02с-х-К001-К001-К001-К001-К001-В021-В021-В021-В021-М044.3010-х-С01.00-1-1",
   "SignalMappings": [
     {
-      "ParameterName": "ExtTLGCPTRCStr",
+      "ParameterName": "SBnnPosCls",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "BlkLPT",
+      "ParameterName": "CBnnPosCls",
+      "DiscreteInputs": [
+        "8B6"
+      ],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "OutVoltStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "OutBlkV",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -23,7 +37,7 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_LVTOC",
+      "ParameterName": "DI_LVTTOC",
       "DiscreteInputs": [
         "8B2"
       ],
@@ -31,7 +45,7 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_LVTOC_Sign",
+      "ParameterName": "DI_PTOC1",
       "DiscreteInputs": [
         "8B3"
       ],
@@ -39,55 +53,41 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_TTOCLGC",
+      "ParameterName": "DI_PTOC2",
+      "DiscreteInputs": [
+        "8B4"
+      ],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "DI_PTOC3",
+      "DiscreteInputs": [
+        "8B5"
+      ],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "DI_PTOC1_Sign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_AUTOVC",
+      "ParameterName": "DI_PTOC2_Sign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_AUTOVC_Sign",
+      "ParameterName": "DI_PTOC3_Sign",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "DI_LVNSTOC",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "DI_LVNSTOC_Sign",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "DI_LVARCTOC",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "DI_LTCBLKTOC",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TTOCLGC_UIRZ_1_PTRC1_FuncEnabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "TTOCLGC_UIRZ_1_PTRC1_FuncOperDisabled",
+      "ParameterName": "DI_LVRBVTR",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -96,16 +96,12 @@
       "ParameterName": "TTOCLGC_UIRZ_1_PTRC1_Str",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K3"
+      ]
     },
     {
-      "ParameterName": "TTOCLGC_UIRZ_1_PTRC1_Op",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_LVTOC_1_PTOC1_FuncEnabled",
+      "ParameterName": "LVTTOC_1_PTOC1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -113,7 +109,7 @@
       ]
     },
     {
-      "ParameterName": "T_LVTOC_1_PTOC1_FuncOperDisabled",
+      "ParameterName": "LVTTOC_1_PTOC1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -121,15 +117,63 @@
       ]
     },
     {
-      "ParameterName": "T_LVTOC_1_PTOC1_DE_I",
+      "ParameterName": "LVTTOC_1_PTOC1_DE_IA",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_DE_IB",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_DE_IC",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_IAStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_IBStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_ICStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_Str",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_OpOnSignal",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC1_Op",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
-        "3K4"
+        "3K7"
       ]
     },
     {
-      "ParameterName": "T_LVTOC_1_PTOC1_Str",
+      "ParameterName": "LVTTOC_1_PTOC2_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -137,7 +181,71 @@
       ]
     },
     {
-      "ParameterName": "T_LVTOC_1_PTOC1_OpOnSignal",
+      "ParameterName": "LVTTOC_1_PTOC2_FuncOperDisabled",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": [
+        "3K4"
+      ]
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_DE_IA",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_DE_IB",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_DE_IC",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_IAStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_IBStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_ICStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_Str",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_OpOnSignal",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC2_Op",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": [
+        "3K8"
+      ]
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -145,7 +253,7 @@
       ]
     },
     {
-      "ParameterName": "T_LVTOC_1_PTOC1_Op",
+      "ParameterName": "LVTTOC_1_PTOC3_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
@@ -153,19 +261,99 @@
       ]
     },
     {
-      "ParameterName": "T_LVARCTOC_1_PTOC1_FuncEnabled",
+      "ParameterName": "LVTTOC_1_PTOC3_DE_IA",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "T_LVARCTOC_1_PTOC1_FuncOperDisabled",
+      "ParameterName": "LVTTOC_1_PTOC3_DE_IB",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "T_LVARCTOC_1_PTOC1_DE_I",
+      "ParameterName": "LVTTOC_1_PTOC3_DE_IC",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_IAStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_IBStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_ICStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_Str",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_OpOnSignal",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTOC3_Op",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": [
+        "4K1"
+      ]
+    },
+    {
+      "ParameterName": "LVTTOC_1_PTUV1_UndervoltStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PHAR1_PharmonicStrA",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PHAR1_PharmonicStrB",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PHAR1_PharmonicStrC",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_PHAR1_PharmonicStr",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_RBLC1_LbpBlkOp",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "LVTTOC_1_LVTTOC_Str",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -174,106 +362,60 @@
       "ParameterName": "T_LVARCTOC_1_PTOC1_Str",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K2"
+      ]
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_FuncEnabled",
+      "ParameterName": "LVRBVTR_1_RVTR1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_FuncOperDisabled",
+      "ParameterName": "LVRBVTR_1_RVTR1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_DE_I2",
+      "ParameterName": "LVRBVTR_1_RVTR1_DE_Upp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_DE_I2divI1",
+      "ParameterName": "LVRBVTR_1_RVTR1_DE_U2",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_Str",
+      "ParameterName": "LVRBVTR_1_RVTR1_Str",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_OpOnSignal",
+      "ParameterName": "LVRBVTR_1_RVTR1_Alm",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "LVNSTOC_1_NSPTOC1_Op",
+      "ParameterName": "TOFFLVLGC_1_PTRC1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "T_AUTOVC_1_OVCPTOC1_FuncEnabled",
+      "ParameterName": "TOFFLVLGC_1_PTRC1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
-      "ParameterName": "T_AUTOVC_1_OVCPTOC1_FuncOperDisabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_AUTOVC_1_OVCPTOC1_DE_I",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_AUTOVC_1_OVCPTOC1_Str",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_AUTOVC_1_OVCPTOC1_Op",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "T_AUTOVC_1_OVCPTOC1_OpOnTrip",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "LTCBLKTOC_1_PTOC1_FuncEnabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "LTCBLKTOC_1_PTOC1_FuncOperDisabled",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "LTCBLKTOC_1_PTOC1_DE_I",
-      "DiscreteInputs": [],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
-      "ParameterName": "LTCBLKTOC_1_PTOC1_Str",
+      "ParameterName": "TOFFLVLGC_1_PTRC1_Str",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
@@ -282,32 +424,50 @@
       "ParameterName": "TOFFLVLGC_1_PTRC1_Op",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K7"
-      ]
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "TOFFLVLGC_1_RBRE1_FuncEnabled",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "TOFFLVLGC_1_RBRE1_FuncOperDisabled",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
     },
     {
       "ParameterName": "TOFFLVLGC_1_RBRE1_BlkOp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "4K1"
-      ]
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "TOFFLVLGC_1_LVCBRBLC1_FuncEnabled",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "TOFFLVLGC_1_LVCBRBLC1_FuncOperDisabled",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
     },
     {
       "ParameterName": "TOFFLVLGC_1_LVCBRBLC1_BlkOp",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K8"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_LVALH_1_CALH1_Alarm",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
-        "4K2"
+        "4K4"
       ]
     }
   ]
