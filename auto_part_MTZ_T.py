@@ -80,7 +80,7 @@ class PartOfFsuInTOC_GUI:
             "SGF1_ptrc1_ttoclgc": tk.IntVar(value=0),
             "SGF2_ptrc1_ttoclgc": tk.IntVar(value=0),
             "SGF3_ptrc1_ttoclgc": tk.IntVar(value=0), 
-            "Номинальный ток входа": tk.IntVar(value=5),            
+            #"Номинальный ток входа": tk.IntVar(value=5),            
         }
 
         self.settings = {
@@ -315,7 +315,7 @@ class PartOfFsuInTOC_GUI:
             SGF2_ptrc1_ttoclgc=self.sgf_params["SGF2_ptrc1_ttoclgc"].get(),
             SGF3_ptrc1_ttoclgc=self.sgf_params["SGF3_ptrc1_ttoclgc"].get(),
             Iset_ptoc1_lvarctoc=self.settings["Iset_ptoc1_lvarctoc"].get(),
-            Inom=self.sgf_params["Номинальный ток входа"].get(),
+            Inom=5, #self.sgf_params["Номинальный ток входа"].get(),
             T1_ptrc1_ttoclgc=self.settings["T1_ptrc1_ttoclgc"].get() 
         )
 

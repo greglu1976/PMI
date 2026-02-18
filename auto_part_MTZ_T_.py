@@ -72,7 +72,7 @@ class PartOfFsuInTOC_GUI:
             "TOFFLVLGC_1_LVCBRBLC1_EnaDis": tk.IntVar(value=0),
             "TOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl": tk.IntVar(value=0),
             "TOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl": tk.IntVar(value=0),
-            "T_LVALH_1_CALH1_GASSign": tk.IntVar(value=0),
+            "T_LVALH_1_CALH1_GASSign_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_LowIsolGAS_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_GASBlock_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_TECHSign_Ctl": tk.IntVar(value=0),
@@ -91,7 +91,7 @@ class PartOfFsuInTOC_GUI:
             "TTOCLGC_UIRZ_1_PTRC1_EnaDis": tk.IntVar(value=0),
             "TTOCLGC_UIRZ_1_PTRC1_LVTPTOC2_Ctrl": tk.IntVar(value=0),
             "TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl": tk.IntVar(value=0), 
-            "Номинальный ток входа": tk.IntVar(value=5),            
+            #"Номинальный ток входа": tk.IntVar(value=5),            
         }
 
         self.settings = {
@@ -385,7 +385,7 @@ class PartOfFsuInTOC_GUI:
             SGF2_ptrc1_ttoclgc=self.sgf_params["TTOCLGC_UIRZ_1_PTRC1_LVTPTOC2_Ctrl"].get(),
             SGF3_ptrc1_ttoclgc=self.sgf_params["TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl"].get(),
             Iset_ptoc1_lvarctoc=self.settings["T_LVARCTOC_1_PTOC1_Iop"].get(),
-            Inom=self.sgf_params["Номинальный ток входа"].get(),
+            Inom=5, #self.sgf_params["Номинальный ток входа"].get(), Убрал чтобы в уставки М300 не влезало
             T1_ptrc1_ttoclgc=self.settings["TTOCLGC_UIRZ_1_PTRC1_Top"].get() 
         )
 
