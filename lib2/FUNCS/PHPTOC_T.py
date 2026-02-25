@@ -2,8 +2,8 @@
 
 #SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 
-from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib2.TIMERS.TIMERS import TON  
+from lib2.TRIGGERS.TRIGGERS import RSTrigger
 
 class PHPTOC_T:
     def __init__(self, SGF1, T1, Iset):

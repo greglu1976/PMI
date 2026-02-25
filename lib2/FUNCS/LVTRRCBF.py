@@ -9,8 +9,8 @@
 # SGF7 - Контроль_кнопки - Разрешение сброса "РФК" от кнопки (Не предусмотрено/ Предусмотрено)
 # SGF8 - Блок_упр_КИ_В - Блокировка управления при снижениии уровня изоляции В (Не предусмотрено/ От аварийного/ От аврийного и низкого
 
-from lib._TIMERS.TIMERS import TON
-from lib._TRIGGERS.TRIGGERS import SRTrigger
+from lib2.TIMERS.TIMERS import TON
+from lib2.TRIGGERS.TRIGGERS import SRTrigger
 
 class LVTRRCBF:
     def __init__(self, SGF1, SGF2, SGF3, SGF4, SGF5, SGF6, SGF7, SGF8, T1, T2, T3):

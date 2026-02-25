@@ -2,8 +2,8 @@
 
 #SGF1 - МФТО - Ввод функции в работу (Выведено/ Введено)
 
-from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib2.TIMERS.TIMERS import TON  
+from lib2.TRIGGERS.TRIGGERS import RSTrigger
 
 class PolarComplex:
     def __init__(self, amplitude, angle_deg=0):

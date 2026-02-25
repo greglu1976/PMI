@@ -1,7 +1,7 @@
 # Тип узла для ГЗсигн с переводом на отключение
 
-from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import SRTrigger
+from lib2.TIMERS.TIMERS import TON  
+from lib2.TRIGGERS.TRIGGERS import SRTrigger
 
 class TECHPTRC_2:
     def __init__(self, SGF1=0, SGF2=0, T=0):

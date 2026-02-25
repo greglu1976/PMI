@@ -1,7 +1,7 @@
 # для датчиков технологических защит с контролем сигн и откл ступеней
 
-from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import SRTrigger, RSTrigger
+from lib2.TIMERS.TIMERS import TON  
+from lib2.TRIGGERS.TRIGGERS import SRTrigger, RSTrigger
 
 class TECHPTRC_3:
     def __init__(self, SGF1=0, SGF2=0, T=0):

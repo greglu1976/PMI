@@ -1,6 +1,6 @@
 # для ЛО выключателя НН (с тремя (3) выводами функции)
 
-from lib._TIMERS.TIMERS import TP
+from lib2.TIMERS.TIMERS import TP
 
 class CBPTRC:
     def __init__(self, SGF1=0, T1=0.5):

@@ -1,7 +1,7 @@
 # для отключающей ступени ГЗ с префиксом f_
 
-from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import SRTrigger
+from lib2.TIMERS.TIMERS import TON  
+from lib2.TRIGGERS.TRIGGERS import SRTrigger
 
 class TECHPTRC:
     def __init__(self, SGF1=0, SGF2=0, T=0):

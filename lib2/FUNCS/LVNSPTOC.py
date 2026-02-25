@@ -3,8 +3,8 @@
 # SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 # SGF2 - Реж_ЗОП - Режим работы ЗОП (По току I2/ По отношению I2/I1/ По току I2 или отношению I2/I1)
 
-from lib._TIMERS.TIMERS import TON
-from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib2.TIMERS.TIMERS import TON
+from lib2.TRIGGERS.TRIGGERS import RSTrigger
 
 class LVNSPTOC:
     def __init__(self, SGF1, SGF2, T1, I2set, RatioSet, In):

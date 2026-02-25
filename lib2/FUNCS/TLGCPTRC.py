@@ -5,7 +5,7 @@
 # SGF3 - Пуск_от_МТЗ-3 - Пуск от МТЗ 3 ступени (Не предусмотрено/ Предусмотрено)
 # Т1 - Тср - Выдержка времени срабатывания 
 
-from lib._TIMERS.TIMERS import TON
+from lib2.TIMERS.TIMERS import TON
 
 class PHSTRPTOC_T:
     def __init__(self, SGF1, SGF2, SGF3, T1):

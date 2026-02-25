@@ -2,7 +2,7 @@
 
 # SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 
-from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib2.TRIGGERS.TRIGGERS import RSTrigger
 
 class PHSTRPTOC_TORPN:
     def __init__(self, SGF1, Iset):

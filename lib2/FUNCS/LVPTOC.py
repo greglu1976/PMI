@@ -3,8 +3,8 @@
 #SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 #SGF2 - Сборка_ток_цепей - Сборка токовых цепей (Звезда/ Треугольник)
 
-from lib._TIMERS.TIMERS import TON  
-from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib2.TIMERS.TIMERS import TON  
+from lib2.TRIGGERS.TRIGGERS import RSTrigger
 
 class LVPTOC:
     def __init__(self, SGF1, SGF2, T1, Iset):

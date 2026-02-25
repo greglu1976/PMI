@@ -3,7 +3,7 @@
 # SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
 # SGF2 - Выбор_пуск - Выбор пускового органа (Внутренний/  МТЗ 1 ст/ МТЗ 2 ст/ МТЗ 3 ст)
 
-from lib._TRIGGERS.TRIGGERS import RSTrigger
+from lib2.TRIGGERS.TRIGGERS import RSTrigger
 
 class PHSTRPTOC_T:
     def __init__(self, SGF1, SGF2, Iset):
