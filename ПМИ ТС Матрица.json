@@ -10,7 +10,9 @@
     },
     {
       "ParameterName": "OpExtOfCBFP_NN",
-      "DiscreteInputs": [],
+      "DiscreteInputs": [
+        "8B4"
+      ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -34,19 +36,25 @@
     },
     {
       "ParameterName": "ExternalRBRFStart",
-      "DiscreteInputs": [],
+      "DiscreteInputs": [
+        "8B3"
+      ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
       "ParameterName": "CBCS_CBOS1_OCControl",
-      "DiscreteInputs": [],
+      "DiscreteInputs": [
+        "8B10"
+      ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
       "ParameterName": "CBOS2_OCControl",
-      "DiscreteInputs": [],
+      "DiscreteInputs": [
+        "8B11"
+      ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -88,15 +96,15 @@
     },
     {
       "ParameterName": "OpnCBFrmKnob",
-      "DiscreteInputs": [],
+      "DiscreteInputs": [
+        "8B8"
+      ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
       "ParameterName": "ExternalBlkCB",
-      "DiscreteInputs": [
-        "8B11"
-      ],
+      "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -108,6 +116,12 @@
     },
     {
       "ParameterName": "OpnCBFrmCtrlPanel",
+      "DiscreteInputs": [],
+      "DigitalInputs": [],
+      "OutputRelays": []
+    },
+    {
+      "ParameterName": "OpnCBFrmRemoteCtrl",
       "DiscreteInputs": [
         "8B7"
       ],
@@ -115,26 +129,14 @@
       "OutputRelays": []
     },
     {
-      "ParameterName": "OpnCBFrmRemoteCtrl",
-      "DiscreteInputs": [
-        "8B9"
-      ],
-      "DigitalInputs": [],
-      "OutputRelays": []
-    },
-    {
       "ParameterName": "ClsCBFrmCtrlPanel",
-      "DiscreteInputs": [
-        "8B8"
-      ],
+      "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
       "ParameterName": "ClsCBFrmRemoteCtrl",
-      "DiscreteInputs": [
-        "8B10"
-      ],
+      "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -156,7 +158,9 @@
     },
     {
       "ParameterName": "OperOpnCB",
-      "DiscreteInputs": [],
+      "DiscreteInputs": [
+        "8B9"
+      ],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -182,17 +186,13 @@
     },
     {
       "ParameterName": "LocKey",
-      "DiscreteInputs": [
-        "8B6"
-      ],
+      "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
     {
       "ParameterName": "DI_ControllerDisable",
-      "DiscreteInputs": [
-        "8B3"
-      ],
+      "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -210,9 +210,7 @@
     },
     {
       "ParameterName": "DI_SWCTRL",
-      "DiscreteInputs": [
-        "8B4"
-      ],
+      "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": []
     },
@@ -238,77 +236,97 @@
       "ParameterName": "T_LVCBSUP_1_RCBF1_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K1"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K2"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_UnpromptedCBopening",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K3"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_FailureCB",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K4"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_CBFailureTrip",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
-        "4K5"
+        "3K5"
       ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_FixingContacts",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K6"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_BlkToCls",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "3K7"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_BlkToOpn",
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
-        "4K6"
+        "3K8"
       ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_ElmgLaunchFault",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K1"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_ProtectCBCS",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K2"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_ProtectCBOS1",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K3"
+      ]
     },
     {
       "ParameterName": "T_LVCBSUP_1_RCBF1_ProtectCBOS2",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": []
+      "OutputRelays": [
+        "4K4"
+      ]
     },
     {
       "ParameterName": "T_HVTCBOFF_1_HVCBPTRC1_Op",
@@ -356,17 +374,13 @@
       "ParameterName": "T_SwitchDevice_1_CB1_OpnCB_relay",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "4K3"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SwitchDevice_1_CB1_ClsCB_relay",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "4K4"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SwitchDevice_1_SD_FuncEnabled",
@@ -390,81 +404,61 @@
       "ParameterName": "T_SWCTRL_1_CBCSWI1_OpOpn",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K3"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_OpCls",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K6"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_SwitchInProgress",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K4"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_OpTmAlm",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K5"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_CBPosInterm",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K7"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_PosOpn",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K8"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_PosCls",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "4K1"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_CBCSWI1_CBPosFault",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "4K2"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_SWCTRL_FuncEnabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K1"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_SWCTRL_1_SWCTRL_FuncOperDisabled",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "3K2"
-      ]
+      "OutputRelays": []
     },
     {
       "ParameterName": "T_HVBCTRL_1_CBCSWI1_FuncEnabled",
@@ -489,16 +483,14 @@
       "DiscreteInputs": [],
       "DigitalInputs": [],
       "OutputRelays": [
-        "4K8"
+        "4K5"
       ]
     },
     {
       "ParameterName": "T_SignAssembly_1_SwOperExcTim",
       "DiscreteInputs": [],
       "DigitalInputs": [],
-      "OutputRelays": [
-        "4K7"
-      ]
+      "OutputRelays": []
     }
   ]
 }
