@@ -17,8 +17,8 @@ config_handler = MainConfigHandler.from_json_file(meta_path)
 
 
 # Поиск значений по имени
-#par_info = config_handler.get_param_info("LVTTOC_1_PTOC1_VolMod") # 1 - 1/2
-#print(par_info["defaultValue"], par_info["minValue"], par_info["maxValue"])
+par_info = config_handler.get_param_info("LVTTOC_1_PTOC1_VolMod") # 1 - 1/2
+print(par_info)
 
 
 
