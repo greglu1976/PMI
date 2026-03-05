@@ -155,3 +155,11 @@ class MainConfigHandler:
             if name.startswith(prefix):
                 matches.append(param)
         return matches
+    
+    def find_parameters_ending_with(self, suffix: str) -> List[Dict[str, Any]]:
+        """Находит параметры, имя которых заканчивается заданным суффиксом"""
+        matches = []
+        for name, param in self._params.items():
+            if name.endswith(suffix):  # ✅ Исправлено: было startswith
+                matches.append(param)
+        return matches
