@@ -7,8 +7,8 @@ def delete_columns_from_excel_files():
     во всех xlsx файлах в текущей папке
     """
     # Список столбцов для удаления (по частичному совпадению в названии)
-    cols_to_delete = ["T4_cbcswi1_swctrl", "T3_cbcswi1_swctrl","SGF6_xcbr1_tsd", "T1_cbcswi1_hvbctrl"]
-    
+    #cols_to_delete = ["T4_cbcswi1_swctrl", "T3_cbcswi1_swctrl","SGF6_xcbr1_tsd", "T1_cbcswi1_hvbctrl"]
+    cols_to_delete = ["mestnoe",]  
     # Получаем все xlsx файлы в текущей папке
     current_dir = os.getcwd()
     xlsx_files = [f for f in os.listdir(current_dir) if f.endswith('.xlsx')]
@@ -69,3 +69,6 @@ def delete_columns_from_excel_files():
 
 if __name__ == "__main__":
     delete_columns_from_excel_files()
+
+    print("-" * 50)
+    input("Нажмите Enter, чтобы выйти...")

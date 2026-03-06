@@ -25,6 +25,28 @@ from SettingsHandler import SettingsHandler
 from ToolTip import ToolTip
 
 class PartOfSwitchGUI:
+
+    # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
+    OUTPUT_PARAMS = [
+        "T_LVCBSUP_1_RCBF1_FuncEnabled", "T_LVCBSUP_1_RCBF1_FuncOperDisabled",
+        "T_LVCBSUP_1_RCBF1_UnpromptedCBopening", "T_LVCBSUP_1_RCBF1_FailureCB",
+        "T_LVCBSUP_1_RCBF1_CBFailureTrip", "T_LVCBSUP_1_RCBF1_FixingContacts", "T_LVCBSUP_1_RCBF1_BlkToCls",
+        "T_LVCBSUP_1_RCBF1_BlkToOpn", "T_LVCBSUP_1_RCBF1_ElmgLaunchFault", "T_LVCBSUP_1_RCBF1_ProtectCBCS",
+        "T_LVCBSUP_1_RCBF1_ProtectCBOS1", "T_LVCBSUP_1_RCBF1_ProtectCBOS2", "T_SWCTRL_1_SWCTRL_FuncEnabled",
+        "T_SWCTRL_1_SWCTRL_FuncOperDisabled", "T_SWCTRL_1_CBCSWI1_FuncEnabled", "T_SWCTRL_1_CBCSWI1_OpOpn",
+        "T_SWCTRL_1_CBCSWI1_SwitchInProgress", "T_SWCTRL_1_CBCSWI1_OpTmAlm",
+        "T_SWCTRL_1_CBCSWI1_OpCls", "T_SWCTRL_1_CBCSWI1_CBPosInterm",
+        "T_SWCTRL_1_CBCSWI1_PosOpn", "T_SWCTRL_1_CBCSWI1_PosCls",
+        "T_SWCTRL_1_CBCSWI1_CBPosFault", "T_HVBCTRL_1_CBCSWI1_FuncEnabled",
+        "T_HVBCTRL_1_CBCSWI1_FuncOperDisabled", "T_HVBCTRL_1_CBCSWI1_OpCls", "T_SwitchDevice_1_SD_FuncEnabled",
+        "T_SwitchDevice_1_SD_FuncOperDisabled", "T_SwitchDevice_1_CB1_FuncEnabled", "T_SwitchDevice_1_CB1_CBPosIntermed",
+        "T_SwitchDevice_1_CB1_CBPosOpn", "T_SwitchDevice_1_CB1_CBPosCls", "T_SwitchDevice_1_CB1_CBPosFaul",
+        "T_SwitchDevice_1_CB1_OpnCB_relay", "T_SwitchDevice_1_CB1_ClsCB_relay",
+        "T_SignAssembly_1_SwOperExcTim", "T_LVALH_1_CALH1_Alarm", "T_TPBRF_1_GENRBRF1_OpIn",
+        "T_HVTCBOFF_1_HVCBPTRC1_FuncEnabled", "T_HVTCBOFF_1_HVCBPTRC1_Op",
+        "T_HVTCBOFF_1_HVCBPTRC1_Tr"
+    ]
+
     def __init__(self, root):
         self.root = root
         self.root.title("Тестирование ФСУ в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. v2.0 21.07.25, v3.0 24.02.2026")
@@ -156,7 +178,8 @@ class PartOfSwitchGUI:
         all_param_keys = (
             list(self._get_sgf_param_names()) +
             list(self._get_setting_names()) +
-            list(self._get_input_names())
+            list(self._get_input_names()) +
+            list(self._get_output_names())  # <-- Добавили выходы
         )
         for key in all_param_keys:
             if self.meta_handler:
@@ -252,6 +275,7 @@ class PartOfSwitchGUI:
         input_frame.grid(row=3, column=0, padx=10, pady=10, sticky="w")
         row = 0
         col = 0
+
         for key, var in self.input_vars.items():
             if isinstance(var, tk.IntVar):
                 cb = ttk.Checkbutton(input_frame, text=key, variable=var)
@@ -271,6 +295,7 @@ class PartOfSwitchGUI:
                     ToolTip(label, tooltip)
                 
                 ttk.Entry(input_frame, textvariable=var).grid(row=row, column=col + 1)
+
             row += 1
             if row >= 5:
                 row = 0
@@ -279,26 +304,21 @@ class PartOfSwitchGUI:
         # Frame for output values
         output_frame = ttk.LabelFrame(self.root, text="Outputs")
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
-        outputs = [
-            "T_LVCBSUP_1_RCBF1_FuncEnabled", "T_LVCBSUP_1_RCBF1_FuncOperDisabled", "v_samoproisv_otkl_rcbf1_lvcbsup", "neispr_V_rcbf1_lvcbsup",
-            "v_avar_otkl_rcbf1_lvcbsup", "rfk_rcbf1_lvcbsup", "blok_vkl_rcbf1_lvcbsup", "blok_otkl_rcbf1_lvcbsup",
-            "neisp_emu_rcbf1_lvcbsup", "zashita_emv_rcbf1_lvcbsup", "zashita_emo1_rcbf1_lvcbsup", "zashita_emo2_rcbf1_lvcbsup",
-            "vvod_swctrl", "oper_vyvod_swctrl", "vvod_cbcswi1_swctrl", "uv_otkluchit_cbcswi1_swctrl", "uv_idet_per_cbcswi1_swctrl",
-            "uv_prev_vrem_per_cbcswi1_swctrl", "uv_vkluchit_cbcswi1_swctrl", "uv_ne_opredeleno_cbcswi1_swctrl",
-            "uv_otklucheno_cbcswi1_swctrl", "uv_vklucheno_cbcswi1_swctrl", "uv_neispr_neopred_cbcswi1_swctrl",
-            "vvod_cbcswi1_hvbctrl", "oper_vyvod_cbcswi1_hvbctrl", "uv_vkl_cbcswi1_hvbctrl",
-            "vvod_tsd", "oper_vyvod_tsd", "vvod_xcbr1_tsd", "v_prom_pol_xcbr1_tsd", "v_otkluchen_xcbr1_tsd",
-            "v_vkluchen_xcbr1_tsd", "v_neisp_pol_xcbr1_tsd", "v_otkluchit_rele_xcbr1_tsd", "v_vkluchit_rele_xcbr1_tsd", "ss_prev_vrem_per_ka", "pusk_t_lvalh",
-            "srab_na_sebya_rbrf1_tpbrf",
-            "vvod_hvcbptrc1_hvtcboff", "otkl_hvcbptrc1_hvtcboff", "otkl_avar_hvcbptrc1_hvtcboff"
-        ]
 
         row = 0
         col = 0
-        for output in outputs:
+        for output in self.OUTPUT_PARAMS:
             label = ttk.Label(output_frame, text=output, width=35, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
+
+
+            # === ДОБАВЛЯЕМ TOOLTIP ИЗ META.JSON ===
+            tooltip = self.tooltips.get(output)
+            if tooltip:
+                ToolTip(label, tooltip)
+
+
             row += 1
             if row >= 32:
                 row = 0
@@ -685,6 +705,10 @@ class PartOfSwitchGUI:
             print(f"❌ {error_msg}")
             import traceback
             traceback.print_exc()
+
+
+    def _get_output_names(self):
+        return self.OUTPUT_PARAMS       
 
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ class ExcelHeadersReplacer:
         self.example_file = example_file
         self.target_folder = target_folder or os.getcwd()
         self.headers_data = {}
-        self.sheet_names = ["SGF_Parameters", "Settings"]
+        self.sheet_names = ["Inputs", "Outputs"]
         
     def load_headers_from_example(self) -> bool:
         """Загружает заголовки из example.xlsx"""
