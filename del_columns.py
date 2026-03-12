@@ -6,9 +6,9 @@ def delete_columns_from_excel_files():
     Удаляет столбцы, содержащие указанные подстроки в заголовках,
     во всех xlsx файлах в текущей папке
     """
-    # Список столбцов для удаления (по частичному совпадению в названии)
-    #cols_to_delete = ["T4_cbcswi1_swctrl", "T3_cbcswi1_swctrl","SGF6_xcbr1_tsd", "T1_cbcswi1_hvbctrl"]
-    cols_to_delete = ["mestnoe",]  
+    # Список столбцов для удаления (по частичному совпадению в названии для ПМИ КА
+    cols_to_delete = ["T4_cbcswi1_swctrl", "T3_cbcswi1_swctrl","SGF6_xcbr1_tsd", "T1_cbcswi1_hvbctrl"]
+    cols_to_delete += ["distanz",]  
     # Получаем все xlsx файлы в текущей папке
     current_dir = os.getcwd()
     xlsx_files = [f for f in os.listdir(current_dir) if f.endswith('.xlsx')]

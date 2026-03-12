@@ -1,9 +1,5 @@
-# автоматическое тестирование ФСУ в части КСВ, КП, КА, УВ + СС, ПС
-# ДОБАВЛЕН УРОВ
-# использовался для генерации Тестов от 02.04.25 Версия 1.
-# доработанная версия от 21.07.25 Версия 2.
-# доработанная версия от 24.02.2026 Версия 3.0 (добавлены подсказки, загрузка/сохранение JSON)
-
+# автоматическое тестирование ФСУ в части МТЗ, КЦН, ПС + ЛЗТ, ТК ЗДЗ для исполнения Т
+# с графическим интерфейсом
 
 import tkinter as tk
 from tkinter import ttk
@@ -15,41 +11,38 @@ from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.worksheet.dimensions import ColumnDimension
+
+import itertools
 import openpyxl
 import json
-
-# Импортируем новый класс SWITCH3
-from lib2.PARTS.SWITCH3_inout import SWITCH
+from lib2.PARTS.MTZ_T_inout import partOfFsuInTOC
 from MainConfigHandler import MainConfigHandler
 from SettingsHandler import SettingsHandler
 from ToolTip import ToolTip
 
-class PartOfSwitchGUI:
+class PartOfFsuInTOC_GUI:
 
     # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
-    OUTPUT_PARAMS = [
-        "T_LVCBSUP_1_RCBF1_FuncEnabled", "T_LVCBSUP_1_RCBF1_FuncOperDisabled",
-        "T_LVCBSUP_1_RCBF1_UnpromptedCBopening", "T_LVCBSUP_1_RCBF1_FailureCB",
-        "T_LVCBSUP_1_RCBF1_CBFailureTrip", "T_LVCBSUP_1_RCBF1_FixingContacts", "T_LVCBSUP_1_RCBF1_BlkToCls",
-        "T_LVCBSUP_1_RCBF1_BlkToOpn", "T_LVCBSUP_1_RCBF1_ElmgLaunchFault", "T_LVCBSUP_1_RCBF1_ProtectCBCS",
-        "T_LVCBSUP_1_RCBF1_ProtectCBOS1", "T_LVCBSUP_1_RCBF1_ProtectCBOS2", "T_SWCTRL_1_SWCTRL_FuncEnabled",
-        "T_SWCTRL_1_SWCTRL_FuncOperDisabled", "T_SWCTRL_1_CBCSWI1_FuncEnabled", "T_SWCTRL_1_CBCSWI1_OpOpn",
-        "T_SWCTRL_1_CBCSWI1_SwitchInProgress", "T_SWCTRL_1_CBCSWI1_OpTmAlm",
-        "T_SWCTRL_1_CBCSWI1_OpCls", "T_SWCTRL_1_CBCSWI1_CBPosInterm",
-        "T_SWCTRL_1_CBCSWI1_PosOpn", "T_SWCTRL_1_CBCSWI1_PosCls",
-        "T_SWCTRL_1_CBCSWI1_CBPosFault", "T_HVBCTRL_1_CBCSWI1_FuncEnabled",
-        "T_HVBCTRL_1_CBCSWI1_FuncOperDisabled", "T_HVBCTRL_1_CBCSWI1_OpCls", "T_SwitchDevice_1_SD_FuncEnabled",
-        "T_SwitchDevice_1_SD_FuncOperDisabled", "T_SwitchDevice_1_CB1_FuncEnabled", "T_SwitchDevice_1_CB1_CBPosIntermed",
-        "T_SwitchDevice_1_CB1_CBPosOpn", "T_SwitchDevice_1_CB1_CBPosCls", "T_SwitchDevice_1_CB1_CBPosFaul",
-        "T_SwitchDevice_1_CB1_OpnCB_relay", "T_SwitchDevice_1_CB1_ClsCB_relay",
-        "T_SignAssembly_1_SwOperExcTim", "T_LVALH_1_CALH1_Alarm", "T_TPBRF_1_GENRBRF1_OpIn",
-        "T_HVTCBOFF_1_HVCBPTRC1_FuncEnabled", "T_HVTCBOFF_1_HVCBPTRC1_Op",
-        "T_HVTCBOFF_1_HVCBPTRC1_Tr"
-    ]
+    OUTPUT_PARAMS = [            
+            "LVRBVTR_1_RVTR1_FuncEnabled", "LVRBVTR_1_RVTR1_FuncOperDisabled", "LVRBVTR_1_RVTR1_DE_Upp", "LVRBVTR_1_RVTR1_DE_U2", "LVRBVTR_1_RVTR1_Str", "LVRBVTR_1_RVTR1_Alm",
+            "LVTTOC_1_PTOC1_FuncEnabled", "LVTTOC_1_PTOC1_FuncOperDisabled", "LVTTOC_1_PTOC1_IAStr", "LVTTOC_1_PTOC1_IBStr", "LVTTOC_1_PTOC1_ICStr",
+            "LVTTOC_1_PTOC1_Str", "LVTTOC_1_PTOC1_OpOnSignal", "LVTTOC_1_PTOC1_Op", "LVTTOC_1_PTOC1_DE_IA", "LVTTOC_1_PTOC1_DE_IB",
+            "LVTTOC_1_PTOC1_DE_IC", "LVTTOC_1_PTOC2_FuncEnabled", "LVTTOC_1_PTOC2_FuncOperDisabled", "LVTTOC_1_PTOC2_IAStr", "LVTTOC_1_PTOC2_IBStr",
+            "LVTTOC_1_PTOC2_ICStr", "LVTTOC_1_PTOC2_Str", "LVTTOC_1_PTOC2_OpOnSignal", "LVTTOC_1_PTOC2_Op", "LVTTOC_1_PTOC2_DE_IA",
+            "LVTTOC_1_PTOC2_DE_IB", "LVTTOC_1_PTOC2_DE_IC", "LVTTOC_1_PTOC3_FuncEnabled", "LVTTOC_1_PTOC3_FuncOperDisabled", "LVTTOC_1_PTOC3_IAStr",
+            "LVTTOC_1_PTOC3_IBStr", "LVTTOC_1_PTOC3_ICStr", "LVTTOC_1_PTOC3_Str", "LVTTOC_1_PTOC3_OpOnSignal", "LVTTOC_1_PTOC3_Op",
+            "LVTTOC_1_PTOC3_DE_IA", "LVTTOC_1_PTOC3_DE_IB", "LVTTOC_1_PTOC3_DE_IC", "LVTTOC_1_PTUV1_UndervoltStr",
+            "LVTTOC_1_PHAR1_PharmonicStrA", "LVTTOC_1_PHAR1_PharmonicStrB", "LVTTOC_1_PHAR1_PharmonicStrC", "LVTTOC_1_PHAR1_PharmonicStr", "LVTTOC_1_RBLC1_LbpBlkOp",
+            "LVTTOC_1_LVTTOC_Str", "TOFFLVLGC_1_PTRC1_FuncEnabled", "TOFFLVLGC_1_PTRC1_FuncOperDisabled", "TOFFLVLGC_1_PTRC1_Str", "TOFFLVLGC_1_PTRC1_Op", "TOFFLVLGC_1_LVCBRBLC1_FuncEnabled", "TOFFLVLGC_1_LVCBRBLC1_FuncOperDisabled", "TOFFLVLGC_1_LVCBRBLC1_BlkOp",
+            "TOFFLVLGC_1_RBRE1_FuncEnabled", "TOFFLVLGC_1_RBRE1_FuncOperDisabled", "TOFFLVLGC_1_RBRE1_BlkOp", "T_LVALH_1_CALH1_Alarm", 
+            "T_LVARCTOC_1_PTOC1_Str", 
+            "TTOCLGC_UIRZ_1_PTRC1_Str", 
+            "IAB", "dIAB", "IBC", "dIBC", "ICA", "dICA", "I2", "I0", "I1", "UAB_ptuv1", "UBC_ptuv1", "UCA_ptuv1", "U2_ptuv1", "U0_ptuv1", "U1_ptuv1"
+            ]
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. v2.0 21.07.25, v3.0 24.02.2026")
+        self.root.title("Тестирование ФСУ (исполнение Т) в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, ТК ЗДЗ, ЛЗТ v2.0 от 21.05.25, v2.1 от 25.07.25, v3 от 2026")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -65,34 +58,39 @@ class PartOfSwitchGUI:
             print(f"⚠️ Не удалось загрузить meta.json: {e}")
             self.meta_handler = None
 
-        # Инициализация переменных для параметров SGF, настроек, входных и выходных значений
+        # Инициализация переменных для SGF параметров, настроек, входных и выходных значений
         self.sgf_params = {
-            "T_LVCBSUP_1_RCBF1_EnaDis": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_BlkToClsFrmLowIsol": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_BlkFrmCBPosFault": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_RstFrmCLS": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_OCcircuitFailureCtrl": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_ConditionForElmgLaunchFault": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_KnobCtrl": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_BlkCtrlFrmInsAlm": tk.IntVar(value=0),
-            "T_SWCTRL_1_SWCTRL_EnaDis": tk.IntVar(value=0),
-            "T_SWCTRL_1_CBCSWI1_EnaDis": tk.IntVar(value=0),
-            "T_SWCTRL_1_CBCSWI1_BlkToClsFrmFailureTrip": tk.IntVar(value=0),
-            "T_HVBCTRL_1_CBCSWI1_EnaDis": tk.IntVar(value=0),
-            "T_SwitchDevice_1_SD_EnaDis": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_EnaDis": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_TPOpnResetCtrl": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_CBOSoperationCtrl": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_TPClsResetCtrl": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_CBCSoperationCtrl": tk.IntVar(value=0),
-            #"SGF6_xcbr1_tsd": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_EnaDis": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_BlkToOpnSpeedUp": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_CurrentPickUp": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_CBOSTypeCtrl": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_ActUpSwitch": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_TypeOfCtrlCurrent": tk.IntVar(value=0),
-            "T_HVTCBOFF_1_HVCBPTRC1_EnaDis": tk.IntVar(value=0),
+            "LVTTOC_1_KschemeCT": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_EnaDis": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_VolMod": tk.IntVar(value=1),
+            "LVTTOC_1_PTOC1_MICMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_ExtVFlMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_VCMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_SBMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_EnaDis": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_VolMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_MICMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_ExtVFlMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_VCMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_SBMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_EnaDis": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_VolMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_MICMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_ExtVFlMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_VCMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_SBMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTUV1_VoltStrCond": tk.IntVar(value=0),
+            "LVTTOC_1_PHAR1_RegBlock": tk.IntVar(value=0),
+            "LVTTOC_1_RBLC1_StepSel": tk.IntVar(value=0),
+            "LVRBVTR_1_RVTR1_EnaDis": tk.IntVar(value=0),
+            "LVRBVTR_1_RVTR1_StrMod": tk.IntVar(value=0),
+            "TOFFLVLGC_1_PTRC1_EnaDis": tk.IntVar(value=0), 
+            "TOFFLVLGC_1_RBRE1_EnaDis": tk.IntVar(value=0),
+            "TOFFLVLGC_1_RBRE1_PVOC2_Ctrl": tk.IntVar(value=0),
+            "TOFFLVLGC_1_RBRE1_PVOC3_Ctrl": tk.IntVar(value=0),
+            "TOFFLVLGC_1_LVCBRBLC1_EnaDis": tk.IntVar(value=0),
+            "TOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl": tk.IntVar(value=0),
+            "TOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_GASSign_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_LowIsolGAS_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_GASBlock_Ctl": tk.IntVar(value=0),
@@ -106,69 +104,69 @@ class PartOfSwitchGUI:
             "T_LVALH_1_CALH1_CtlCir_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_TestBlock_Ctl": tk.IntVar(value=0),
             "T_LVALH_1_CALH1_SwOperExcTim_Ctl": tk.IntVar(value=0),
-            "T_LVALH_1_CALH1_ExtSignGen_Ctl": tk.IntVar(value=0),
+            "T_LVALH_1_CALH1_ExtSignGen_Ctl": tk.IntVar(value=0),            
+            "T_LVARCTOC_1_PTOC1_EnaDis": tk.IntVar(value=0),
+            "T_LVARCTOC_1_PTOC1_StrMod": tk.IntVar(value=0),
+            "TTOCLGC_UIRZ_1_PTRC1_EnaDis": tk.IntVar(value=0),
+            "TTOCLGC_UIRZ_1_PTRC1_LVTPTOC2_Ctrl": tk.IntVar(value=0),
+            "TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl": tk.IntVar(value=0), 
+            #"Номинальный ток входа": tk.IntVar(value=5),            
         }
 
         self.settings = {
-            "T_LVCBSUP_1_RCBF1_T_EnBlk": tk.DoubleVar(value=1),
-            "T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg": tk.DoubleVar(value=1),
-            "T_LVCBSUP_1_RCBF1_T_ElmgWorking": tk.DoubleVar(value=1),
-            "T_SWCTRL_1_CBCSWI1_TchangeCB": tk.DoubleVar(value=1),
-            "T_SWCTRL_1_CBCSWI1_Tblk": tk.DoubleVar(value=1),
-            #"T3_cbcswi1_swctrl": tk.DoubleVar(value=1),
-            #"T4_cbcswi1_swctrl": tk.DoubleVar(value=1),
-            #"T1_cbcswi1_hvbctrl": tk.DoubleVar(value=1),
-            "T_SwitchDevice_1_CB1_TonFaul": tk.DoubleVar(value=1),
-            "T_SwitchDevice_1_CB1_OpnTPtime": tk.DoubleVar(value=1),
-            "T_SwitchDevice_1_CB1_ClsTPtime": tk.DoubleVar(value=1),
-            "T_SwitchDevice_1_CB1_TextenCls": tk.DoubleVar(value=1),
-            "T_TPBRF_1_GENRBRF1_Top": tk.DoubleVar(value=1),
-            "T_TPBRF_1_GENRBRF1_Iop": tk.DoubleVar(value=0.2),
-            "T_HVTCBOFF_1_HVCBPTRC1_Tpulse": tk.DoubleVar(value=1),            
+            "LVTTOC_1_PTOC1_Top": tk.DoubleVar(value=1),
+            "LVTTOC_1_PTOC1_Iop": tk.DoubleVar(value=0.2),
+            "LVTTOC_1_PTOC1_IopCoars": tk.DoubleVar(value=0.6),
+            "LVTTOC_1_PTOC2_Top": tk.DoubleVar(value=1),
+            "LVTTOC_1_PTOC2_Iop": tk.DoubleVar(value=0.2),
+            "LVTTOC_1_PTOC2_IopCoars": tk.DoubleVar(value=0.6),
+            "LVTTOC_1_PTOC3_Top": tk.DoubleVar(value=1),
+            "LVTTOC_1_PTOC3_Iop": tk.DoubleVar(value=0.2),
+            "LVTTOC_1_PTOC3_IopCoars": tk.DoubleVar(value=0.6),
+            "LVTTOC_1_PTUV1_Uop": tk.DoubleVar(value=50),
+            "LVTTOC_1_PTUV1_U2op": tk.DoubleVar(value=20),
+            "LVTTOC_1_PHAR1_Iop": tk.DoubleVar(value=1),
+            "LVTTOC_1_PHAR1_PhStr": tk.DoubleVar(value=40),
+            "LVRBVTR_1_RVTR1_Uop": tk.DoubleVar(value=50),
+            "LVRBVTR_1_RVTR1_U2op": tk.DoubleVar(value=20),
+            "LVRBVTR_1_RVTR1_Top": tk.DoubleVar(value=1),
+            "T_LVARCTOC_1_PTOC1_Iop": tk.DoubleVar(value=1), 
+            "TTOCLGC_UIRZ_1_PTRC1_Top": tk.DoubleVar(value=1),                       
         }
 
         self.input_vars = {
             "DI_ControllerDisable": tk.IntVar(value=0),
-            "T_LVCBSUP_1_LVCBSUP_operOutFunction": tk.IntVar(value=0),
-            "CBCS_CBOS1_OCControl": tk.IntVar(value=0),
-            "CBOS2_OCControl": tk.IntVar(value=0),
-            #"lovn_otkl": tk.IntVar(value=0),
-            #"urov_nasebya": tk.IntVar(value=0),
-            "InsTr": tk.IntVar(value=0),
-            "LowIns": tk.IntVar(value=0),
-            "EnBlk": tk.IntVar(value=0),
-            "Reset": tk.IntVar(value=0),
-            "OpnCBFrmKnob": tk.IntVar(value=0),
-            "OperOpnCB": tk.IntVar(value=0),
-            "T_LVCBSUP_1_ClsResourceExcess": tk.IntVar(value=0),
-            "ExternalBlkCB": tk.IntVar(value=0),
-            "CBCSCtrl": tk.IntVar(value=0),
-            "CBOS1Ctrl": tk.IntVar(value=0),
-            "CBOS2Ctrl": tk.IntVar(value=0),
-            "CBCSWorking": tk.IntVar(value=0),
-            "CBOS1Working": tk.IntVar(value=0),
-            "CBOS2Working": tk.IntVar(value=0),
-            "T_SWCTRL_1_SWCTRL_operOutFunction": tk.IntVar(value=0),
-            "OpnCBFrmCtrlPanel": tk.IntVar(value=0),
-            "OpnCBFrm_HMI": tk.IntVar(value=0),
-            "LocKey": tk.IntVar(value=0),
-            "OpnCBFrmRemoteCtrl": tk.IntVar(value=0),
-            "T_SWCTRL_1_OpnCBFrm_ACS": tk.IntVar(value=0),
-            "KeyLocDist": tk.IntVar(value=0),
-            "ClsCBFrmCtrlPanel": tk.IntVar(value=0),
-            "ClsCBFrm_HMI": tk.IntVar(value=0),
-            #"Remote": tk.IntVar(value=1),
-            "ClsCBFrmRemoteCtrl": tk.IntVar(value=0),
-            "T_SWCTRL_1_ClsCBFrm_ACS": tk.IntVar(value=0),
-            "CBPosOpn": tk.IntVar(value=0),
-            "CBPosCls": tk.IntVar(value=0),
-            "T_HVBCTRL_1_HVBCTRL_operOutFunction": tk.IntVar(value=0),
-            "OperClsCB": tk.IntVar(value=0),
-            "T_SwitchDevice_1_SD_operOutFunction": tk.IntVar(value=0),
-            #"lovn_lo_otkl_avar": tk.IntVar(value=0),
-            "ExternalRBRFStart": tk.IntVar(value=0),
-            "OpExtOfARC_NN": tk.IntVar(value=0),
-            "OpExtOfCBFP_NN": tk.IntVar(value=0),
+            "LVTTOC_1_LVTTOC_operOutFunction": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_operOutLevel": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_operOutLevel": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_operOutLevel": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_OpOnSignal": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC2_OpOnSignal": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC3_OpOnSignal": tk.IntVar(value=0),
+            "LVTTOC_1_SBnnPosCls": tk.IntVar(value=0),
+            "IA": tk.DoubleVar(value=0),
+            "dIA": tk.DoubleVar(value=0),
+            "IB": tk.DoubleVar(value=0),
+            "dIB": tk.DoubleVar(value=240),
+            "IC": tk.DoubleVar(value=0),
+            "dIC": tk.DoubleVar(value=120),
+            "UA1": tk.DoubleVar(value=58),
+            "dUA1": tk.DoubleVar(value=0),
+            "UB1": tk.DoubleVar(value=58),
+            "dUB1": tk.DoubleVar(value=240),
+            "UC1": tk.DoubleVar(value=58),
+            "dUC1": tk.DoubleVar(value=120),
+            "IA2harm": tk.DoubleVar(value=0),
+            "IB2harm": tk.DoubleVar(value=0),
+            "IC2harm": tk.DoubleVar(value=0),
+            "LVTTOC_1_OutVoltStr": tk.IntVar(value=0),            
+            "LVTTOC_1_CBnnPosCls": tk.IntVar(value=0),
+            "LVRBVTR_1_LVRBVTR_operOutFunction": tk.IntVar(value=0),
+            "LVRBVTR_1_OutBlkV": tk.IntVar(value=0),
+            "TOFFLVLGC_1_TOFFLVLGC_operOutFunction": tk.IntVar(value=0),
+            "TOFFLVLGC_1_PTRC1_operOutLevel": tk.IntVar(value=0),
+            "TOFFLVLGC_1_RBRE1_operOutLevel": tk.IntVar(value=0),
+            "TOFFLVLGC_1_LVCBRBLC1_operOutLevel": tk.IntVar(value=0),
         }
 
         self.output_labels = {}
@@ -203,6 +201,7 @@ class PartOfSwitchGUI:
         # Frame for SGF parameters
         sgf_frame = ttk.LabelFrame(self.root, text="SGF Parameters")
         sgf_frame.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
         row = 0
         col = 0
         for key, var in self.sgf_params.items():
@@ -214,19 +213,32 @@ class PartOfSwitchGUI:
             if tooltip:
                 ToolTip(label, tooltip)
             
-            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
+            if key=="LVTTOC_1_PTOC1_SBMod" or key=="LVTTOC_1_PTOC2_SBMod" or key=="LVTTOC_1_PTOC3_SBMod" or key=="LVTTOC_1_PTUV1_VoltStrCond" or key=="SGF1_ptuv2_lvttoc":
+                ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
+            elif key=="LVTTOC_1_PTOC1_VolMod" or key=="LVTTOC_1_PTOC2_VolMod" or key=="LVTTOC_1_PTOC3_VolMod":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2], state="readonly").grid(row=row, column=col + 1)
+            elif key=="LVTTOC_1_PTOC1_ExtVFlMod" or key=="LVTTOC_1_PTOC2_ExtVFlMod" or key=="LVTTOC_1_PTOC3_ExtVFlMod":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2], state="readonly").grid(row=row, column=col + 1)                
+            elif key=="LVTTOC_1_RBLC1_StepSel":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2, 3, 4], state="readonly").grid(row=row, column=col + 1)                
+            elif key=="T_LVARCTOC_1_PTOC1_StrMod":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)
+            elif key=='Номинальный ток входа':
+                ttk.Combobox(sgf_frame, textvariable=var, values=[1, 5], state="readonly").grid(row=row, column=col + 1)                   
+            else:
+                ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
             row += 1
-            if row >= 10:
+            if row >= 11:
                 row = 0
                 col += 2
 
         # Frame for settings
         settings_frame = ttk.LabelFrame(self.root, text="Settings")
         settings_frame.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+
         row = 0
         col = 0
         for key, var in self.settings.items():
-
             label = ttk.Label(settings_frame, text=key)
             label.grid(row=row, column=col, sticky="w")
             
@@ -247,14 +259,19 @@ class PartOfSwitchGUI:
 
         # Button Init
         ttk.Button(buttons_frame, text="Init", command=self.init_part).grid(row=0, column=0, pady=10)
+
         # Button Start
         ttk.Button(buttons_frame, text="Start", command=self.start_polling).grid(row=0, column=1, pady=10)
+
         # Button Stop
         ttk.Button(buttons_frame, text="Stop", command=self.stop_polling).grid(row=0, column=2, pady=10)
+
         # Button Save
         ttk.Button(buttons_frame, text="Save", command=self.save_to_excel).grid(row=0, column=3, pady=10)
+
         # Button Load
         ttk.Button(buttons_frame, text="Load", command=self.load_from_excel).grid(row=0, column=4, pady=10)
+        
         # Button Load JSON
         ttk.Button(buttons_frame, text="Load JSON", command=self.load_settings_from_json).grid(row=0, column=5, padx=2, pady=5)
         # Button Save JSON
@@ -263,6 +280,7 @@ class PartOfSwitchGUI:
         # Поля для задания имени файла
         ttk.Label(buttons_frame, text="Функция:").grid(row=0, column=7, padx=5, pady=5)
         ttk.Entry(buttons_frame, textvariable=self.function_name, width=15).grid(row=0, column=8, padx=5, pady=5)
+
         ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=9, padx=5, pady=5)
         ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=10, padx=5, pady=5)
 
@@ -273,9 +291,9 @@ class PartOfSwitchGUI:
         # Frame for input values
         input_frame = ttk.LabelFrame(self.root, text="Inputs")
         input_frame.grid(row=3, column=0, padx=10, pady=10, sticky="w")
+
         row = 0
         col = 0
-
         for key, var in self.input_vars.items():
             if isinstance(var, tk.IntVar):
                 cb = ttk.Checkbutton(input_frame, text=key, variable=var)
@@ -295,9 +313,8 @@ class PartOfSwitchGUI:
                     ToolTip(label, tooltip)
                 
                 ttk.Entry(input_frame, textvariable=var).grid(row=row, column=col + 1)
-
             row += 1
-            if row >= 5:
+            if row >= 4:
                 row = 0
                 col += 2
 
@@ -308,10 +325,9 @@ class PartOfSwitchGUI:
         row = 0
         col = 0
         for output in self.OUTPUT_PARAMS:
-            label = ttk.Label(output_frame, text=output, width=35, anchor="w")
+            label = ttk.Label(output_frame, text=output, width=25, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
-
 
             # === ДОБАВЛЯЕМ TOOLTIP ИЗ META.JSON ===
             tooltip = self.tooltips.get(output)
@@ -320,78 +336,76 @@ class PartOfSwitchGUI:
 
 
             row += 1
-            if row >= 32:
+            if row >= 28:
                 row = 0
                 col += 2
 
     def init_part(self):
-        self.part = SWITCH(
-            SGF1_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_EnaDis"].get(),
-            SGF2_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_BlkToClsFrmLowIsol"].get(),
-            SGF3_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_BlkFrmCBPosFault"].get(),
-            SGF4_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_RstFrmCLS"].get(),
-            SGF5_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_OCcircuitFailureCtrl"].get(),
-            SGF6_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_ConditionForElmgLaunchFault"].get(),
-            SGF7_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_KnobCtrl"].get(),
-            SGF8_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_BlkCtrlFrmInsAlm"].get(),
-            T1_rcbf1_lvcbsup=self.settings["T_LVCBSUP_1_RCBF1_T_EnBlk"].get()/1000 if self.settings["T_LVCBSUP_1_RCBF1_T_EnBlk"].get()>=100 else self.settings["T_LVCBSUP_1_RCBF1_T_EnBlk"].get(),#   self.settings["T_LVCBSUP_1_RCBF1_T_EnBlk"].get(),
-            T2_rcbf1_lvcbsup=self.settings["T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg"].get()/1000 if self.settings["T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg"].get()>=100 else self.settings["T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg"].get(),#    self.settings["T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg"].get(),
-            T3_rcbf1_lvcbsup=self.settings["T_LVCBSUP_1_RCBF1_T_ElmgWorking"].get()/1000 if self.settings["T_LVCBSUP_1_RCBF1_T_ElmgWorking"].get()>=100 else self.settings["T_LVCBSUP_1_RCBF1_T_ElmgWorking"].get(),#   self.settings["T_LVCBSUP_1_RCBF1_T_ElmgWorking"].get(),
-            SGF1_swctrl=self.sgf_params["T_SWCTRL_1_SWCTRL_EnaDis"].get(),
-            SGF1_cbcswi1_swctrl=self.sgf_params["T_SWCTRL_1_CBCSWI1_EnaDis"].get(),
-            SGF2_cbcswi1_swctrl=self.sgf_params["T_SWCTRL_1_CBCSWI1_BlkToClsFrmFailureTrip"].get(),
-
-            T1_cbcswi1_swctrl=self.settings["T_SWCTRL_1_CBCSWI1_TchangeCB"].get()/1000 if self.settings["T_SWCTRL_1_CBCSWI1_TchangeCB"].get()>=100 else self.settings["T_SWCTRL_1_CBCSWI1_TchangeCB"].get(),# self.settings["T_SWCTRL_1_CBCSWI1_TchangeCB"].get(),
-            T2_cbcswi1_swctrl=self.settings["T_SWCTRL_1_CBCSWI1_Tblk"].get()/1000 if self.settings["T_SWCTRL_1_CBCSWI1_Tblk"].get()>=100 else self.settings["T_SWCTRL_1_CBCSWI1_Tblk"].get(),# self.settings["T_SWCTRL_1_CBCSWI1_Tblk"].get(),
-
-            T3_cbcswi1_swctrl=0.5, #self.settings["T3_cbcswi1_swctrl"].get(),
-            T4_cbcswi1_swctr=0.5, #self.settings["T4_cbcswi1_swctrl"].get(),
-            SGF1_cbcswi1_hvbctrl=self.sgf_params["T_HVBCTRL_1_CBCSWI1_EnaDis"].get(),
-            T1_cbcswi1_hvbctrl=0.5, #self.settings["T1_cbcswi1_hvbctrl"].get(),
-            SGF1_tsd=self.sgf_params["T_SwitchDevice_1_SD_EnaDis"].get(),
-            SGF1_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_EnaDis"].get(),
-            SGF2_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_TPOpnResetCtrl"].get(),
-            SGF3_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_CBOSoperationCtrl"].get(),
-            SGF4_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_TPClsResetCtrl"].get(),
-            SGF5_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_CBCSoperationCtrl"].get(),
-            #SGF6_xcbr1_tsd=self.sgf_params["SGF6_xcbr1_tsd"].get(),
-
-            T1_xcbr1_tsd= self.settings["T_SwitchDevice_1_CB1_TonFaul"].get()/1000 if self.settings["T_SwitchDevice_1_CB1_TonFaul"].get()>=100 else self.settings["T_SwitchDevice_1_CB1_TonFaul"].get(),# self.settings["T_SwitchDevice_1_CB1_TonFaul"].get(),
-            T2_xcbr1_tsd= self.settings["T_SwitchDevice_1_CB1_OpnTPtime"].get()/1000 if self.settings["T_SwitchDevice_1_CB1_OpnTPtime"].get()>=100 else self.settings["T_SwitchDevice_1_CB1_OpnTPtime"].get(),#self.settings["T_SwitchDevice_1_CB1_OpnTPtime"].get(),
-            T3_xcbr1_tsd= self.settings["T_SwitchDevice_1_CB1_ClsTPtime"].get()/1000 if self.settings["T_SwitchDevice_1_CB1_ClsTPtime"].get()>=100 else self.settings["T_SwitchDevice_1_CB1_ClsTPtime"].get(),#self.settings["T_SwitchDevice_1_CB1_ClsTPtime"].get(),
-            T4_xcbr1_tsd= self.settings["T_SwitchDevice_1_CB1_TextenCls"].get()/1000 if self.settings["T_SwitchDevice_1_CB1_TextenCls"].get()>=100 else self.settings["T_SwitchDevice_1_CB1_TextenCls"].get(),#self.settings["T_SwitchDevice_1_CB1_TextenCls"].get(),
-
-            SGF1_lvalh=self.sgf_params["T_LVALH_1_CALH1_GASSign_Ctl"].get(),
-            SGF2_lvalh=self.sgf_params["T_LVALH_1_CALH1_LowIsolGAS_Ctl"].get(),
-            SGF3_lvalh=self.sgf_params["T_LVALH_1_CALH1_GASBlock_Ctl"].get(),
-            SGF4_lvalh=self.sgf_params["T_LVALH_1_CALH1_TECHSign_Ctl"].get(),
-            SGF5_lvalh=self.sgf_params["T_LVALH_1_CALH1_LowIsolTECH_Ctl"].get(),
-            SGF6_lvalh=self.sgf_params["T_LVALH_1_CALH1_TECHBlock_Ctl"].get(),
-            SGF7_lvalh=self.sgf_params["T_LVALH_1_CALH1_ALMSign_Ctl"].get(),
-            SGF8_lvalh=self.sgf_params["T_LVALH_1_CALH1_OCSign_Ctl"].get(),
-            SGF9_lvalh=self.sgf_params["T_LVALH_1_CALH1_OCnnSign_Ctl"].get(),
-            SGF10_lvalh=self.sgf_params["T_LVALH_1_CALH1_OpExt_Ctl"].get(),
-            SGF11_lvalh=self.sgf_params["T_LVALH_1_CALH1_CtlCir_Ctl"].get(),
-            SGF12_lvalh=self.sgf_params["T_LVALH_1_CALH1_TestBlock_Ctl"].get(),
-            SGF13_lvalh=self.sgf_params["T_LVALH_1_CALH1_SwOperExcTim_Ctl"].get(),
-            SGF14_lvalh=self.sgf_params["T_LVALH_1_CALH1_ExtSignGen_Ctl"].get(),
-            SGF1_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_EnaDis"].get(),
-            SGF2_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_BlkToOpnSpeedUp"].get(),
-            SGF3_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_CurrentPickUp"].get(),
-            SGF4_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_CBOSTypeCtrl"].get(),
-            SGF5_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_ActUpSwitch"].get(),
-            SGF6_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_TypeOfCtrlCurrent"].get(),
-            T1_rbrf1_tpbrf= self.settings["T_TPBRF_1_GENRBRF1_Top"].get()/1000 if self.settings["T_TPBRF_1_GENRBRF1_Top"].get()>=100 else self.settings["T_TPBRF_1_GENRBRF1_Top"].get(),#  self.settings["T_TPBRF_1_GENRBRF1_Top"].get(),
-            Iset_rbrf1_tpbrf=self.settings["T_TPBRF_1_GENRBRF1_Iop"].get(),
-            SGF1_hvcbptrc1_hvtcboff=self.sgf_params["T_HVTCBOFF_1_HVCBPTRC1_EnaDis"].get(),
-            T1_hvcbptrc1_hvtcboff= self.settings["T_HVTCBOFF_1_HVCBPTRC1_Tpulse"].get()/1000 if self.settings["T_HVTCBOFF_1_HVCBPTRC1_Tpulse"].get()>=100 else self.settings["T_HVTCBOFF_1_HVCBPTRC1_Tpulse"].get(),# self.settings["T_HVTCBOFF_1_HVCBPTRC1_Tpulse"].get(),
+        self.part = partOfFsuInTOC(
+            SGF1=self.sgf_params["LVTTOC_1_KschemeCT"].get(),
+            SGF1_ptoc1=self.sgf_params["LVTTOC_1_PTOC1_EnaDis"].get(),
+            SGF2_ptoc1=self.sgf_params["LVTTOC_1_PTOC1_VolMod"].get(),
+            SGF3_ptoc1=self.sgf_params["LVTTOC_1_PTOC1_MICMod"].get(),
+            SGF4_ptoc1=self.sgf_params["LVTTOC_1_PTOC1_ExtVFlMod"].get(),
+            SGF5_ptoc1=self.sgf_params["LVTTOC_1_PTOC1_VCMod"].get(),
+            SGF6_ptoc1=self.sgf_params["LVTTOC_1_PTOC1_SBMod"].get(),
+            T1_ptoc1=self.settings["LVTTOC_1_PTOC1_Top"].get(),
+            Iset_ptoc1=self.settings["LVTTOC_1_PTOC1_Iop"].get(),
+            Icoarse_ptoc1=self.settings["LVTTOC_1_PTOC1_IopCoars"].get(),
+            SGF1_ptoc2=self.sgf_params["LVTTOC_1_PTOC2_EnaDis"].get(),
+            SGF2_ptoc2=self.sgf_params["LVTTOC_1_PTOC2_VolMod"].get(),
+            SGF3_ptoc2=self.sgf_params["LVTTOC_1_PTOC2_MICMod"].get(),
+            SGF4_ptoc2=self.sgf_params["LVTTOC_1_PTOC2_ExtVFlMod"].get(),
+            SGF5_ptoc2=self.sgf_params["LVTTOC_1_PTOC2_VCMod"].get(),
+            SGF6_ptoc2=self.sgf_params["LVTTOC_1_PTOC2_SBMod"].get(),
+            T1_ptoc2=self.settings["LVTTOC_1_PTOC2_Top"].get(),
+            Iset_ptoc2=self.settings["LVTTOC_1_PTOC2_Iop"].get(),
+            Icoarse_ptoc2=self.settings["LVTTOC_1_PTOC2_IopCoars"].get(),
+            SGF1_ptoc3=self.sgf_params["LVTTOC_1_PTOC3_EnaDis"].get(),
+            SGF2_ptoc3=self.sgf_params["LVTTOC_1_PTOC3_VolMod"].get(),
+            SGF3_ptoc3=self.sgf_params["LVTTOC_1_PTOC3_MICMod"].get(),
+            SGF4_ptoc3=self.sgf_params["LVTTOC_1_PTOC3_ExtVFlMod"].get(),
+            SGF5_ptoc3=self.sgf_params["LVTTOC_1_PTOC3_VCMod"].get(),
+            SGF6_ptoc3=self.sgf_params["LVTTOC_1_PTOC3_SBMod"].get(),
+            T1_ptoc3=self.settings["LVTTOC_1_PTOC3_Top"].get(),
+            Iset_ptoc3=self.settings["LVTTOC_1_PTOC3_Iop"].get(),
+            Icoarse_ptoc3=self.settings["LVTTOC_1_PTOC3_IopCoars"].get(),
+            SGF1_ptuv1=self.sgf_params["LVTTOC_1_PTUV1_VoltStrCond"].get(),
+            Uop_ptuv1=self.settings["LVTTOC_1_PTUV1_Uop"].get(),
+            U2op_ptuv1=self.settings["LVTTOC_1_PTUV1_U2op"].get(),
+            SGF1_phar1=self.sgf_params["LVTTOC_1_PHAR1_RegBlock"].get(),
+            Imax_phar1=self.settings["LVTTOC_1_PHAR1_Iop"].get(),
+            Ratio_phar1=self.settings["LVTTOC_1_PHAR1_PhStr"].get(),
+            SGF1_rblc1=self.sgf_params["LVTTOC_1_RBLC1_StepSel"].get(),
+            SGF1_lvrbvtr1=self.sgf_params["LVRBVTR_1_RVTR1_EnaDis"].get(),
+            SGF2_lvrbvtr1=self.sgf_params["LVRBVTR_1_RVTR1_StrMod"].get(),
+            u_min_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Uop"].get(),
+            u2_max_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_U2op"].get(),
+            t1_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Top"].get(),
+            SGF1_ptrc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_PTRC1_EnaDis"].get(),
+            SGF1_rbre1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_RBRE1_EnaDis"].get(), 
+            SGF2_rbre1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_RBRE1_PVOC2_Ctrl"].get(), 
+            SGF3_rbre1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_RBRE1_PVOC3_Ctrl"].get(), 
+            SGF1_rblc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_LVCBRBLC1_EnaDis"].get(), 
+            SGF2_rblc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl"].get(), 
+            SGF3_rblc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl"].get(),
+            SGF1_ptoc1_lvarctoc=self.sgf_params["T_LVARCTOC_1_PTOC1_EnaDis"].get(),
+            SGF2_ptoc1_lvarctoc=self.sgf_params["T_LVARCTOC_1_PTOC1_StrMod"].get(),
+            SGF1_ptrc1_ttoclgc=self.sgf_params["TTOCLGC_UIRZ_1_PTRC1_EnaDis"].get(),
+            SGF2_ptrc1_ttoclgc=self.sgf_params["TTOCLGC_UIRZ_1_PTRC1_LVTPTOC2_Ctrl"].get(),
+            SGF3_ptrc1_ttoclgc=self.sgf_params["TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl"].get(),
+            Iset_ptoc1_lvarctoc=self.settings["T_LVARCTOC_1_PTOC1_Iop"].get(),
+            Inom=5, #self.sgf_params["Номинальный ток входа"].get(), Убрал чтобы в уставки М300 не влезало
+            T1_ptrc1_ttoclgc=self.settings["TTOCLGC_UIRZ_1_PTRC1_Top"].get() 
         )
-        print("part_SWITCH initialized")
+
+        print("partOfFsuInTOC initialized")
 
     def start_polling(self):
         if self.part is None:
-            print("part_SWITCH not initialized")
+            print("partOfFsuInTOC not initialized")
             return
+
         self.is_polling = True
         self.polling_thread = threading.Thread(target=self.poll_inputs, daemon=True)
         self.polling_thread.start()
@@ -405,32 +419,33 @@ class PartOfSwitchGUI:
     def poll_inputs(self):
         while self.is_polling:
             inputs = {key: var.get() for key, var in self.input_vars.items()}
+            #print(inputs)
             result = self.part.Step(**inputs)
 
             # Обновление выходных значений
             for output, value in zip(self.output_labels.keys(), result):
                 label = self.output_labels[output]
-                #if isinstance(label, tuple):
-                #print(f"{output}: {value}")
+                #label.config(text=f"{output}: {int(value)}")
                 label.config(text=f"{output}: {round(value, 2)}")
-
-                if int(value) != 0:
+                if int(value) != 0 or round(float(value),2)!=0.0:
                     label.config(background="red", foreground="white")
                 else:
                     label.config(background="green", foreground="white")
 
-            time.sleep(0.3)  # Время шага опроса
+            time.sleep(0.3) # Время шага опроса
             self.status_label.config(text="Шаг", background="white", foreground="white")
-            time.sleep(0.05)  # Время шага опроса
+            time.sleep(0.05) # Время шага опроса
             self.status_label.config(text="Шаг", background="#F0F0F0", foreground="#F0F0F0")
 
     def save_to_excel(self):
+
         # Формируем имя файла
         function = self.function_name.get().strip()
         mode = self.mode_name.get().strip()
         if not function or not mode:
             print("Поля 'Функция' и 'Режим' должны быть заполнены")
             return
+
         output_file = f"{function}_{mode}.xlsx"
 
         # Создаем DataFrame для каждой группы данных
@@ -448,6 +463,7 @@ class PartOfSwitchGUI:
         })
 
         # Сохраняем данные в Excel
+        #output_file = "data.xlsx"
         with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
             sgf_df.to_excel(writer, sheet_name="SGF_Parameters", index=False)
             settings_df.to_excel(writer, sheet_name="Settings", index=False)
@@ -456,56 +472,72 @@ class PartOfSwitchGUI:
 
         # Применяем форматирование к файлу Excel
         wb = openpyxl.load_workbook(output_file)
+
+        # Определяем красный цвет для заливки
         red_fill = PatternFill(start_color="FF0000", end_color="FF0000", fill_type="solid")
 
         def format_sheet(sheet, df):
             """Функция для форматирования листа."""
             for col_num, column in enumerate(sheet.columns, start=1):
+                # Устанавливаем ширину столбца
                 column_letter = openpyxl.utils.get_column_letter(col_num)
                 sheet.column_dimensions[column_letter].width = 20
+
+                # Проверяем значения и применяем форматирование
                 for row_num, cell in enumerate(column, start=1):
                     if row_num == 1:  # Пропускаем заголовки
                         continue
                     try:
-                        value = float(cell.value)
+                        value = float(cell.value)  # Преобразуем значение в число
                         if value != 0:
-                            cell.fill = red_fill
+                            cell.fill = red_fill  # Выделяем красным, если значение не равно 0
                     except (ValueError, TypeError):
-                        pass
+                        pass  # Игнорируем ошибки преобразования
 
+        # Применяем форматирование к каждому листу
         format_sheet(wb["SGF_Parameters"], sgf_df)
         format_sheet(wb["Settings"], settings_df)
         format_sheet(wb["Inputs"], inputs_df)
         format_sheet(wb["Outputs"], outputs_df)
 
+        # Сохраняем изменения
         wb.save(output_file)
+
         print(f"Data saved to {output_file} with formatting")
 
     def load_from_excel(self):
+        # Выбор файла для загрузки
         file_path = askopenfilename(filetypes=[("Excel files", "*.xlsx")])
         if not file_path:
             return
+
         try:
+            # Чтение данных из Excel
             xls = pd.ExcelFile(file_path)
+
+            # Загрузка SGF Parameters
             sgf_df = pd.read_excel(xls, sheet_name="SGF_Parameters")
             for key, var in self.sgf_params.items():
                 if key in sgf_df.columns:
                     var.set(sgf_df.at[0, key])
 
-            settings_df = pd.read_excel(xls, sheet_name="Settings")
-            for key, var in self.settings.items():
-                if key in settings_df.columns:
-                    var.set(settings_df.at[0, key])
-
+            # Загрузка Inputs
             inputs_df = pd.read_excel(xls, sheet_name="Inputs")
             for key, var in self.input_vars.items():
                 if key in inputs_df.columns:
                     var.set(inputs_df.at[0, key])
 
+            # Загрузка Settings
+            settings_df = pd.read_excel(xls, sheet_name="Settings")
+            for key, var in self.settings.items():
+                if key in settings_df.columns:
+                    var.set(settings_df.at[0, key])                    
+
             print("Data loaded successfully")
+
         except Exception as e:
             print(f"Error loading data: {e}")
-
+            
     # === МЕТОДЫ ДЛЯ РАБОТЫ С JSON ФАЙЛАМИ УСТАВОК ===
     
     def load_settings_from_json(self):
@@ -706,12 +738,11 @@ class PartOfSwitchGUI:
             import traceback
             traceback.print_exc()
 
-
     def _get_output_names(self):
-        return self.OUTPUT_PARAMS       
+        return self.OUTPUT_PARAMS     
 
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = PartOfSwitchGUI(root)
+    app = PartOfFsuInTOC_GUI(root)
     root.mainloop()

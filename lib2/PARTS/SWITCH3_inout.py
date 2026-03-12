@@ -56,7 +56,7 @@ class SWITCH:
     def Step(self, 
     DI_ControllerDisable, 
     T_LVCBSUP_1_LVCBSUP_operOutFunction, CBCS_CBOS1_OCControl, CBOS2_OCControl, InsTr, LowIns, EnBlk, Reset, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working,
-    T_SWCTRL_1_SWCTRL_operOutFunction, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, Remote, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, CBPosOpn, CBPosCls,
+    T_SWCTRL_1_SWCTRL_operOutFunction, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, CBPosOpn, CBPosCls,
     T_HVBCTRL_1_HVBCTRL_operOutFunction, OperClsCB, 
     T_SwitchDevice_1_SD_operOutFunction, 
     ExternalRBRFStart,
@@ -67,8 +67,8 @@ class SWITCH:
         # Жесткая логическая связь: Дистанционное = НЕ Местное
         # Если mestnoe=1, то Remote станет 0. Если mestnoe=0, то Remote станет 1.
         # Мы перезаписываем входящий аргумент Remote перед использованием.
-        #Remote = 1 - int(mestnoe) 
-        mestnoe = 1 - int(Remote) 
+        distanz = 1 - int(LocKey) 
+        #mestnoe = 1 - int(Remote) 
         # === КОНЕЦ ИЗМЕНЕНИЙ ===
 
 
@@ -76,7 +76,7 @@ class SWITCH:
 
         vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(DI_ControllerDisable, T_LVCBSUP_1_LVCBSUP_operOutFunction, CBCS_CBOS1_OCControl, CBOS2_OCControl, otkl_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, InsTr, LowIns, EnBlk, self.v_neisp_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, Reset, self.uv_otkluchit_cbcswi1_swctrl, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working)
 
-        vvod_swctrl, oper_vyvod_swctrl, vvod_cbcswi1_swctrl, self.uv_otkluchit_cbcswi1_swctrl, uv_idet_per_cbcswi1_swctrl, uv_prev_vrem_per_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl = self.swctrl.Step(DI_ControllerDisable, T_SWCTRL_1_SWCTRL_operOutFunction, blok_otkl_rcbf1_lvcbsup, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, mestnoe, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, Remote, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, blok_vkl_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, CBPosOpn, CBPosCls)
+        vvod_swctrl, oper_vyvod_swctrl, vvod_cbcswi1_swctrl, self.uv_otkluchit_cbcswi1_swctrl, uv_idet_per_cbcswi1_swctrl, uv_prev_vrem_per_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl = self.swctrl.Step(DI_ControllerDisable, T_SWCTRL_1_SWCTRL_operOutFunction, blok_otkl_rcbf1_lvcbsup, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, distanz, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, blok_vkl_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, CBPosOpn, CBPosCls)
 
         vvod_cbcswi1_hvbctrl, oper_vyvod_cbcswi1_hvbctrl, uv_vkl_cbcswi1_hvbctrl = self.hvbctrl.Step(DI_ControllerDisable, T_HVBCTRL_1_HVBCTRL_operOutFunction, OperClsCB, blok_vkl_rcbf1_lvcbsup)
 
