@@ -126,10 +126,10 @@ class PartOfSwitchGUI:
             "T_TPBRF_1_GENRBRF1_Iop": tk.DoubleVar(value=0.2),
             "T_HVTCBOFF_1_HVCBPTRC1_Tpulse": tk.DoubleVar(value=1),            
         }
-
+        
         self.input_vars = {
             "DI_ControllerDisable": tk.IntVar(value=0),
-            "T_LVCBSUP_1_LVCBSUP_operOutFunction": tk.IntVar(value=0),
+            "DI_LVCBSUP": tk.IntVar(value=0),
             "CBCS_CBOS1_OCControl": tk.IntVar(value=0),
             "CBOS2_OCControl": tk.IntVar(value=0),
             #"lovn_otkl": tk.IntVar(value=0),
@@ -148,7 +148,7 @@ class PartOfSwitchGUI:
             "CBCSWorking": tk.IntVar(value=0),
             "CBOS1Working": tk.IntVar(value=0),
             "CBOS2Working": tk.IntVar(value=0),
-            "T_SWCTRL_1_SWCTRL_operOutFunction": tk.IntVar(value=0),
+            "DI_SWCTRL": tk.IntVar(value=0),
             "OpnCBFrmCtrlPanel": tk.IntVar(value=0),
             "OpnCBFrm_HMI": tk.IntVar(value=0),
             "LocKey": tk.IntVar(value=0),
@@ -162,9 +162,9 @@ class PartOfSwitchGUI:
             "T_SWCTRL_1_ClsCBFrm_ACS": tk.IntVar(value=0),
             "CBPosOpn": tk.IntVar(value=0),
             "CBPosCls": tk.IntVar(value=0),
-            "T_HVBCTRL_1_HVBCTRL_operOutFunction": tk.IntVar(value=0),
+            "DI_HVBCTRL": tk.IntVar(value=0),
             "OperClsCB": tk.IntVar(value=0),
-            "T_SwitchDevice_1_SD_operOutFunction": tk.IntVar(value=0),
+            "DI_SD": tk.IntVar(value=0),
             #"lovn_lo_otkl_avar": tk.IntVar(value=0),
             "ExternalRBRFStart": tk.IntVar(value=0),
             "OpExtOfARC_NN": tk.IntVar(value=0),

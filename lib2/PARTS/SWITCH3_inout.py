@@ -55,10 +55,10 @@ class SWITCH:
 
     def Step(self, 
     DI_ControllerDisable, 
-    T_LVCBSUP_1_LVCBSUP_operOutFunction, CBCS_CBOS1_OCControl, CBOS2_OCControl, InsTr, LowIns, EnBlk, Reset, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working,
-    T_SWCTRL_1_SWCTRL_operOutFunction, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, CBPosOpn, CBPosCls,
-    T_HVBCTRL_1_HVBCTRL_operOutFunction, OperClsCB, 
-    T_SwitchDevice_1_SD_operOutFunction, 
+    DI_LVCBSUP, CBCS_CBOS1_OCControl, CBOS2_OCControl, InsTr, LowIns, EnBlk, Reset, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working,
+    DI_SWCTRL, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, CBPosOpn, CBPosCls,
+    DI_HVBCTRL, OperClsCB, 
+    DI_SD, 
     ExternalRBRFStart,
     OpExtOfARC_NN, OpExtOfCBFP_NN
     ):
@@ -74,13 +74,13 @@ class SWITCH:
 
         vvod_hvcbptrc1_hvtcboff, oper_vyvod_hvcbptrc1_hvtcboff, otkl_hvcbptrc1_hvtcboff, otkl_avar_hvcbptrc1_hvtcboff = self.hvtcboff.Step(DI_ControllerDisable, OV_hvcbptrc1_hvtcboff=0, LO_t_srab=0, vnesh_otkl_zdz=OpExtOfARC_NN, vnesh_otkl_urov=OpExtOfCBFP_NN)
 
-        vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(DI_ControllerDisable, T_LVCBSUP_1_LVCBSUP_operOutFunction, CBCS_CBOS1_OCControl, CBOS2_OCControl, otkl_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, InsTr, LowIns, EnBlk, self.v_neisp_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, Reset, self.uv_otkluchit_cbcswi1_swctrl, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working)
+        vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(DI_ControllerDisable, DI_LVCBSUP, CBCS_CBOS1_OCControl, CBOS2_OCControl, otkl_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, InsTr, LowIns, EnBlk, self.v_neisp_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, Reset, self.uv_otkluchit_cbcswi1_swctrl, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working)
 
-        vvod_swctrl, oper_vyvod_swctrl, vvod_cbcswi1_swctrl, self.uv_otkluchit_cbcswi1_swctrl, uv_idet_per_cbcswi1_swctrl, uv_prev_vrem_per_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl = self.swctrl.Step(DI_ControllerDisable, T_SWCTRL_1_SWCTRL_operOutFunction, blok_otkl_rcbf1_lvcbsup, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, distanz, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, blok_vkl_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, CBPosOpn, CBPosCls)
+        vvod_swctrl, oper_vyvod_swctrl, vvod_cbcswi1_swctrl, self.uv_otkluchit_cbcswi1_swctrl, uv_idet_per_cbcswi1_swctrl, uv_prev_vrem_per_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl = self.swctrl.Step(DI_ControllerDisable, DI_SWCTRL, blok_otkl_rcbf1_lvcbsup, OpnCBFrmCtrlPanel, OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, ClsCBFrm_HMI, distanz, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, blok_vkl_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, CBPosOpn, CBPosCls)
 
-        vvod_cbcswi1_hvbctrl, oper_vyvod_cbcswi1_hvbctrl, uv_vkl_cbcswi1_hvbctrl = self.hvbctrl.Step(DI_ControllerDisable, T_HVBCTRL_1_HVBCTRL_operOutFunction, OperClsCB, blok_vkl_rcbf1_lvcbsup)
+        vvod_cbcswi1_hvbctrl, oper_vyvod_cbcswi1_hvbctrl, uv_vkl_cbcswi1_hvbctrl = self.hvbctrl.Step(DI_ControllerDisable, DI_HVBCTRL, OperClsCB, blok_vkl_rcbf1_lvcbsup)
 
-        vvod_tds, oper_vyvod_tds,  vvod_xcbr1_tsd, v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_neisp_pol_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd = self.tsd.Step(DI_ControllerDisable, T_SwitchDevice_1_SD_operOutFunction, CBPosOpn, CBPosCls, self.uv_otkluchit_cbcswi1_swctrl, otkl_avar_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, OperOpnCB, blok_otkl_rcbf1_lvcbsup, CBOS1Working, CBOS2Working, Reset, uv_vkluchit_cbcswi1_swctrl, uv_vkl_cbcswi1_hvbctrl, CBCSWorking)
+        vvod_tds, oper_vyvod_tds,  vvod_xcbr1_tsd, v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_neisp_pol_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd = self.tsd.Step(DI_ControllerDisable, DI_SD, CBPosOpn, CBPosCls, self.uv_otkluchit_cbcswi1_swctrl, otkl_avar_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, OperOpnCB, blok_otkl_rcbf1_lvcbsup, CBOS1Working, CBOS2Working, Reset, uv_vkluchit_cbcswi1_swctrl, uv_vkl_cbcswi1_hvbctrl, CBCSWorking)
 
         vvod_rbrf1_tpbrf, oper_vyvod_rbrf1_tpbrf, uskorenie_rbrf1_tpbrf, srab_rbrf1_tpbrf, pusk_rbrf1_tpbrf, io_rbrf1_tpbrf, self.srab_na_sebya_rbrf1_tpbrf = self.tpbrf.Step(DI_ControllerDisable, OV_rbrf1_tpbrf=0, blok_otkl_rcbf1_lvcbsup=blok_otkl_rcbf1_lvcbsup, LO_VN_otkl=0, kontr_emo1=CBOS1Ctrl, kontr_emo2=CBOS2Ctrl, Puski=(0,0), pusk_urov_vnesh=ExternalRBRFStart, IA=0, IB=0, IC=0)
 
