@@ -357,7 +357,7 @@ def create_editor_window(inouts_handler: InOutsMatrixHandler, config_handler: Ma
 
 if __name__ == "__main__":
     METADATA_FILE = "meta.json"
-    MATRIX_FILE = "ПМИ ТС Матрица.json"
+    MATRIX_FILE = "ПМИ Матрица.json"
 
     try:
         config_handler = MainConfigHandler.from_json_file(METADATA_FILE)

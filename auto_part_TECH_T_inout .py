@@ -28,12 +28,37 @@ from ToolTip import ToolTip
 
 # --- Основной GUI ---
 class PartOfTECH_T_GUI:
+
+    # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
+    OUTPUT_PARAMS = [
+            "APTTECHLGC_1_OILPTRC1_FuncEnabled", "APTTECHLGC_1_OILPTRC1_FuncOperDisabled", "APTTECHLGC_1_OILPTRC1_OpOIL", "APTTECHLGC_1_OILPTRC1_OpOnSignal",
+            "APTTECHLGC_1_OILPTRC1_BlockOIL", "ET_oilptrc1_apttechlgc", "APTTECHLGC_1_WINPTRC1_FuncEnabled", "APTTECHLGC_1_WINPTRC1_FuncOperDisabled",
+            "APTTECHLGC_1_WINPTRC1_OpWIN", "APTTECHLGC_1_WINPTRC1_OpOnSignal", "APTTECHLGC_1_WINPTRC1_BlockWIN", "ET_winptrc1_apttechlgc",
+            "APTTECHLGC_1_VLVPTRC1_FuncEnabled", "APTTECHLGC_1_VLVPTRC1_FuncOperDisabled", "APTTECHLGC_1_VLVPTRC1_OpVLV", "APTTECHLGC_1_VLVPTRC1_OpOnSignal",
+            "APTTECHLGC_1_VLVPTRC1_BlockVLV", "ET_vlvptrc1_apttechlgc", "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_FuncEnabled", "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_FuncOperDisabled",
+            "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_Op", "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_OpOnSignal", "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_FuncEnabled", "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_FuncOperDisabled",
+            "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_Op", "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_OpOnSignal", "ALMTECHLGC_UIRZ_1_LEVPTRC1_FuncEnabled", "ALMTECHLGC_UIRZ_1_LEVPTRC1_FuncOperDisabled",
+            "ALMTECHLGC_UIRZ_1_LEVPTRC1_Op", "ALMTECHLGC_UIRZ_1_LEVPTRC1_OpOnSignal", "TALMGASLGC_1_PTRC1_FuncEnabled", "TALMGASLGC_1_PTRC1_FuncOperDisabled",
+            "TALMGASLGC_1_PTRC1_Op", "TALMGASLGC_1_PTRC1_OpOnSignal", "TALMGASLGC_1_PTRC1_BlockGASProtSign", "ET_ptrc1_talmgaslgc",
+            "TTRGASLGC_1_PTRC1_FuncEnabled", "TTRGASLGC_1_PTRC1_FuncOperDisabled", "TTRGASLGC_1_PTRC1_Op", "TTRGASLGC_1_PTRC1_OpOnSignal",
+            "TTRGASLGC_1_PTRC1_BlockGASProtTrip", "ET_ptrc1_ttrgaslgc", "TLTCGASLGC_1_PTRC1_FuncEnabled", "TLTCGASLGC_1_PTRC1_FuncOperDisabled",
+            "TLTCGASLGC_1_PTRC1_Op", "TLTCGASLGC_1_PTRC1_OpOnSignal", "TLTCGASLGC_1_PTRC1_BlockGASLTCProt", "ET_ptrc1_tltcgaslgc",
+            "TOFFLVLGC_1_PTRC1_FuncEnabled", "TOFFLVLGC_1_PTRC1_FuncOperDisabled", "TOFFLVLGC_1_PTRC1_Str", "TOFFLVLGC_1_PTRC1_Op",
+            "TOFFLVLGC_1_LVCBRBLC1_FuncEnabled", "TOFFLVLGC_1_LVCBRBLC1_FuncOperDisabled", "TOFFLVLGC_1_LVCBRBLC1_BlkOp",
+            "TOFFLVLGC_1_RBRE1_FuncEnabled", "TOFFLVLGC_1_RBRE1_FuncOperDisabled", "TOFFLVLGC_1_RBRE1_BlkOp",
+            "T_SignAssembly_1_GASSign", "T_SignAssembly_1_GASBlock", "T_SignAssembly_1_LowIsolGAS", "T_SignAssembly_1_TECHSign", "T_SignAssembly_1_LowIsolTECH", "T_SignAssembly_1_TECHBlock",
+            "T_SignAssembly_1_ALMSign", "T_SignAssembly_1_OpExt", "T_SignAssembly_1_CtlCir", "T_SignAssembly_1_TestBlock", "T_SignAssembly_1_OCSign",
+            "T_SignAssembly_1_GAS_OCControlSignAssem", "T_SignAssembly_1_TECH_OCControlSignAssem", "T_SignAssembly_1_OCcir_CBSignAssem", "T_SignAssembly_1_OCnnSign",
+            "T_SignAssembly_1_SwOperExcTim", "T_SignAssembly_1_ExtSignGen", "T_LVALH_1_CALH1_Alarm"
+        ]
+
     def __init__(self, root):
         self.root = root
         self.root.title("Тестирование Газовых и Технологических Защит М300-Т. вер1 от 2026")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
+
         self.function_name = tk.StringVar(value="Функция")
         self.mode_name = tk.StringVar(value="Режим")
 
@@ -49,7 +74,8 @@ class PartOfTECH_T_GUI:
         all_param_keys = (
             list(self._get_sgf_param_names()) +
             list(self._get_setting_names()) +
-            list(self._get_input_names())
+            list(self._get_input_names()) +
+            list(self._get_output_names())  # <-- Добавили выходы
         )
         for key in all_param_keys:
             if self.meta_handler:
@@ -62,7 +88,7 @@ class PartOfTECH_T_GUI:
         self.settings = {name: tk.DoubleVar(value=1.0) for name in self._get_setting_names()}
         self.input_vars = {name: tk.IntVar(value=0) for name in self._get_input_names()}
 
-        self.output_labels = {}
+        self.output_labels = {name: tk.IntVar(value=0) for name in self._get_output_names()}
         self.create_widgets()
 
     def _get_sgf_param_names(self):
@@ -129,14 +155,14 @@ class PartOfTECH_T_GUI:
     def _get_input_names(self):
         return [
             "DI_ControllerDisable", "DI_APTTECHLGC", "DI_OILPTRC1", "DI_WINPTRC1", "DI_VLVPTRC1", "DI_OILPTRC1_Sign", "DI_WINPTRC1_Sign", "DI_VLVPTRC1_Sign",
-            "srabKontOtkl_m", "srabKontSign_m", "srabKontOtkl_o", "srabKontSign_o", "srabKontOtkl_rd",
-            "srabKI_m", "srabKI_o", "srabKI_rd", "Sbros", "DI_ALMTECHLGC", "DI_PRVLVPTRC1", "DI_SHVLVPTRC1", "DI_LEVPTRC1",
-            "DI_PRV_Sign", "DI_SHV_Sign", "DI_LEV_Sign", "srabKontOtkl_pk", "srabKontOtkl_ok", "srabKontOtkl_lev",
-            "DI_TALMGASLGC", "DI_TALMGASLGC_Sign", "srabKont_ptrc1_talmgaslgc", "srabKI_ptrc1_talmgaslgc",
-            "DI_TTRGASLGC", "DI_TTRGASLGC_Sign", "srabKont_ptrc1_ttrgaslgc", "srabKI_ptrc1_ttrgaslgc",
-            "DI_TLTCGASLGC", "DI_TLTCGASLGC_Sign", "srabKont_ptrc1_tltcgaslgc", "srabKI_ptrc1_tltcgaslgc",
-            "DI_TOFFLVLGC", "DI_PTRC1", "DI_RBRE1", "DI_LVCBRBLC1", "oil_t_hi_level",
-            "oil_ltc_hi_level", "oil_ltc_lo_level", "oil_ltc_lo_temp",
+            "OILTempEmerg", "OILTempHigh", "WINTempEmerg", "WINTempHigh", "VLVop",
+            "OILIsolOp", "WINIsolOp", "VLVIsolOp", "Reset", "DI_ALMTECHLGC", "DI_PRVLVPTRC1", "DI_SHVLVPTRC1", "DI_LEVPTRC1",
+            "DI_PRV_Sign", "DI_SHV_Sign", "DI_LEV_Sign", "PRVLVOp", "SHVLVOp", "ALMTECHLGC_UIRZ_1_LowOilLevel",
+            "DI_TALMGASLGC", "DI_TALMGASLGC_Sign", "SignContact", "GASSignIsolOp",
+            "DI_TTRGASLGC", "DI_TTRGASLGC_Sign", "TripContact", "GASTripIsolOp",
+            "DI_TLTCGASLGC", "DI_TLTCGASLGC_Sign", "JetRelayContact", "GASLTCIsolOp",
+            "DI_TOFFLVLGC", "DI_PTRC1", "DI_RBRE1", "DI_LVCBRBLC1", "HighOILLevel",
+            "HighOILLevelLTC", "LowOILLevelLTC", "OILTempLowLTC",
         ]
 
     def create_widgets(self):
@@ -214,33 +240,18 @@ class PartOfTECH_T_GUI:
         # Output Parameters
         output_frame = ttk.LabelFrame(self.root, text="Выходные параметры")
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
-        outputs = [
-            "vvod_oilptrc1_apttechlgc", "oper_vyvod_oilptrc1_apttechlgc", "srab_oilptrc1_apttechlgc", "srabsign_oilptrc1_apttechlgc",
-            "zablok_oilptrc1_apttechlgc", "ET_oilptrc1_apttechlgc", "vvod_winptrc1_apttechlgc", "oper_vyvod_winptrc1_apttechlgc",
-            "srab_winptrc1_apttechlgc", "srabsign_winptrc1_apttechlgc", "zablok_winptrc1_apttechlgc", "ET_winptrc1_apttechlgc",
-            "vvod_vlvptrc1_apttechlgc", "oper_vyvod_vlvptrc1_apttechlgc", "srab_vlvptrc1_apttechlgc", "srabsign_vlvptrc1_apttechlgc",
-            "zablok_vlvptrc1_apttechlgc", "ET_vlvptrc1_apttechlgc", "vvod_prvlvptrc1_almtechlgc", "oper_vyvod_prvlvptrc1_almtechlgc",
-            "srab_prvlvptrc1_almtechlgc", "srabsign_prvlvptrc1_almtechlgc", "vvod_shvlvptrc1_almtechlgc", "oper_vyvod_shvlvptrc1_almtechlgc",
-            "srab_shvlvptrc1_almtechlgc", "srabsign_shvlvptrc1_almtechlgc", "vvod_levptrc1_almtechlgc", "oper_vyvod_levptrc1_almtechlgc",
-            "srab_levptrc1_almtechlgc", "srabsign_levptrc1_almtechlgc", "vvod_ptrc1_talmgaslgc", "oper_vyvod_ptrc1_talmgaslgc",
-            "srab_ptrc1_talmgaslgc", "srabsign_ptrc1_talmgaslgc", "zablok_ptrc1_talmgaslgc", "ET_ptrc1_talmgaslgc",
-            "vvod_ptrc1_ttrgaslgc", "oper_vyvod_ptrc1_ttrgaslgc", "srab_ptrc1_ttrgaslgc", "srabsign_ptrc1_ttrgaslgc",
-            "zablok_ptrc1_ttrgaslgc", "ET_ptrc1_ttrgaslgc", "vvod_ptrc1_tltcgaslgc", "oper_vyvod_ptrc1_tltcgaslgc",
-            "srab_ptrc1_tltcgaslgc", "srabsign_ptrc1_tltcgaslgc", "zablok_ptrc1_tltcgaslgc", "ET_ptrc1_tltcgaslgc",
-            "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc",
-            "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc",
-            "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc",
-            "SS_gz_sign", "SS_gz_zablok", "SS_gz_nizk_isol", "SS_tz_sign", "SS_tz_nizk_isol", "SS_tz_zablok",
-            "SS_ts_sign", "SS_vnesh_otkl", "SS_vyh_zepi_razobr", "SS_bi_vyved", "SS_ot_sign",
-            "SS_neispr_ot_gz", "SS_neispr_ot_tz", "SS_neispr_ot_v", "SS_ot_nn_sign",
-            "SS_prev_vrem_per_ka", "SS_obsh_vnesh_sign", "pusk_lvalv"
-        ]
+
         row, col = 0, 0
-        for output in outputs:
+        for output in self.OUTPUT_PARAMS:
             label = ttk.Label(output_frame, text=output, width=33, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
-            # Подсказки для выходов можно добавить позже, если они есть в JSON
+
+            # === ДОБАВЛЯЕМ TOOLTIP ИЗ META.JSON ===
+            tooltip = self.tooltips.get(output)
+            if tooltip:
+                ToolTip(label, tooltip)
+
             row += 1
             if row >= 32:
                 row = 0
@@ -620,6 +631,9 @@ class PartOfTECH_T_GUI:
             print(f"❌ {error_msg}")
             import traceback
             traceback.print_exc()
+
+    def _get_output_names(self):
+        return self.OUTPUT_PARAMS    
 
 
 if __name__ == "__main__":
