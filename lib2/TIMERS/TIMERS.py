@@ -68,6 +68,10 @@ class TP:
         if not self.IN and not self.pulse_active:
             self.triggered = False
 
+        def is_pulse_active(self):
+            """Возвращает True если импульс активен"""
+            return self.pulse_active
+
         return self.Q, self.ET  # Возвращаем состояние выхода и прошедшее время
 
     def reset(self):

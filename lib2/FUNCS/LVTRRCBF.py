@@ -86,6 +86,7 @@ class LVTRRCBF:
 
         ksv_neispr_V = (niz_isol_V or avar_isol_V or not(_p007) or _p008 or V_neispr_pol or _p005 or (_p001 or _p002 or _p003) or vnesh_blok_upr_V) and vvod
         _p009 = UV_otkl or (0 if self.SGF7==0 else otkl_ot_knopk) or oper_otkl_V # SGF8 поправлен на SGF7
+
         ksv_blok_vkl = (pruzh_ne_zaved or _p006 or not(_p007) or (0 if self.SGF2==0 else niz_isol_V) or _p005 or (0 if self.SGF3==0 else V_neispr_pol) or _p009 or (0 if self.SGF4==0 else KRV_resurs_V) or (lovn_otkl or urov_nasebya) or (rabota_emo1 or rabota_emo2) or vnesh_blok_upr_V) and vvod
 
         _p010 = not vvod or (V_otkl and Sbros) or _p009
@@ -93,7 +94,7 @@ class LVTRRCBF:
         ksv_v_avar_otkl = ksv_rfk and V_otkl
 
         ksv_v_samoproisv_otkl = not (self.SR1.run((vvod and (lovn_otkl or urov_nasebya)), _p010)) and ksv_v_avar_otkl
- 
+
         return vvod, oper_vyvod, ksv_v_samoproisv_otkl, ksv_neispr_V, ksv_v_avar_otkl, ksv_rfk, ksv_blok_vkl, ksv_blok_otkl, ksv_neisp_emu, ksv_zashita_emv, ksv_zashita_emo1, ksv_zashita_emo2 #, ET_t1, ET_t2, ET_t31, ET_t32, ET_t33, _p001, _p002, _p003, _p004, _p005, _p006, _p007, _p008, _p009, _p010
 
 

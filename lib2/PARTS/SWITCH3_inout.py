@@ -86,7 +86,7 @@ class SWITCH:
 
         ss_prev_vrem_per_ka = self.tsa.Step(VYVOD=DI_ControllerDisable, prev_vrem_ka=(uv_prev_vrem_per_cbcswi1_swctrl,))[15]
 
-        pusk_t_lvalh = self.t_lvalh.Step(VYVOD=DI_ControllerDisable, sign_ps_tuple=(v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, self.srab_na_sebya_rbrf1_tpbrf, v_avar_otkl_rcbf1_lvcbsup), sgf13_sign=ss_prev_vrem_per_ka)
+        pusk_t_lvalh = self.t_lvalh.Step(VYVOD=DI_ControllerDisable, sign_ps_tuple=(v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, self.srab_na_sebya_rbrf1_tpbrf), sgf13_sign=ss_prev_vrem_per_ka) # , v_avar_otkl_rcbf1_lvcbsup убрал из входов ПС 25 марта 2026
 
         return (
             vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup,
