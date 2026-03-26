@@ -56,7 +56,7 @@ class CLS:
         t = self.KRVpasp_Inom_otkl*(self.KRVpasp_Inom/self.KRVpasp_Inom_otkl)**power
         return krv - 100/t
 
-    def Step(self, DI_ControllerDisable, CLS_1_CBPosCls, CLS_1_CBPosOpn, CLS_1_ResetCounter, CLS_1_OpnCB, LocKey, IA, IB, IC):
+    def Step(self, DI_ControllerDisable, CLS_1_CBPosCls, CLS_1_CBPosOpn, CLS_1_ResetCounter, CLS_1_OpnCB, IA, IB, IC):
 
         CLS_1_CLS_FuncEnabled = (not DI_ControllerDisable) and (0 if self.SGF1 == 0 else 1)
 
@@ -64,7 +64,7 @@ class CLS:
         srab_T2, _ = self.T2.start()
         pusk_MRV = srab_T2 and CLS_1_CBPosOpn and CLS_1_CLS_FuncEnabled # Пуск МРВ найден
 
-        sbros = (CLS_1_ResetCounter and LocKey) or not (0 if self.SGF1 == 0 else 1)
+        sbros = CLS_1_ResetCounter or not (0 if self.SGF1 == 0 else 1)
 
         ######################################################################################
         # Сбрасываем счетчик МРВ если есть Сброс
@@ -81,7 +81,7 @@ class CLS:
         srab_T1, ET = self.T1.start()
 
         # Определяем начало импульса (передний фронт)
-        if srab_T1:
+        if srab_T1 and CLS_1_CBPosCls and CLS_1_CLS_FuncEnabled:
             if not self.is_measuring:
                 # Начинаем измерение
                 self.is_measuring = True
@@ -154,7 +154,7 @@ class CLS:
 
         CLS_1_CLS_MDCurrentResource = self.counter.get_count()
         CLS_1_CLS_MDResourceExcess = 0
-        if not DI_ControllerDisable and CLS_1_CLS_MDCurrentResource>=self.MRVpasp:
+        if not DI_ControllerDisable and CLS_1_CLS_MDCurrentResource>self.MRVpasp:
             CLS_1_CLS_MDResourceExcess = 1
 
         CLS_1_CLS_COMMResourceExcess  = 0

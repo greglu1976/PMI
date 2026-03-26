@@ -44,8 +44,8 @@ class CLSGUI:
 
         # Инициализация переменных для параметров SGF и настроек
         self.sgf_params = {
-            "CLS_1_CLS_EnaDis": tk.IntVar(value=0),
-            "CLS_1_CLS_MDCtrl": tk.IntVar(value=0),
+            "CLS_1_CLS_EnaDis": tk.IntVar(value=1),
+            "CLS_1_CLS_MDCtrl": tk.IntVar(value=1),
         }
         
         self.settings = {
@@ -57,7 +57,7 @@ class CLSGUI:
             "CLS_1_CLS_InitialCOMM": tk.DoubleVar(value=100),
             "CLS_1_CLS_COMMSet": tk.DoubleVar(value=20),
             "CLS_1_CLS_InitialMD": tk.IntVar(value=0),
-            "CLS_1_CLS_TmaxCB": tk.IntVar(value=1), 
+            "CLS_1_CLS_TmaxCB": tk.IntVar(value=500), 
         }
         
         self.input_vars = {

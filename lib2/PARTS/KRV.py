@@ -17,26 +17,26 @@ class partKRV:
         self.krv = CLS(SGF1, Inom_V_pasp, Inom_otl_V_pasp, KRVpasp_Inom, KRVpasp_Inom_otkl, MRVpasp, Nach_znach_KRV, KRVsrab, Nach_znach_MRV, SGF2, T1)
 
         # Инициализируем ФБ КА
-        self.tsd = T_Switch_Device(SGF1_tsd, SGF1_xcbr1_tsd, SGF2_xcbr1_tsd, SGF3_xcbr1_tsd, SGF4_xcbr1_tsd, SGF5_xcbr1_tsd, T1_xcbr1_tsd, T2_xcbr1_tsd, T3_xcbr1_tsd, T4_xcbr1_tsd)
+        self.tsd = T_Switch_Device(SGF1_tsd, SGF1_xcbr1_tsd, SGF2_xcbr1_tsd, SGF3_xcbr1_tsd, SGF4_xcbr1_tsd, SGF5_xcbr1_tsd, T1_xcbr1_tsd/1000, T2_xcbr1_tsd/1000, T3_xcbr1_tsd/1000, T4_xcbr1_tsd/1000)
 
         # Инициализируем ФБ КСВ 
-        self.lvcbsup = LVCBSUP(SGF1_rcbf1_lvcbsup, SGF2_rcbf1_lvcbsup, SGF3_rcbf1_lvcbsup, SGF4_rcbf1_lvcbsup, SGF5_rcbf1_lvcbsup, SGF6_rcbf1_lvcbsup, SGF7_rcbf1_lvcbsup, SGF8_rcbf1_lvcbsup, T1_rcbf1_lvcbsup, T2_rcbf1_lvcbsup, T3_rcbf1_lvcbsup)
+        self.lvcbsup = LVCBSUP(SGF1_rcbf1_lvcbsup, SGF2_rcbf1_lvcbsup, SGF3_rcbf1_lvcbsup, SGF4_rcbf1_lvcbsup, SGF5_rcbf1_lvcbsup, SGF6_rcbf1_lvcbsup, SGF7_rcbf1_lvcbsup, SGF8_rcbf1_lvcbsup, T1_rcbf1_lvcbsup/1000, T2_rcbf1_lvcbsup/1000, T3_rcbf1_lvcbsup/1000)
 
         # Инициализируем ФБ ПС
         self.t_lvalh = T_LVALH(SGF1_lvalh, SGF2_lvalh, SGF3_lvalh, SGF4_lvalh, SGF5_lvalh, SGF6_lvalh, SGF7_lvalh, SGF8_lvalh, SGF9_lvalh, SGF10_lvalh, SGF11_lvalh, SGF12_lvalh, SGF13_lvalh, SGF14_lvalh)
 
         # Инициализация переменных, которые должны быть инициализированы для расчетов - но по логике так не получается (обратные связи)
-        self.v_otkluchen_xcbr1_tsd = False
-        self.v_vkluchen_xcbr1_tsd = False  
-        self.v_neisp_pol_xcbr1_tsd = False
-        self.v_otkluchit_rele_xcbr1_tsd = False
+        self.v_otkluchen_xcbr1_tsd = 0
+        self.v_vkluchen_xcbr1_tsd = 0  
+        self.v_neisp_pol_xcbr1_tsd = 0
+        self.v_otkluchit_rele_xcbr1_tsd = 0
 
 
-    def Step(self, DI_ControllerDisable, CBPosOpn, CBPosCls, CLS_1_ResetCounter, IA, IB, IC, Reset, OperOpnCB):
+    def Step(self, DI_ControllerDisable, CBPosOpn, CBPosCls, CLS_1_ResetCounter, LocKey, IA, IB, IC, Reset, OperOpnCB):
 
         # ================================== КРВ =========================================================
 
-        CLS_1_CLS_FuncEnabled, CLS_1_CLS_MDResourceExcess, CLS_1_CLS_CBLifeExcess, CLS_1_CLS_COMMResourceExcess, CLS_1_CLS_MDCurrentResource, CLS_1_CLS_COMMCurrResourcePhsA, CLS_1_CLS_COMMCurrResourcePhsB, CLS_1_CLS_COMMCurrResourcePhsC = self.krv.Step(DI_ControllerDisable, self.v_vkluchen_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, CLS_1_ResetCounter, self.v_otkluchit_rele_xcbr1_tsd, IA, IB, IC)
+        CLS_1_CLS_FuncEnabled, CLS_1_CLS_MDResourceExcess, CLS_1_CLS_CBLifeExcess, CLS_1_CLS_COMMResourceExcess, CLS_1_CLS_MDCurrentResource, CLS_1_CLS_COMMCurrResourcePhsA, CLS_1_CLS_COMMCurrResourcePhsB, CLS_1_CLS_COMMCurrResourcePhsC = self.krv.Step(DI_ControllerDisable, self.v_vkluchen_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, CLS_1_ResetCounter, self.v_otkluchit_rele_xcbr1_tsd, LocKey, IA, IB, IC)
         ###############################################################################################################
 
 
@@ -80,9 +80,9 @@ class partKRV:
         return (
             v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup,  
                 
-            v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd,
+            int(v_prom_pol_xcbr1_tsd), int(self.v_otkluchen_xcbr1_tsd), int(self.v_vkluchen_xcbr1_tsd), int(self.v_otkluchit_rele_xcbr1_tsd), int(v_vkluchit_rele_xcbr1_tsd),
 
-            pusk_t_lvalh,
+            int(pusk_t_lvalh),
 
             CLS_1_CLS_FuncEnabled, CLS_1_CLS_MDResourceExcess, CLS_1_CLS_CBLifeExcess, CLS_1_CLS_COMMResourceExcess, CLS_1_CLS_MDCurrentResource, CLS_1_CLS_COMMCurrResourcePhsA, CLS_1_CLS_COMMCurrResourcePhsB, CLS_1_CLS_COMMCurrResourcePhsC
                 )
