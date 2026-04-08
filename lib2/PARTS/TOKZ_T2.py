@@ -42,7 +42,7 @@ class partTOKZ:
     #OV_strpalc, OV_hvptoc1_strpalc, OV_lvptoc1_strpalc, IA1, IB1, IC1,  OV_lvptoc2_strpalc, IA2, IB2, IC2,
     DI_LVNSTOC, DI_LVNSTOC_Sign,
     DI_TTOCLGC, ExtTLGCPTRCStr, BlkLPT1, BlkLPT2,
-    DI_TOFFLVLGC, DI_PTRC1, DI_RBRE1, DI_LVCBRBLC1,
+    DI_TRESOFFLVLGS, DI_PTRC1, DI_RBRE1, DI_LVCBRBLC1,
     ):
 
         # Расчитываем аналоги
@@ -73,7 +73,7 @@ class partTOKZ:
         # Рассчитываем ЛЗТ
         vvod_ptrc1_ttoclgc, oper_vyvod_ptrc1_ttoclgc, pusk_ptrc1_ttoclgc, srab_ptrc1_ttoclgc, ET_ptrc1_ttoclgc =  self.ttoclgc.Step(DI_ControllerDisable, DI_TTOCLGC, ExtTLGCPTRCStr, LVTTOC_1_PTOC2_Str, LVTTOC_1_PTOC3_Str, BlkLPT1 or BlkLPT2)       
         # Рассчитываем ЛО Т
-        vvod_ptrc1_tofflvlgc, oper_vyvod_ptrc1_tofflvlgc, pusk_ptrc1_tofflvlgc, srab_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, zapret_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, zapret_rbre1_tofflvlgc = self.tofflvlgc.Step(DI_ControllerDisable, DI_TOFFLVLGC, DI_PTRC1, signals_tofflvlg=(srab_ptoc1_lvtoc, srabotkl_hvptoc1_lovctoc, srab_nsptoc1_lvnstoc, srab_ptrc1_ttoclgc), mtz2_srab_tofflvlg=0, mtz3_srab_tofflvlg=0, OVzapv_tofflvlg=DI_RBRE1, OVzavr_tofflvlg=DI_LVCBRBLC1)
+        vvod_ptrc1_tofflvlgc, oper_vyvod_ptrc1_tofflvlgc, pusk_ptrc1_tofflvlgc, srab_ptrc1_tofflvlgc, vvod_rblc1_tofflvlgc, oper_vyvod_rblc1_tofflvlgc, zapret_rblc1_tofflvlgc, vvod_rbre1_tofflvlgc, oper_vyvod_rbre1_tofflvlgc, zapret_rbre1_tofflvlgc = self.tofflvlgc.Step(DI_ControllerDisable, DI_TRESOFFLVLGS, DI_PTRC1, signals_tofflvlg=(srab_ptoc1_lvtoc, srabotkl_hvptoc1_lovctoc, srab_nsptoc1_lvnstoc, srab_ptrc1_ttoclgc), mtz2_srab_tofflvlg=0, mtz3_srab_tofflvlg=0, OVzapv_tofflvlg=DI_RBRE1, OVzavr_tofflvlg=DI_LVCBRBLC1)
         # вычисляем ПС
         pusk_lvalh = self.lvalh.Step(DI_ControllerDisable, sign_ps_tuple = (srab_hvptoc1_lovctoc, srabsign_nsptoc1_lvnstoc, srabsign_ptoc1_lvtoc, srab_ptrc1_tofflvlgc))
         return (
