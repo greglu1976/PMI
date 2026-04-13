@@ -1,9 +1,8 @@
 ########################
-### Версия для 2026 года
+### Версия для 2026 года (М300-Т2) - Исправленная работа с потоками
 ########################
-# По ней выполнено 
+# 
 #######################
-
 
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -16,45 +15,38 @@ from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 import openpyxl
 import json
+import sys
 
-
-from lib2.PARTS.TECH_T2 import part_TECH_T
-
-from MainConfigHandler import MainConfigHandler
-from SettingsHandler import SettingsHandler
-
-from ToolTip import ToolTip
-
+# Проверка импортов
+try:
+    from lib2.PARTS.TECH_T2 import part_TECH_T2 
+    from MainConfigHandler import MainConfigHandler
+    from SettingsHandler import SettingsHandler
+    from ToolTip import ToolTip
+except ImportError as e:
+    print(f"Ошибка импорта: {e}")
+    # sys.exit(1) # Раскомментируйте, если нужно прерывать выполнение
 
 # --- Основной GUI ---
 class PartOfTECH_T_GUI:
 
     # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
     OUTPUT_PARAMS = [
-            "APTTECHLGC_1_OILPTRC1_FuncEnabled", "APTTECHLGC_1_OILPTRC1_FuncOperDisabled", "APTTECHLGC_1_OILPTRC1_OpOIL", "APTTECHLGC_1_OILPTRC1_OpOnSignal",
-            "APTTECHLGC_1_OILPTRC1_BlockOIL", "ET_oilptrc1_apttechlgc", "APTTECHLGC_1_WINPTRC1_FuncEnabled", "APTTECHLGC_1_WINPTRC1_FuncOperDisabled",
-            "APTTECHLGC_1_WINPTRC1_OpWIN", "APTTECHLGC_1_WINPTRC1_OpOnSignal", "APTTECHLGC_1_WINPTRC1_BlockWIN", "ET_winptrc1_apttechlgc",
-            "APTTECHLGC_1_VLVPTRC1_FuncEnabled", "APTTECHLGC_1_VLVPTRC1_FuncOperDisabled", "APTTECHLGC_1_VLVPTRC1_OpVLV", "APTTECHLGC_1_VLVPTRC1_OpOnSignal",
-            "APTTECHLGC_1_VLVPTRC1_BlockVLV", "ET_vlvptrc1_apttechlgc", "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_FuncEnabled", "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_FuncOperDisabled",
-            "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_Op", "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_OpOnSignal", "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_FuncEnabled", "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_FuncOperDisabled",
-            "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_Op", "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_OpOnSignal", "ALMTECHLGC_UIRZ_1_LEVPTRC1_FuncEnabled", "ALMTECHLGC_UIRZ_1_LEVPTRC1_FuncOperDisabled",
-            "ALMTECHLGC_UIRZ_1_LEVPTRC1_Op", "ALMTECHLGC_UIRZ_1_LEVPTRC1_OpOnSignal", "TALMGASLGC_1_PTRC1_FuncEnabled", "TALMGASLGC_1_PTRC1_FuncOperDisabled",
-            "TALMGASLGC_1_PTRC1_Op", "TALMGASLGC_1_PTRC1_OpOnSignal", "TALMGASLGC_1_PTRC1_BlockGASProtSign", "ET_ptrc1_talmgaslgc",
+            "TALMGASLGC_1_PTRC1_FuncEnabled", "TALMGASLGC_1_PTRC1_FuncOperDisabled", "TALMGASLGC_1_PTRC1_Op", "TALMGASLGC_1_PTRC1_OpOnSignal", "TALMGASLGC_1_PTRC1_BlockGASProtSign", "ET_ptrc1_talmgaslgc",
             "TTRGASLGC_1_PTRC1_FuncEnabled", "TTRGASLGC_1_PTRC1_FuncOperDisabled", "TTRGASLGC_1_PTRC1_Op", "TTRGASLGC_1_PTRC1_OpOnSignal",
             "TTRGASLGC_1_PTRC1_BlockGASProtTrip", "ET_ptrc1_ttrgaslgc", "TLTCGASLGC_1_PTRC1_FuncEnabled", "TLTCGASLGC_1_PTRC1_FuncOperDisabled",
             "TLTCGASLGC_1_PTRC1_Op", "TLTCGASLGC_1_PTRC1_OpOnSignal", "TLTCGASLGC_1_PTRC1_BlockGASLTCProt", "ET_ptrc1_tltcgaslgc",
-            "TOFFLVLGC_1_PTRC1_FuncEnabled", "TOFFLVLGC_1_PTRC1_FuncOperDisabled", "TOFFLVLGC_1_PTRC1_Str", "TOFFLVLGC_1_PTRC1_Op",
-            "TOFFLVLGC_1_LVCBRBLC1_FuncEnabled", "TOFFLVLGC_1_LVCBRBLC1_FuncOperDisabled", "TOFFLVLGC_1_LVCBRBLC1_BlkOp",
-            "TOFFLVLGC_1_RBRE1_FuncEnabled", "TOFFLVLGC_1_RBRE1_FuncOperDisabled", "TOFFLVLGC_1_RBRE1_BlkOp",
-            "T_SignAssembly_1_GASSign", "T_SignAssembly_1_GASBlock", "T_SignAssembly_1_LowIsolGAS", "T_SignAssembly_1_TECHSign", "T_SignAssembly_1_LowIsolTECH", "T_SignAssembly_1_TECHBlock",
-            "T_SignAssembly_1_ALMSign", "T_SignAssembly_1_OpExt", "T_SignAssembly_1_CtlCir", "T_SignAssembly_1_TestBlock", "T_SignAssembly_1_OCSign",
-            "T_SignAssembly_1_GAS_OCControlSignAssem", "T_SignAssembly_1_TECH_OCControlSignAssem", "T_SignAssembly_1_OCcir_CBSignAssem", "T_SignAssembly_1_OCnnSign",
-            "T_SignAssembly_1_SwOperExcTim", "T_SignAssembly_1_ExtSignGen", "T_LVALH_1_CALH1_Alarm"
+            "TRESOFFLVLGC_1_PTRC1_FuncEnabled", "TRESOFFLVLGC_1_PTRC1_FuncOperDisabled", "pusk_ptrc1_tofflvlgc", "TRESOFFLVLGC_1_PTRC1_Op",
+            "TRESOFFLVLGC_1_LVCBRBLC1_FuncEnabled", "TRESOFFLVLGC_1_LVCBRBLC1_FuncOperDisabled", "TRESOFFLVLGC_1_LVCBRBLC1_BlkOp",
+            "TRESOFFLVLGC_1_RBRE1_FuncEnabled", "TRESOFFLVLGC_1_RBRE1_FuncOperDisabled", "TRESOFFLVLGC_1_RBRE1_BlkOp",
+            "T2_SignAssembly_1_GASSign", "T2_SignAssembly_1_GASBlock", "T2_SignAssembly_1_LowIsolGAS", 
+            "T2_SignAssembly_1_OpExt", "T2_SignAssembly_1_CtlCir", "T2_SignAssembly_1_TestBlock", "T2_SignAssembly_1_OCSign",
+            "T2_SignAssembly_1_GAS_OCControlSignAssem", "T2_SignAssembly_1_OCcir_CBSignAssem", "T2_SignAssembly_1_OCnnSign", "T2_SignAssembly_1_SwOperExcTim", "T2_SignAssembly_1_ExtSignGen", "T2_LVALH_1_CALH1_Alarm"
         ]
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование Газовых и Технологических Защит М300-Т. вер1 от 2026")
+        self.root.title("Тестирование Газовых и Технологических Защит М300-Т2. вер1 от 2026")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -69,100 +61,108 @@ class PartOfTECH_T_GUI:
             print(f"⚠️ Не удалось загрузить meta.json: {e}")
             self.meta_handler = None
 
+        # === ИНИЦИАЛИЗАЦИЯ СЛОВАРЕЙ ПЕРЕМЕННЫХ ===
+        
+        # SGF-параметры
+        sgf_keys = self._get_sgf_param_names()
+        self.sgf_params = {name: tk.IntVar(value=0) for name in sgf_keys}
+        
+        # Настройки (T-параметры)
+        setting_keys = self._get_setting_names()
+        self.settings = {name: tk.DoubleVar(value=1.0) for name in setting_keys}
+        
+        # Входные параметры
+        input_keys = self._get_input_names()
+        self.input_vars = {name: tk.IntVar(value=0) for name in input_keys}
+
+        # Выходные метки
+        self.output_labels = {}
+
         # === ГЕНЕРАЦИЯ ПОДСКАЗОК ИЗ JSON ===
         self.tooltips = {}
-        all_param_keys = (
-            list(self._get_sgf_param_names()) +
-            list(self._get_setting_names()) +
-            list(self._get_input_names()) +
-            list(self._get_output_names())  # <-- Добавили выходы
-        )
-        for key in all_param_keys:
-            if self.meta_handler:
+        all_param_keys = sgf_keys + setting_keys + input_keys + list(self.OUTPUT_PARAMS)
+        
+        if self.meta_handler:
+            for key in all_param_keys:
                 desc = self.meta_handler.get_description_by_base_name(key)
                 if desc:
                     self.tooltips[key] = desc
 
-        # Инициализация параметров
-        self.sgf_params = {name: tk.IntVar(value=0) for name in self._get_sgf_param_names()}
-        self.settings = {name: tk.DoubleVar(value=1.0) for name in self._get_setting_names()}
-        self.input_vars = {name: tk.IntVar(value=0) for name in self._get_input_names()}
-
-        self.output_labels = {name: tk.IntVar(value=0) for name in self._get_output_names()}
+        # === СОЗДАНИЕ ИНТЕРФЕЙСА ===
         self.create_widgets()
 
     def _get_sgf_param_names(self):
         return [
-            "APTTECHLGC_1_OILPTRC1_EnaDis",
-            "APTTECHLGC_1_OILPTRC1_LowIsolTripCtrl",
-            "APTTECHLGC_1_WINPTRC1_EnaDis",
-            "APTTECHLGC_1_WINPTRC1_LowIsolTripCtrl",
-            "APTTECHLGC_1_VLVPTRC1_EnaDis",
-            "APTTECHLGC_1_VLVPTRC1_LowIsolTripCtrl",
-            "ALMTECHLGC_UIRZ_1_PRVLVPTRC1_EnaDis",
-            "ALMTECHLGC_UIRZ_1_SHVLVPTRC1_EnaDis",
-            "ALMTECHLGC_UIRZ_1_LEVPTRC1_EnaDis",
             "TALMGASLGC_1_PTRC1_EnaDis",
             "TALMGASLGC_1_PTRC1_LowIsolSignCtrl",
             "TTRGASLGC_1_PTRC1_EnaDis",
             "TTRGASLGC_1_PTRC1_LowIsolTripCtrl",
             "TLTCGASLGC_1_PTRC1_EnaDis",
             "TLTCGASLGC_1_PTRC1_LowIsolTripCtrl",
-            "TOFFLVLGC_1_PTRC1_EnaDis",
-            "TOFFLVLGC_1_RBRE1_EnaDis",
-            "TOFFLVLGC_1_RBRE1_PVOC2_Ctrl",
-            "TOFFLVLGC_1_RBRE1_PVOC3_Ctrl",
-            "TOFFLVLGC_1_LVCBRBLC1_EnaDis",
-            "TOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl",
-            "TOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl",
-            "T_LVALH_1_CALH1_GASSign_Ctl",
-            "T_LVALH_1_CALH1_LowIsolGAS_Ctl",
-            "T_LVALH_1_CALH1_GASBlock_Ctl",
-            "T_LVALH_1_CALH1_TECHSign_Ctl",
-            "T_LVALH_1_CALH1_LowIsolTECH_Ctl",
-            "T_LVALH_1_CALH1_TECHBlock_Ctl",
-            "T_LVALH_1_CALH1_ALMSign_Ctl",
-            "T_LVALH_1_CALH1_OCSign_Ctl",
-            "T_LVALH_1_CALH1_OCnnSign_Ctl",
-            "T_LVALH_1_CALH1_OpExt_Ctl",
-            "T_LVALH_1_CALH1_CtlCir_Ctl",
-            "T_LVALH_1_CALH1_TestBlock_Ctl",
-            "T_LVALH_1_CALH1_SwOperExcTim_Ctl",
-            "T_LVALH_1_CALH1_ExtSignGen_Ctl",
-            "T_SignAssembly_1_Ctl_SA1",
-            "T_SignAssembly_1_Ctl_SA2",
-            "T_SignAssembly_1_Ctl_SA3",
-            "T_SignAssembly_1_Ctl_SA4",
-            "T_SignAssembly_1_Ctl_SA5",
-            "T_SignAssembly_1_Ctl_SG1",
-            "T_SignAssembly_1_Ctl_SG2",
-            "T_SignAssembly_1_Ctl_GAS_OCControl",
-            "T_SignAssembly_1_Ctl_TECH_OCControl",
-            "T_SignAssembly_1_Ctl_OCcir_CB",
-            "T_SignAssembly_1_Ctl_ARCnn_OCControl",
-            "T_SignAssembly_1_Ctl_CBFPnn_OCControl",
-            "T_SignAssembly_1_Ctl_IEDvt_OCControl",
+            "TRESOFFLVLGC_1_PTRC1_EnaDis",
+            "TRESOFFLVLGC_1_RBRE1_EnaDis",
+            "TRESOFFLVLGC_1_RBRE1_PVOC2_Ctrl",
+            "TRESOFFLVLGC_1_RBRE1_PVOC3_Ctrl",
+            "TRESOFFLVLGC_1_LVCBRBLC1_EnaDis",
+            "TRESOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl",
+            "TRESOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl",
+            "T2_LVALH_1_CALH1_GASSign_Ctl",
+            "T2_LVALH_1_CALH1_LowIsolGAS_Ctl",
+            "T2_LVALH_1_CALH1_GASBlock_Ctl",
+            "T2_LVALH_1_CALH1_OCSign_Ctl",
+            "T2_LVALH_1_CALH1_OCnnSign_Ctl",
+            "T2_LVALH_1_CALH1_OpExt_Ctl",
+            "T2_LVALH_1_CALH1_CtlCir_Ctl",
+            "T2_LVALH_1_CALH1_TestBlock_Ctl",
+            "T2_LVALH_1_CALH1_SwOperExcTim_Ctl",
+            "T2_LVALH_1_CALH1_ExtSignGen_Ctl",
+            "T2_SignAssembly_1_Ctl_SA1",
+            "T2_SignAssembly_1_Ctl_SA2",
+            "T2_SignAssembly_1_Ctl_SA3",
+            "T2_SignAssembly_1_Ctl_SA4",
+            "T2_SignAssembly_1_Ctl_SA5",
+            "T2_SignAssembly_1_Ctl_SA6",
+            "T2_SignAssembly_1_Ctl_SG1",
+            "T2_SignAssembly_1_Ctl_SG2",
+            "T2_SignAssembly_1_Ctl_SG3",
+            "T2_SignAssembly_1_Ctl_GAS_OCControl",
+            "T2_SignAssembly_1_Ctl_OCcir_CB",
+            "T2_SignAssembly_1_Ctl_ARCnn1_OCControl",
+            "T2_SignAssembly_1_Ctl_ARCnn2_OCControl",
+            "T2_SignAssembly_1_Ctl_CBFPnn1_OCControl",
+            "T2_SignAssembly_1_Ctl_CBFPnn2_OCControl",
+            "T2_SignAssembly_1_Ctl_IEDvt_OCControl1",
+            "T2_SignAssembly_1_Ctl_IEDvt_OCControl2",
         ]
 
     def _get_setting_names(self):
         return [
-            "APTTECHLGC_1_LLN0_TopOnBlk",
             "TALMGASLGC_1_PTRC1_TopOnBlk",
             "TTRGASLGC_1_LLN0_TopOnBlk",
             "TLTCGASLGC_1_LLN0_TopOnBlk",
         ]
 
+
     def _get_input_names(self):
         return [
-            "DI_ControllerDisable", "DI_APTTECHLGC", "DI_OILPTRC1", "DI_WINPTRC1", "DI_VLVPTRC1", "DI_OILPTRC1_Sign", "DI_WINPTRC1_Sign", "DI_VLVPTRC1_Sign",
-            "OILTempEmerg", "OILTempHigh", "WINTempEmerg", "WINTempHigh", "VLVop",
-            "OILIsolOp", "WINIsolOp", "VLVIsolOp", "Reset", "DI_ALMTECHLGC", "DI_PRVLVPTRC1", "DI_SHVLVPTRC1", "DI_LEVPTRC1",
-            "DI_PRV_Sign", "DI_SHV_Sign", "DI_LEV_Sign", "PRVLVOp", "SHVLVOp", "ALMTECHLGC_UIRZ_1_LowOilLevel",
-            "DI_TALMGASLGC", "DI_TALMGASLGC_Sign", "SignContact", "GASSignIsolOp",
-            "DI_TTRGASLGC", "DI_TTRGASLGC_Sign", "TripContact", "GASTripIsolOp",
-            "DI_TLTCGASLGC", "DI_TLTCGASLGC_Sign", "JetRelayContact", "GASLTCIsolOp",
-            "DI_TOFFLVLGC", "DI_PTRC1", "DI_RBRE1", "DI_LVCBRBLC1", "HighOILLevel",
-            "HighOILLevelLTC", "LowOILLevelLTC", "OILTempLowLTC",
+            "DI_ControllerDisable",
+            "Reset",
+            "DI_TALMGASLGC",
+            "DI_TALMGASLGC_Sign",
+            "TALMGASLGC_1_SignContact",
+            "GASSignIsolOp",
+            "DI_TTRGASLGC",
+            "DI_TTRGASLGC_Sign",
+            "TTRGASLGC_1_TripContact",
+            "GASTripIsolOp",
+            "DI_TLTCGASLGC",
+            "DI_TLTCGASLGC_Sign",
+            "JetRelayContact",
+            "GASLTCIsolOp",
+            "DI_TRESOFFLVLGS",
+            "DI_PTRC1",
+            "DI_RBRE1",
+            "DI_LVCBRBLC1",
         ]
 
     def create_widgets(self):
@@ -177,7 +177,7 @@ class PartOfTECH_T_GUI:
             tooltip = self.tooltips.get(key)
             if tooltip:
                 ToolTip(label, tooltip)
-            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
+            ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly", width=5).grid(row=row, column=col + 1)
             row += 1
             if row >= 14:
                 row = 0
@@ -194,7 +194,7 @@ class PartOfTECH_T_GUI:
             tooltip = self.tooltips.get(key)
             if tooltip:
                 ToolTip(label, tooltip)
-            ttk.Entry(settings_frame, textvariable=var).grid(row=row, column=col + 1)
+            ttk.Entry(settings_frame, textvariable=var, width=10).grid(row=row, column=col + 1)
             row += 1
             if row >= 3:
                 row = 0
@@ -217,7 +217,7 @@ class PartOfTECH_T_GUI:
         ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=9, padx=5, pady=5)
         ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=10, padx=5, pady=5)
 
-        # Добавляем новый элемент (например, Label) с возможностью изменения цвета
+        # Статус бар
         self.status_label = ttk.Label(buttons_frame, text="Шаг", background="green", foreground="white")
         self.status_label.grid(row=0, column=11, padx=5, pady=5)
 
@@ -247,7 +247,6 @@ class PartOfTECH_T_GUI:
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
 
-            # === ДОБАВЛЯЕМ TOOLTIP ИЗ META.JSON ===
             tooltip = self.tooltips.get(output)
             if tooltip:
                 ToolTip(label, tooltip)
@@ -258,75 +257,74 @@ class PartOfTECH_T_GUI:
                 col += 2
 
     def init_part(self):
-        self.part = part_TECH_T(
-            SGF1_oilptrc1_apttechlgc=self.sgf_params["APTTECHLGC_1_OILPTRC1_EnaDis"].get(),
-            SGF2_oilptrc1_apttechlgc=self.sgf_params["APTTECHLGC_1_OILPTRC1_LowIsolTripCtrl"].get(),
-            SGF1_winptrc1_apttechlgc=self.sgf_params["APTTECHLGC_1_WINPTRC1_EnaDis"].get(),
-            SGF2_winptrc1_apttechlgc=self.sgf_params["APTTECHLGC_1_WINPTRC1_LowIsolTripCtrl"].get(),
-            SGF1_vlvptrc1_apttechlgc=self.sgf_params["APTTECHLGC_1_VLVPTRC1_EnaDis"].get(),
-            SGF2_vlvptrc1_apttechlgc=self.sgf_params["APTTECHLGC_1_VLVPTRC1_LowIsolTripCtrl"].get(),
-            T1_apttechlgc=self.settings["APTTECHLGC_1_LLN0_TopOnBlk"].get(),
-            SGF1_prvlvptrc1_almtechlgc=self.sgf_params["ALMTECHLGC_UIRZ_1_PRVLVPTRC1_EnaDis"].get(),
-            SGF1_shvlvptrc1_almtechlgc=self.sgf_params["ALMTECHLGC_UIRZ_1_SHVLVPTRC1_EnaDis"].get(),
-            SGF1_levptrc1_almtechlgc=self.sgf_params["ALMTECHLGC_UIRZ_1_LEVPTRC1_EnaDis"].get(),
+        try:
+            self.part = part_TECH_T2(
+           # Передаем SGF-параметры из self.sgf_params
             SGF1_ptrc1_talmgaslgc=self.sgf_params["TALMGASLGC_1_PTRC1_EnaDis"].get(),
             SGF2_ptrc1_talmgaslgc=self.sgf_params["TALMGASLGC_1_PTRC1_LowIsolSignCtrl"].get(),
-            T1_ptrc1_talmgaslgc=self.settings["TALMGASLGC_1_PTRC1_TopOnBlk"].get(),
+            T1_ptrc1_talmgaslgc=self.settings["TALMGASLGC_1_PTRC1_TopOnBlk"].get()/1000,
             SGF1_ptrc1_ttrgaslgc=self.sgf_params["TTRGASLGC_1_PTRC1_EnaDis"].get(),
             SGF2_ptrc1_ttrgaslgc=self.sgf_params["TTRGASLGC_1_PTRC1_LowIsolTripCtrl"].get(),
-            T1_ptrc1_ttrgaslgc=self.settings["TTRGASLGC_1_LLN0_TopOnBlk"].get(),
+            T1_ptrc1_ttrgaslgc=self.settings["TTRGASLGC_1_LLN0_TopOnBlk"].get()/1000,
             SGF1_ptrc1_tltcgaslgc=self.sgf_params["TLTCGASLGC_1_PTRC1_EnaDis"].get(),
             SGF2_ptrc1_tltcgaslgc=self.sgf_params["TLTCGASLGC_1_PTRC1_LowIsolTripCtrl"].get(),
-            T1_ptrc1_tltcgaslgc=self.settings["TLTCGASLGC_1_LLN0_TopOnBlk"].get(),
-            SGF1_ptrc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_PTRC1_EnaDis"].get(),
-            SGF1_rbre1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_RBRE1_EnaDis"].get(),
-            SGF2_rbre1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_RBRE1_PVOC2_Ctrl"].get(),
-            SGF3_rbre1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_RBRE1_PVOC3_Ctrl"].get(),
-            SGF1_rblc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_LVCBRBLC1_EnaDis"].get(),
-            SGF2_rblc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl"].get(),
-            SGF3_rblc1_tofflvlgc=self.sgf_params["TOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl"].get(),
-            SGF1_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_GASSign_Ctl"].get(),
-            SGF2_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_LowIsolGAS_Ctl"].get(),
-            SGF3_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_GASBlock_Ctl"].get(),
-            SGF4_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_TECHSign_Ctl"].get(),
-            SGF5_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_LowIsolTECH_Ctl"].get(),
-            SGF6_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_TECHBlock_Ctl"].get(),
-            SGF7_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_ALMSign_Ctl"].get(),
-            SGF8_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_OCSign_Ctl"].get(),
-            SGF9_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_OCnnSign_Ctl"].get(),
-            SGF10_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_OpExt_Ctl"].get(),
-            SGF11_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_CtlCir_Ctl"].get(),
-            SGF12_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_TestBlock_Ctl"].get(),
-            SGF13_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_SwOperExcTim_Ctl"].get(),
-            SGF14_t_lvalh=self.sgf_params["T_LVALH_1_CALH1_ExtSignGen_Ctl"].get(),
-            SGF1_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SA1"].get(),
-            SGF2_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SA2"].get(),
-            SGF3_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SA3"].get(),
-            SGF4_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SA4"].get(),
-            SGF5_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SA5"].get(),
-            SGF6_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SG1"].get(),
-            SGF7_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_SG2"].get(),
-            SGF8_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_GAS_OCControl"].get(),
-            SGF9_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_TECH_OCControl"].get(),
-            SGF10_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_OCcir_CB"].get(),
-            SGF11_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_ARCnn_OCControl"].get(),
-            SGF12_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_CBFPnn_OCControl"].get(),
-            SGF13_t_signassembly=self.sgf_params["T_SignAssembly_1_Ctl_IEDvt_OCControl"].get(),
-        )
-        print("part_TECH_T initialized")
+            T1_ptrc1_tltcgaslgc=self.settings["TLTCGASLGC_1_LLN0_TopOnBlk"].get()/1000,
+            SGF1_ptrc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_PTRC1_EnaDis"].get(),
+            SGF1_rbre1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_RBRE1_EnaDis"].get(),
+            SGF2_rbre1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_RBRE1_PVOC2_Ctrl"].get(),
+            SGF3_rbre1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_RBRE1_PVOC3_Ctrl"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_LVCBRBLC1_EnaDis"].get(),
+            SGF2_rblc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl"].get(),
+            SGF3_rblc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl"].get(),
+            SGF1_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_GASSign_Ctl"].get(),
+            SGF2_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_LowIsolGAS_Ctl"].get(),
+            SGF3_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_GASBlock_Ctl"].get(),
+            SGF4_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_OCSign_Ctl"].get(),
+            SGF5_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_OCnnSign_Ctl"].get(),
+            SGF6_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_OpExt_Ctl"].get(),
+            SGF7_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_CtlCir_Ctl"].get(),
+            SGF8_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_TestBlock_Ctl"].get(),
+            SGF9_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_SwOperExcTim_Ctl"].get(),
+            SGF10_t_lvalh=self.sgf_params["T2_LVALH_1_CALH1_ExtSignGen_Ctl"].get(),
+            SGF1_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA1"].get(),
+            SGF2_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA2"].get(),
+            SGF3_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA3"].get(),
+            SGF4_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA4"].get(),
+            SGF5_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA5"].get(),
+            SGF6_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA6"].get(),
+            SGF7_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SG1"].get(),
+            SGF8_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SG2"].get(),
+            SGF9_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SG3"].get(),
+            SGF10_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_GAS_OCControl"].get(),
+            SGF11_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_OCcir_CB"].get(),
+            SGF12_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_ARCnn1_OCControl"].get(),
+            SGF13_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_ARCnn2_OCControl"].get(),
+            SGF14_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_CBFPnn1_OCControl"].get(),
+            SGF15_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_CBFPnn2_OCControl"].get(),
+            SGF16_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_IEDvt_OCControl1"].get(),
+            SGF17_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_IEDvt_OCControl2"].get(),  
+            )
+            print("part_TECH_T2 initialized")
+           # messagebox.showinfo("Успех", "Модель инициализирована")
+        except Exception as e:
+            messagebox.showerror("Ошибка инициализации", str(e))
+            print(f"Error initializing part: {e}")
 
     def start_polling(self):
         if not self.part:
-            print("part_TECH_T not initialized")
+            messagebox.showwarning("Внимание", "Сначала нажмите Init")
+            return
+        if self.is_polling:
             return
         self.is_polling = True
         self.polling_thread = threading.Thread(target=self.poll_inputs, daemon=True)
         self.polling_thread.start()
+        print("Polling started")
 
     def stop_polling(self):
         self.is_polling = False
         if self.polling_thread and self.polling_thread.is_alive():
-            self.polling_thread.join(timeout=1.0)
+            self.polling_thread.join(timeout=2.0)
         print("Polling stopped")
 
     def poll_inputs(self):
@@ -342,46 +340,83 @@ class PartOfTECH_T_GUI:
             self.status_label.config(text="Шаг", background="white", foreground="black")
             time.sleep(0.05)
             self.status_label.config(text="Шаг", background="#F0F0F0", foreground="black")
+    def _handle_thread_error(self, msg):
+        """Обработчик ошибок из потока, выполняется в главном потоке"""
+        messagebox.showerror("Ошибка потока", msg)
+
+    def _update_gui_outputs(self, result):
+        """Выполняется в главном потоке. Обновляет виджеты."""
+        if not self.is_polling:
+            return
+
+        try:
+            for output, value in zip(self.output_labels.keys(), result):
+                label = self.output_labels[output]
+                text_val = f"{output}: {round(value, 2)}"
+                label.config(text=text_val)
+                
+                if int(value) != 0:
+                    label.config(background="red", foreground="white")
+                else:
+                    label.config(background="green", foreground="white")
+            
+            # Мигание статуса
+            self.status_label.config(text="Шаг", background="#D0D0D0", foreground="black")
+            self.root.after(50, lambda: self.status_label.config(text="Шаг", background="#F0F0F0", foreground="black"))
+            
+        except Exception as e:
+            print(f"GUI Update Error: {e}")
 
     def save_to_excel(self):
         function = self.function_name.get().strip()
         mode = self.mode_name.get().strip()
         if not function or not mode:
-            print("Поля 'Функция' и 'Режим' должны быть заполнены")
+            messagebox.showwarning("Внимание", "Поля 'Функция' и 'Режим' должны быть заполнены")
             return
         output_file = f"{function}_{mode}.xlsx"
 
-        sgf_df = pd.DataFrame({key: [var.get()] for key, var in self.sgf_params.items()})
-        settings_df = pd.DataFrame({key: [var.get()] for key, var in self.settings.items()})
-        inputs_df = pd.DataFrame({key: [var.get()] for key, var in self.input_vars.items()})
-        outputs_df = pd.DataFrame({key: [label.cget("text").split(": ")[-1]] for key, label in self.output_labels.items()})
+        try:
+            sgf_df = pd.DataFrame({key: [var.get()] for key, var in self.sgf_params.items()})
+            settings_df = pd.DataFrame({key: [var.get()] for key, var in self.settings.items()})
+            inputs_df = pd.DataFrame({key: [var.get()] for key, var in self.input_vars.items()})
+            
+            outputs_data = {}
+            for key, label in self.output_labels.items():
+                try:
+                    val_str = label.cget("text").split(": ")[-1]
+                    outputs_data[key] = [float(val_str)]
+                except:
+                    outputs_data[key] = [0.0]
+            outputs_df = pd.DataFrame(outputs_data)
 
-        with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
-            sgf_df.to_excel(writer, sheet_name="SGF_Parameters", index=False)
-            settings_df.to_excel(writer, sheet_name="Settings", index=False)
-            inputs_df.to_excel(writer, sheet_name="Inputs", index=False)
-            outputs_df.to_excel(writer, sheet_name="Outputs", index=False)
+            with pd.ExcelWriter(output_file, engine="openpyxl") as writer:
+                sgf_df.to_excel(writer, sheet_name="SGF_Parameters", index=False)
+                settings_df.to_excel(writer, sheet_name="Settings", index=False)
+                inputs_df.to_excel(writer, sheet_name="Inputs", index=False)
+                outputs_df.to_excel(writer, sheet_name="Outputs", index=False)
 
-        wb = openpyxl.load_workbook(output_file)
-        red_fill = PatternFill(start_color="FF0000", end_color="FF0000", fill_type="solid")
+            wb = openpyxl.load_workbook(output_file)
+            red_fill = PatternFill(start_color="FF0000", end_color="FF0000", fill_type="solid")
 
-        def format_sheet(sheet, df):
-            for col_num, column in enumerate(sheet.columns, start=1):
-                sheet.column_dimensions[openpyxl.utils.get_column_letter(col_num)].width = 20
-                for row_num, cell in enumerate(column, start=1):
-                    if row_num == 1:
-                        continue
-                    try:
-                        if float(cell.value) != 0:
-                            cell.fill = red_fill
-                    except (ValueError, TypeError):
-                        pass
+            def format_sheet(sheet):
+                for col_num, column in enumerate(sheet.columns, start=1):
+                    sheet.column_dimensions[openpyxl.utils.get_column_letter(col_num)].width = 25
+                    for row_num, cell in enumerate(column, start=1):
+                        if row_num == 1: continue
+                        try:
+                            if float(cell.value) != 0:
+                                cell.fill = red_fill
+                        except (ValueError, TypeError):
+                            pass
 
-        for sheet_name in ["SGF_Parameters", "Settings", "Inputs", "Outputs"]:
-            format_sheet(wb[sheet_name], None)
+            for sheet_name in wb.sheetnames:
+                format_sheet(wb[sheet_name])
 
-        wb.save(output_file)
-        print(f"Data saved to {output_file} with formatting")
+            wb.save(output_file)
+            print(f"Данные сохранены в {output_file}")
+            #messagebox.showinfo("Успех", f"Данные сохранены в {output_file}")
+        except Exception as e:
+            messagebox.showerror("Ошибка сохранения", str(e))
 
     def load_from_excel(self):
         file_path = askopenfilename(filetypes=[("Excel files", "*.xlsx")])
@@ -389,22 +424,27 @@ class PartOfTECH_T_GUI:
             return
         try:
             xls = pd.ExcelFile(file_path)
-            for sheet_name, var_dict in [("SGF_Parameters", self.sgf_params),
-                                          ("Settings", self.settings),
-                                          ("Inputs", self.input_vars)]:
+            
+            mapping = [
+                ("SGF_Parameters", self.sgf_params),
+                ("Settings", self.settings),
+                ("Inputs", self.input_vars)
+            ]
+
+            for sheet_name, var_dict in mapping:
                 if sheet_name in xls.sheet_names:
                     df = pd.read_excel(xls, sheet_name=sheet_name)
                     for key, var in var_dict.items():
                         if key in df.columns:
-                            var.set(df.at[0, key])
-            print("Data loaded successfully")
+                            val = df.at[0, key]
+                            if isinstance(var, tk.IntVar):
+                                var.set(int(val) if pd.notna(val) else 0)
+                            elif isinstance(var, tk.DoubleVar):
+                                var.set(float(val) if pd.notna(val) else 0.0)
+            
+            messagebox.showinfo("Успех", "Данные загружены из Excel")
         except Exception as e:
-            print(f"Error loading data: {e}")
-
-
-
-
-    # МЕТОДЫ ДЛЯ РАБОТЫ С JSON ФАЙЛАМИ УСТАВОК
+            messagebox.showerror("Ошибка загрузки", str(e))
 
     def load_settings_from_json(self):
         """Загружает SGF и T-параметры из JSON-файла, добавляя '_SG1' к именам."""
@@ -415,10 +455,6 @@ class PartOfTECH_T_GUI:
         try:
             handler = SettingsHandler.from_json_file(file_path)
             
-            if not self.meta_handler:
-                messagebox.showwarning("Предупреждение", "Метаданные не загружены. Используется стандартная обработка.")
-            
-            # --- Обновление SGF-параметров (с _SG1) ---
             for key in self.sgf_params:
                 json_key = key + "_SG1"
                 value_str = handler.get_value_by_parameter(json_key)
@@ -426,128 +462,47 @@ class PartOfTECH_T_GUI:
                     continue
                     
                 try:
-                    # Определяем тип из метаданных
                     type_str = None
                     if self.meta_handler:
                         param_info = self.meta_handler.get_param_info(json_key)
                         if param_info:
                             type_str = param_info.get("type")
-                            print(f"{json_key}: type={type_str}, value='{value_str}'")
                     
-                    # Преобразование значения в зависимости от типа
-                    if type_str == "3":  # Булевое значение
+                    if type_str == "3": 
                         value_lower = str(value_str).lower().strip()
                         bool_map = {
                             "true": 1, "1": 1, "on": 1, "вкл": 1, "да": 1, "yes": 1, "enabled": 1,
                             "false": 0, "0": 0, "off": 0, "выкл": 0, "нет": 0, "no": 0, "disabled": 0
                         }
-                        
-                        if value_lower in bool_map:
-                            self.sgf_params[key].set(bool_map[value_lower])
-                        else:
-                            # Пробуем числовое преобразование
-                            try:
-                                num_val = float(value_str)
-                                self.sgf_params[key].set(1 if num_val != 0 else 0)
-                            except ValueError:
-                                print(f"⚠️ Неизвестное булевое значение для {json_key}: '{value_str}'")
-                                self.sgf_params[key].set(0)
-                                
-                    elif type_str == "130":  # Integer
-                        try:
-                            # Удаляем возможные единицы измерения
-                            value_clean = str(value_str).strip()
-                            for suffix in ['%', '°', '°C', 'мс', 'с', 'м']:
-                                if value_clean.endswith(suffix):
-                                    value_clean = value_clean[:-len(suffix)].strip()
-                            
-                            # Преобразуем в int
-                            int_val = int(float(value_clean.replace(',', '.')))  # Обрабатываем 1.0, 1,5
-                            self.sgf_params[key].set(int_val)
-                        except (ValueError, TypeError) as e:
-                            print(f"⚠️ Ошибка преобразования int для {json_key}: '{value_str}' - {e}")
-                            self.sgf_params[key].set(0)
-                            
-                    else:  # По умолчанию или неизвестный тип - пробуем как int
-                        try:
-                            # Пробуем разные форматы
-                            value_clean = str(value_str).strip()
-                            
-                            # Сначала пробуем как булевое
-                            value_lower = value_clean.lower()
-                            bool_map = {
-                                "true": 1, "1": 1, "on": 1, "вкл": 1,
-                                "false": 0, "0": 0, "off": 0, "выкл": 0
-                            }
-                            
-                            if value_lower in bool_map:
-                                self.sgf_params[key].set(bool_map[value_lower])
-                            else:
-                                # Пробуем как число
-                                int_val = int(float(value_clean.replace(',', '.')))
-                                self.sgf_params[key].set(int_val)
-                        except (ValueError, TypeError) as e:
-                            print(f"⚠️ Не удалось преобразовать значение для {json_key}: '{value_str}' - {e}")
-                            self.sgf_params[key].set(0)
+                        self.sgf_params[key].set(bool_map.get(value_lower, 0))
+                    else: 
+                        value_clean = str(value_str).replace(',', '.').strip()
+                        for suffix in ['%', '°', 'мс', 'с', 'м']:
+                            if value_clean.endswith(suffix):
+                                value_clean = value_clean[:-len(suffix)].strip()
+                        self.sgf_params[key].set(int(float(value_clean)))
                             
                 except Exception as e:
-                    print(f"Ошибка при обработке {json_key}: {e}")
+                    print(f"Ошибка SGF {json_key}: {e}")
 
-            # --- Обновление T-параметров (с _SG1) ---
             for key in self.settings:
                 json_key = key + "_SG1"
                 value_str = handler.get_value_by_parameter(json_key)
                 if value_str is None:
                     continue
-                    
                 try:
-                    # Определяем тип из метаданных
-                    type_str = None
-                    if self.meta_handler:
-                        param_info = self.meta_handler.get_param_info(json_key)
-                        if param_info:
-                            type_str = param_info.get("type")
-                            print(f"{json_key}: type={type_str}, value='{value_str}'")
-                    
-                    # Для settings обычно используются float значения
-                    value_clean = str(value_str).strip()
-                    
-                    # Убираем единицы измерения
-                    units_to_remove = ['%', '°', '°c', '°с', 'мс', 'с', 'м', 'мм', 'кг', 'кпа', 'па']
-                    for unit in units_to_remove:
+                    value_clean = str(value_str).replace(',', '.').strip()
+                    for unit in ['%', '°', 'мс', 'с', 'м']:
                         if value_clean.lower().endswith(unit):
                             value_clean = value_clean[:-len(unit)].strip()
-                    
-                    # Заменяем запятую на точку
-                    value_clean = value_clean.replace(',', '.')
-                    
-                    # Пробуем преобразовать в float
-                    try:
-                        float_val = float(value_clean)
-                        
-                        # Проверяем разумные пределы для settings
-                        if abs(float_val) > 1000000:
-                            print(f"⚠️ Подозрительно большое значение для {json_key}: {float_val}")
-                            # Можно установить значение по умолчанию
-                            # self.settings[key].set(1.0)
-                        else:
-                            self.settings[key].set(float_val)
-                            
-                    except ValueError as e:
-                        print(f"⚠️ Невозможно преобразовать в число: {json_key} = '{value_str}' - {e}")
-                        
+                    self.settings[key].set(float(value_clean))
                 except Exception as e:
-                    print(f"Ошибка при обработке {json_key}: {e}")
+                    print(f"Ошибка Setting {json_key}: {e}")
 
             messagebox.showinfo("Успех", "Уставки успешно загружены из JSON-файла.")
-            print("Параметры обновлены из JSON (с суффиксом _SG1)")
 
-        except FileNotFoundError:
-            messagebox.showerror("Ошибка", f"Файл не найден: {file_path}")
         except Exception as e:
             messagebox.showerror("Ошибка", f"Не удалось загрузить уставки:\n{str(e)}")
-            print(f"Ошибка загрузки JSON: {e}")
-
 
     def save_settings_to_json(self):
         """Сохраняет SGF и T-параметры в JSON-файл с суффиксом _SG1."""
@@ -559,78 +514,39 @@ class PartOfTECH_T_GUI:
         if not file_path:
             return
         try:
-            # Пытаемся загрузить существующий файл, иначе создаём пустой
             try:
                 handler = SettingsHandler.from_json_file(file_path)
-            except (FileNotFoundError, json.JSONDecodeError, KeyError, ValueError):
-                handler = SettingsHandler([])  # пустой обработчик
+            except:
+                handler = SettingsHandler([]) 
             
-            # --- 1. Сохраняем SGF-параметры ---
             for base_key in self.sgf_params:
                 json_key = base_key + "_SG1"
                 raw_value = self.sgf_params[base_key].get()
-
-                # Определяем тип параметра
-                param_type = "3"  # значение по умолчанию — бинарный
+                
+                param_type = "3" 
                 if self.meta_handler:
                     param_info = self.meta_handler.get_param_info(json_key)
                     if param_info and "type" in param_info:
                         param_type = str(param_info["type"])
 
-                # Преобразуем значение в число
-                try:
-                    numeric_value = float(raw_value)
-                    if not numeric_value.is_integer():
-                        numeric_value = int(round(numeric_value))
-                    else:
-                        numeric_value = int(numeric_value)
-                except (ValueError, TypeError):
-                    numeric_value = 0
-
-                # Форматируем в зависимости от типа
                 if param_type == "3":
-                    formatted = "1" if numeric_value != 0 else "0"
-                elif param_type == "130":
-                    formatted = str(numeric_value)
+                    formatted = "1" if raw_value != 0 else "0"
                 else:
-                    formatted = str(numeric_value)
+                    formatted = str(int(raw_value))
 
                 handler.add_or_update_parameter(json_key, formatted)
-                print(f"💾 SGF {json_key} = {formatted} (type={param_type}, raw={raw_value})")
             
-            # --- 2. Сохраняем T-параметры (settings) ---
             for base_key in self.settings:
-                json_key = base_key + "_SG1"  # ← ВАЖНО: тоже добавляем _SG1!
+                json_key = base_key + "_SG1"
                 raw_value = self.settings[base_key].get()
-
-                # Определяем тип параметра из метаданных
-                param_type = None
-                if self.meta_handler:
-                    param_info = self.meta_handler.get_param_info(json_key)
-                    if param_info and "type" in param_info:
-                        param_type = str(param_info["type"])
-
-                # Для T-параметров обычно используется float
-                try:
-                    float_val = float(raw_value)
-                    # Сохраняем с разумной точностью (убираем лишние нули)
-                    formatted = f"{float_val:.6g}"
-                except (ValueError, TypeError):
-                    formatted = "0.0"
-
+                formatted = f"{float(raw_value):.6g}"
                 handler.add_or_update_parameter(json_key, formatted)
-                print(f"💾 T   {json_key} = {formatted} (type={param_type}, raw={raw_value})")
             
-            # Сохраняем
             handler.save_to_json_file(file_path)
             messagebox.showinfo("Успех", f"Уставки сохранены в:\n{file_path}")
-            print(f"✅ Уставки сохранены в {file_path}")
+            
         except Exception as e:
-            error_msg = f"Ошибка при сохранении уставок:\n{str(e)}"
-            messagebox.showerror("Ошибка", error_msg)
-            print(f"❌ {error_msg}")
-            import traceback
-            traceback.print_exc()
+            messagebox.showerror("Ошибка", f"Ошибка при сохранении:\n{str(e)}")
 
     def _get_output_names(self):
         return self.OUTPUT_PARAMS    
@@ -638,5 +554,8 @@ class PartOfTECH_T_GUI:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    style = ttk.Style()
+    style.theme_use('vista') 
+    
     app = PartOfTECH_T_GUI(root)
     root.mainloop()

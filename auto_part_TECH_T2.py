@@ -11,7 +11,27 @@ import openpyxl
 
 from lib2.PARTS.TECH_T2 import part_TECH_T2 
 
+from MainConfigHandler import MainConfigHandler
+from SettingsHandler import SettingsHandler
+from ToolTip import ToolTip
+
 class PartOfTECH_T2_GUI:
+
+    # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
+    OUTPUT_PARAMS = [
+            "vvod_ptrc1_talmgaslgc", "oper_vyvod_ptrc1_talmgaslgc", "srab_ptrc1_talmgaslgc", "srabsign_ptrc1_talmgaslgc", "zablok_ptrc1_talmgaslgc", "ET_ptrc1_talmgaslgc",
+            "vvod_ptrc1_ttrgaslgc", "oper_vyvod_ptrc1_ttrgaslgc", "srab_ptrc1_ttrgaslgc", "srabsign_ptrc1_ttrgaslgc",
+            "zablok_ptrc1_ttrgaslgc", "ET_ptrc1_ttrgaslgc", "vvod_ptrc1_tltcgaslgc", "oper_vyvod_ptrc1_tltcgaslgc",
+            "srab_ptrc1_tltcgaslgc", "srabsign_ptrc1_tltcgaslgc", "zablok_ptrc1_tltcgaslgc", "ET_ptrc1_tltcgaslgc",
+            "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc",
+            "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc",
+            "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc",
+            "SS_gz_sign", "SS_gz_zablok", "SS_gz_nizk_isol", 
+            "SS_vnesh_otkl", "SS_vyh_zepi_razobr", "SS_bi_vyved", "SS_ot_sign",
+            "SS_neispr_ot_gz", "SS_neispr_ot_v", "SS_ot_nn_sign", "SS_prev_vrem_per_ka", "SS_obsh_vnesh_sign", "pusk_lvalh"
+        ]
+
+
     def __init__(self, root):
         self.root = root
         self.root.title("Тестирование Газовых Защит М300-Т2. вер.0 от 03.07.25, вер.1 от 24.07.25, вер.2 от 10.04.26")
@@ -20,6 +40,7 @@ class PartOfTECH_T2_GUI:
         self.is_polling = False
         self.function_name = tk.StringVar(value="Функция")
         self.mode_name = tk.StringVar(value="Режим")
+
 
         # Инициализация SGF-параметров
         self.sgf_params = {
@@ -46,15 +67,15 @@ class PartOfTECH_T2_GUI:
             "SGF8_lvalh": tk.IntVar(value=0),
             "SGF9_lvalh": tk.IntVar(value=0),
             "SGF10_lvalh": tk.IntVar(value=0),
-            "SGF1_tsa": tk.IntVar(value=0),
-            "SGF2_tsa": tk.IntVar(value=0),
-            "SGF3_tsa": tk.IntVar(value=0),
-            "SGF4_tsa": tk.IntVar(value=0),
-            "SGF5_tsa": tk.IntVar(value=0),
-            "SGF6_tsa": tk.IntVar(value=0),
-            "SGF7_tsa": tk.IntVar(value=0),
-            "SGF8_tsa": tk.IntVar(value=0),
-            "SGF9_tsa": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA1": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA2": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA3": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA4": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA5": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA6": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SG1": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SG2": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SG3": tk.IntVar(value=0),
             "SGF10_tsa": tk.IntVar(value=0),
             "SGF11_tsa": tk.IntVar(value=0),
             "SGF12_tsa": tk.IntVar(value=0),
@@ -98,7 +119,33 @@ class PartOfTECH_T2_GUI:
             "OVzavr_tofflvlg": tk.IntVar(value=0),
         }
 
-        self.output_labels = {}  # Для вывода результатов
+        # === ЗАГРУЗКА МЕТАДАННЫХ ===
+        try:
+            self.meta_handler = MainConfigHandler.from_json_file("meta.json")
+        except Exception as e:
+            print(f"⚠️ Не удалось загрузить meta.json: {e}")
+            self.meta_handler = None
+
+        # === ГЕНЕРАЦИЯ ПОДСКАЗОК ИЗ JSON ===
+        self.tooltips = {}
+        all_param_keys = (
+            list(self._get_sgf_param_names()) +
+            list(self._get_setting_names()) +
+            list(self._get_input_names()) +
+            list(self._get_output_names())  # <-- Добавили выходы
+        )
+        for key in all_param_keys:
+            if self.meta_handler:
+                desc = self.meta_handler.get_description_by_base_name(key)
+                if desc:
+                    self.tooltips[key] = desc
+
+        # Инициализация параметров
+        self.sgf_params = {name: tk.IntVar(value=0) for name in self._get_sgf_param_names()}
+        self.settings = {name: tk.DoubleVar(value=1.0) for name in self._get_setting_names()}
+        self.input_vars = {name: tk.IntVar(value=0) for name in self._get_input_names()}
+
+        self.output_labels = {name: tk.IntVar(value=0) for name in self._get_output_names()}
         self.create_widgets()
 
     def create_widgets(self):
@@ -163,21 +210,8 @@ class PartOfTECH_T2_GUI:
         output_frame = ttk.LabelFrame(self.root, text="Выходные параметры")
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
 
-        outputs = [
-            "vvod_ptrc1_talmgaslgc", "oper_vyvod_ptrc1_talmgaslgc", "srab_ptrc1_talmgaslgc", "srabsign_ptrc1_talmgaslgc", "zablok_ptrc1_talmgaslgc", "ET_ptrc1_talmgaslgc",
-            "vvod_ptrc1_ttrgaslgc", "oper_vyvod_ptrc1_ttrgaslgc", "srab_ptrc1_ttrgaslgc", "srabsign_ptrc1_ttrgaslgc",
-            "zablok_ptrc1_ttrgaslgc", "ET_ptrc1_ttrgaslgc", "vvod_ptrc1_tltcgaslgc", "oper_vyvod_ptrc1_tltcgaslgc",
-            "srab_ptrc1_tltcgaslgc", "srabsign_ptrc1_tltcgaslgc", "zablok_ptrc1_tltcgaslgc", "ET_ptrc1_tltcgaslgc",
-            "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc",
-            "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc",
-            "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc",
-            "SS_gz_sign", "SS_gz_zablok", "SS_gz_nizk_isol", 
-            "SS_vnesh_otkl", "SS_vyh_zepi_razobr", "SS_bi_vyved", "SS_ot_sign",
-            "SS_neispr_ot_gz", "SS_neispr_ot_v", "SS_ot_nn_sign", "SS_prev_vrem_per_ka", "SS_obsh_vnesh_sign", "pusk_lvalh"
-        ]
-
         row, col = 0, 0
-        for output in outputs:
+        for output in self.OUTPUT_PARAMS:
             label = ttk.Label(output_frame, text=output, width=33, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
@@ -215,15 +249,15 @@ class PartOfTECH_T2_GUI:
             SGF8_t_lvalh=self.sgf_params["SGF8_lvalh"].get(),
             SGF9_t_lvalh=self.sgf_params["SGF9_lvalh"].get(),
             SGF10_t_lvalh=self.sgf_params["SGF10_lvalh"].get(),
-            SGF1_t_signassembly=self.sgf_params["SGF1_tsa"].get(),
-            SGF2_t_signassembly=self.sgf_params["SGF2_tsa"].get(),
-            SGF3_t_signassembly=self.sgf_params["SGF3_tsa"].get(),
-            SGF4_t_signassembly=self.sgf_params["SGF4_tsa"].get(),
-            SGF5_t_signassembly=self.sgf_params["SGF5_tsa"].get(),
-            SGF6_t_signassembly=self.sgf_params["SGF6_tsa"].get(),
-            SGF7_t_signassembly=self.sgf_params["SGF7_tsa"].get(),
-            SGF8_t_signassembly=self.sgf_params["SGF8_tsa"].get(),
-            SGF9_t_signassembly=self.sgf_params["SGF9_tsa"].get(),
+            SGF1_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA1"].get(),
+            SGF2_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA2"].get(),
+            SGF3_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA3"].get(),
+            SGF4_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA4"].get(),
+            SGF5_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA5"].get(),
+            SGF6_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SA6"].get(),
+            SGF7_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SG1"].get(),
+            SGF8_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SG2"].get(),
+            SGF9_t_signassembly=self.sgf_params["T2_SignAssembly_1_Ctl_SG3"].get(),
             SGF10_t_signassembly=self.sgf_params["SGF10_tsa"].get(),
             SGF11_t_signassembly=self.sgf_params["SGF11_tsa"].get(),
             SGF12_t_signassembly=self.sgf_params["SGF12_tsa"].get(),
@@ -353,6 +387,21 @@ class PartOfTECH_T2_GUI:
             print("Data loaded successfully")
         except Exception as e:
             print(f"Error loading data: {e}")
+
+
+    def _get_output_names(self):
+        return self.OUTPUT_PARAMS  
+
+    def _get_sgf_param_names(self):
+        return self.sgf_params  
+
+    def _get_setting_names(self):
+        return self.settings
+    
+    def _get_input_names(self):
+        return self.input_vars  
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()
