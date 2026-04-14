@@ -54,25 +54,34 @@ class SWITCH:
 
     def Step(self, 
     DI_ControllerDisable, 
-    OV_rcbf1_lvcbsup, ot_emo1emv, ot_emo2, avar_isol_V, niz_isol_V, pruzh_ne_zaved, Sbros, otkl_ot_knopk, oper_otkl_V, KRV_resurs_V, vnesh_blok_upr_V, kontr_emv, kontr_emo1, kontr_emo2, rabota_emv, rabota_emo1, rabota_emo2,
-    OV_swctrl, otkl_v_ot_pu, otkl_v_ichm, mestnoe, otkl_v_ot_tu, otkl_v_asu, kluch_md_priv, vkl_v_ot_pu, vkl_v_ichm, distanz, vkl_v_ot_tu, vkl_v_asu, v_otkl_bk, v_vkl_bk,
-    OV_cbcswi1_hvbctrl, oper_vkl_v, 
-    OV_tsd, 
-    pusk_urov_vnesh,
-    vnesh_otkl_zdz1, vnesh_otkl_urov1, vnesh_otkl_zdz2, vnesh_otkl_urov2
+    DI_LVCBSUP, CBCS_CBOS1_OCControl, CBOS2_OCControl, InsTr, LowIns, EnBlk, Reset, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working,
+    DI_SWCTRL, OpnCBFrmCtrlPanel, T_SWCTRL_1_OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, T_SWCTRL_1_ClsCBFrm_HMI, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, CBPosOpn, CBPosCls,
+    DI_HVBCTRL, OperClsCB, 
+    DI_SD, 
+    ExternalRBRFStart,
+    OpExtOfARC_NN1, OpExtOfCBFP_NN1, OpExtOfARC_NN2, OpExtOfCBFP_NN2
     ):
+        
+        # === НАЧАЛО ИЗМЕНЕНИЙ ===
+        # Жесткая логическая связь: Дистанционное = НЕ Местное
+        # Если mestnoe=1, то Remote станет 0. Если mestnoe=0, то Remote станет 1.
+        # Мы перезаписываем входящий аргумент Remote перед использованием.
+        distanz = 1 - int(LocKey) 
+        #mestnoe = 1 - int(Remote) 
+        # === КОНЕЦ ИЗМЕНЕНИЙ ===
 
-        vvod_hvcbptrc1_hvtcboff, oper_vyvod_hvcbptrc1_hvtcboff, otkl_hvcbptrc1_hvtcboff, otkl_avar_hvcbptrc1_hvtcboff = self.hvtcboff.Step(DI_ControllerDisable, OV_hvcbptrc1_hvtcboff=0, LO_t_srab=0, vnesh_otkl_zdz=vnesh_otkl_zdz1 or vnesh_otkl_zdz2, vnesh_otkl_urov=vnesh_otkl_urov1 or vnesh_otkl_urov2)
 
-        vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(DI_ControllerDisable, OV_rcbf1_lvcbsup, ot_emo1emv, ot_emo2, otkl_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, avar_isol_V, niz_isol_V, pruzh_ne_zaved, self.v_neisp_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, Sbros, self.uv_otkluchit_cbcswi1_swctrl, otkl_ot_knopk, oper_otkl_V, KRV_resurs_V, vnesh_blok_upr_V, kontr_emv, kontr_emo1, kontr_emo2, rabota_emv, rabota_emo1, rabota_emo2)
+        vvod_hvcbptrc1_hvtcboff, oper_vyvod_hvcbptrc1_hvtcboff, otkl_hvcbptrc1_hvtcboff, otkl_avar_hvcbptrc1_hvtcboff = self.hvtcboff.Step(DI_ControllerDisable, OV_hvcbptrc1_hvtcboff=0, LO_t_srab=0, vnesh_otkl_zdz=OpExtOfARC_NN1 or OpExtOfARC_NN2, vnesh_otkl_urov=OpExtOfCBFP_NN1 or OpExtOfCBFP_NN2)
 
-        vvod_swctrl, oper_vyvod_swctrl, vvod_cbcswi1_swctrl, self.uv_otkluchit_cbcswi1_swctrl, uv_idet_per_cbcswi1_swctrl, uv_prev_vrem_per_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl = self.swctrl.Step(DI_ControllerDisable, OV_swctrl, blok_otkl_rcbf1_lvcbsup, otkl_v_ot_pu, otkl_v_ichm, mestnoe, otkl_v_ot_tu, otkl_v_asu, kluch_md_priv, vkl_v_ot_pu, vkl_v_ichm, distanz, vkl_v_ot_tu, vkl_v_asu, blok_vkl_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, v_otkl_bk, v_vkl_bk)
+        vvod_rcbf1_lvcbsup, oper_vyvod_rcbf1_lvcbsup, v_samoproisv_otkl_rcbf1_lvcbsup, neispr_V_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, rfk_rcbf1_lvcbsup, blok_vkl_rcbf1_lvcbsup, blok_otkl_rcbf1_lvcbsup, neisp_emu_rcbf1_lvcbsup, zashita_emv_rcbf1_lvcbsup, zashita_emo1_rcbf1_lvcbsup, zashita_emo2_rcbf1_lvcbsup = self.lvcbsup.Step(DI_ControllerDisable, DI_LVCBSUP, CBCS_CBOS1_OCControl, CBOS2_OCControl, otkl_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, InsTr, LowIns, EnBlk, self.v_neisp_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, Reset, self.uv_otkluchit_cbcswi1_swctrl, OpnCBFrmKnob, OperOpnCB, T_LVCBSUP_1_ClsResourceExcess, ExternalBlkCB, CBCSCtrl, CBOS1Ctrl, CBOS2Ctrl, CBCSWorking, CBOS1Working, CBOS2Working)
 
-        vvod_cbcswi1_hvbctrl, oper_vyvod_cbcswi1_hvbctrl, uv_vkl_cbcswi1_hvbctrl = self.hvbctrl.Step(DI_ControllerDisable, OV_cbcswi1_hvbctrl, oper_vkl_v, blok_vkl_rcbf1_lvcbsup)
+        vvod_swctrl, oper_vyvod_swctrl, vvod_cbcswi1_swctrl, self.uv_otkluchit_cbcswi1_swctrl, uv_idet_per_cbcswi1_swctrl, uv_prev_vrem_per_cbcswi1_swctrl, uv_vkluchit_cbcswi1_swctrl, uv_ne_opredeleno_cbcswi1_swctrl, uv_otklucheno_cbcswi1_swctrl, uv_vklucheno_cbcswi1_swctrl, uv_neispr_neopred_cbcswi1_swctrl = self.swctrl.Step(DI_ControllerDisable, DI_SWCTRL, blok_otkl_rcbf1_lvcbsup, OpnCBFrmCtrlPanel, T_SWCTRL_1_OpnCBFrm_HMI, LocKey, OpnCBFrmRemoteCtrl, T_SWCTRL_1_OpnCBFrm_ACS, KeyLocDist, ClsCBFrmCtrlPanel, T_SWCTRL_1_ClsCBFrm_HMI, distanz, ClsCBFrmRemoteCtrl, T_SWCTRL_1_ClsCBFrm_ACS, blok_vkl_rcbf1_lvcbsup, v_avar_otkl_rcbf1_lvcbsup, CBPosOpn, CBPosCls)
 
-        vvod_tds, oper_vyvod_tds,  vvod_xcbr1_tsd, v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_neisp_pol_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd = self.tsd.Step(DI_ControllerDisable, OV_tsd, v_otkl_bk, v_vkl_bk, self.uv_otkluchit_cbcswi1_swctrl, otkl_avar_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, oper_otkl_V, blok_otkl_rcbf1_lvcbsup, rabota_emo1, rabota_emo2, Sbros, uv_vkluchit_cbcswi1_swctrl, uv_vkl_cbcswi1_hvbctrl, rabota_emv)
+        vvod_cbcswi1_hvbctrl, oper_vyvod_cbcswi1_hvbctrl, uv_vkl_cbcswi1_hvbctrl = self.hvbctrl.Step(DI_ControllerDisable, DI_HVBCTRL, OperClsCB, blok_vkl_rcbf1_lvcbsup)
 
-        vvod_rbrf1_tpbrf, oper_vyvod_rbrf1_tpbrf, uskorenie_rbrf1_tpbrf, srab_rbrf1_tpbrf, pusk_rbrf1_tpbrf, io_rbrf1_tpbrf, self.srab_na_sebya_rbrf1_tpbrf = self.tpbrf.Step(DI_ControllerDisable, OV_rbrf1_tpbrf=0, blok_otkl_rcbf1_lvcbsup=blok_otkl_rcbf1_lvcbsup, LO_VN_otkl=0, kontr_emo1=kontr_emo1, kontr_emo2=kontr_emo2, Puski=(0,0), pusk_urov_vnesh=pusk_urov_vnesh, IA=0, IB=0, IC=0)
+        vvod_tds, oper_vyvod_tds,  vvod_xcbr1_tsd, v_prom_pol_xcbr1_tsd, self.v_otkluchen_xcbr1_tsd, self.v_vkluchen_xcbr1_tsd, self.v_neisp_pol_xcbr1_tsd, v_otkluchit_rele_xcbr1_tsd, v_vkluchit_rele_xcbr1_tsd = self.tsd.Step(DI_ControllerDisable, DI_SD, CBPosOpn, CBPosCls, self.uv_otkluchit_cbcswi1_swctrl, otkl_avar_hvcbptrc1_hvtcboff, self.srab_na_sebya_rbrf1_tpbrf, OperOpnCB, blok_otkl_rcbf1_lvcbsup, CBOS1Working, CBOS2Working, Reset, uv_vkluchit_cbcswi1_swctrl, uv_vkl_cbcswi1_hvbctrl, CBCSWorking)
+
+        vvod_rbrf1_tpbrf, oper_vyvod_rbrf1_tpbrf, uskorenie_rbrf1_tpbrf, srab_rbrf1_tpbrf, pusk_rbrf1_tpbrf, io_rbrf1_tpbrf, self.srab_na_sebya_rbrf1_tpbrf = self.tpbrf.Step(DI_ControllerDisable, OV_rbrf1_tpbrf=0, blok_otkl_rcbf1_lvcbsup=blok_otkl_rcbf1_lvcbsup, LO_VN_otkl=0, kontr_emo1=CBOS1Ctrl, kontr_emo2=CBOS2Ctrl, Puski=(0,0), pusk_urov_vnesh=ExternalRBRFStart, IA=0, IB=0, IC=0)
 
         ss_prev_vrem_per_ka = self.tsa.Step(VYVOD=DI_ControllerDisable, prev_vrem_ka=(uv_prev_vrem_per_cbcswi1_swctrl,))[10]
 

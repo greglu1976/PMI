@@ -1,5 +1,3 @@
-# автоматическое тестирование ФСУ T2 в части КСВ, КП, КА, УВ + СС, ПС
-
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
@@ -9,44 +7,38 @@ import pandas as pd
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
-from openpyxl.worksheet.dimensions import ColumnDimension
 import openpyxl
 
-# Импортируем новый класс SWITCH3
-from lib2.PARTS.SWITCH_T2 import SWITCH
+from lib2.PARTS.LO_T2 import part_LO
 from MainConfigHandler import MainConfigHandler
 from SettingsHandler import SettingsHandler
 from ToolTip import ToolTip
 
-
-class PartOfSwitchGUI:
+class PartLO_GUI:
 
     # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
     OUTPUT_PARAMS = [
-            "T_LVCBSUP_1_RCBF1_FuncEnabled", "T_LVCBSUP_1_RCBF1_FuncOperDisabled", "T_LVCBSUP_1_RCBF1_UnpromptedCBopening", "T_LVCBSUP_1_RCBF1_FailureCB",
-            "T_LVCBSUP_1_RCBF1_CBFailureTrip", "T_LVCBSUP_1_RCBF1_FixingContacts", "T_LVCBSUP_1_RCBF1_BlkToCls", "T_LVCBSUP_1_RCBF1_BlkToOpn",
-            "T_LVCBSUP_1_RCBF1_ElmgLaunchFault", "T_LVCBSUP_1_RCBF1_ProtectCBCS", "T_LVCBSUP_1_RCBF1_ProtectCBOS1", "T_LVCBSUP_1_RCBF1_ProtectCBOS2",
-            "T_SWCTRL_1_SWCTRL_FuncEnabled", "T_SWCTRL_1_SWCTRL_FuncOperDisabled", "T_SWCTRL_1_CBCSWI1_FuncEnabled", "T_SWCTRL_1_CBCSWI1_OpOpn", "T_SWCTRL_1_CBCSWI1_SwitchInProgress",
-            "T_SWCTRL_1_CBCSWI1_OpTmAlm", "T_SWCTRL_1_CBCSWI1_OpCls", "T_SWCTRL_1_CBCSWI1_CBPosInterm",
-            "T_SWCTRL_1_CBCSWI1_PosOpn", "T_SWCTRL_1_CBCSWI1_PosCls", "T_SWCTRL_1_CBCSWI1_CBPosFault",
-            "T_HVBCTRL_1_CBCSWI1_FuncEnabled", "T_HVBCTRL_1_CBCSWI1_FuncOperDisabled", "T_HVBCTRL_1_CBCSWI1_OpCls",
-            "T_SwitchDevice_1_SD_FuncEnabled", "T_SwitchDevice_1_SD_FuncOperDisabled", "T_SwitchDevice_1_CB1_FuncEnabled", "T_SwitchDevice_1_CB1_CBPosIntermed", "T_SwitchDevice_1_CB1_CBPosOpn",
-            "T_SwitchDevice_1_CB1_CBPosCls", "T_SwitchDevice_1_CB1_CBPosFaul", "T_SwitchDevice_1_CB1_OpnCB_relay", "T_SwitchDevice_1_CB1_ClsCB_relay", "T2_SignAssembly_1_SwOperExcTim", "T2_LVALH_1_CALH1_Alarm",
-            "T_TPBRF_1_GENRBRF1_OpIn",
-            "HVTCBOFF_1_HVCBPTRC1_FuncEnabled", "HVTCBOFF_1_HVCBPTRC1_Op", "HVTCBOFF_1_HVCBPTRC1_Tr"
+            "T2_LVTTOC_1_LVTTOC_Str", "mtz_srab_ptoc1_lvttoc", "mtz_srab_ptoc2_lvttoc", "mtz_srab_ptoc3_lvttoc", "pusk_ptoc1_lvtoc", "srab_ptoc1_lvtoc",
+            "vvod_ptrc1_tofflvlgc", "oper_vyvod_ptrc1_tofflvlgc", "pusk_ptrc1_tofflvlgc", "srab_ptrc1_tofflvlgc", "vvod_rblc1_tofflvlgc", "oper_vyvod_rblc1_tofflvlgc", "zapret_rblc1_tofflvlgc", "vvod_rbre1_tofflvlgc", "oper_vyvod_rbre1_tofflvlgc", "zapret_rbre1_tofflvlgc",
+            "vvod_hvcbptrc1_hvtcboff", "oper_vyvod_hvcbptrc1_hvtcboff", "otkl_hvcbptrc1_hvtcboff", "otkl_avar_hvcbptrc1_hvtcboff",
+            "vvod_lvcbptrc1_lvtcboff1", "oper_vyvod_lvcbptrc1_lvtcboff1", "otkl_lvcbptrc1_lvtcboff1", "otkl_avar_lvcbptrc1_lvtcboff1", "vvod_lvcbrecrbre1_lvtcboff1", "oper_vyvod_lvcbrecrbre1_lvtcboff1", "zapret_lvcbrecrbre1_lvtcboff1", "vvod_lvbtsrblc1_lvtcboff1", "oper_vyvod_lvbtsrblc1_lvtcboff1", "zapret_lvbtsrblc1_lvtcboff1",
+            "vvod_lvcbptrc1_lvtcboff2", "oper_vyvod_lvcbptrc1_lvtcboff2", "otkl_lvcbptrc1_lvtcboff2", "otkl_avar_lvcbptrc1_lvtcboff2", "vvod_lvcbrecrbre1_lvtcboff2", "oper_vyvod_lvcbrecrbre1_lvtcboff2", "zapret_lvcbrecrbre1_lvtcboff2", "vvod_lvbtsrblc1_lvtcboff2", "oper_vyvod_lvbtsrblc1_lvtcboff2", "zapret_lvbtsrblc1_lvtcboff2",
+            "blok_otkl_rcbf1_lvcbsup",
+            "vvod_rbrf1_tpbrf", "oper_vyvod_rbrf1_tpbrf", "uskorenie_rbrf1_tpbrf", "srab_rbrf1_tpbrf", "pusk_rbrf1_tpbrf", "io_rbrf1_tpbrf", "srab_na_sebya_rbrf1_tpbrf",
+            "SS_gz_sign", "SS_gz_zablok", "SS_gz_nizk_isol", "SS_vnesh_otkl", "SS_vyh_zepi_razobr", "SS_bi_vyved", "SS_ot_sign", "SS_neispr_ot_gz", "SS_neispr_ot_v", "SS_ot_nn_sign", "SS_prev_vrem_per_ka", "SS_obsh_vnesh_sign",
+            "pusk_lvalh"
     ]
 
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ Т2 в части КСВ, КП, КА, УВ, СС, ПС и УРОВ. v1.0 01.07.25, v1.1 24.07.25, v2.0 13.04.26")
+        self.root.title("Тестирование ЛО, УРОВ, СС, ПС, ЛО ВН, ЛО НН М300-Т2. вер.0 от 03.07.25, вер.1 от 25.07.25, вер.2 от 14.04.26")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
-
-        # Инициализация переменных для имени файла
         self.function_name = tk.StringVar(value="Функция")
         self.mode_name = tk.StringVar(value="Режим")
+
 
         # === ЗАГРУЗКА МЕТАДАННЫХ ===
         try:
@@ -56,34 +48,81 @@ class PartOfSwitchGUI:
             self.meta_handler = None
 
 
-        # Инициализация переменных для параметров SGF, настроек, входных и выходных значений
+        # Инициализация SGF-параметров
         self.sgf_params = {
-            "T_LVCBSUP_1_RCBF1_EnaDis": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_BlkToClsFrmLowIsol": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_BlkFrmCBPosFault": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_RstFrmCLS": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_OCcircuitFailureCtrl": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_ConditionForElmgLaunchFault": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_KnobCtrl": tk.IntVar(value=0),
-            "T_LVCBSUP_1_RCBF1_BlkCtrlFrmInsAlm": tk.IntVar(value=0),
-            "T_SWCTRL_1_SWCTRL_EnaDis": tk.IntVar(value=0),
-            "T_SWCTRL_1_CBCSWI1_EnaDis": tk.IntVar(value=0),
-            "T_SWCTRL_1_CBCSWI1_BlkToClsFrmFailureTrip": tk.IntVar(value=0),
-            "T_HVBCTRL_1_CBCSWI1_EnaDis": tk.IntVar(value=0),
-            "T_SwitchDevice_1_SD_EnaDis": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_EnaDis": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_TPOpnResetCtrl": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_CBOSoperationCtrl": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_TPClsResetCtrl": tk.IntVar(value=0),
-            "T_SwitchDevice_1_CB1_CBCSoperationCtrl": tk.IntVar(value=0),
-            #"SGF6_xcbr1_tsd": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_EnaDis": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_BlkToOpnSpeedUp": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_CurrentPickUp": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_CBOSTypeCtrl": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_ActUpSwitch": tk.IntVar(value=0),
-            "T_TPBRF_1_GENRBRF1_TypeOfCtrlCurrent": tk.IntVar(value=0),
-            "HVTCBOFF_1_HVCBPTRC1_EnaDis": tk.IntVar(value=0),
+            "T2_LVTTOC_1_KschemeCT": tk.IntVar(value=0),
+            "SGF1_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF2_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF3_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF4_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF5_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF6_ptoc1_lvttoc": tk.IntVar(value=0),
+            "SGF7_ptoc1_lvttoc": tk.IntVar(value=0),  # 1           
+            "SGF1_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF2_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF3_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF4_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF5_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF6_ptoc2_lvttoc": tk.IntVar(value=0),
+            "SGF7_ptoc2_lvttoc": tk.IntVar(value=0),  # 2            
+            "SGF1_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF2_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF3_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF4_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF5_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF6_ptoc3_lvttoc": tk.IntVar(value=0),
+            "SGF7_ptoc3_lvttoc": tk.IntVar(value=0),  # 3            
+            "SGF1_ptuv1_lvttoc": tk.IntVar(value=0),
+            "SGF1_ptuv2_lvttoc": tk.IntVar(value=0),  # 4           
+            "SGF1_phar1_lvttoc": tk.IntVar(value=0),
+            "SGF1_rblc1_lvttoc": tk.IntVar(value=0),
+            "SGF1_ptoc1_lvtoc": tk.IntVar(value=0),
+            "SGF2_ptoc1_lvtoc": tk.IntVar(value=0),
+            "SGF1_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF2_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF3_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF4_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF5_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF6_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF7_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF8_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "SGF1_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF2_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF3_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF4_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF5_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF6_genrbrf1_tpbrf": tk.IntVar(value=0),
+            "SGF1_ptrc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF1_rbre1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF2_rbre1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF3_rbre1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF1_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF2_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF3_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
+            "SGF1_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
+            "SGF1_lvcbptrc1_lvtrescboff1": tk.IntVar(value=0), # 5
+            "SGF1_lvcbrecrbre1_lvtrescboff1": tk.IntVar(value=0), # 6
+            "SGF1_lvbtsrblc1_lvtrescboff1": tk.IntVar(value=0), # 7
+            "SGF1_lvcbptrc1_lvtrescboff2": tk.IntVar(value=0), # 8
+            "SGF1_lvcbrecrbre1_lvtrescboff2": tk.IntVar(value=0), # 9
+            "SGF1_lvbtsrblc1_lvtrescboff2": tk.IntVar(value=0),   # 10          
+            "T2_SignAssembly_1_Ctl_SA1": tk.IntVar(value=0),                       
+            "T2_SignAssembly_1_Ctl_SA2": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA3": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA4": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA5": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SA6": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SG1": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SG2": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_SG3": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_GAS_OCControl": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_OCcir_CB": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_ARCnn1_OCControl": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_ARCnn2_OCControl": tk.IntVar(value=0),
+            "T2_SignAssembly_1_Ctl_CBFPnn1_OCControl": tk.IntVar(value=0), # 11
+            "T2_SignAssembly_1_Ctl_CBFPnn2_OCControl": tk.IntVar(value=0), # 12
+            "T2_SignAssembly_1_Ctl_IEDvt_OCControl1": tk.IntVar(value=0), # 13
+            "T2_SignAssembly_1_Ctl_IEDvt_OCControl2": tk.IntVar(value=0), # 14           
             "T2_LVALH_1_CALH1_GASSign_Ctl": tk.IntVar(value=0),
             "T2_LVALH_1_CALH1_LowIsolGAS_Ctl": tk.IntVar(value=0),
             "T2_LVALH_1_CALH1_GASBlock_Ctl": tk.IntVar(value=0),
@@ -96,73 +135,91 @@ class PartOfSwitchGUI:
             "T2_LVALH_1_CALH1_ExtSignGen_Ctl": tk.IntVar(value=0),
         }
 
+        # Настройки (T-параметры)
         self.settings = {
-            "T_LVCBSUP_1_RCBF1_T_EnBlk": tk.DoubleVar(value=1000),
-            "T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg": tk.DoubleVar(value=1000),
-            "T_LVCBSUP_1_RCBF1_T_ElmgWorking": tk.DoubleVar(value=1000),
-            "T_SWCTRL_1_CBCSWI1_TchangeCB": tk.DoubleVar(value=1000),
-            "T_SWCTRL_1_CBCSWI1_Tblk": tk.DoubleVar(value=1000),
-            #"T3_cbcswi1_swctrl": tk.DoubleVar(value=1),
-            #"T4_cbcswi1_swctrl": tk.DoubleVar(value=1),
-            #"T1_cbcswi1_hvbctrl": tk.DoubleVar(value=1),
-            "T_SwitchDevice_1_CB1_TonFaul": tk.DoubleVar(value=1000),
-            "T_SwitchDevice_1_CB1_OpnTPtime": tk.DoubleVar(value=1000),
-            "T_SwitchDevice_1_CB1_ClsTPtime": tk.DoubleVar(value=1000),
-            "T_SwitchDevice_1_CB1_TextenCls": tk.DoubleVar(value=1000),
-            "T_TPBRF_1_GENRBRF1_Top": tk.DoubleVar(value=1000),
-            "T_TPBRF_1_GENRBRF1_Iop": tk.DoubleVar(value=0.2),
-            "HVTCBOFF_1_HVCBPTRC1_Tpulse": tk.DoubleVar(value=1000),            
+            "T2_LVTTOC_1_PTOC1_Top": tk.DoubleVar(value=1),            
+            "Iset_ptoc1_lvttoc": tk.DoubleVar(value=0.2),
+            "Icoarse_ptoc1_lvttoc": tk.DoubleVar(value=1),
+            "T1_ptoc2_lvttoc": tk.DoubleVar(value=1),
+            "Iset_ptoc2_lvttoc": tk.DoubleVar(value=0.2),
+            "Icoarse_ptoc2_lvttoc": tk.DoubleVar(value=1),
+            "T1_ptoc3_lvttoc": tk.DoubleVar(value=1),            
+            "Iset_ptoc3_lvttoc": tk.DoubleVar(value=0.2),
+            "Icoarse_ptoc3_lvttoc": tk.DoubleVar(value=1),
+            "Uop_ptuv1_lvttoc": tk.DoubleVar(value=40),            
+            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=5),
+            "Uop_ptuv2_lvttoc": tk.DoubleVar(value=40),  ##           
+            "U2op_ptuv2_lvttoc": tk.DoubleVar(value=5), ##
+            "Imax_phar1_lvttoc": tk.DoubleVar(value=1),
+            "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
+            "T1_ptoc1_lvtoc": tk.DoubleVar(value=1),
+            "Iset_ptoc1_lvtoc": tk.DoubleVar(value=0.2),
+            "T1_rcbf1_lvcbsup": tk.DoubleVar(value=1),
+            "T2_rcbf1_lvcbsup": tk.DoubleVar(value=1),
+            "T3_rcbf1_lvcbsup": tk.DoubleVar(value=1),
+            "T1_genrbrf1_tpbrf": tk.DoubleVar(value=1),
+            "Iset_genrbrf1_tpbrf": tk.DoubleVar(value=0.5),
+            "T1_hvcbptrc1_hvtcboff": tk.DoubleVar(value=1),
+            "T1_lvcbptrc1_lvtrescboff1": tk.DoubleVar(value=1), # 19
+            "T1_lvcbptrc1_lvtrescboff2": tk.DoubleVar(value=1), # 20           
         }
 
+        # Входные параметры для Step()
         self.input_vars = {
             "DI_ControllerDisable": tk.IntVar(value=0),
-            "DI_LVCBSUP": tk.IntVar(value=0),
-            "CBCS_CBOS1_OCControl": tk.IntVar(value=0),
-            "CBOS2_OCControl": tk.IntVar(value=0),
-            #"lovn_otkl": tk.IntVar(value=0),
-            #"urov_nasebya": tk.IntVar(value=0),
-            "InsTr": tk.IntVar(value=0),
-            "LowIns": tk.IntVar(value=0),
-            "EnBlk": tk.IntVar(value=0),
-            "Reset": tk.IntVar(value=0),
-            "OpnCBFrmKnob": tk.IntVar(value=0),
-            "OperOpnCB": tk.IntVar(value=0),
-            "T_LVCBSUP_1_ClsResourceExcess": tk.IntVar(value=0),
-            "ExternalBlkCB": tk.IntVar(value=0),
-            "CBCSCtrl": tk.IntVar(value=0),
-            "CBOS1Ctrl": tk.IntVar(value=0),
-            "CBOS2Ctrl": tk.IntVar(value=0),
-            "CBCSWorking": tk.IntVar(value=0),
-            "CBOS1Working": tk.IntVar(value=0),
-            "CBOS2Working": tk.IntVar(value=0),
-            "DI_SWCTRL": tk.IntVar(value=0),
-            "OpnCBFrmCtrlPanel": tk.IntVar(value=0),
-            "T_SWCTRL_1_OpnCBFrm_HMI": tk.IntVar(value=0),
-            "LocKey": tk.IntVar(value=0),
-            "OpnCBFrmRemoteCtrl": tk.IntVar(value=0),
-            "T_SWCTRL_1_OpnCBFrm_ACS": tk.IntVar(value=0),
-            "KeyLocDist": tk.IntVar(value=0),
-            "ClsCBFrmCtrlPanel": tk.IntVar(value=0),
-            "T_SWCTRL_1_ClsCBFrm_HMI": tk.IntVar(value=0),
-            #"Remote": tk.IntVar(value=0),
-            "ClsCBFrmRemoteCtrl": tk.IntVar(value=0),
-            "T_SWCTRL_1_ClsCBFrm_ACS": tk.IntVar(value=0),
-            "CBPosOpn": tk.IntVar(value=0),
-            "CBPosCls": tk.IntVar(value=0),
-            "DI_HVBCTRL": tk.IntVar(value=0),
-            "OperClsCB": tk.IntVar(value=0),
-            "DI_SD": tk.IntVar(value=0),
-            #"lovn_lo_otkl_avar": tk.IntVar(value=0),
-            #"oper_otkl_v": tk.IntVar(value=0),
-            #"sbros": tk.IntVar(value=0),
-            "ExternalRBRFStart": tk.IntVar(value=0),
-            "OpExtOfARC_NN1": tk.IntVar(value=0),
-            "OpExtOfCBFP_NN1": tk.IntVar(value=0),
-            "OpExtOfARC_NN2": tk.IntVar(value=0),
-            "OpExtOfCBFP_NN2": tk.IntVar(value=0),            
+            "OV_lvttoc": tk.IntVar(value=0),
+            "OV_ptoc1_lvtoc": tk.IntVar(value=0),
+            "OV_tofflvlg": tk.IntVar(value=0),
+            "OVlo_tofflvlg": tk.IntVar(value=0),
+            "OVzapv_tofflvlg": tk.IntVar(value=0),
+            "OVzavr_tofflvlg": tk.IntVar(value=0),
+            "OV_hvcbptrc1_hvtcboff": tk.IntVar(value=0),
+            "vnesh_otkl_zdz1": tk.IntVar(value=0), ##
+            "vnesh_otkl_urov1": tk.IntVar(value=0), ##
+            "vnesh_otkl_zdz2": tk.IntVar(value=0), ##
+            "vnesh_otkl_urov2": tk.IntVar(value=0), ##  
+            "OV_lvtcboff1": tk.IntVar(value=0), ##
+            "OV_lvcbptrc1_lvtcboff1": tk.IntVar(value=0), ##
+            "OV_lvcbrecrbre1_lvtcboff1": tk.IntVar(value=0), ##
+            "OV_lvbtsrblc1_lvtcboff1": tk.IntVar(value=0), ##
+            "OV_lvtcboff2": tk.IntVar(value=0), ##
+            "OV_lvcbptrc1_lvtcboff2": tk.IntVar(value=0), ##
+            "OV_lvcbrecrbre1_lvtcboff2": tk.IntVar(value=0), ##
+            "OV_lvbtsrblc1_lvtcboff2": tk.IntVar(value=0), ##
+            "OV_rcbf1_lvcbsup": tk.IntVar(value=0),
+            "vnesh_blok_upr_V": tk.IntVar(value=0),
+            "OV_rbrf1_tpbrf": tk.IntVar(value=0),
+            "pusk_urov_vnesh": tk.IntVar(value=0),
+            "kontr_emo1": tk.IntVar(value=0),
+            "kontr_emo2": tk.IntVar(value=0),                        
+            "Polozh_SA1": tk.IntVar(value=0),
+            "Polozh_SA2": tk.IntVar(value=0),
+            "Polozh_SA3": tk.IntVar(value=0),
+            "Polozh_SA4": tk.IntVar(value=0),
+            "Polozh_SA5": tk.IntVar(value=0),
+            "Polozh_SA6": tk.IntVar(value=0),  ##           
+            "Polozh_SG1": tk.IntVar(value=0),
+            "Polozh_SG2": tk.IntVar(value=0),
+            "Polozh_SG3": tk.IntVar(value=0),   ##          
+            "ot_gz": tk.IntVar(value=0),
+            #"ot_tz": tk.IntVar(value=0), ##
+            "ot_v": tk.IntVar(value=0),
+            "ot_zdz_nn1": tk.IntVar(value=0), ##
+            "ot_urov_nn1": tk.IntVar(value=0), ##
+            "ot_zdz_nn2": tk.IntVar(value=0), ##
+            "ot_urov_nn2": tk.IntVar(value=0),  ##           
+            "ot_ieu_tn1": tk.IntVar(value=0), ##
+            "ot_ieu_tn2": tk.IntVar(value=0),  ##           
+            "vnesh_sign1": tk.IntVar(value=0),
+            "vnesh_sign2": tk.IntVar(value=0),
+            "vnesh_sign3": tk.IntVar(value=0),
+            "vnesh_sign4": tk.IntVar(value=0),
+            "IA": tk.DoubleVar(value=0),
+            "IB": tk.DoubleVar(value=0),
+            "IC": tk.DoubleVar(value=0),            
         }
 
-        self.output_labels = {}
+        self.output_labels = {}  # Для вывода результатов
 
         # === ГЕНЕРАЦИЯ ПОДСКАЗОК ИЗ JSON ===
         self.tooltips = {}
@@ -178,7 +235,6 @@ class PartOfSwitchGUI:
                 if desc:
                     self.tooltips[key] = desc
 
-        # Создание интерфейса
         self.create_widgets()
 
     def _get_sgf_param_names(self):
@@ -193,8 +249,9 @@ class PartOfSwitchGUI:
     def _get_output_names(self):
         return self.OUTPUT_PARAMS  
 
+
     def create_widgets(self):
-        # Frame for SGF parameters
+        # Фрейм для SGF-параметров
         sgf_frame = ttk.LabelFrame(self.root, text="SGF Parameters")
         sgf_frame.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         row = 0
@@ -211,7 +268,7 @@ class PartOfSwitchGUI:
             
             ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             row += 1
-            if row >= 10:
+            if row >= 15:
                 row = 0
                 col += 2
 
@@ -236,19 +293,13 @@ class PartOfSwitchGUI:
                 row = 0
                 col += 2
 
-        # Frame for buttons
+        # Фрейм для кнопок
         buttons_frame = ttk.LabelFrame(self.root, text="Buttons")
         buttons_frame.grid(row=2, column=0, padx=10, pady=10, sticky="w")
-
-        # Button Init
         ttk.Button(buttons_frame, text="Init", command=self.init_part).grid(row=0, column=0, pady=10)
-        # Button Start
         ttk.Button(buttons_frame, text="Start", command=self.start_polling).grid(row=0, column=1, pady=10)
-        # Button Stop
         ttk.Button(buttons_frame, text="Stop", command=self.stop_polling).grid(row=0, column=2, pady=10)
-        # Button Save
         ttk.Button(buttons_frame, text="Save", command=self.save_to_excel).grid(row=0, column=3, pady=10)
-        # Button Load
         ttk.Button(buttons_frame, text="Load", command=self.load_from_excel).grid(row=0, column=4, pady=10)
         # Button Load JSON
         ttk.Button(buttons_frame, text="Load JSON", command=self.load_settings_from_json).grid(row=0, column=5, padx=2, pady=5)
@@ -265,11 +316,10 @@ class PartOfSwitchGUI:
         self.status_label = ttk.Label(buttons_frame, text="Шаг", background="green", foreground="white")
         self.status_label.grid(row=0, column=11, padx=5, pady=5)
 
-        # Frame for input values
-        input_frame = ttk.LabelFrame(self.root, text="Inputs")
+        # Фрейм для входных параметров
+        input_frame = ttk.LabelFrame(self.root, text="Входные параметры")
         input_frame.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-        row = 0
-        col = 0
+        row, col = 0, 0
 
         for key, var in self.input_vars.items():
                 if isinstance(var, tk.IntVar):
@@ -296,62 +346,86 @@ class PartOfSwitchGUI:
                     row = 0
                     col += 2
 
-        # Frame for output values
-        output_frame = ttk.LabelFrame(self.root, text="Outputs")
+        # Фрейм для выходных параметров
+        output_frame = ttk.LabelFrame(self.root, text="Выходные параметры")
         output_frame.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
 
-        row = 0
-        col = 0
+
+        row, col = 0, 0
         for output in self.OUTPUT_PARAMS:
-            label = ttk.Label(output_frame, text=output, width=35, anchor="w")
+            label = ttk.Label(output_frame, text=output, width=33, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
+            row += 1
 
             # === ДОБАВЛЯЕМ TOOLTIP ИЗ META.JSON ===
             tooltip = self.tooltips.get(output)
             if tooltip:
                 ToolTip(label, tooltip)
 
-            row += 1
             if row >= 32:
                 row = 0
                 col += 2
 
     def init_part(self):
-        self.part = SWITCH(
-            SGF1_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_EnaDis"].get(),
-            SGF2_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_BlkToClsFrmLowIsol"].get(),
-            SGF3_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_BlkFrmCBPosFault"].get(),
-            SGF4_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_RstFrmCLS"].get(),
-            SGF5_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_OCcircuitFailureCtrl"].get(),
-            SGF6_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_ConditionForElmgLaunchFault"].get(),
-            SGF7_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_KnobCtrl"].get(),
-            SGF8_rcbf1_lvcbsup=self.sgf_params["T_LVCBSUP_1_RCBF1_BlkCtrlFrmInsAlm"].get(),
-            T1_rcbf1_lvcbsup=self.settings["T_LVCBSUP_1_RCBF1_T_EnBlk"].get()/1000,
-            T2_rcbf1_lvcbsup=self.settings["T_LVCBSUP_1_RCBF1_T_FailureCtrlElmg"].get()/1000,
-            T3_rcbf1_lvcbsup=self.settings["T_LVCBSUP_1_RCBF1_T_ElmgWorking"].get()/1000,
-            SGF1_swctrl=self.sgf_params["T_SWCTRL_1_SWCTRL_EnaDis"].get(),
-            SGF1_cbcswi1_swctrl=self.sgf_params["T_SWCTRL_1_CBCSWI1_EnaDis"].get(),
-            SGF2_cbcswi1_swctrl=self.sgf_params["T_SWCTRL_1_CBCSWI1_BlkToClsFrmFailureTrip"].get(),
-            T1_cbcswi1_swctrl=self.settings["T_SWCTRL_1_CBCSWI1_TchangeCB"].get()/1000,
-            T2_cbcswi1_swctrl=self.settings["T_SWCTRL_1_CBCSWI1_Tblk"].get()/1000,
-
-            T3_cbcswi1_swctrl=0.5, #self.settings["T3_cbcswi1_swctrl"].get(),
-            T4_cbcswi1_swctr=0.5, #self.settings["T4_cbcswi1_swctrl"].get(),
-
-            SGF1_cbcswi1_hvbctrl=self.sgf_params["T_HVBCTRL_1_CBCSWI1_EnaDis"].get(),
-            T1_cbcswi1_hvbctrl=0.5, #self.settings["T1_cbcswi1_hvbctrl"].get(),
-            SGF1_tsd=self.sgf_params["T_SwitchDevice_1_SD_EnaDis"].get(),
-            SGF1_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_EnaDis"].get(),
-            SGF2_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_TPOpnResetCtrl"].get(),
-            SGF3_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_CBOSoperationCtrl"].get(),
-            SGF4_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_TPClsResetCtrl"].get(),
-            SGF5_xcbr1_tsd=self.sgf_params["T_SwitchDevice_1_CB1_CBCSoperationCtrl"].get(),
-            #SGF6_xcbr1_tsd=self.sgf_params["SGF6_xcbr1_tsd"].get(),
-            T1_xcbr1_tsd=self.settings["T_SwitchDevice_1_CB1_TonFaul"].get()/1000,
-            T2_xcbr1_tsd=self.settings["T_SwitchDevice_1_CB1_OpnTPtime"].get()/1000,
-            T3_xcbr1_tsd=self.settings["T_SwitchDevice_1_CB1_ClsTPtime"].get()/1000, 
-            T4_xcbr1_tsd=self.settings["T_SwitchDevice_1_CB1_TextenCls"].get()/1000,
+        self.part = part_LO(
+            # Передаем SGF-параметры из self.sgf_params
+            SGF1=self.sgf_params["T2_LVTTOC_1_KschemeCT"].get(),
+            SGF1_ptoc1=self.sgf_params["SGF1_ptoc1_lvttoc"].get(),
+            SGF2_ptoc1=self.sgf_params["SGF2_ptoc1_lvttoc"].get(),
+            SGF3_ptoc1=self.sgf_params["SGF3_ptoc1_lvttoc"].get(),
+            SGF4_ptoc1=self.sgf_params["SGF4_ptoc1_lvttoc"].get(),
+            SGF5_ptoc1=self.sgf_params["SGF5_ptoc1_lvttoc"].get(),
+            SGF6_ptoc1=self.sgf_params["SGF6_ptoc1_lvttoc"].get(),
+            SGF7_ptoc1=self.sgf_params["SGF7_ptoc1_lvttoc"].get(),  ##           
+            SGF1_ptoc2=self.sgf_params["SGF1_ptoc2_lvttoc"].get(),
+            SGF2_ptoc2=self.sgf_params["SGF2_ptoc2_lvttoc"].get(),
+            SGF3_ptoc2=self.sgf_params["SGF3_ptoc2_lvttoc"].get(),
+            SGF4_ptoc2=self.sgf_params["SGF4_ptoc2_lvttoc"].get(),
+            SGF5_ptoc2=self.sgf_params["SGF5_ptoc2_lvttoc"].get(),
+            SGF6_ptoc2=self.sgf_params["SGF6_ptoc2_lvttoc"].get(),
+            SGF7_ptoc2=self.sgf_params["SGF7_ptoc2_lvttoc"].get(),  ##          
+            SGF1_ptoc3=self.sgf_params["SGF1_ptoc3_lvttoc"].get(),
+            SGF2_ptoc3=self.sgf_params["SGF2_ptoc3_lvttoc"].get(),
+            SGF3_ptoc3=self.sgf_params["SGF3_ptoc3_lvttoc"].get(),
+            SGF4_ptoc3=self.sgf_params["SGF4_ptoc3_lvttoc"].get(),
+            SGF5_ptoc3=self.sgf_params["SGF5_ptoc3_lvttoc"].get(),
+            SGF6_ptoc3=self.sgf_params["SGF6_ptoc3_lvttoc"].get(),
+            SGF7_ptoc3=self.sgf_params["SGF7_ptoc3_lvttoc"].get(), ##           
+            SGF1_ptuv1=self.sgf_params["SGF1_ptuv1_lvttoc"].get(),
+            SGF1_ptuv2=self.sgf_params["SGF1_ptuv2_lvttoc"].get(),  ##           
+            SGF1_phar1=self.sgf_params["SGF1_phar1_lvttoc"].get(),
+            SGF1_rblc1=self.sgf_params["SGF1_rblc1_lvttoc"].get(),
+            SGF1_ptoc1_lvtoc=self.sgf_params["SGF1_ptoc1_lvtoc"].get(),
+            SGF2_ptoc1_lvtoc=self.sgf_params["SGF2_ptoc1_lvtoc"].get(),
+            SGF1_rcbf1_lvcbsup=self.sgf_params["SGF1_rcbf1_lvcbsup"].get(),
+            SGF2_rcbf1_lvcbsup=self.sgf_params["SGF2_rcbf1_lvcbsup"].get(),
+            SGF3_rcbf1_lvcbsup=self.sgf_params["SGF3_rcbf1_lvcbsup"].get(),
+            SGF4_rcbf1_lvcbsup=self.sgf_params["SGF4_rcbf1_lvcbsup"].get(),
+            SGF5_rcbf1_lvcbsup=self.sgf_params["SGF5_rcbf1_lvcbsup"].get(),
+            SGF6_rcbf1_lvcbsup=self.sgf_params["SGF6_rcbf1_lvcbsup"].get(),
+            SGF7_rcbf1_lvcbsup=self.sgf_params["SGF7_rcbf1_lvcbsup"].get(),
+            SGF8_rcbf1_lvcbsup=self.sgf_params["SGF8_rcbf1_lvcbsup"].get(),
+            SGF1_rbrf1_tpbrf=self.sgf_params["SGF1_genrbrf1_tpbrf"].get(),
+            SGF2_rbrf1_tpbrf=self.sgf_params["SGF2_genrbrf1_tpbrf"].get(),
+            SGF3_rbrf1_tpbrf=self.sgf_params["SGF3_genrbrf1_tpbrf"].get(),
+            SGF4_rbrf1_tpbrf=self.sgf_params["SGF4_genrbrf1_tpbrf"].get(),
+            SGF5_rbrf1_tpbrf=self.sgf_params["SGF5_genrbrf1_tpbrf"].get(),
+            SGF6_rbrf1_tpbrf=self.sgf_params["SGF6_genrbrf1_tpbrf"].get(),
+            SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tresofflvlgc"].get(),
+            SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tresofflvlgc"].get(),
+            SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tresofflvlgc"].get(),
+            SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tresofflvlgc"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tresofflvlgc"].get(),
+            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tresofflvlgc"].get(),
+            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tresofflvlgc"].get(),
+            SGF1_hvcbptrc1_hvtcboff=self.sgf_params["SGF1_hvcbptrc1_hvtcboff"].get(),
+            SGF1_lvcbptrc1_lvtcboff1=self.sgf_params["SGF1_lvcbptrc1_lvtrescboff1"].get(), ##
+            SGF1_lvcbrecrbre1_lvtcboff1=self.sgf_params["SGF1_lvcbrecrbre1_lvtrescboff1"].get(), ##
+            SGF1_lvbtsrblc1_lvtcboff1=self.sgf_params["SGF1_lvbtsrblc1_lvtrescboff1"].get(), ##
+            SGF1_lvcbptrc1_lvtcboff2=self.sgf_params["SGF1_lvcbptrc1_lvtrescboff2"].get(), ##
+            SGF1_lvcbrecrbre1_lvtcboff2=self.sgf_params["SGF1_lvcbrecrbre1_lvtrescboff2"].get(), ##
+            SGF1_lvbtsrblc1_lvtcboff2=self.sgf_params["SGF1_lvbtsrblc1_lvtrescboff2"].get(), ##          
             SGF1_lvalh=self.sgf_params["T2_LVALH_1_CALH1_GASSign_Ctl"].get(),
             SGF2_lvalh=self.sgf_params["T2_LVALH_1_CALH1_LowIsolGAS_Ctl"].get(),
             SGF3_lvalh=self.sgf_params["T2_LVALH_1_CALH1_GASBlock_Ctl"].get(),
@@ -362,22 +436,54 @@ class PartOfSwitchGUI:
             SGF8_lvalh=self.sgf_params["T2_LVALH_1_CALH1_TestBlock_Ctl"].get(),
             SGF9_lvalh=self.sgf_params["T2_LVALH_1_CALH1_SwOperExcTim_Ctl"].get(),
             SGF10_lvalh=self.sgf_params["T2_LVALH_1_CALH1_ExtSignGen_Ctl"].get(),
-            SGF1_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_EnaDis"].get(),
-            SGF2_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_BlkToOpnSpeedUp"].get(),
-            SGF3_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_CurrentPickUp"].get(),
-            SGF4_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_CBOSTypeCtrl"].get(),
-            SGF5_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_ActUpSwitch"].get(),
-            SGF6_rbrf1_tpbrf=self.sgf_params["T_TPBRF_1_GENRBRF1_TypeOfCtrlCurrent"].get(),
-            T1_rbrf1_tpbrf= self.settings["T_TPBRF_1_GENRBRF1_Top"].get()/1000,
-            Iset_rbrf1_tpbrf=self.settings["T_TPBRF_1_GENRBRF1_Iop"].get(),
-            SGF1_hvcbptrc1_hvtcboff=self.sgf_params["HVTCBOFF_1_HVCBPTRC1_EnaDis"].get(),
-            T1_hvcbptrc1_hvtcboff=self.settings["HVTCBOFF_1_HVCBPTRC1_Tpulse"].get()/1000,
+            SGF1_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SA1"].get(),
+            SGF2_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SA2"].get(),
+            SGF3_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SA3"].get(),
+            SGF4_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SA4"].get(),
+            SGF5_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SA5"].get(),
+            SGF6_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SA6"].get(),
+            SGF7_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SG1"].get(),
+            SGF8_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SG2"].get(),
+            SGF9_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_SG3"].get(),
+            SGF10_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_GAS_OCControl"].get(),
+            SGF11_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_OCcir_CB"].get(),
+            SGF12_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_ARCnn1_OCControl"].get(),
+            SGF13_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_ARCnn2_OCControl"].get(),
+            SGF14_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_CBFPnn1_OCControl"].get(), ##
+            SGF15_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_CBFPnn2_OCControl"].get(), ##
+            SGF16_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_IEDvt_OCControl1"].get(), ##
+            SGF17_tsa=self.sgf_params["T2_SignAssembly_1_Ctl_IEDvt_OCControl2"].get(), ##            
+            T1_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Top"].get(),
+            Iset_ptoc1=self.settings["Iset_ptoc1_lvttoc"].get(),
+            Icoarse_ptoc1=self.settings["Icoarse_ptoc1_lvttoc"].get(),
+            T1_ptoc2=self.settings["T1_ptoc2_lvttoc"].get(),
+            Iset_ptoc2=self.settings["Iset_ptoc2_lvttoc"].get(),
+            Icoarse_ptoc2=self.settings["Icoarse_ptoc2_lvttoc"].get(),
+            T1_ptoc3=self.settings["T1_ptoc3_lvttoc"].get(),
+            Iset_ptoc3=self.settings["Iset_ptoc3_lvttoc"].get(),
+            Icoarse_ptoc3=self.settings["Icoarse_ptoc3_lvttoc"].get(),
+            Uop_ptuv1=self.settings["Uop_ptuv1_lvttoc"].get(),
+            U2op_ptuv1=self.settings["U2op_ptuv1_lvttoc"].get(),
+            Uop_ptuv2=self.settings["Uop_ptuv2_lvttoc"].get(), ##
+            U2op_ptuv2=self.settings["U2op_ptuv2_lvttoc"].get(),  ##           
+            Imax_phar1=self.settings["Imax_phar1_lvttoc"].get(),
+            Ratio_phar1=self.settings["Ratio_phar1_lvttoc"].get(),
+            T1_ptoc1_lvtoc=self.settings["T1_ptoc1_lvtoc"].get(),
+            Iset_ptoc1_lvtoc=self.settings["Iset_ptoc1_lvtoc"].get(),
+            T1_rcbf1_lvcbsup=self.settings["T1_rcbf1_lvcbsup"].get(),
+            T2_rcbf1_lvcbsup=self.settings["T2_rcbf1_lvcbsup"].get(),
+            T3_rcbf1_lvcbsup=self.settings["T3_rcbf1_lvcbsup"].get(),
+            T1_rbrf1_tpbrf=self.settings["T1_genrbrf1_tpbrf"].get(),
+            Iset_rbrf1_tpbrf=self.settings["Iset_genrbrf1_tpbrf"].get(),
+            T1_hvcbptrc1_hvtcboff=self.settings["T1_hvcbptrc1_hvtcboff"].get(),
+            T1_lvcbptrc1_lvtcboff1=self.settings["T1_lvcbptrc1_lvtrescboff1"].get(), ##
+            T1_lvcbptrc1_lvtcboff2=self.settings["T1_lvcbptrc1_lvtrescboff2"].get(), ##            
         )
-        print("part_SWITCH initialized")
+        print("part_LO initialized")
 
     def start_polling(self):
-        if self.part is None:
-            print("part_SWITCH not initialized")
+        if not self.part:
+            print("part_LO not initialized")
             return
         self.is_polling = True
         self.polling_thread = threading.Thread(target=self.poll_inputs, daemon=True)
@@ -410,6 +516,7 @@ class PartOfSwitchGUI:
             self.status_label.config(text="Шаг", background="white", foreground="white")
             time.sleep(0.05)  # Время шага опроса
             self.status_label.config(text="Шаг", background="#F0F0F0", foreground="#F0F0F0")
+
 
     def save_to_excel(self):
         # Формируем имя файла
@@ -492,6 +599,7 @@ class PartOfSwitchGUI:
             print("Data loaded successfully")
         except Exception as e:
             print(f"Error loading data: {e}")
+
 
     # === МЕТОДЫ ДЛЯ РАБОТЫ С JSON ФАЙЛАМИ УСТАВОК ===
     
@@ -696,5 +804,5 @@ class PartOfSwitchGUI:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = PartOfSwitchGUI(root)
+    app = PartLO_GUI(root)
     root.mainloop()

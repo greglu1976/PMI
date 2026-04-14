@@ -205,6 +205,7 @@ class PartOfSwitchGUI:
         sgf_frame.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         row = 0
         col = 0
+        
         for key, var in self.sgf_params.items():
             label = ttk.Label(sgf_frame, text=key)
             label.grid(row=row, column=col, sticky="w")
