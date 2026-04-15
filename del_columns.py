@@ -7,8 +7,12 @@ def delete_columns_from_excel_files():
     во всех xlsx файлах в текущей папке
     """
     # Список столбцов для удаления (по частичному совпадению в названии для ПМИ КА
-    cols_to_delete = ["T4_cbcswi1_swctrl", "T3_cbcswi1_swctrl","SGF6_xcbr1_tsd", "T1_cbcswi1_hvbctrl"]
-    cols_to_delete += ["distanz",]  
+
+    #cols_to_delete = ["T4_cbcswi1_swctrl", "T3_cbcswi1_swctrl","SGF6_xcbr1_tsd", "T1_cbcswi1_hvbctrl"]
+    #cols_to_delete += ["distanz",]  
+
+    cols_to_delete = ["pusk_ptrc1_tofflvlgc",] 
+
     # Получаем все xlsx файлы в текущей папке
     current_dir = os.getcwd()
     xlsx_files = [f for f in os.listdir(current_dir) if f.endswith('.xlsx')]

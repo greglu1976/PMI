@@ -155,6 +155,18 @@ if __name__ == "__main__":
         "LVTTOC_1_PTOC3_ExtVFlMod": [{"0": "1"}, {"1": "2"}],
         "LVTTOC_1_RBLC1_StepSel": [{"0": "1"}, {"1": "2"}, {"2": "3"}, {"3": "4"}]
     }
-    
+
+
+    rules2 = {
+        "T2_LVTTOC_1_PTOC1_VolMod": [{"0": "1"}, {"1": "2"}],
+        "T2_LVTTOC_1_PTOC2_VolMod": [{"0": "1"}, {"1": "2"}],
+        "T2_LVTTOC_1_PTOC3_VolMod": [{"0": "1"}, {"1": "2"}],
+        "T2_LVTTOC_1_PTOC1_ExtVFlMod": [{"0": "1"}, {"1": "2"}],
+        "T2_LVTTOC_1_PTOC2_ExtVFlMod": [{"0": "1"}, {"1": "2"}],
+        "T2_LVTTOC_1_PTOC3_ExtVFlMod": [{"0": "1"}, {"1": "2"}],
+        "T2_LVTTOC_1_RBLC1_StepSel": [{"0": "1"}, {"1": "2"}, {"2": "3"}, {"3": "4"}]
+    }
+
+
     # Обрабатываем все xlsx-файлы в текущей папке
-    process_all_xlsx_files(rules)
+    process_all_xlsx_files(rules2)

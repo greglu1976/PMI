@@ -45,7 +45,7 @@ class PartLO_GUI:
         self.sgf_params = {
             "LVTTOC_1_KschemeCT": tk.IntVar(value=0),
             "LVTTOC_1_PTOC1_EnaDis": tk.IntVar(value=0),
-            "LVTTOC_1_PTOC1_VolMod": tk.IntVar(value=0),
+            "LVTTOC_1_PTOC1_VolMod": tk.IntVar(value=1),
             "LVTTOC_1_PTOC1_MICMod": tk.IntVar(value=0),
             "LVTTOC_1_PTOC1_ExtVFlMod": tk.IntVar(value=0),
             "LVTTOC_1_PTOC1_VCMod": tk.IntVar(value=0),
