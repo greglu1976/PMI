@@ -14,7 +14,11 @@ from openpyxl.worksheet.dimensions import ColumnDimension
 
 import itertools
 import openpyxl
+
 from lib2.PARTS.MTZ_T2 import partOfFsuInTOC
+from MainConfigHandler import MainConfigHandler
+from SettingsHandler import SettingsHandler
+from ToolTip import ToolTip
 
 class PartOfFsuInTOC_GUI:
 
@@ -38,11 +42,9 @@ class PartOfFsuInTOC_GUI:
     ]
 
 
-
-
     def __init__(self, root):
         self.root = root
-        self.root.title("Тестирование ФСУ Т2 в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25, v2.1 01.07.25, v2.2 25.07.25")
+        self.root.title("Тестирование ФСУ Т2 в части МТЗ, КЦН НН1, КЦН НН2, ЛО Т, CC, ПС, v2.0 от 26.03.25, v2.1 01.07.25, v2.2 25.07.25, v3.0 16.04.26")
         self.part = None
         self.polling_thread = None
         self.is_polling = False
@@ -51,9 +53,16 @@ class PartOfFsuInTOC_GUI:
         self.function_name = tk.StringVar(value="Функция")
         self.mode_name = tk.StringVar(value="Режим")
 
+        # === ЗАГРУЗКА МЕТАДАННЫХ ===
+        try:
+            self.meta_handler = MainConfigHandler.from_json_file("meta.json")
+        except Exception as e:
+            print(f"⚠️ Не удалось загрузить meta.json: {e}")
+            self.meta_handler = None
+
         # Инициализация переменных для SGF параметров, настроек, входных и выходных значений
         self.sgf_params = {
-            "SGF1_lvttoc": tk.IntVar(value=0),
+            "T2_LVTTOC_1_KschemeCT": tk.IntVar(value=0),
             "SGF1_ptoc1_lvttoc": tk.IntVar(value=1),
             "SGF2_ptoc1_lvttoc": tk.IntVar(value=0),
             "SGF3_ptoc1_lvttoc": tk.IntVar(value=0),
@@ -117,7 +126,7 @@ class PartOfFsuInTOC_GUI:
         #}
 
         self.settings = {
-            "T1_ptoc1_lvttoc": tk.DoubleVar(value=1),
+            "T2_LVTTOC_1_PTOC1_Top": tk.DoubleVar(value=1),
             "Iset_ptoc1_lvttoc": tk.DoubleVar(value=0.2),
             "Icoarse_ptoc1_lvttoc": tk.DoubleVar(value=0.6),
             "T1_ptoc2_lvttoc": tk.DoubleVar(value=1),
@@ -190,8 +199,35 @@ class PartOfFsuInTOC_GUI:
 
         self.output_labels = {}
 
+        # === ГЕНЕРАЦИЯ ПОДСКАЗОК ИЗ JSON ===
+        self.tooltips = {}
+        all_param_keys = (
+            list(self._get_sgf_param_names()) +
+            list(self._get_setting_names()) +
+            list(self._get_input_names()) +
+            list(self._get_output_names())  # <-- Добавили выходы
+        )
+        for key in all_param_keys:
+            if self.meta_handler:
+                desc = self.meta_handler.get_description_by_base_name(key)
+                if desc:
+                    self.tooltips[key] = desc
+
+
         # Создание интерфейса
         self.create_widgets()
+
+    def _get_sgf_param_names(self):
+        return list(self.sgf_params.keys())
+    
+    def _get_setting_names(self):
+        return list(self.settings.keys())
+    
+    def _get_input_names(self):
+        return list(self.input_vars.keys())
+    
+    def _get_output_names(self):
+        return self.OUTPUT_PARAMS  
 
     def create_widgets(self):
         # Frame for SGF parameters
@@ -201,11 +237,18 @@ class PartOfFsuInTOC_GUI:
         row = 0
         col = 0
         for key, var in self.sgf_params.items():
-            ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
+            label = ttk.Label(sgf_frame, text=key)
+            label.grid(row=row, column=col, sticky="w")
+
+            # Добавляем tooltip
+            tooltip = self.tooltips.get(key)
+            if tooltip:
+                ToolTip(label, tooltip)
+
             if key=="SGF7_ptoc1_lvttoc" or key=="SGF7_ptoc2_lvttoc" or key=="SGF7_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
             elif key=="SGF1_rblc1_lvttoc":
-                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2, 3], state="readonly").grid(row=row, column=col + 1)
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2, 3, 4], state="readonly").grid(row=row, column=col + 1)
             elif key=='Номинальный ток входа':
                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 5], state="readonly").grid(row=row, column=col + 1)                   
             else:
@@ -222,7 +265,14 @@ class PartOfFsuInTOC_GUI:
         row = 0
         col = 0
         for key, var in self.settings.items():
-            ttk.Label(settings_frame, text=key).grid(row=row, column=col, sticky="w")
+            label = ttk.Label(settings_frame, text=key)
+            label.grid(row=row, column=col, sticky="w")
+            
+            # Добавляем tooltip
+            tooltip = self.tooltips.get(key)
+            if tooltip:
+                ToolTip(label, tooltip)
+
             ttk.Entry(settings_frame, textvariable=var).grid(row=row, column=col + 1)
             row += 1
             if row >= 9:
@@ -294,7 +344,7 @@ class PartOfFsuInTOC_GUI:
 
     def init_part(self):
         self.part = partOfFsuInTOC(
-            SGF1=self.sgf_params["SGF1_lvttoc"].get(),
+            SGF1=self.sgf_params["T2_LVTTOC_1_KschemeCT"].get(),
             SGF1_ptoc1=self.sgf_params["SGF1_ptoc1_lvttoc"].get(),
             SGF2_ptoc1=self.sgf_params["SGF2_ptoc1_lvttoc"].get(),
             SGF3_ptoc1=self.sgf_params["SGF3_ptoc1_lvttoc"].get(),
@@ -302,7 +352,7 @@ class PartOfFsuInTOC_GUI:
             SGF5_ptoc1=self.sgf_params["SGF5_ptoc1_lvttoc"].get(),
             SGF6_ptoc1=self.sgf_params["SGF6_ptoc1_lvttoc"].get(),
             SGF7_ptoc1=self.sgf_params["SGF7_ptoc1_lvttoc"].get(),
-            T1_ptoc1=self.settings["T1_ptoc1_lvttoc"].get(),
+            T1_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Top"].get(),
             Iset_ptoc1=self.settings["Iset_ptoc1_lvttoc"].get(),
             Icoarse_ptoc1=self.settings["Icoarse_ptoc1_lvttoc"].get(),
             SGF1_ptoc2=self.sgf_params["SGF1_ptoc2_lvttoc"].get(),

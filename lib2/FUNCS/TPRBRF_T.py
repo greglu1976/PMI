@@ -55,9 +55,13 @@ class TPRBRF:
         pusk = _p005 or (io and (_p003 if self.SGF3==0 else 0))
         uskorenie = pusk and (KSV_blok_otkl if self.SGF2==1 else 0)
 
+
+
         self.T1.IN = pusk
         _p006, ET = self.T1.start()  # Запускаем таймер и получаем выход и прошедшее время   
-        srab = _p006 or uskorenie   
+        srab = _p006 or uskorenie
+
+
         return vvod, oper_vyvod, uskorenie, srab, pusk, io, srab_na_sebya, ET
  
     # Геттеры и сеттеры
