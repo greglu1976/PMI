@@ -24,20 +24,21 @@ class PartOfFsuInTOC_GUI:
 
     # === СПИСОК ВЫХОДНЫХ ПАРАМЕТРОВ (единое определение) ===
     OUTPUT_PARAMS = [
-            "vvod_lvrbvtr1", "oper_vyvod_lvrbvtr1", "u_lin_pusk_lvrbvtr1", "u2_pusk_lvrbvtr1", "pusk_lvrbvtr1", "neispr_zn_lvrbvtr1",
-            "vvod_lvrbvtr2", "oper_vyvod_lvrbvtr2", "u_lin_pusk_lvrbvtr2", "u2_pusk_lvrbvtr2", "pusk_lvrbvtr2", "neispr_zn_lvrbvtr2",
-            "vvod_ptoc1_lvttoc", "oper_vyvod_ptoc1_lvttoc", "mtzA_pusk_ptoc1_lvttoc", "mtzB_pusk_ptoc1_lvttoc", "mtzC_pusk_ptoc1_lvttoc",
-            "gen_pusk_ptoc_lvttoc", "mtz_srabsign_ptoc1_lvttoc", "mtz_srab_ptoc1_lvttoc", "io_A_ptoc1_lvttoc", "io_B_ptoc1_lvttoc",
-            "io_C_ptoc1_lvttoc", "vvod_ptoc2_lvttoc", "oper_vyvod_ptoc2_lvttoc", "mtzA_pusk_ptoc2_lvttoc", "mtzB_pusk_ptoc2_lvttoc",
-            "mtzC_pusk_ptoc2_lvttoc", "gen_pusk_ptoc2_lvttoc", "mtz_srabsign_ptoc2_lvttoc", "mtz_srab_ptoc2_lvttoc", "io_A_ptoc2_lvttoc",
-            "io_B_ptoc2_lvttoc", "io_C_ptoc2_lvttoc", "vvod_ptoc3_lvttoc", "oper_vyvod_ptoc3_lvttoc", "mtzA_pusk_ptoc3_lvttoc",
-            "mtzB_pusk_ptoc3_lvttoc", "mtzC_pusk_ptoc3_lvttoc", "gen_pusk_ptoc3_lvttoc", "mtz_srabsign_ptoc3_lvttoc", "mtz_srab_ptoc3_lvttoc",
-            "io_A_ptoc3_lvttoc", "io_B_ptoc3_lvttoc", "io_C_ptoc3_lvttoc", "kpon_pusk_ptuv1_lvttoc", "kpon_pusk_ptuv2_lvttoc",
-            "ia_start_out_phar1_lvttoc", "ib_start_out_phar1_lvttoc", "ic_start_out_phar1_lvttoc", "start_phar1_lvttoc", "blok_rblc1_lvttoc",
-            "mtz_pusk_lvttoc", "vvod_ptrc1", "oper_vyvod_ptrc1", "pusk_ptrc1", "srab_ptrc1", "vvod_rblc1", "oper_vyvod_rblc1", "zapret_rblc1",
-            "vvod_rbre1", "oper_vyvod_rbre1", "zapret_rbre1", "pusk_lvalh", 
-            "pusk_ptoc1_lvarctoc", 
-            "pusk_ptrc1_ttoclgc", 
+            "LVRBVTR_1_RVTR1_FuncEnabled", "LVRBVTR_1_RVTR1_FuncOperDisabled", "LVRBVTR_1_RVTR1_DE_Upp", "LVRBVTR_1_RVTR1_DE_U2", "LVRBVTR_1_RVTR1_Str", "LVRBVTR_1_RVTR1_Alm",
+            "LVRBVTR_2_RVTR1_FuncEnabled", "LVRBVTR_2_RVTR1_FuncOperDisabled", "LVRBVTR_2_RVTR1_DE_Upp", "LVRBVTR_2_RVTR1_DE_U2", "LVRBVTR_2_RVTR1_Str", "LVRBVTR_2_RVTR1_Alm",
+            "T2_LVTTOC_1_PTOC1_FuncEnabled", "T2_LVTTOC_1_PTOC1_FuncOperDisabled", "T2_LVTTOC_1_PTOC1_IAStr", "T2_LVTTOC_1_PTOC1_IBStr", "T2_LVTTOC_1_PTOC1_ICStr",
+            "T2_LVTTOC_1_PTOC1_Str", "T2_LVTTOC_1_PTOC1_OpOnSignal", "T2_LVTTOC_1_PTOC1_Op", "T2_LVTTOC_1_PTOC1_DE_IA", "T2_LVTTOC_1_PTOC1_DE_IB",
+            "T2_LVTTOC_1_PTOC1_DE_IC", "T2_LVTTOC_1_PTOC2_FuncEnabled", "T2_LVTTOC_1_PTOC2_FuncOperDisabled", "T2_LVTTOC_1_PTOC2_IAStr", "T2_LVTTOC_1_PTOC2_IBStr",
+            "T2_LVTTOC_1_PTOC2_ICStr", "T2_LVTTOC_1_PTOC2_Str", "T2_LVTTOC_1_PTOC2_OpOnSignal", "T2_LVTTOC_1_PTOC2_Op", "T2_LVTTOC_1_PTOC2_DE_IA",
+            "T2_LVTTOC_1_PTOC2_DE_IB", "T2_LVTTOC_1_PTOC2_DE_IC", "T2_LVTTOC_1_PTOC3_FuncEnabled", "T2_LVTTOC_1_PTOC3_FuncOperDisabled", "T2_LVTTOC_1_PTOC3_IAStr",
+            "T2_LVTTOC_1_PTOC3_IBStr", "T2_LVTTOC_1_PTOC3_ICStr", "T2_LVTTOC_1_PTOC3_Str", "T2_LVTTOC_1_PTOC3_OpOnSignal", "T2_LVTTOC_1_PTOC3_Op",
+            "T2_LVTTOC_1_PTOC3_DE_IA", "T2_LVTTOC_1_PTOC3_DE_IB", "T2_LVTTOC_1_PTOC3_DE_IC", "T2_LVTTOC_1_PTUV1_UndervoltStr", "T2_LVTTOC_1_PTUV2_UndervoltStr",
+            "T2_LVTTOC_1_PHAR1_PharmonicStrA", "T2_LVTTOC_1_PHAR1_PharmonicStrB", "T2_LVTTOC_1_PHAR1_PharmonicStrC", "T2_LVTTOC_1_PHAR1_PharmonicStr", "T2_LVTTOC_1_RBLC1_LbpBlkOp",
+            "T2_LVTTOC_1_LVTTOC_Str", 
+            "TRESOFFLVLGC_1_PTRC1_FuncEnabled", "TRESOFFLVLGC_1_PTRC1_FuncOperDisabled", "TRESOFFLVLGC_1_PTRC1_Str", "TRESOFFLVLGC_1_PTRC1_Op", "TRESOFFLVLGC_1_LVCBRBLC1_FuncEnabled", "TRESOFFLVLGC_1_LVCBRBLC1_FuncOperDisabled", "TRESOFFLVLGC_1_LVCBRBLC1_BlkOp",
+                        "TRESOFFLVLGC_1_RBRE1_FuncEnabled", "TRESOFFLVLGC_1_RBRE1_FuncOperDisabled", "TRESOFFLVLGC_1_RBRE1_BlkOp", "T2_LVALH_1_CALH1_Alarm", 
+                        "T_LVARCTOC_1_PTOC1_Str", 
+                        "T2_TTOCLGC_UIRZ_1_PTRC1_Str", 
             "IAB", "dIAB", "IBC", "dIBC", "ICA", "dICA", "I2", "I0", "I1", "UAB_ptuv1", "UBC_ptuv1", "UCA_ptuv1", "U2_ptuv1", "U0_ptuv1", "U1_ptuv1", "UAB_ptuv2", "UBC_ptuv2", "UCA_ptuv2", "U2_ptuv2",  "U0_ptuv2", "U1_ptuv2"
     ]
 
@@ -63,105 +64,111 @@ class PartOfFsuInTOC_GUI:
         # Инициализация переменных для SGF параметров, настроек, входных и выходных значений
         self.sgf_params = {
             "T2_LVTTOC_1_KschemeCT": tk.IntVar(value=0),
-            "SGF1_ptoc1_lvttoc": tk.IntVar(value=1),
-            "SGF2_ptoc1_lvttoc": tk.IntVar(value=0),
-            "SGF3_ptoc1_lvttoc": tk.IntVar(value=0),
-            "SGF4_ptoc1_lvttoc": tk.IntVar(value=0),
-            "SGF5_ptoc1_lvttoc": tk.IntVar(value=1),
-            "SGF6_ptoc1_lvttoc": tk.IntVar(value=0),
-            "SGF7_ptoc1_lvttoc": tk.IntVar(value=0),
-            "SGF1_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF2_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF3_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF4_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF5_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF6_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF7_ptoc2_lvttoc": tk.IntVar(value=0),
-            "SGF1_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF2_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF3_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF4_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF5_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF6_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF7_ptoc3_lvttoc": tk.IntVar(value=0),
-            "SGF1_ptuv1_lvttoc": tk.IntVar(value=0),
-            "SGF1_ptuv2_lvttoc": tk.IntVar(value=0),
-            "SGF1_phar1_lvttoc": tk.IntVar(value=0),
-            "SGF1_rblc1_lvttoc": tk.IntVar(value=0),
-            "SGF1_rvtr1_lvrbvtr1": tk.IntVar(value=0),
-            "SGF2_rvtr1_lvrbvtr1": tk.IntVar(value=0),
-            "SGF1_rvtr1_lvrbvtr2": tk.IntVar(value=0),
-            "SGF2_rvtr1_lvrbvtr2": tk.IntVar(value=0),
-            "SGF1_ptrc1_tresofflvlgc": tk.IntVar(value=0), 
-            "SGF1_rbre1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF2_rbre1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF3_rbre1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF1_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF2_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF3_lvcbrblc1_tresofflvlgc": tk.IntVar(value=0),
-            "SGF1_lvalh": tk.IntVar(value=0),
-            "SGF2_lvalh": tk.IntVar(value=0),
-            "SGF3_lvalh": tk.IntVar(value=0),
-            "SGF4_lvalh": tk.IntVar(value=0),
-            "SGF5_lvalh": tk.IntVar(value=0),
-            "SGF6_lvalh": tk.IntVar(value=0),
-            "SGF7_lvalh": tk.IntVar(value=0),
-            "SGF8_lvalh": tk.IntVar(value=0),
-            "SGF9_lvalh": tk.IntVar(value=0),
-            "SGF10_lvalh": tk.IntVar(value=0),
-            "SGF1_ptoc1_lvarctoc": tk.IntVar(value=0),
-            "SGF2_ptoc1_lvarctoc": tk.IntVar(value=0),
-            "SGF1_ptrc1_ttoclgc": tk.IntVar(value=0),
-            "SGF2_ptrc1_ttoclgc": tk.IntVar(value=0),
-            "SGF3_ptrc1_ttoclgc": tk.IntVar(value=0),              
-            "Номинальный ток входа": tk.IntVar(value=5),            
+            "T2_LVTTOC_1_PTOC1_EnaDis": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC1_VolMod": tk.IntVar(value=1),
+            "T2_LVTTOC_1_PTOC1_MICMod": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC1_ExtVFlMod": tk.IntVar(value=1),
+            "T2_LVTTOC_1_PTOC1_VCMod1": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC1_VCMod2": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC1_SBMod": tk.IntVar(value=0),  # 1           
+            "T2_LVTTOC_1_PTOC2_EnaDis": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC2_VolMod": tk.IntVar(value=1),
+            "T2_LVTTOC_1_PTOC2_MICMod": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC2_ExtVFlMod": tk.IntVar(value=1),
+            "T2_LVTTOC_1_PTOC2_VCMod1": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC2_VCMod2": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC2_SBMod": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC3_EnaDis": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC3_VolMod": tk.IntVar(value=1),
+            "T2_LVTTOC_1_PTOC3_MICMod": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC3_ExtVFlMod": tk.IntVar(value=1),
+            "T2_LVTTOC_1_PTOC3_VCMod1": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC3_VCMod2": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTOC3_SBMod": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTUV1_VoltStrCond": tk.IntVar(value=0),
+            "T2_LVTTOC_1_PTUV2_VoltStrCond": tk.IntVar(value=0),  # 4  
+            "T2_LVTTOC_1_PHAR1_RegBlock": tk.IntVar(value=0),
+            "T2_LVTTOC_1_RBLC1_StepSel": tk.IntVar(value=1),
+
+            #"LVRBVTR1_1_RVTR1_EnaDis": tk.IntVar(value=0),
+            #"LVRBVTR1_1_RVTR1_StrMod": tk.IntVar(value=0),
+            #"LVRBVTR2_1_RVTR1_EnaDis": tk.IntVar(value=0),
+            #"LVRBVTR2_1_RVTR1_StrMod": tk.IntVar(value=0),
+            "LVRBVTR_1_RVTR1_EnaDis": tk.IntVar(value=0),
+            "LVRBVTR_1_RVTR1_StrMod": tk.IntVar(value=0),
+            "LVRBVTR_2_RVTR1_EnaDis": tk.IntVar(value=0),
+            "LVRBVTR_2_RVTR1_StrMod": tk.IntVar(value=0),
+
+            "TRESOFFLVLGC_1_PTRC1_EnaDis": tk.IntVar(value=0),
+            "TRESOFFLVLGC_1_RBRE1_EnaDis": tk.IntVar(value=0),
+            "TRESOFFLVLGC_1_RBRE1_PVOC2_Ctrl": tk.IntVar(value=0),
+            "TRESOFFLVLGC_1_RBRE1_PVOC3_Ctrl": tk.IntVar(value=0),
+            "TRESOFFLVLGC_1_LVCBRBLC1_EnaDis": tk.IntVar(value=0),
+            "TRESOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl": tk.IntVar(value=0),
+            "TRESOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_GASSign_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_LowIsolGAS_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_GASBlock_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_OCSign_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_OCnnSign_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_OpExt_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_CtlCir_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_TestBlock_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_SwOperExcTim_Ctl": tk.IntVar(value=0),
+            "T2_LVALH_1_CALH1_ExtSignGen_Ctl": tk.IntVar(value=0),
+            "T_LVARCTOC_1_PTOC1_EnaDis": tk.IntVar(value=0),
+            "T_LVARCTOC_1_PTOC1_StrMod": tk.IntVar(value=0),
+            "T2_TTOCLGC_UIRZ_1_PTRC1_EnaDis": tk.IntVar(value=0),
+            "T2_TTOCLGC_UIRZ_1_PTRC1_LVTPTOC2_Ctrl": tk.IntVar(value=0),
+            "T2_TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl": tk.IntVar(value=0),            
+            #"Номинальный ток входа": tk.IntVar(value=5),            
         }
-            #"SGF1_ptrc1_tofflvlgc":tk.IntVar(value=0),
-            #"SGF1_rbre1_tofflvlgc":tk.IntVar(value=0),
-            #"SGF2_rbre1_tofflvlgc":tk.IntVar(value=0),
-            #"SGF3_rbre1_tofflvlgc":tk.IntVar(value=0), 
-            #"SGF1_rblc1_tofflvlgc":tk.IntVar(value=0), 
-            #"SGF2_rblc1_tofflvlgc":tk.IntVar(value=0),
-            #"SGF3_rblc1_tofflvlgc":tk.IntVar(value=0),
-        #}
 
         self.settings = {
             "T2_LVTTOC_1_PTOC1_Top": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvttoc": tk.DoubleVar(value=0.2),
-            "Icoarse_ptoc1_lvttoc": tk.DoubleVar(value=0.6),
-            "T1_ptoc2_lvttoc": tk.DoubleVar(value=1),
-            "Iset_ptoc2_lvttoc": tk.DoubleVar(value=0.2),
-            "Icoarse_ptoc2_lvttoc": tk.DoubleVar(value=0.6),
-            "T1_ptoc3_lvttoc": tk.DoubleVar(value=1),
-            "Iset_ptoc3_lvttoc": tk.DoubleVar(value=0.2),
-            "Icoarse_ptoc3_lvttoc": tk.DoubleVar(value=0.6),
-            "Uop_ptuv1_lvttoc": tk.DoubleVar(value=50),
-            "U2op_ptuv1_lvttoc": tk.DoubleVar(value=15),
-            "Uop_ptuv2_lvttoc": tk.DoubleVar(value=50),
-            "U2op_ptuv2_lvttoc": tk.DoubleVar(value=15),
-            "Imax_phar1_lvttoc": tk.DoubleVar(value=1),
-            "Ratio_phar1_lvttoc": tk.DoubleVar(value=40),
-            "Umin_rvtr1_lvrbvtr1": tk.DoubleVar(value=50),
-            "U2max_rvtr1_lvrbvtr1": tk.DoubleVar(value=15),
-            "T1_rvtr1_lvrbvtr1": tk.DoubleVar(value=1),
-            "Umin_rvtr1_lvrbvtr2": tk.DoubleVar(value=50),
-            "U2max_rvtr1_lvrbvtr2": tk.DoubleVar(value=15),
-            "T1_rvtr1_lvrbvtr2": tk.DoubleVar(value=1),
-            "Iset_ptoc1_lvarctoc": tk.DoubleVar(value=1),
-            "T1_ptrc1_ttoclgc": tk.DoubleVar(value=1),             
+            "T2_LVTTOC_1_PTOC1_Iop": tk.DoubleVar(value=0.2),
+            "T2_LVTTOC_1_PTOC1_IopCoars": tk.DoubleVar(value=0.6),
+            "T2_LVTTOC_1_PTOC2_Top": tk.DoubleVar(value=1),
+            "T2_LVTTOC_1_PTOC2_Iop": tk.DoubleVar(value=0.2),
+            "T2_LVTTOC_1_PTOC2_IopCoars": tk.DoubleVar(value=0.6),
+            "T2_LVTTOC_1_PTOC3_Top": tk.DoubleVar(value=1),
+            "T2_LVTTOC_1_PTOC3_Iop": tk.DoubleVar(value=0.2),
+            "T2_LVTTOC_1_PTOC3_IopCoars": tk.DoubleVar(value=0.6),
+            "T2_LVTTOC_1_PTUV1_Uop": tk.DoubleVar(value=50),
+            "T2_LVTTOC_1_PTUV1_U2op": tk.DoubleVar(value=15),
+            "T2_LVTTOC_1_PTUV2_Uop": tk.DoubleVar(value=50),
+            "T2_LVTTOC_1_PTUV2_U2op": tk.DoubleVar(value=15),
+            "T2_LVTTOC_1_PHAR1_Iop": tk.DoubleVar(value=1),
+            "T2_LVTTOC_1_PHAR1_PhStr": tk.DoubleVar(value=40),
+            
+            #"LVRBVTR1_1_RVTR1_Uop": tk.DoubleVar(value=50),
+            #"LVRBVTR1_1_RVTR1_U2op": tk.DoubleVar(value=15),
+            #"LVRBVTR1_1_RVTR1_Top": tk.DoubleVar(value=1),
+            #"LVRBVTR2_1_RVTR1_Uop": tk.DoubleVar(value=50),
+            #"LVRBVTR2_1_RVTR1_U2op": tk.DoubleVar(value=15),
+            #"LVRBVTR2_1_RVTR1_Top": tk.DoubleVar(value=1),
+            "LVRBVTR_1_RVTR1_Uop": tk.DoubleVar(value=50),
+            "LVRBVTR_1_RVTR1_U2op": tk.DoubleVar(value=15),
+            "LVRBVTR_1_RVTR1_Top": tk.DoubleVar(value=1),
+            "LVRBVTR_2_RVTR1_Uop": tk.DoubleVar(value=50),
+            "LVRBVTR_2_RVTR1_U2op": tk.DoubleVar(value=15),
+            "LVRBVTR_2_RVTR1_Top": tk.DoubleVar(value=1),
+
+            "T_LVARCTOC_1_PTOC1_Iop": tk.DoubleVar(value=1),
+            "T2_TTOCLGC_UIRZ_1_PTRC1_Top": tk.DoubleVar(value=1),             
         }
 
         self.input_vars = {
-            "VYVOD": tk.IntVar(value=0),
-            "OV_lvttoc": tk.IntVar(value=0),
-            "OVst_ptoc1": tk.IntVar(value=0),
-            "OVst_ptoc2": tk.IntVar(value=0),
-            "OVst_ptoc3": tk.IntVar(value=0),
-            "NaSign_ptoc1": tk.IntVar(value=0),
-            "NaSign_ptoc2": tk.IntVar(value=0),
-            "NaSign_ptoc3": tk.IntVar(value=0),
-            "SV1vkl": tk.IntVar(value=0),
-            "SV2vkl": tk.IntVar(value=0),
+            "DI_ControllerDisable": tk.IntVar(value=0),
+            "DI_LVTTOC": tk.IntVar(value=0),
+            "DI_PTOC1": tk.IntVar(value=0),
+            "DI_PTOC2": tk.IntVar(value=0),
+            "DI_PTOC3": tk.IntVar(value=0),
+            "DI_PTOC1_Sign": tk.IntVar(value=0),
+            "DI_PTOC2_Sign": tk.IntVar(value=0),
+            "DI_PTOC3_Sign": tk.IntVar(value=0),
+            "SBnnPosCls1": tk.IntVar(value=0),
+            "SBnnPosCls2": tk.IntVar(value=0),
             "IA": tk.DoubleVar(value=1),
             "dIA": tk.DoubleVar(value=0),
             "IB": tk.DoubleVar(value=1),
@@ -180,21 +187,21 @@ class PartOfFsuInTOC_GUI:
             "dUB2": tk.DoubleVar(value=240),
             "UC2": tk.DoubleVar(value=50),
             "dUC2": tk.DoubleVar(value=120),
-            "KPONvnesh_ptuv1": tk.IntVar(value=0),
-            "KPONvnesh_ptuv2": tk.IntVar(value=0),
+            "OutVoltStr1": tk.IntVar(value=0),
+            "OutVoltStr2": tk.IntVar(value=0),
             "IA2harm": tk.DoubleVar(value=0),
             "IB2harm": tk.DoubleVar(value=0),
             "IC2harm": tk.DoubleVar(value=0),
-            "VNN1vkl": tk.IntVar(value=0),
-            "VNN2vkl": tk.IntVar(value=0),
-            "OV_lvrbvtr1": tk.IntVar(value=0),
-            "vnesh_bnn_srab_lvrbvtr1": tk.IntVar(value=0),
-            "OV_lvrbvtr2": tk.IntVar(value=0),
-            "vnesh_bnn_srab_lvrbvtr2": tk.IntVar(value=0),
-            "OVlot": tk.IntVar(value=0),
-            "OVlo": tk.IntVar(value=0),
-            "OVzapv": tk.IntVar(value=0),
-            "OVzavr": tk.IntVar(value=0),
+            "CBnnPosCls1": tk.IntVar(value=0),
+            "CBnnPosCls2": tk.IntVar(value=0),
+            "DI_LVRBVTR1": tk.IntVar(value=0),
+            "OutBlkV1": tk.IntVar(value=0),
+            "DI_LVRBVTR2": tk.IntVar(value=0),
+            "OutBlkV2": tk.IntVar(value=0),
+            "DI_TRESOFFLVLGS": tk.IntVar(value=0),
+            "DI_PTRC1": tk.IntVar(value=0),
+            "DI_RBRE1": tk.IntVar(value=0),
+            "DI_LVCBRBLC1": tk.IntVar(value=0),
         }
 
         self.output_labels = {}
@@ -245,16 +252,20 @@ class PartOfFsuInTOC_GUI:
             if tooltip:
                 ToolTip(label, tooltip)
 
-            if key=="SGF7_ptoc1_lvttoc" or key=="SGF7_ptoc2_lvttoc" or key=="SGF7_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
+            if key=="T2_LVTTOC_1_PTOC1_SBMod" or key=="T2_LVTTOC_1_PTOC2_SBMod" or key=="T2_LVTTOC_1_PTOC3_SBMod" or key=="T2_LVTTOC_1_PTUV1_VoltStrCond" or key=="T2_LVTTOC_1_PTUV2_VoltStrCond":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
-            elif key=="SGF1_rblc1_lvttoc":
-                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2, 3, 4], state="readonly").grid(row=row, column=col + 1)
+            elif key=="T2_LVTTOC_1_PTOC1_VolMod" or key=="T2_LVTTOC_1_PTOC2_VolMod" or key=="T2_LVTTOC_1_PTOC3_VolMod":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2], state="readonly").grid(row=row, column=col + 1)
+            elif key=="T2_LVTTOC_1_PTOC1_ExtVFlMod" or key=="T2_LVTTOC_1_PTOC2_ExtVFlMod" or key=="T2_LVTTOC_1_PTOC3_ExtVFlMod":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2], state="readonly").grid(row=row, column=col + 1)                
+            elif key=="T2_LVTTOC_1_RBLC1_StepSel":
+                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2, 3, 4], state="readonly").grid(row=row, column=col + 1)    
             elif key=='Номинальный ток входа':
                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 5], state="readonly").grid(row=row, column=col + 1)                   
             else:
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1], state="readonly").grid(row=row, column=col + 1)
             row += 1
-            if row >= 11:
+            if row >= 15:
                 row = 0
                 col += 2
 
@@ -299,16 +310,21 @@ class PartOfFsuInTOC_GUI:
         ttk.Button(buttons_frame, text="Load", command=self.load_from_excel).grid(row=0, column=4, pady=10)        
 
 
-        # Поля для задания имени файла
-        ttk.Label(buttons_frame, text="Функция:").grid(row=0, column=5, padx=5, pady=5)
-        ttk.Entry(buttons_frame, textvariable=self.function_name, width=15).grid(row=0, column=6, padx=5, pady=5)
+        # Button Load JSON
+        ttk.Button(buttons_frame, text="Load JSON", command=self.load_settings_from_json).grid(row=0, column=5, padx=2, pady=5)
+        # Button Save JSON
+        ttk.Button(buttons_frame, text="Save JSON", command=self.save_settings_to_json).grid(row=0, column=6, padx=2, pady=5)
 
-        ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=7, padx=5, pady=5)
-        ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=8, padx=5, pady=5)
+        # Поля для задания имени файла
+        ttk.Label(buttons_frame, text="Функция:").grid(row=0, column=7, padx=5, pady=5)
+        ttk.Entry(buttons_frame, textvariable=self.function_name, width=15).grid(row=0, column=8, padx=5, pady=5)
+
+        ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=9, padx=5, pady=5)
+        ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=10, padx=5, pady=5)
 
         # Добавляем новый элемент (например, Label) с возможностью изменения цвета
         self.status_label = ttk.Label(buttons_frame, text="Шаг", background="green", foreground="white")
-        self.status_label.grid(row=0, column=9, padx=5, pady=5)
+        self.status_label.grid(row=0, column=11, padx=5, pady=5)
 
         # Frame for input values
         input_frame = ttk.LabelFrame(self.root, text="Inputs")
@@ -318,12 +334,25 @@ class PartOfFsuInTOC_GUI:
         col = 0
         for key, var in self.input_vars.items():
             if isinstance(var, tk.IntVar):
-                ttk.Checkbutton(input_frame, text=key, variable=var).grid(row=row, column=col, sticky="w")
+                cb = ttk.Checkbutton(input_frame, text=key, variable=var)
+                cb.grid(row=row, column=col, sticky="w")
+                
+                # Добавляем tooltip
+                tooltip = self.tooltips.get(key)
+                if tooltip:
+                    ToolTip(cb, tooltip)
             elif isinstance(var, tk.DoubleVar):
-                ttk.Label(input_frame, text=key).grid(row=row, column=col, sticky="w")
+                label = ttk.Label(input_frame, text=key)
+                label.grid(row=row, column=col, sticky="w")
+                
+                # Добавляем tooltip
+                tooltip = self.tooltips.get(key)
+                if tooltip:
+                    ToolTip(label, tooltip)
+                
                 ttk.Entry(input_frame, textvariable=var).grid(row=row, column=col + 1)
             row += 1
-            if row >= 5:
+            if row >= 6:
                 row = 0
                 col += 2
 
@@ -337,6 +366,12 @@ class PartOfFsuInTOC_GUI:
             label = ttk.Label(output_frame, text=output, width=25, anchor="w")
             label.grid(row=row, column=col, sticky="w")
             self.output_labels[output] = label
+
+            # === ДОБАВЛЯЕМ TOOLTIP ИЗ META.JSON ===
+            tooltip = self.tooltips.get(output)
+            if tooltip:
+                ToolTip(label, tooltip)
+
             row += 1
             if row >= 32:
                 row = 0
@@ -345,71 +380,87 @@ class PartOfFsuInTOC_GUI:
     def init_part(self):
         self.part = partOfFsuInTOC(
             SGF1=self.sgf_params["T2_LVTTOC_1_KschemeCT"].get(),
-            SGF1_ptoc1=self.sgf_params["SGF1_ptoc1_lvttoc"].get(),
-            SGF2_ptoc1=self.sgf_params["SGF2_ptoc1_lvttoc"].get(),
-            SGF3_ptoc1=self.sgf_params["SGF3_ptoc1_lvttoc"].get(),
-            SGF4_ptoc1=self.sgf_params["SGF4_ptoc1_lvttoc"].get(),
-            SGF5_ptoc1=self.sgf_params["SGF5_ptoc1_lvttoc"].get(),
-            SGF6_ptoc1=self.sgf_params["SGF6_ptoc1_lvttoc"].get(),
-            SGF7_ptoc1=self.sgf_params["SGF7_ptoc1_lvttoc"].get(),
+            SGF1_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_EnaDis"].get(),
+            SGF2_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_VolMod"].get(),
+            SGF3_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_MICMod"].get(),
+            SGF4_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_ExtVFlMod"].get(),
+            SGF5_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_VCMod1"].get(),
+            SGF6_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_VCMod2"].get(),
+            SGF7_ptoc1=self.sgf_params["T2_LVTTOC_1_PTOC1_SBMod"].get(),  ##       
+            SGF1_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_EnaDis"].get(),
+            SGF2_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_VolMod"].get(),
+            SGF3_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_MICMod"].get(),
+            SGF4_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_ExtVFlMod"].get(),
+            SGF5_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_VCMod1"].get(),
+            SGF6_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_VCMod2"].get(),
+            SGF7_ptoc2=self.sgf_params["T2_LVTTOC_1_PTOC2_SBMod"].get(),  ##   
+            SGF1_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_EnaDis"].get(),
+            SGF2_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_VolMod"].get(),
+            SGF3_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_MICMod"].get(),
+            SGF4_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_ExtVFlMod"].get(),
+            SGF5_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_VCMod1"].get(),
+            SGF6_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_VCMod2"].get(),
+            SGF7_ptoc3=self.sgf_params["T2_LVTTOC_1_PTOC3_SBMod"].get(),  ##   
+            SGF1_ptuv1=self.sgf_params["T2_LVTTOC_1_PTUV1_VoltStrCond"].get(),
+            SGF1_ptuv2=self.sgf_params["T2_LVTTOC_1_PTUV2_VoltStrCond"].get(),  ##           
+            SGF1_phar1=self.sgf_params["T2_LVTTOC_1_PHAR1_RegBlock"].get(),
+            SGF1_rblc1=self.sgf_params["T2_LVTTOC_1_RBLC1_StepSel"].get(),
             T1_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Top"].get(),
-            Iset_ptoc1=self.settings["Iset_ptoc1_lvttoc"].get(),
-            Icoarse_ptoc1=self.settings["Icoarse_ptoc1_lvttoc"].get(),
-            SGF1_ptoc2=self.sgf_params["SGF1_ptoc2_lvttoc"].get(),
-            SGF2_ptoc2=self.sgf_params["SGF2_ptoc2_lvttoc"].get(),
-            SGF3_ptoc2=self.sgf_params["SGF3_ptoc2_lvttoc"].get(),
-            SGF4_ptoc2=self.sgf_params["SGF4_ptoc2_lvttoc"].get(),
-            SGF5_ptoc2=self.sgf_params["SGF5_ptoc2_lvttoc"].get(),
-            SGF6_ptoc2=self.sgf_params["SGF6_ptoc2_lvttoc"].get(),
-            SGF7_ptoc2=self.sgf_params["SGF7_ptoc2_lvttoc"].get(),
-            T1_ptoc2=self.settings["T1_ptoc2_lvttoc"].get(),
-            Iset_ptoc2=self.settings["Iset_ptoc2_lvttoc"].get(),
-            Icoarse_ptoc2=self.settings["Icoarse_ptoc2_lvttoc"].get(),
-            SGF1_ptoc3=self.sgf_params["SGF1_ptoc3_lvttoc"].get(),
-            SGF2_ptoc3=self.sgf_params["SGF2_ptoc3_lvttoc"].get(),
-            SGF3_ptoc3=self.sgf_params["SGF3_ptoc3_lvttoc"].get(),
-            SGF4_ptoc3=self.sgf_params["SGF4_ptoc3_lvttoc"].get(),
-            SGF5_ptoc3=self.sgf_params["SGF5_ptoc3_lvttoc"].get(),
-            SGF6_ptoc3=self.sgf_params["SGF6_ptoc3_lvttoc"].get(),
-            SGF7_ptoc3=self.sgf_params["SGF7_ptoc3_lvttoc"].get(),
-            T1_ptoc3=self.settings["T1_ptoc3_lvttoc"].get(),
-            Iset_ptoc3=self.settings["Iset_ptoc3_lvttoc"].get(),
-            Icoarse_ptoc3=self.settings["Icoarse_ptoc3_lvttoc"].get(),
-            SGF1_ptuv1=self.sgf_params["SGF1_ptuv1_lvttoc"].get(),
-            Uop_ptuv1=self.settings["Uop_ptuv1_lvttoc"].get(),
-            U2op_ptuv1=self.settings["U2op_ptuv1_lvttoc"].get(),
-            SGF1_ptuv2=self.sgf_params["SGF1_ptuv2_lvttoc"].get(),
-            Uop_ptuv2=self.settings["Uop_ptuv2_lvttoc"].get(),
-            U2op_ptuv2=self.settings["U2op_ptuv2_lvttoc"].get(),
-            SGF1_phar1=self.sgf_params["SGF1_phar1_lvttoc"].get(),
-            Imax_phar1=self.settings["Imax_phar1_lvttoc"].get(),
-            Ratio_phar1=self.settings["Ratio_phar1_lvttoc"].get(),
-            SGF1_rblc1=self.sgf_params["SGF1_rblc1_lvttoc"].get(),
-            SGF1_lvrbvtr1=self.sgf_params["SGF1_rvtr1_lvrbvtr1"].get(),
-            SGF2_lvrbvtr1=self.sgf_params["SGF2_rvtr1_lvrbvtr1"].get(),
-            u_min_lvrbvtr1=self.settings["Umin_rvtr1_lvrbvtr1"].get(),
-            u2_max_lvrbvtr1=self.settings["U2max_rvtr1_lvrbvtr1"].get(),
-            t1_lvrbvtr1=self.settings["T1_rvtr1_lvrbvtr1"].get(),
-            SGF1_lvrbvtr2=self.sgf_params["SGF1_rvtr1_lvrbvtr2"].get(),
-            SGF2_lvrbvtr2=self.sgf_params["SGF2_rvtr1_lvrbvtr2"].get(),
-            u_min_lvrbvtr2=self.settings["Umin_rvtr1_lvrbvtr2"].get(),
-            u2_max_lvrbvtr2=self.settings["U2max_rvtr1_lvrbvtr2"].get(),
-            t1_lvrbvtr2=self.settings["T1_rvtr1_lvrbvtr2"].get(),
-            SGF1_ptrc1_tofflvlgc=self.sgf_params["SGF1_ptrc1_tresofflvlgc"].get(),
-            SGF1_rbre1_tofflvlgc=self.sgf_params["SGF1_rbre1_tresofflvlgc"].get(), 
-            SGF2_rbre1_tofflvlgc=self.sgf_params["SGF2_rbre1_tresofflvlgc"].get(), 
-            SGF3_rbre1_tofflvlgc=self.sgf_params["SGF3_rbre1_tresofflvlgc"].get(), 
-            SGF1_rblc1_tofflvlgc=self.sgf_params["SGF1_lvcbrblc1_tresofflvlgc"].get(), 
-            SGF2_rblc1_tofflvlgc=self.sgf_params["SGF2_lvcbrblc1_tresofflvlgc"].get(), 
-            SGF3_rblc1_tofflvlgc=self.sgf_params["SGF3_lvcbrblc1_tresofflvlgc"].get(),
-            SGF1_ptoc1_lvarctoc=self.sgf_params["SGF1_ptoc1_lvarctoc"].get(),
-            SGF2_ptoc1_lvarctoc=self.sgf_params["SGF2_ptoc1_lvarctoc"].get(),
-            SGF1_ptrc1_ttoclgc=self.sgf_params["SGF1_ptrc1_ttoclgc"].get(),
-            SGF2_ptrc1_ttoclgc=self.sgf_params["SGF2_ptrc1_ttoclgc"].get(),
-            SGF3_ptrc1_ttoclgc=self.sgf_params["SGF3_ptrc1_ttoclgc"].get(),
-            Iset_ptoc1_lvarctoc=self.settings["Iset_ptoc1_lvarctoc"].get(),
-            Inom=self.sgf_params["Номинальный ток входа"].get(),
-            T1_ptrc1_ttoclgc=self.settings["T1_ptrc1_ttoclgc"].get() 
+            Iset_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Iop"].get(),
+            Icoarse_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_IopCoars"].get(),
+            T1_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_Top"].get(),
+            Iset_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_Iop"].get(),
+            Icoarse_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_IopCoars"].get(),
+            T1_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_Top"].get(),
+            Iset_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_Iop"].get(),
+            Icoarse_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_IopCoars"].get(),
+            Uop_ptuv1=self.settings["T2_LVTTOC_1_PTUV1_Uop"].get(),
+            U2op_ptuv1=self.settings["T2_LVTTOC_1_PTUV1_U2op"].get(),
+            Uop_ptuv2=self.settings["T2_LVTTOC_1_PTUV2_Uop"].get(),
+            U2op_ptuv2=self.settings["T2_LVTTOC_1_PTUV2_U2op"].get(),
+            Imax_phar1=self.settings["T2_LVTTOC_1_PHAR1_Iop"].get(),
+            Ratio_phar1=self.settings["T2_LVTTOC_1_PHAR1_PhStr"].get(),
+
+
+            ################################################################################
+            #SGF1_lvrbvtr1=self.sgf_params["LVRBVTR1_1_RVTR1_EnaDis"].get(),
+            #SGF2_lvrbvtr1=self.sgf_params["LVRBVTR1_1_RVTR1_StrMod"].get(),
+            #u_min_lvrbvtr1=self.settings["T2_LVRBVTR1_1_RVTR1_Uop"].get(),
+            #u2_max_lvrbvtr1=self.settings["T2_LVRBVTR1_1_RVTR1_U2op"].get(),
+            #t1_lvrbvtr1=self.settings["T2_LVRBVTR1_1_RVTR1_Top"].get(),
+            #SGF1_lvrbvtr2=self.sgf_params["LVRBVTR2_1_RVTR1_EnaDis"].get(),
+            #SGF2_lvrbvtr2=self.sgf_params["LVRBVTR2_1_RVTR1_StrMod"].get(),
+            #u_min_lvrbvtr2=self.settings["T2_LVRBVTR2_1_RVTR1_Uop"].get(),
+            #u2_max_lvrbvtr2=self.settings["T2_LVRBVTR2_1_RVTR1_U2op"].get(),
+            #t1_lvrbvtr2=self.settings["T2_LVRBVTR2_1_RVTR1_Top"].get(),
+
+            SGF1_lvrbvtr1=self.sgf_params["LVRBVTR_1_RVTR1_EnaDis"].get(),
+            SGF2_lvrbvtr1=self.sgf_params["LVRBVTR_1_RVTR1_StrMod"].get(),
+            u_min_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Uop"].get(),
+            u2_max_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_U2op"].get(),
+            t1_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Top"].get(),
+            SGF1_lvrbvtr2=self.sgf_params["LVRBVTR_2_RVTR1_EnaDis"].get(),
+            SGF2_lvrbvtr2=self.sgf_params["LVRBVTR_2_RVTR1_StrMod"].get(),
+            u_min_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_Uop"].get(),
+            u2_max_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_U2op"].get(),
+            t1_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_Top"].get(),
+            ################################################################################
+
+            SGF1_ptrc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_PTRC1_EnaDis"].get(),
+            SGF1_rbre1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_RBRE1_EnaDis"].get(),
+            SGF2_rbre1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_RBRE1_PVOC2_Ctrl"].get(),
+            SGF3_rbre1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_RBRE1_PVOC3_Ctrl"].get(),
+            SGF1_rblc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_LVCBRBLC1_EnaDis"].get(),
+            SGF2_rblc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_LVCBRBLC1_PVOC2_Ctrl"].get(),
+            SGF3_rblc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_LVCBRBLC1_PVOC3_Ctrl"].get(),
+            SGF1_ptoc1_lvarctoc=self.sgf_params["T_LVARCTOC_1_PTOC1_EnaDis"].get(),
+            SGF2_ptoc1_lvarctoc=self.sgf_params["T_LVARCTOC_1_PTOC1_StrMod"].get(),
+            SGF1_ptrc1_ttoclgc=self.sgf_params["T2_TTOCLGC_UIRZ_1_PTRC1_EnaDis"].get(),
+            SGF2_ptrc1_ttoclgc=self.sgf_params["T2_TTOCLGC_UIRZ_1_PTRC1_LVTPTOC2_Ctrl"].get(),
+            SGF3_ptrc1_ttoclgc=self.sgf_params["T2_TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl"].get(),
+            Iset_ptoc1_lvarctoc=self.settings["T_LVARCTOC_1_PTOC1_Iop"].get(),
+            Inom=1, #self.sgf_params["Номинальный ток входа"].get(),
+            T1_ptrc1_ttoclgc=self.settings["T2_TTOCLGC_UIRZ_1_PTRC1_Top"].get() 
         )
 
         print("partOfFsuInTOC initialized")
@@ -551,6 +602,207 @@ class PartOfFsuInTOC_GUI:
 
         except Exception as e:
             print(f"Error loading data: {e}")        
+
+    # === МЕТОДЫ ДЛЯ РАБОТЫ С JSON ФАЙЛАМИ УСТАВОК ===
+    
+    def load_settings_from_json(self):
+        """Загружает SGF и T-параметры из JSON-файла с суффиксом _SG1."""
+        file_path = askopenfilename(filetypes=[("JSON files", "*.json")])
+        if not file_path:
+            return
+        try:
+            handler = SettingsHandler.from_json_file(file_path)
+            if not self.meta_handler:
+                print("⚠️ Метаданные не загружены. Используется стандартная обработка.")
+            
+            # --- Обновление SGF-параметров (с _SG1) ---
+            for key in self.sgf_params:
+                json_key = key + "_SG1"
+                value_str = handler.get_value_by_parameter(json_key)
+                if value_str is None:
+                    continue
+                try:
+                    # Определяем тип из метаданных
+                    type_str = None
+                    if self.meta_handler:
+                        param_info = self.meta_handler.get_param_info(json_key)
+                        if param_info:
+                            type_str = param_info.get("type")
+                            print(f"{json_key}: type={type_str}, value='{value_str}'")
+                    
+                    # Преобразование значения в зависимости от типа
+                    if type_str == "3":  # Булевое значение
+                        value_lower = str(value_str).lower().strip()
+                        bool_map = {
+                            "true": 1, "1": 1, "on": 1, "вкл": 1, "да": 1, "yes": 1, "enabled": 1,
+                            "false": 0, "0": 0, "off": 0, "выкл": 0, "нет": 0, "no": 0, "disabled": 0
+                        }
+                        if value_lower in bool_map:
+                            self.sgf_params[key].set(bool_map[value_lower])
+                        else:
+                            try:
+                                num_val = float(value_str)
+                                self.sgf_params[key].set(1 if num_val != 0 else 0)
+                            except ValueError:
+                                print(f"⚠️ Неизвестное булевое значение для {json_key}: '{value_str}'")
+                                self.sgf_params[key].set(0)
+                    elif type_str == "130":  # Integer
+                        try:
+                            value_clean = str(value_str).strip()
+                            for suffix in ['%', '°', '°C', 'мс', 'с', 'м']:
+                                if value_clean.endswith(suffix):
+                                    value_clean = value_clean[:-len(suffix)].strip()
+
+                            int_val = int(float(value_clean.replace(',', '.')))
+                            self.sgf_params[key].set(int_val)
+                        except (ValueError, TypeError) as e:
+                            print(f"⚠️ Ошибка преобразования int для {json_key}: '{value_str}' - {e}")
+                            self.sgf_params[key].set(0)
+                    else:  # По умолчанию или неизвестный тип - пробуем как int
+                        try:
+                            value_clean = str(value_str).strip()
+                            value_lower = value_clean.lower()
+                            bool_map = {
+                                "true": 1, "1": 1, "on": 1, "вкл": 1,
+                                "false": 0, "0": 0, "off": 0, "выкл": 0
+                            }
+                            if value_lower in bool_map:
+                                self.sgf_params[key].set(bool_map[value_lower])
+                            else:
+                                int_val = int(float(value_clean.replace(',', '.')))
+                                self.sgf_params[key].set(int_val)
+                        except (ValueError, TypeError) as e:
+                            print(f"⚠️ Не удалось преобразовать значение для {json_key}: '{value_str}' - {e}")
+                            self.sgf_params[key].set(0)
+                except Exception as e:
+                    print(f"❌ Ошибка при обработке {json_key}: {e}")
+            
+            # --- Обновление T-параметров (settings) ---
+            for key in self.settings:
+                json_key = key + "_SG1"
+                value_str = handler.get_value_by_parameter(json_key)
+                if value_str is None:
+                    continue
+                try:
+                    # Определяем тип из метаданных
+                    type_str = None
+                    if self.meta_handler:
+                        param_info = self.meta_handler.get_param_info(json_key)
+                        if param_info:
+                            type_str = param_info.get("type")
+                            print(f"{json_key}: type={type_str}, value='{value_str}'")
+                    
+                    # Для settings обычно используются float значения
+                    value_clean = str(value_str).strip()
+                    # Убираем единицы измерения
+                    units_to_remove = ['%', '°', '°c', '°с', 'мс', 'с', 'м', 'мм', 'кг', 'кпа', 'па']
+                    for unit in units_to_remove:
+                        if value_clean.lower().endswith(unit):
+                            value_clean = value_clean[:-len(unit)].strip()
+                    
+                    # Заменяем запятую на точку
+                    value_clean = value_clean.replace(',', '.')
+                    
+                    # Пробуем преобразовать в float
+                    try:
+                        float_val = float(value_clean)
+                        # Проверяем разумные пределы для settings
+                        if abs(float_val) > 1000000:
+                            print(f"⚠️ Подозрительно большое значение для {json_key}: {float_val}")
+                        else:
+                            self.settings[key].set(float_val)
+                    except ValueError as e:
+                        print(f"⚠️ Невозможно преобразовать в число: {json_key} = '{value_str}' - {e}")
+                except Exception as e:
+                    print(f"❌ Ошибка при обработке {json_key}: {e}")
+            
+            print("✅ Параметры обновлены из JSON (с суффиксом _SG1)")
+        except FileNotFoundError:
+            print(f"❌ Ошибка: Файл не найден: {file_path}")
+        except Exception as e:
+            print(f"❌ Ошибка загрузки JSON: {e}")
+    
+    def save_settings_to_json(self):
+        """Сохраняет SGF и T-параметры в JSON-файл с суффиксом _SG1."""
+        file_path = askopenfilename(
+            title="Сохранить уставки как...",
+            filetypes=[("JSON files", "*.json")],
+            defaultextension=".json"
+        )
+        if not file_path:
+            return
+        try:
+            # Пытаемся загрузить существующий файл, иначе создаём пустой
+            try:
+                handler = SettingsHandler.from_json_file(file_path)
+            except (FileNotFoundError, json.JSONDecodeError, KeyError, ValueError):
+                handler = SettingsHandler([])  # пустой обработчик
+            
+            # --- 1. Сохраняем SGF-параметры ---
+            for base_key in self.sgf_params:
+                json_key = base_key + "_SG1"
+                raw_value = self.sgf_params[base_key].get()
+
+                # Определяем тип параметра
+                param_type = "3"  # значение по умолчанию — бинарный
+                if self.meta_handler:
+                    param_info = self.meta_handler.get_param_info(json_key)
+                    if param_info and "type" in param_info:
+                        param_type = str(param_info["type"])
+
+                # Преобразуем значение в число
+                try:
+                    numeric_value = float(raw_value)
+                    if not numeric_value.is_integer():
+                        numeric_value = int(round(numeric_value))
+                    else:
+                        numeric_value = int(numeric_value)
+                except (ValueError, TypeError):
+                    numeric_value = 0
+
+                # Форматируем в зависимости от типа
+                if param_type == "3":
+                    formatted = "1" if numeric_value != 0 else "0"
+                elif param_type == "130":
+                    formatted = str(numeric_value)
+                else:
+                    formatted = str(numeric_value)
+
+                handler.add_or_update_parameter(json_key, formatted)
+                print(f"💾 SGF {json_key} = {formatted} (type={param_type}, raw={raw_value})")
+            
+            # --- 2. Сохраняем T-параметры (settings) ---
+            for base_key in self.settings:
+                json_key = base_key + "_SG1"  # ВАЖНО: тоже добавляем _SG1!
+                raw_value = self.settings[base_key].get()
+
+                # Определяем тип параметра из метаданных
+                param_type = None
+                if self.meta_handler:
+                    param_info = self.meta_handler.get_param_info(json_key)
+                    if param_info and "type" in param_info:
+                        param_type = str(param_info["type"])
+
+                # Для T-параметров обычно используется float
+                try:
+                    float_val = float(raw_value)
+                    # Сохраняем с разумной точностью (убираем лишние нули)
+                    formatted = f"{float_val:.6g}"
+                except (ValueError, TypeError):
+                    formatted = "0.0"
+
+                handler.add_or_update_parameter(json_key, formatted)
+                print(f"💾 T   {json_key} = {formatted} (type={param_type}, raw={raw_value})")
+            
+            # Сохраняем
+            handler.save_to_json_file(file_path)
+            print(f"✅ Уставки сохранены в {file_path}")
+        except Exception as e:
+            error_msg = f"Ошибка при сохранении уставок:\n{str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+
 
 
 if __name__ == "__main__":

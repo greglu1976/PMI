@@ -334,7 +334,6 @@ class PartOfFsuInTOC_GUI:
             if tooltip:
                 ToolTip(label, tooltip)
 
-
             row += 1
             if row >= 28:
                 row = 0

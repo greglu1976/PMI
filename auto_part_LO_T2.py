@@ -1,3 +1,5 @@
+# По этой версии производились ПМИ Т2 15-16.04.2026
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename

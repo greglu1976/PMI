@@ -43,6 +43,7 @@ class T2_LVTTOC:
         Ic = IC if (self.SGF1==0) else ICA
 
         # Предпредварительный обсчет ступеней МТЗ
+
         vvod_ptoc1, oper_vyvod_ptoc1 = self.ptoc1.PrePreStep(VYVOD, OV, OVst_ptoc1)
         vvod_ptoc2, oper_vyvod_ptoc2 = self.ptoc2.PrePreStep(VYVOD, OV, OVst_ptoc2)
         vvod_ptoc3, oper_vyvod_ptoc3 = self.ptoc3.PrePreStep(VYVOD, OV, OVst_ptoc3)

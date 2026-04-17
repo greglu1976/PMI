@@ -52,16 +52,16 @@ class partOfFsuInTOC:
         ##################################################################################################
 
 
-    def Step(self, VYVOD, OV_lvttoc, SV1vkl, SV2vkl, IA, dIA, IB, dIB, IC, dIC, VNN1vkl, VNN2vkl, 
-        OVst_ptoc1, NaSign_ptoc1,
-        OVst_ptoc2, NaSign_ptoc2,
-        OVst_ptoc3, NaSign_ptoc3,
-        KPONvnesh_ptuv1, UA1, dUA1, UB1, dUB1, UC1, dUC1,  
-        KPONvnesh_ptuv2, UA2, dUA2, UB2, dUB2, UC2, dUC2, 
+    def Step(self, DI_ControllerDisable, DI_LVTTOC, SBnnPosCls1, SBnnPosCls2, IA, dIA, IB, dIB, IC, dIC, CBnnPosCls1, CBnnPosCls2, 
+        DI_PTOC1, DI_PTOC1_Sign,
+        DI_PTOC2, DI_PTOC2_Sign,
+        DI_PTOC3, DI_PTOC3_Sign,
+        OutVoltStr1, UA1, dUA1, UB1, dUB1, UC1, dUC1,  
+        OutVoltStr2, UA2, dUA2, UB2, dUB2, UC2, dUC2, 
         IA2harm, IB2harm, IC2harm,
-        OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1,
-        OV_lvrbvtr2, vnesh_bnn_srab_lvrbvtr2,
-        OVlot, OVlo, OVzapv, OVzavr,
+        DI_LVRBVTR1, OutBlkV1,
+        DI_LVRBVTR2, OutBlkV2,
+        DI_TRESOFFLVLGS, DI_PTRC1, DI_RBRE1, DI_LVCBRBLC1,
         ):
 
         # Расчитываем аналоги
@@ -100,24 +100,26 @@ class partOfFsuInTOC:
         U0_ptuv2 = 3*U2simm['U0']['amplitude']
         U1_ptuv2 = U2simm['U1']['amplitude']
         # вычисляем КЦН НН
-        vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1 = self.lvrbvtr1.Step(VYVOD, OV_lvrbvtr1, vnesh_bnn_srab_lvrbvtr1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
-        vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2 = self.lvrbvtr2.Step(VYVOD, OV_lvrbvtr2, vnesh_bnn_srab_lvrbvtr2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2)
+        vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1 = self.lvrbvtr1.Step(DI_ControllerDisable, DI_LVRBVTR1, OutBlkV1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
+        vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2 = self.lvrbvtr2.Step(DI_ControllerDisable, DI_LVRBVTR2, OutBlkV2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2)
         # вычисляем МТЗ
-        vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, gen_pusk_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srab_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, vvod_ptoc2_lvttoc, oper_vyvod_ptoc2_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, gen_pusk_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srab_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, vvod_ptoc3_lvttoc, oper_vyvod_ptoc3_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, gen_pusk_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, mtz_srab_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, kpon_pusk_ptuv2_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, start_phar1_lvttoc, blok_rblc1_lvttoc, mtz_pusk_lvttoc = self.lvttoc.Step(VYVOD, OV_lvttoc, SV1vkl, SV2vkl, IA, IAB, IB, IBC, IC, ICA, neispr_zn_lvrbvtr1, VNN1vkl, neispr_zn_lvrbvtr2, VNN2vkl, OVst_ptoc1, NaSign_ptoc1, OVst_ptoc2, NaSign_ptoc2, OVst_ptoc3, NaSign_ptoc3, KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2, IA2harm, IB2harm, IC2harm)
+        vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc, mtzA_pusk_ptoc1_lvttoc, mtzB_pusk_ptoc1_lvttoc, mtzC_pusk_ptoc1_lvttoc, gen_pusk_ptoc1_lvttoc, mtz_srabsign_ptoc1_lvttoc, mtz_srab_ptoc1_lvttoc, io_A_ptoc1_lvttoc, io_B_ptoc1_lvttoc, io_C_ptoc1_lvttoc, vvod_ptoc2_lvttoc, oper_vyvod_ptoc2_lvttoc, mtzA_pusk_ptoc2_lvttoc, mtzB_pusk_ptoc2_lvttoc, mtzC_pusk_ptoc2_lvttoc, gen_pusk_ptoc2_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srab_ptoc2_lvttoc, io_A_ptoc2_lvttoc, io_B_ptoc2_lvttoc, io_C_ptoc2_lvttoc, vvod_ptoc3_lvttoc, oper_vyvod_ptoc3_lvttoc, mtzA_pusk_ptoc3_lvttoc, mtzB_pusk_ptoc3_lvttoc, mtzC_pusk_ptoc3_lvttoc, gen_pusk_ptoc3_lvttoc, mtz_srabsign_ptoc3_lvttoc, mtz_srab_ptoc3_lvttoc, io_A_ptoc3_lvttoc, io_B_ptoc3_lvttoc, io_C_ptoc3_lvttoc, kpon_pusk_ptuv1_lvttoc, kpon_pusk_ptuv2_lvttoc, ia_start_out_phar1_lvttoc, ib_start_out_phar1_lvttoc, ic_start_out_phar1_lvttoc, start_phar1_lvttoc, blok_rblc1_lvttoc, mtz_pusk_lvttoc = self.lvttoc.Step(DI_ControllerDisable, DI_LVTTOC, SBnnPosCls1, SBnnPosCls2, IA, IAB, IB, IBC, IC, ICA, neispr_zn_lvrbvtr1, CBnnPosCls1, neispr_zn_lvrbvtr2, CBnnPosCls2, DI_PTOC1, DI_PTOC1_Sign, DI_PTOC2, DI_PTOC2_Sign, DI_PTOC3, DI_PTOC3_Sign, OutVoltStr1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, OutVoltStr2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2, IA2harm, IB2harm, IC2harm)
+
+        #print(vvod_ptoc1_lvttoc, oper_vyvod_ptoc1_lvttoc)
 
         # Рассчитываем ТК ЗДЗ
         OV_ptoc1_lvarctoc=0
-        vvod_ptoc1_lvarctoc, oper_vyvod_ptoc1_lvarctoc, pusk_ptoc1_lvarctoc, io_ptoc1_lvarctoc =  self.lvarctoc.Step(VYVOD, OV_ptoc1_lvarctoc, IA, IB, IC, gen_pusk_ptoc1_lvttoc, gen_pusk_ptoc2_lvttoc, gen_pusk_ptoc3_lvttoc) 
+        vvod_ptoc1_lvarctoc, oper_vyvod_ptoc1_lvarctoc, pusk_ptoc1_lvarctoc, io_ptoc1_lvarctoc =  self.lvarctoc.Step(DI_ControllerDisable, OV_ptoc1_lvarctoc, IA, IB, IC, gen_pusk_ptoc1_lvttoc, gen_pusk_ptoc2_lvttoc, gen_pusk_ptoc3_lvttoc) 
         # Рассчитываем ЛЗТ , переменные жестко задаем, т.к. они не отслеживаются в этой схеме
         OV_ptrc1_ttoclgc =0
         vnesh_pusk_ptrc1_ttoclgc = 0
         blok_lzt_ptrc1_ttoclgc = 0
-        vvod_ptrc1_ttoclgc, oper_vyvod_ptrc1_ttoclgc, pusk_ptrc1_ttoclgc, srab_ptrc1_ttoclgc, ET_ptrc1_ttoclgc =  self.ttoclgc.Step(VYVOD, OV_ptrc1_ttoclgc, vnesh_pusk_ptrc1_ttoclgc, gen_pusk_ptoc2_lvttoc, gen_pusk_ptoc3_lvttoc, blok_lzt_ptrc1_ttoclgc) 
+        vvod_ptrc1_ttoclgc, oper_vyvod_ptrc1_ttoclgc, pusk_ptrc1_ttoclgc, srab_ptrc1_ttoclgc, ET_ptrc1_ttoclgc =  self.ttoclgc.Step(DI_ControllerDisable, OV_ptrc1_ttoclgc, vnesh_pusk_ptrc1_ttoclgc, gen_pusk_ptoc2_lvttoc, gen_pusk_ptoc3_lvttoc, blok_lzt_ptrc1_ttoclgc) 
 
         # вычисляем ЛО Т
-        vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1 = self.tofflvlgc.Step(VYVOD, OVlot, OVlo, (mtz_srab_ptoc1_lvttoc,), mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, OVzapv, OVzavr)
+        vvod_ptrc1, oper_vyvod_ptrc1, pusk_ptrc1, srab_ptrc1, vvod_rblc1, oper_vyvod_rblc1, zapret_rblc1, vvod_rbre1, oper_vyvod_rbre1, zapret_rbre1 = self.tofflvlgc.Step(DI_ControllerDisable, DI_TRESOFFLVLGS, DI_PTRC1, (mtz_srab_ptoc1_lvttoc,), mtz_srab_ptoc2_lvttoc, mtz_srab_ptoc3_lvttoc, DI_RBRE1, DI_LVCBRBLC1)
         # вычисляем ПС
-        pusk_lvalh = self.lvalh.Step(VYVOD, COMM_SIGN = (mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, srab_ptrc1, neispr_zn_lvrbvtr1, neispr_zn_lvrbvtr2))
+        pusk_lvalh = self.lvalh.Step(DI_ControllerDisable, COMM_SIGN = (mtz_srabsign_ptoc1_lvttoc, mtz_srabsign_ptoc2_lvttoc, mtz_srabsign_ptoc3_lvttoc, srab_ptrc1, neispr_zn_lvrbvtr1, neispr_zn_lvrbvtr2))
 
         return (vvod_lvrbvtr1, oper_vyvod_lvrbvtr1, u_lin_pusk_lvrbvtr1, u2_pusk_lvrbvtr1, pusk_lvrbvtr1, neispr_zn_lvrbvtr1, 
         vvod_lvrbvtr2, oper_vyvod_lvrbvtr2, u_lin_pusk_lvrbvtr2, u2_pusk_lvrbvtr2, pusk_lvrbvtr2, neispr_zn_lvrbvtr2,
