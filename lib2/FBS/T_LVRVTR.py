@@ -18,7 +18,7 @@ class T_LVRVTR:
      
 
     def Step(self, VYVOD = 0, OV = 0, vnesh_bnn_srab=0, u_ab=0, u_bc=0, u_ca=0, u2=0):
-        #print(VYVOD, OV, vnesh_bnn_srab, u_ab, u_bc, u_ca, u2)
+
         vvod = (not(OV or VYVOD)) and (self.SGF1==1) # Ввод
         oper_vyvod = (OV or VYVOD) and (self.SGF1==1) # Оперативный вывод
 

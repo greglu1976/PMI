@@ -36,7 +36,6 @@ class T2_LVTTOC:
         KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1, 
         KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2, 
         IA2harm, IB2harm, IC2harm):
-
         # Переключение с фазных на линейные токи
         Ia = IA if (self.SGF1==0) else IAB
         Ib = IB if (self.SGF1==0) else IBC
@@ -52,6 +51,7 @@ class T2_LVTTOC:
         # Собираем условия ввода
         vvod_kpon1 = (vvod_ptoc1 and (self.ptoc1.get_SGF5()==1)) or (vvod_ptoc2 and (self.ptoc2.get_SGF5()==1)) or (vvod_ptoc3 and (self.ptoc3.get_SGF5()==1))      
         kpon_pusk_ptuv1 = self.ptuv1.Step(vvod_kpon1, KPONvnesh_ptuv1, UAB_ptuv1, UBC_ptuv1, UCA_ptuv1, U2_ptuv1)
+
         vvod_kpon2 = (vvod_ptoc1 and (self.ptoc1.get_SGF6()==1)) or (vvod_ptoc2 and (self.ptoc2.get_SGF6()==1)) or (vvod_ptoc3 and (self.ptoc3.get_SGF6()==1))  
         kpon_pusk_ptuv2 = self.ptuv2.Step(vvod_kpon2, KPONvnesh_ptuv2, UAB_ptuv2, UBC_ptuv2, UCA_ptuv2, U2_ptuv2)
 

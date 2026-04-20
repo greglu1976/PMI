@@ -405,13 +405,13 @@ class PartOfFsuInTOC_GUI:
             SGF1_ptuv2=self.sgf_params["T2_LVTTOC_1_PTUV2_VoltStrCond"].get(),  ##           
             SGF1_phar1=self.sgf_params["T2_LVTTOC_1_PHAR1_RegBlock"].get(),
             SGF1_rblc1=self.sgf_params["T2_LVTTOC_1_RBLC1_StepSel"].get(),
-            T1_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Top"].get(),
+            T1_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Top"].get()/1000,
             Iset_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_Iop"].get(),
             Icoarse_ptoc1=self.settings["T2_LVTTOC_1_PTOC1_IopCoars"].get(),
-            T1_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_Top"].get(),
+            T1_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_Top"].get()/1000,
             Iset_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_Iop"].get(),
             Icoarse_ptoc2=self.settings["T2_LVTTOC_1_PTOC2_IopCoars"].get(),
-            T1_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_Top"].get(),
+            T1_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_Top"].get()/1000,
             Iset_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_Iop"].get(),
             Icoarse_ptoc3=self.settings["T2_LVTTOC_1_PTOC3_IopCoars"].get(),
             Uop_ptuv1=self.settings["T2_LVTTOC_1_PTUV1_Uop"].get(),
@@ -438,12 +438,12 @@ class PartOfFsuInTOC_GUI:
             SGF2_lvrbvtr1=self.sgf_params["LVRBVTR_1_RVTR1_StrMod"].get(),
             u_min_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Uop"].get(),
             u2_max_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_U2op"].get(),
-            t1_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Top"].get(),
+            t1_lvrbvtr1=self.settings["LVRBVTR_1_RVTR1_Top"].get()/1000,
             SGF1_lvrbvtr2=self.sgf_params["LVRBVTR_2_RVTR1_EnaDis"].get(),
             SGF2_lvrbvtr2=self.sgf_params["LVRBVTR_2_RVTR1_StrMod"].get(),
             u_min_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_Uop"].get(),
             u2_max_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_U2op"].get(),
-            t1_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_Top"].get(),
+            t1_lvrbvtr2=self.settings["LVRBVTR_2_RVTR1_Top"].get()/1000,
             ################################################################################
 
             SGF1_ptrc1_tofflvlgc=self.sgf_params["TRESOFFLVLGC_1_PTRC1_EnaDis"].get(),
@@ -460,7 +460,7 @@ class PartOfFsuInTOC_GUI:
             SGF3_ptrc1_ttoclgc=self.sgf_params["T2_TTOCLGC_UIRZ_1_PTRC1_LVTPTOC3_Ctrl"].get(),
             Iset_ptoc1_lvarctoc=self.settings["T_LVARCTOC_1_PTOC1_Iop"].get(),
             Inom=1, #self.sgf_params["Номинальный ток входа"].get(),
-            T1_ptrc1_ttoclgc=self.settings["T2_TTOCLGC_UIRZ_1_PTRC1_Top"].get() 
+            T1_ptrc1_ttoclgc=self.settings["T2_TTOCLGC_UIRZ_1_PTRC1_Top"].get()/1000 
         )
 
         print("partOfFsuInTOC initialized")
@@ -485,7 +485,6 @@ class PartOfFsuInTOC_GUI:
             inputs = {key: var.get() for key, var in self.input_vars.items()}
             #print(inputs)
             result = self.part.Step(**inputs)
-
             # Обновление выходных значений
             for output, value in zip(self.output_labels.keys(), result):
                 label = self.output_labels[output]

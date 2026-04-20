@@ -1,12 +1,12 @@
 # Ступень МТЗ трансформатора с НН (для исполнения Т2) - НОВАЯ редакия от 30.06.25
 
-#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено)
-#SGF2 - Тип_КПОН - Тип пуска по напряжению 	(Управляющее напряжение / Вольтметровая блокировка)
-#SGF3 - Реж_БНТ - Режим контроля от БНТ (Не предусмотрено/ Предусмотрено)
-#SGF4 - Реж_БНН_КПОН - Режим КПОН при неисправности ЦН  (Деблокировка (Чувств. уставка)/ Блокировка (Грубая уставка))
-#SGF5 - Реж_КПОН1 - Режим контроля от КПОН1 (Не предусмотрено/ Предусмотрено)
-#SGF6 - Реж_КПОН2 - Режим контроля от КПОН2 (Не предусмотрено/ Предусмотрено)
-#SGF7 - Контр_СВ - Режим контроля СВ НН (Не предусмотрено/ Блокировка ступени при включенном СВ/ 	Блокировка ступени при отключенном СВ)
+#SGF1 - Ввод_функции - Ввод функции в работу (Не предусмотрено/ Предусмотрено) 0/1
+#SGF2 - Тип_КПОН - Тип пуска по напряжению 	(Управляющее напряжение / Вольтметровая блокировка) 1/2
+#SGF3 - Реж_БНТ - Режим контроля от БНТ (Не предусмотрено/ Предусмотрено) 0/1
+#SGF4 - Реж_БНН_КПОН - Режим КПОН при неисправности ЦН  (Деблокировка (Чувств. уставка)/ Блокировка (Грубая уставка)) 1/2
+#SGF5 - Реж_КПОН1 - Режим контроля от КПОН1 (Не предусмотрено/ Предусмотрено)0/1
+#SGF6 - Реж_КПОН2 - Режим контроля от КПОН2 (Не предусмотрено/ Предусмотрено) 0/1
+#SGF7 - Контр_СВ - Режим контроля СВ НН (Не предусмотрено/ Блокировка ступени при включенном СВ/ 	Блокировка ступени при отключенном СВ) 0/1/2
 
 from lib2.TIMERS.TIMERS import TON  
 from lib2.TRIGGERS.TRIGGERS import RSTrigger
@@ -40,31 +40,35 @@ class T2_LVTPTOC:
         return vvod, oper_vyvod 
 
     def PreStep(self, IA, IB, IC, KZN1neipr, KPON1pusk, VNN1vkl, KZN2neipr, KPON2pusk, VNN2vkl): # Вспомогательный метод для предварительного вычисления значений для БНТ
-        _p001 = (((KPON1pusk and (not(KZN1neipr) if self.SGF4==1 else 1)) or (KZN1neipr if self.SGF4==0 else 0)) and VNN1vkl) if self.SGF5==1 else 0
-        _p003 = (((KPON2pusk and (not(KZN2neipr) if self.SGF4==1 else 1)) or (KZN2neipr if self.SGF4==0 else 0)) and VNN2vkl) if self.SGF6==1 else 0
+
+        _p001 = (((KPON1pusk and (not(KZN1neipr) if self.SGF4==2 else 1)) or (KZN1neipr if self.SGF4==1 else 0)) and VNN1vkl) if self.SGF5==1 else 0
+        _p003 = (((KPON2pusk and (not(KZN2neipr) if self.SGF4==2 else 1)) or (KZN2neipr if self.SGF4==1 else 0)) and VNN2vkl) if self.SGF6==1 else 0
         _p002 = (not(VNN1vkl) or (1 if self.SGF5==0 else 0)) and (not(VNN2vkl) or (1 if self.SGF6==0 else 0))
+
         kpon_pusk = _p001 or _p002 or _p003
-        set_changer = 0 if (self.SGF2==1) else not(kpon_pusk)
+        set_changer = 0 if (self.SGF2==2) else not(kpon_pusk)
         settingI = self.Iset if (set_changer==0) else self.Icoarse
         io_A = (self.SGF1==1) and (self.RSa.run((IA>=settingI), (IA<0.95*settingI)))
         io_B = (self.SGF1==1) and (self.RSb.run((IB>=settingI), (IB<0.95*settingI)))
         io_C = (self.SGF1==1) and (self.RSc.run((IC>=settingI), (IC<0.95*settingI)))
-        #print('set_changer', set_changer, kpon_gen1, kpon_gen2, kpon_gen)
         return io_A, io_B, io_C, kpon_pusk, set_changer
 
     def AfterStep(self, NaSign, SV1vkl, SV2vkl, io_A, io_B, io_C, BNTpuskA, BNTpuskB, BNTpuskC, kpon_pusk, vvod):
+
         # Логика фазы А
-        mtzA_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_A) and not(0 if (self.SGF3==0) else BNTpuskA)
+        mtzA_pusk = vvod and ((kpon_pusk if (self.SGF2==2) else 1) and io_A) and not(0 if (self.SGF3==0) else BNTpuskA)
         # Логика фазы B
-        mtzB_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_B) and not(0 if (self.SGF3==0) else BNTpuskB)
+        mtzB_pusk = vvod and ((kpon_pusk if (self.SGF2==2) else 1) and io_B) and not(0 if (self.SGF3==0) else BNTpuskB)
         # Логика фазы C
-        mtzC_pusk = vvod and ((kpon_pusk if (self.SGF2==1) else 1) and io_C) and not(0 if (self.SGF3==0) else BNTpuskC)
+        mtzC_pusk = vvod and ((kpon_pusk if (self.SGF2==2) else 1) and io_C) and not(0 if (self.SGF3==0) else BNTpuskC)
+
         sv_ctl = 0 if (self.SGF7==0) else (SV1vkl or SV2vkl) if (self.SGF7==1) else not(SV1vkl or SV2vkl)
         gen_pusk = not(sv_ctl) and (mtzA_pusk or mtzB_pusk or mtzC_pusk)
         self.T1.IN = gen_pusk
         Q, ET = self.T1.start()  # Запускаем таймер и получаем выход и прошедшее время
         mtz_srabsign = Q
         mtz_srab = mtz_srabsign and not(NaSign)
+
         return mtzA_pusk, mtzB_pusk, mtzC_pusk, gen_pusk, mtz_srabsign, mtz_srab, ET
 
     # Геттеры и сеттеры
