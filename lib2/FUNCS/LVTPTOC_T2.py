@@ -44,7 +44,6 @@ class T2_LVTPTOC:
         _p001 = (((KPON1pusk and (not(KZN1neipr) if self.SGF4==2 else 1)) or (KZN1neipr if self.SGF4==1 else 0)) and VNN1vkl) if self.SGF5==1 else 0
         _p003 = (((KPON2pusk and (not(KZN2neipr) if self.SGF4==2 else 1)) or (KZN2neipr if self.SGF4==1 else 0)) and VNN2vkl) if self.SGF6==1 else 0
         _p002 = (not(VNN1vkl) or (1 if self.SGF5==0 else 0)) and (not(VNN2vkl) or (1 if self.SGF6==0 else 0))
-
         kpon_pusk = _p001 or _p002 or _p003
         set_changer = 0 if (self.SGF2==2) else not(kpon_pusk)
         settingI = self.Iset if (set_changer==0) else self.Icoarse
