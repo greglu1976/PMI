@@ -3,6 +3,11 @@
 # 2, 5 заводятся не в процентах а в rms - угол 2,5 гармоник для упрощения совпадает с 1 гармоникой
 # для упрощения также 2,5 гармоники только на сторону ВН (НН1, НН2 - нет)
 
+# ИЗМЕНЕНИЯ
+# Выходы - нет пуска от ЛО Т - pusk_ptrc1_tprmofflvlgc - удалить столбец из режимов
+# SGF params - появилась уставка сборка звезды со стороны Т - добавить и реализовать TDIF_1_Kp1
+# базисная мощность задавать в КВА !!!!
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
@@ -52,100 +57,100 @@ class PartDZT_GUI:
 
         # Инициализация переменных для SGF параметров, настроек, входных и выходных значений
         self.sgf_params = {
-            "Side1_tdif": tk.IntVar(value=1),
-            "Side2_tdif": tk.IntVar(value=1),
-            "Side3_tdif": tk.IntVar(value=1),
+            "TDIF_1_Side1": tk.IntVar(value=1),
+            "TDIF_1_Side2": tk.IntVar(value=1),
+            "TDIF_1_Side3": tk.IntVar(value=1),
             "TDIF_1_KschemeSide1": tk.IntVar(value=0),
             "TDIF_1_KschemeSide2": tk.IntVar(value=0), 
             "TDIF_1_KschemeSide3": tk.IntVar(value=0),           # Третья сторона 03.05.2025
-            "comp3i0_rmxu1_tdif": tk.IntVar(value=0),
-            "comp3i0_rmxu2_tdif": tk.IntVar(value=0),
-            "comp3i0_rmxu3_tdif": tk.IntVar(value=0),   # Третья сторона  03.05.2025         
-            "SGF1_rctr1_ctr": tk.IntVar(value=0),
-            "SGF2_rctr1_ctr": tk.IntVar(value=0),
-            "SGF1_rctr2_ctr": tk.IntVar(value=0),
-            "SGF2_rctr2_ctr": tk.IntVar(value=0),
-            "SGF1_rctr3_ctr": tk.IntVar(value=0),
-            "SGF2_rctr3_ctr": tk.IntVar(value=0),
-            "SGF1_pdif1_tdif": tk.IntVar(value=0),
-            "SGF2_pdif1_tdif": tk.IntVar(value=1),
-            "SGF3_pdif1_tdif": tk.IntVar(value=0),
-            "SGF1_pdif2_tdif": tk.IntVar(value=0),
-            "SGF1_hf2phar1_tdif": tk.IntVar(value=0),
-            "SGF1_hf5phar1_tdif": tk.IntVar(value=0),
-            "SGF1_rctr1_tdif": tk.IntVar(value=0),
-            "SGF1_ptrc1_tprmofflvlgc": tk.IntVar(value=0),
-            "SGF1_rbre1_tprmofflvlgc": tk.IntVar(value=0),
+            "TDIF_1_Equaliz3I0s1": tk.IntVar(value=0),
+            "TDIF_1_Equaliz3I0s2": tk.IntVar(value=0),
+            "TDIF_1_Equaliz3I0s3": tk.IntVar(value=0),   # Третья сторона  03.05.2025         
+            "CTR_UIRZ_1_RCTR1_EnaDis": tk.IntVar(value=0),
+            "CTR_UIRZ_1_RCTR1_EnaDis_ctbreak": tk.IntVar(value=0),
+            "CTR_UIRZ_1_RCTR2_EnaDis": tk.IntVar(value=0),
+            "CTR_UIRZ_1_RCTR2_EnaDis_ctbreak": tk.IntVar(value=0),
+            "CTR_UIRZ_1_RCTR3_EnaDis": tk.IntVar(value=0),
+            "CTR_UIRZ_1_RCTR3_EnaDis_ctbreak": tk.IntVar(value=0),
+            "TDIF_1_PDIF1_EnaDis": tk.IntVar(value=0),
+            "TDIF_1_PDIF1_RstMod": tk.IntVar(value=1),
+            "TDIF_1_PDIF1_EnaDisSelec": tk.IntVar(value=0),
+            "TDIF_1_PDIF2_EnaDis": tk.IntVar(value=0),
+            "TDIF_1_HF2PHAR1_RegBlock": tk.IntVar(value=0),
+            "TDIF_1_HF5PHAR1_RegBlock": tk.IntVar(value=0),
+            "TDIF_1_RCTR1_EnaDis": tk.IntVar(value=0),
+            "TPRMOFFLVLGC_1_PTRC1_EnaDis": tk.IntVar(value=0),
+            "TPRMOFFLVLGC_1_RBRE1_EnaDis": tk.IntVar(value=0),
         }
         self.settings = {
-            "T1_rctr1_ctr": tk.DoubleVar(value=0),
-            "T2_rctr1_ctr": tk.DoubleVar(value=0),
-            "Inom_rctr1_ctr": tk.DoubleVar(value=5),
-            "Imin_rctr1_ctr": tk.DoubleVar(value=0.05),
-            "Ksym_rctr1_ctr": tk.DoubleVar(value=0.5),
-            "LIsym_rctr1_ctr": tk.DoubleVar(value=0.02),
-            "T1_rctr2_ctr": tk.DoubleVar(value=0),
-            "T2_rctr2_ctr": tk.DoubleVar(value=0),
-            "Inom_rctr2_ctr": tk.DoubleVar(value=5),
-            "Imin_rctr2_ctr": tk.DoubleVar(value=0.05),
-            "Ksym_rctr2_ctr": tk.DoubleVar(value=0.5),
-            "LIsym_rctr2_ctr": tk.DoubleVar(value=0.02),
-            "T1_rctr3_ctr": tk.DoubleVar(value=0),
-            "T2_rctr3_ctr": tk.DoubleVar(value=0),
-            "Inom_rctr3_ctr": tk.DoubleVar(value=5),
-            "Imin_rctr3_ctr": tk.DoubleVar(value=0.05),
-            "Ksym_rctr3_ctr": tk.DoubleVar(value=0.5),
-            "LIsym_rctr3_ctr": tk.DoubleVar(value=0.02),
-            "Sbaz_tdif": tk.DoubleVar(value=10),
-            "Ubaz_rmxu1_tdif": tk.DoubleVar(value=35),
-            "Ubaz_rmxu2_tdif": tk.DoubleVar(value=10.5),
-            "Ubaz_rmxu3_tdif": tk.DoubleVar(value=10.5),  # Третья сторона  03.05.2025 
-            "Iperv_rmxu1_tdif": tk.DoubleVar(value=750),
-            "Iperv_rmxu2_tdif": tk.DoubleVar(value=3000),
-            "Iperv_rmxu3_tdif": tk.DoubleVar(value=3000), # Третья сторона  03.05.2025 
-            "Inomterm_rmxu1_tdif": tk.DoubleVar(value=1),
-            "Inomterm_rmxu2_tdif": tk.DoubleVar(value=1),
-            "Inomterm_rmxu3_tdif": tk.DoubleVar(value=1), # Третья сторона  03.05.2025 
-            "Ivtor_rmxu1_tdif": tk.DoubleVar(value=5),
-            "Ivtor_rmxu2_tdif": tk.DoubleVar(value=5),
-            "Ivtor_rmxu3_tdif": tk.DoubleVar(value=5),    # Третья сторона  03.05.2025
-            "Nsch_rmxu1_tdif": tk.DoubleVar(value=0),
-            "Nsch_rmxu2_tdif": tk.DoubleVar(value=6),
-            "Nsch_rmxu3_tdif": tk.DoubleVar(value=6),    # Третья сторона  03.05.2025
-            "T1_pdif1_tdif": tk.DoubleVar(value=1),
-            "Isr_pdif1_tdif": tk.DoubleVar(value=0.2),
-            "Isrzagrub_pdif1_tdif": tk.DoubleVar(value=1.2),
-            "It1_pdif1_tdif": tk.DoubleVar(value=1),
-            "It2_pdif1_tdif": tk.DoubleVar(value=3),
-            "Kt1_pdif1_tdif": tk.DoubleVar(value=0.25),
-            "Kt2_pdif1_tdif": tk.DoubleVar(value=0.7), 
-            "T1_pdif2_tdif": tk.DoubleVar(value=1),
-            "Iset_pdif2_tdif": tk.DoubleVar(value=4),
-            "T1_hf2phar1_tdif": tk.DoubleVar(value=0.5),
-            "T2_hf2phar1_tdif": tk.DoubleVar(value=0.5),
-            "Ratio_hf2phar1_tdif": tk.DoubleVar(value=0.2),
-            "T1_hf5phar1_tdif": tk.DoubleVar(value=0.5),
-            "T2_hf5phar1_tdif": tk.DoubleVar(value=0.5),
-            "Ratio_hf5phar1_tdif": tk.DoubleVar(value=0.3), 
-            "T1_rctr1_tdif": tk.DoubleVar(value=1),
-            "Iset_rctr1_tdif": tk.DoubleVar(value=0.1), 
+            "CTR_UIRZ_1_RCTR1_Tbrk": tk.DoubleVar(value=0),
+            "CTR_UIRZ_1_RCTR1_Tasym": tk.DoubleVar(value=0),
+            "CTR_UIRZ_1_RCTR1_Inom": tk.DoubleVar(value=5),
+            "CTR_UIRZ_1_RCTR1_Imin": tk.DoubleVar(value=0.05),
+            "CTR_UIRZ_1_RCTR1_Ksym": tk.DoubleVar(value=0.5),
+            "CTR_UIRZ_1_RCTR1_LIsym": tk.DoubleVar(value=0.02),
+            "CTR_UIRZ_1_RCTR2_Tbrk": tk.DoubleVar(value=0),
+            "CTR_UIRZ_1_RCTR2_Tasym": tk.DoubleVar(value=0),
+            "CTR_UIRZ_1_RCTR2_Inom": tk.DoubleVar(value=5),
+            "CTR_UIRZ_1_RCTR2_Imin": tk.DoubleVar(value=0.05),
+            "CTR_UIRZ_1_RCTR2_Ksym": tk.DoubleVar(value=0.5),
+            "CTR_UIRZ_1_RCTR2_LIsym": tk.DoubleVar(value=0.02),
+            "CTR_UIRZ_1_RCTR3_Tbrk": tk.DoubleVar(value=0),
+            "CTR_UIRZ_1_RCTR3_Tasym": tk.DoubleVar(value=0),
+            "CTR_UIRZ_1_RCTR3_Inom": tk.DoubleVar(value=5),
+            "CTR_UIRZ_1_RCTR3_Imin": tk.DoubleVar(value=0.05),
+            "CTR_UIRZ_1_RCTR3_Ksym": tk.DoubleVar(value=0.5),
+            "CTR_UIRZ_1_RCTR3_LIsym": tk.DoubleVar(value=0.02),
+            "TDIF_1_Sbase": tk.DoubleVar(value=63000),
+            "TDIF_1_Unom1": tk.DoubleVar(value=35),
+            "TDIF_1_Unom2": tk.DoubleVar(value=10.5),
+            "TDIF_1_Unom3": tk.DoubleVar(value=10.5),  # Третья сторона  03.05.2025 
+            "TDIF_1_IprimSide1": tk.DoubleVar(value=750),
+            "TDIF_1_IprimSide2": tk.DoubleVar(value=3000),
+            "TDIF_1_IprimSide3": tk.DoubleVar(value=3000), # Третья сторона  03.05.2025 
+            "TDIF_1_Inomterm1": tk.DoubleVar(value=1),
+            "TDIF_1_Inomterm2": tk.DoubleVar(value=1),
+            "TDIF_1_Inomterm3": tk.DoubleVar(value=1), # Третья сторона  03.05.2025 
+            "TDIF_1_IsecSide1": tk.DoubleVar(value=5),
+            "TDIF_1_IsecSide2": tk.DoubleVar(value=5),
+            "TDIF_1_IsecSide3": tk.DoubleVar(value=5),    # Третья сторона  03.05.2025
+            "TDIF_1_ConnGr1": tk.DoubleVar(value=0),
+            "TDIF_1_ConnGr2": tk.DoubleVar(value=6),
+            "TDIF_1_ConnGr3": tk.DoubleVar(value=6),    # Третья сторона  03.05.2025
+            "TDIF_1_PDIF1_Top": tk.DoubleVar(value=1),
+            "TDIF_1_PDIF1_Iop": tk.DoubleVar(value=0.2),
+            "TDIF_1_PDIF1_IopCSS": tk.DoubleVar(value=1.2),
+            "TDIF_1_PDIF1_Irest1": tk.DoubleVar(value=1),
+            "TDIF_1_PDIF1_Irest2": tk.DoubleVar(value=3),
+            "TDIF_1_PDIF1_Krest1": tk.DoubleVar(value=0.25),
+            "TDIF_1_PDIF1_Krest2": tk.DoubleVar(value=0.7), 
+            "TDIF_1_PDIF2_Top": tk.DoubleVar(value=1),
+            "TDIF_1_PDIF2_Iop": tk.DoubleVar(value=4),
+            "TDIF_1_HF2PHAR1_Tret": tk.DoubleVar(value=0.5),
+            "TDIF_1_HF2PHAR1_Tblock": tk.DoubleVar(value=0.5),
+            "TDIF_1_HF2PHAR1_K2Hdiv1H": tk.DoubleVar(value=0.2),
+            "TDIF_1_HF5PHAR1_Tret": tk.DoubleVar(value=0.5),
+            "TDIF_1_HF5PHAR1_Tblock": tk.DoubleVar(value=0.5),
+            "TDIF_1_HF5PHAR1_K5Hdiv1H": tk.DoubleVar(value=0.3), 
+            "TDIF_1_RCTR1_Top": tk.DoubleVar(value=1),
+            "TDIF_1_RCTR1_Iop": tk.DoubleVar(value=0.1), 
         }
 
         self.input_vars = {
-            "VYVOD": tk.IntVar(value=0),
-            "OV_ctr": tk.IntVar(value=0),
-            "OVst_rctr1": tk.IntVar(value=0),
-            "OVst_rctr2": tk.IntVar(value=0),
-            "OVst_rctr3": tk.IntVar(value=0),
-            "OV_tdif": tk.IntVar(value=0),
-            "OV_pdif1_tdif": tk.IntVar(value=0),
-            "NaSign_pdif1_tdif": tk.IntVar(value=0),
-            "OV_pdif2_tdif": tk.IntVar(value=0),
-            "NaSign_pdif2_tdif": tk.IntVar(value=0),
-            "OV_rctr1_tdif": tk.IntVar(value=0),
-            "OV_tprmofflvlgc": tk.IntVar(value=0),
-            "OV_ptrc1_tprmofflvlgc": tk.IntVar(value=0),
-            "OV_rbre1_tprmofflvlgc": tk.IntVar(value=0),
+            "DI_ControllerDisable": tk.IntVar(value=0),
+            "DI_CTR_UIRZ": tk.IntVar(value=0),
+            "DI_CTR_RCTR1": tk.IntVar(value=0),
+            "DI_CTR_RCTR2": tk.IntVar(value=0),
+            "DI_CTR_RCTR3": tk.IntVar(value=0),
+            "DI_TDIF": tk.IntVar(value=0),
+            "DI_RESPDIF": tk.IntVar(value=0),
+            "DI_RESPDIF_Sign": tk.IntVar(value=0),
+            "DI_INSPDIF": tk.IntVar(value=0),
+            "DI_INSPDIF_Sign": tk.IntVar(value=0),
+            "DI_ATDIFRCTR": tk.IntVar(value=0),
+            "DI_TPRMOFFLVLGC": tk.IntVar(value=0),
+            "DI_TJNTPTRC": tk.IntVar(value=0),
+            "DI_JNTRBRE": tk.IntVar(value=0),
             "IA": tk.DoubleVar(value=0),
             "dIA": tk.DoubleVar(value=0),
             "IB": tk.DoubleVar(value=0),
@@ -207,11 +212,18 @@ class PartDZT_GUI:
 
         row = 0
         col = 0
+
         for key, var in self.sgf_params.items():
-            ttk.Label(sgf_frame, text=key).grid(row=row, column=col, sticky="w")
+            label = ttk.Label(sgf_frame, text=key)
+            label.grid(row=row, column=col, sticky="w")
+            # Добавляем tooltip
+            tooltip = self.tooltips.get(key)
+            if tooltip:
+                ToolTip(label, tooltip)
+
             if key=="SGF6_ptoc1_lvttoc" or key=="SGF6_ptoc2_lvttoc" or key=="SGF6_ptoc3_lvttoc" or key=="SGF1_ptuv1_lvttoc" or key=="SGF1_ptuv2_lvttoc":
                 ttk.Combobox(sgf_frame, textvariable=var, values=[0, 1, 2], state="readonly").grid(row=row, column=col + 1)
-            elif key=="SGF2_pdif1_tdif":
+            elif key=="TDIF_1_PDIF1_RstMod":
                  ttk.Combobox(sgf_frame, textvariable=var, values=[1, 2, 3, 4], state="readonly").grid(row=row, column=col + 1)
             elif key=='Номинальный ток входа':
                 ttk.Combobox(sgf_frame, textvariable=var, values=[1, 5], state="readonly").grid(row=row, column=col + 1)                   
@@ -229,7 +241,16 @@ class PartDZT_GUI:
         row = 0
         col = 0
         for key, var in self.settings.items():
-            ttk.Label(settings_frame, text=key).grid(row=row, column=col, sticky="w")
+            label = ttk.Label(settings_frame, text=key)
+            label.grid(row=row, column=col, sticky="w")
+            
+            # Добавляем tooltip
+            tooltip = self.tooltips.get(key)
+            if tooltip:
+                ToolTip(label, tooltip)
+
+
+
             ttk.Entry(settings_frame, textvariable=var).grid(row=row, column=col + 1)
             row += 1
             if row >= 9:
@@ -275,10 +296,28 @@ class PartDZT_GUI:
         col = 0
         for key, var in self.input_vars.items():
             if isinstance(var, tk.IntVar):
-                ttk.Checkbutton(input_frame, text=key, variable=var).grid(row=row, column=col, sticky="w")
+                cb = ttk.Checkbutton(input_frame, text=key, variable=var)
+                cb.grid(row=row, column=col, sticky="w")
+
+                # Добавляем tooltip
+                tooltip = self.tooltips.get(key)
+                if tooltip:
+                    ToolTip(cb, tooltip)
+
+
             elif isinstance(var, tk.DoubleVar):
-                ttk.Label(input_frame, text=key).grid(row=row, column=col, sticky="w")
+                label = ttk.Label(input_frame, text=key)
+                label.grid(row=row, column=col, sticky="w")
+                
+                # Добавляем tooltip
+                tooltip = self.tooltips.get(key)
+                if tooltip:
+                    ToolTip(label, tooltip)
+
+
                 ttk.Entry(input_frame, textvariable=var).grid(row=row, column=col + 1)
+
+
             row += 1
             if row >= 4:
                 row = 0
@@ -309,89 +348,89 @@ class PartDZT_GUI:
 
     def init_part(self):
         self.part = partDZT(
-            Side1=self.sgf_params["Side1_tdif"].get(),
-            Side2=self.sgf_params["Side2_tdif"].get(),
-            Side3=self.sgf_params["Side3_tdif"].get(),                        
-            SGF1_rctr1_ctr=self.sgf_params["SGF1_rctr1_ctr"].get(),
-            SGF2_rctr1_ctr=self.sgf_params["SGF2_rctr1_ctr"].get(),
-            SGF1_rctr2_ctr=self.sgf_params["SGF1_rctr2_ctr"].get(),
-            SGF2_rctr2_ctr=self.sgf_params["SGF2_rctr2_ctr"].get(),
-            SGF1_rctr3_ctr=self.sgf_params["SGF1_rctr3_ctr"].get(),
-            SGF2_rctr3_ctr=self.sgf_params["SGF2_rctr3_ctr"].get(),
-            SGF1_pdif1_tdif=self.sgf_params["SGF1_pdif1_tdif"].get(),
-            SGF2_pdif1_tdif=self.sgf_params["SGF2_pdif1_tdif"].get(),
-            SGF3_pdif1_tdif=self.sgf_params["SGF3_pdif1_tdif"].get(),
-            SGF1_pdif2_tdif=self.sgf_params["SGF1_pdif2_tdif"].get(),
-            SGF1_hf2phar1_tdif=self.sgf_params["SGF1_hf2phar1_tdif"].get(),
-            SGF1_hf5phar1_tdif=self.sgf_params["SGF1_hf5phar1_tdif"].get(),
-            SGF1_rctr1_tdif=self.sgf_params["SGF1_rctr1_tdif"].get(),
-            SGF1_ptrc1_tprmofflvlgc=self.sgf_params["SGF1_ptrc1_tprmofflvlgc"].get(),
-            SGF1_rbre1_tprmofflvlgc=self.sgf_params["SGF1_rbre1_tprmofflvlgc"].get(),
+            Side1=self.sgf_params["TDIF_1_Side1"].get(),
+            Side2=self.sgf_params["TDIF_1_Side2"].get(),
+            Side3=self.sgf_params["TDIF_1_Side3"].get(),                        
+            SGF1_rctr1_ctr=self.sgf_params["CTR_UIRZ_1_RCTR1_EnaDis"].get(),
+            SGF2_rctr1_ctr=self.sgf_params["CTR_UIRZ_1_RCTR1_EnaDis_ctbreak"].get(),
+            SGF1_rctr2_ctr=self.sgf_params["CTR_UIRZ_1_RCTR2_EnaDis"].get(),
+            SGF2_rctr2_ctr=self.sgf_params["CTR_UIRZ_1_RCTR2_EnaDis_ctbreak"].get(),
+            SGF1_rctr3_ctr=self.sgf_params["CTR_UIRZ_1_RCTR3_EnaDis"].get(),
+            SGF2_rctr3_ctr=self.sgf_params["CTR_UIRZ_1_RCTR3_EnaDis_ctbreak"].get(),
+            SGF1_pdif1_tdif=self.sgf_params["TDIF_1_PDIF1_EnaDis"].get(),
+            SGF2_pdif1_tdif=self.sgf_params["TDIF_1_PDIF1_RstMod"].get(),
+            SGF3_pdif1_tdif=self.sgf_params["TDIF_1_PDIF1_EnaDisSelec"].get(),
+            SGF1_pdif2_tdif=self.sgf_params["TDIF_1_PDIF2_EnaDis"].get(),
+            SGF1_hf2phar1_tdif=self.sgf_params["TDIF_1_HF2PHAR1_RegBlock"].get(),
+            SGF1_hf5phar1_tdif=self.sgf_params["TDIF_1_HF5PHAR1_RegBlock"].get(),
+            SGF1_rctr1_tdif=self.sgf_params["TDIF_1_RCTR1_EnaDis"].get(),
+            SGF1_ptrc1_tprmofflvlgc=self.sgf_params["TPRMOFFLVLGC_1_PTRC1_EnaDis"].get(),
+            SGF1_rbre1_tprmofflvlgc=self.sgf_params["TPRMOFFLVLGC_1_RBRE1_EnaDis"].get(),
             k_sch_vn = self.sgf_params["TDIF_1_KschemeSide1"].get(),
             k_sch_nn = self.sgf_params["TDIF_1_KschemeSide2"].get(),
             k_sch_nn2 = self.sgf_params["TDIF_1_KschemeSide3"].get(),                        # Третья сторона
-            compens_3i0_vn = self.sgf_params["comp3i0_rmxu1_tdif"].get(),
-            compens_3i0_nn = self.sgf_params["comp3i0_rmxu2_tdif"].get(),
-            compens_3i0_nn2 = self.sgf_params["comp3i0_rmxu3_tdif"].get(),          # Третья сторона
-            T1_rctr1_ctr = self.settings["T1_rctr1_ctr"].get(),
-            T2_rctr1_ctr = self.settings["T2_rctr1_ctr"].get(),
-            Inom_rctr1_ctr = self.settings["Inom_rctr1_ctr"].get(),
-            Imin_rctr1_ctr = self.settings["Imin_rctr1_ctr"].get(),
-            Ksym_rctr1_ctr = self.settings["Ksym_rctr1_ctr"].get(),
-            LIsym_rctr1_ctr = self.settings["LIsym_rctr1_ctr"].get(),
+            compens_3i0_vn = self.sgf_params["TDIF_1_Equaliz3I0s1"].get(),
+            compens_3i0_nn = self.sgf_params["TDIF_1_Equaliz3I0s2"].get(),
+            compens_3i0_nn2 = self.sgf_params["TDIF_1_Equaliz3I0s3"].get(),          # Третья сторона
+            T1_rctr1_ctr = self.settings["CTR_UIRZ_1_RCTR1_Tbrk"].get(),
+            T2_rctr1_ctr = self.settings["CTR_UIRZ_1_RCTR1_Tasym"].get(),
+            Inom_rctr1_ctr = self.settings["CTR_UIRZ_1_RCTR1_Inom"].get(),
+            Imin_rctr1_ctr = self.settings["CTR_UIRZ_1_RCTR1_Imin"].get(),
+            Ksym_rctr1_ctr = self.settings["CTR_UIRZ_1_RCTR1_Ksym"].get(),
+            LIsym_rctr1_ctr = self.settings["CTR_UIRZ_1_RCTR1_LIsym"].get(),
 
-            T1_rctr2_ctr = self.settings["T1_rctr2_ctr"].get(),
-            T2_rctr2_ctr = self.settings["T2_rctr2_ctr"].get(),
-            Inom_rctr2_ctr = self.settings["Inom_rctr2_ctr"].get(),
-            Imin_rctr2_ctr = self.settings["Imin_rctr2_ctr"].get(),
-            Ksym_rctr2_ctr = self.settings["Ksym_rctr2_ctr"].get(),
-            LIsym_rctr2_ctr = self.settings["LIsym_rctr2_ctr"].get(),
+            T1_rctr2_ctr = self.settings["CTR_UIRZ_1_RCTR2_Tbrk"].get(),
+            T2_rctr2_ctr = self.settings["CTR_UIRZ_1_RCTR2_Tasym"].get(),
+            Inom_rctr2_ctr = self.settings["CTR_UIRZ_1_RCTR2_Inom"].get(),
+            Imin_rctr2_ctr = self.settings["CTR_UIRZ_1_RCTR2_Imin"].get(),
+            Ksym_rctr2_ctr = self.settings["CTR_UIRZ_1_RCTR2_Ksym"].get(),
+            LIsym_rctr2_ctr = self.settings["CTR_UIRZ_1_RCTR2_LIsym"].get(),
 
-            T1_rctr3_ctr = self.settings["T1_rctr3_ctr"].get(),
-            T2_rctr3_ctr = self.settings["T2_rctr3_ctr"].get(),
-            Inom_rctr3_ctr = self.settings["Inom_rctr3_ctr"].get(),
-            Imin_rctr3_ctr = self.settings["Imin_rctr3_ctr"].get(),
-            Ksym_rctr3_ctr = self.settings["Ksym_rctr3_ctr"].get(),
-            LIsym_rctr3_ctr = self.settings["LIsym_rctr3_ctr"].get(),
+            T1_rctr3_ctr = self.settings["CTR_UIRZ_1_RCTR3_Tbrk"].get(),
+            T2_rctr3_ctr = self.settings["CTR_UIRZ_1_RCTR3_Tasym"].get(),
+            Inom_rctr3_ctr = self.settings["CTR_UIRZ_1_RCTR3_Inom"].get(),
+            Imin_rctr3_ctr = self.settings["CTR_UIRZ_1_RCTR3_Imin"].get(),
+            Ksym_rctr3_ctr = self.settings["CTR_UIRZ_1_RCTR3_Ksym"].get(),
+            LIsym_rctr3_ctr = self.settings["CTR_UIRZ_1_RCTR3_LIsym"].get(),
 
-            Sbaz = self.settings["Sbaz_tdif"].get()*1e+6,
-            Ubaz_vn = self.settings["Ubaz_rmxu1_tdif"].get()*1e+3,
-            Ubaz_nn = self.settings["Ubaz_rmxu2_tdif"].get()*1e+3,
-            Ubaz_nn2 = self.settings["Ubaz_rmxu3_tdif"].get()*1e+3,            # Третья сторона
-            Iperv_vn = self.settings["Iperv_rmxu1_tdif"].get(),
-            Iperv_nn = self.settings["Iperv_rmxu2_tdif"].get(),
-            Iperv_nn2 = self.settings["Iperv_rmxu3_tdif"].get(),               # Третья сторона          
-            Inom_term_vn = self.settings["Inomterm_rmxu1_tdif"].get(),
-            Inom_term_nn = self.settings["Inomterm_rmxu2_tdif"].get(),
-            Inom_term_nn2 = self.settings["Inomterm_rmxu3_tdif"].get(),        # Третья сторона            
-            Ivtor_vn = self.settings["Ivtor_rmxu1_tdif"].get(),
-            Ivtor_nn = self.settings["Ivtor_rmxu2_tdif"].get(),
-            Ivtor_nn2 = self.settings["Ivtor_rmxu3_tdif"].get(),               # Третья сторона 
-            n_sch_vn = self.settings["Nsch_rmxu1_tdif"].get(),
-            n_sch_nn = self.settings["Nsch_rmxu2_tdif"].get(),
-            n_sch_nn2 = self.settings["Nsch_rmxu3_tdif"].get(),                # Третья сторона 
+            Sbaz = self.settings["TDIF_1_Sbase"].get()*1e+3, # В киловольт*амперах!!!!
+            Ubaz_vn = self.settings["TDIF_1_Unom1"].get()*1e+3,
+            Ubaz_nn = self.settings["TDIF_1_Unom2"].get()*1e+3,
+            Ubaz_nn2 = self.settings["TDIF_1_Unom3"].get()*1e+3,            # Третья сторона
+            Iperv_vn = self.settings["TDIF_1_IprimSide1"].get(),
+            Iperv_nn = self.settings["TDIF_1_IprimSide2"].get(),
+            Iperv_nn2 = self.settings["TDIF_1_IprimSide3"].get(),               # Третья сторона          
+            Inom_term_vn = self.settings["TDIF_1_Inomterm1"].get(),
+            Inom_term_nn = self.settings["TDIF_1_Inomterm2"].get(),
+            Inom_term_nn2 = self.settings["TDIF_1_Inomterm3"].get(),        # Третья сторона            
+            Ivtor_vn = self.settings["TDIF_1_IsecSide1"].get(),
+            Ivtor_nn = self.settings["TDIF_1_IsecSide2"].get(),
+            Ivtor_nn2 = self.settings["TDIF_1_IsecSide3"].get(),               # Третья сторона 
+            n_sch_vn = self.settings["TDIF_1_ConnGr1"].get(),
+            n_sch_nn = self.settings["TDIF_1_ConnGr2"].get(),
+            n_sch_nn2 = self.settings["TDIF_1_ConnGr3"].get(),                # Третья сторона 
 
-            T1_pdif1_tdif = self.settings["T1_pdif1_tdif"].get(),
-            Isr_pdif1_tdif = self.settings["Isr_pdif1_tdif"].get(),
-            Isr_zagrub_pdif1_tdif = self.settings["Isrzagrub_pdif1_tdif"].get(),
-            It1_pdif1_tdif = self.settings["It1_pdif1_tdif"].get(),
-            It2_pdif1_tdif = self.settings["It2_pdif1_tdif"].get(),
-            Kt1_pdif1_tdif = self.settings["Kt1_pdif1_tdif"].get(),
-            Kt2_pdif1_tdif = self.settings["Kt2_pdif1_tdif"].get(),
+            T1_pdif1_tdif = self.settings["TDIF_1_PDIF1_Top"].get(),
+            Isr_pdif1_tdif = self.settings["TDIF_1_PDIF1_Iop"].get(),
+            Isr_zagrub_pdif1_tdif = self.settings["TDIF_1_PDIF1_IopCSS"].get(),
+            It1_pdif1_tdif = self.settings["TDIF_1_PDIF1_Irest1"].get(),
+            It2_pdif1_tdif = self.settings["TDIF_1_PDIF1_Irest2"].get(),
+            Kt1_pdif1_tdif = self.settings["TDIF_1_PDIF1_Krest1"].get(),
+            Kt2_pdif1_tdif = self.settings["TDIF_1_PDIF1_Krest2"].get(),
 
-            T1_pdif2_tdif = self.settings["T1_pdif2_tdif"].get(),
-            Iset_pdif2_tdif = self.settings["Iset_pdif2_tdif"].get(),
+            T1_pdif2_tdif = self.settings["TDIF_1_PDIF2_Top"].get(),
+            Iset_pdif2_tdif = self.settings["TDIF_1_PDIF2_Iop"].get(),
 
-            T1_hf2phar1_tdif = self.settings["T1_hf2phar1_tdif"].get(),
-            T2_hf2phar1_tdif = self.settings["T2_hf2phar1_tdif"].get(),
-            Ratio_hf2phar1_tdif = self.settings["Ratio_hf2phar1_tdif"].get(),
+            T1_hf2phar1_tdif = self.settings["TDIF_1_HF2PHAR1_Tret"].get(),
+            T2_hf2phar1_tdif = self.settings["TDIF_1_HF2PHAR1_Tblock"].get(),
+            Ratio_hf2phar1_tdif = self.settings["TDIF_1_HF2PHAR1_K2Hdiv1H"].get(),
 
-            T1_hf5phar1_tdif = self.settings["T1_hf5phar1_tdif"].get(),
-            T2_hf5phar1_tdif = self.settings["T2_hf5phar1_tdif"].get(),
-            Ratio_hf5phar1_tdif = self.settings["Ratio_hf5phar1_tdif"].get(),
+            T1_hf5phar1_tdif = self.settings["TDIF_1_HF5PHAR1_Tret"].get(),
+            T2_hf5phar1_tdif = self.settings["TDIF_1_HF5PHAR1_Tblock"].get(),
+            Ratio_hf5phar1_tdif = self.settings["TDIF_1_HF5PHAR1_K5Hdiv1H"].get(),
 
-            T1_rctr1_tdif = self.settings["T1_rctr1_tdif"].get(),
-            Iset_rctr1_tdif = self.settings["Iset_rctr1_tdif"].get()
+            T1_rctr1_tdif = self.settings["TDIF_1_RCTR1_Top"].get(),
+            Iset_rctr1_tdif = self.settings["TDIF_1_RCTR1_Iop"].get()
         )
 
         print("partDZT initialized")
