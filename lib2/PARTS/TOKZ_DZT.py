@@ -40,40 +40,40 @@ class partTOKZ:
         self.lvalh = DZT2_LVALH()  
          
 
-    def Step(self, VYVOD, 
-    OV_tovctoc, OV_hvptoc1_tovctoc, NaOtkl_tovctoc, IA, IB, IC, OV_ptoc1_tovctoc, IA1, IB1, IC1,  OV_ptoc2_tovctoc, 
-    OV_ptoc1_lvarctoc,
-    OV_ptoc1_ltcblktoc,
-    OV_strpalc, OV_hvptoc1_strpalc, OV_lvptoc1_strpalc, OV_lvptoc2_strpalc,
-    OV_tpalc, OV_hvptoc1_tpalc, OV_lvptoc1_tpalc, OV_lvptoc2_tpalc,
-    OV_eqpalc, NaSign_eqpalc, otkaz_so, t_masla_zpo,
-    OV_tprmofflvlgc, OV_ptrc1_tprmofflvlgc, OV_rbre1_tprmofflvlgc,
+    def Step(self, DI_ControllerDisable, 
+    DI_TOVCTOC, DI_TOVCTOC_HVPTOC1, DI_TOVCTOC_Sign, IA, IB, IC, DI_TOVCTOC_LVPTOC1, IA1, IB1, IC1,  DI_TOVCTOC_LVPTOC2, 
+    DI_LVARCTOC,
+    DI_LTCBLKTOC,
+    DI_STRTPALC, OV_hvptoc1_strpalc, DI_STRTPALC_LVPTOC1, DI_STRTPALC_LVPTOC2,
+    DI_TPALC, DI_TPALC_HVPTOC1, DI_TPALC_LVPTOC1, DI_TPALC_LVPTOC2,
+    DI_EQPALC, DI_EQPALC_Sign, FailCoolSys, AlcOilTmp,
+    DI_TPRMOFFLVLGC, DI_TJNTPTRC, DI_JNTRBRE,
     ):
 
         IA2=IA1
         IB2=IB1
         IC2=IC1
-        NaOtkl_hvptoc1_tovctoc = NaOtkl_tovctoc
-        NaOtkl_ptoc1_tovctoc = NaOtkl_tovctoc
-        NaOtkl_ptoc2_tovctoc = NaOtkl_tovctoc
+        NaOtkl_hvptoc1_tovctoc = DI_TOVCTOC_Sign
+        NaOtkl_ptoc1_tovctoc = DI_TOVCTOC_Sign
+        NaOtkl_ptoc2_tovctoc = DI_TOVCTOC_Sign
         # Рассчитываем ЗП
-        vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctoc = self.tovctoc.Step(VYVOD, OV_tovctoc, OV_hvptoc1_tovctoc, NaOtkl_hvptoc1_tovctoc, IA, IB, IC, OV_ptoc1_tovctoc, NaOtkl_ptoc1_tovctoc, IA1, IB1, IC1, OV_ptoc2_tovctoc, NaOtkl_ptoc2_tovctoc, IA2, IB2, IC2)
+        vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctoc = self.tovctoc.Step(DI_ControllerDisable, DI_TOVCTOC, DI_TOVCTOC_HVPTOC1, NaOtkl_hvptoc1_tovctoc, IA, IB, IC, DI_TOVCTOC_LVPTOC1, NaOtkl_ptoc1_tovctoc, IA1, IB1, IC1, DI_TOVCTOC_LVPTOC2, NaOtkl_ptoc2_tovctoc, IA2, IB2, IC2)
         # Рассчитываем ТК ЗДЗ
         mtz1_pusk=mtz2_pusk=mtz3_pusk=0
-        vvod_ptoc1_lvarctoc, oper_vyvod_ptoc1_lvarctoc, pusk_ptoc1_lvarctoc, io_ptoc1_lvarctoc =  self.lvarctoc.Step(VYVOD, OV_ptoc1_lvarctoc, IA, IB, IC, mtz1_pusk, mtz2_pusk, mtz3_pusk) 
+        vvod_ptoc1_lvarctoc, oper_vyvod_ptoc1_lvarctoc, pusk_ptoc1_lvarctoc, io_ptoc1_lvarctoc =  self.lvarctoc.Step(DI_ControllerDisable, DI_LVARCTOC, IA, IB, IC, mtz1_pusk, mtz2_pusk, mtz3_pusk) 
         # Рассчитываем ТО РПН
-        vvod_ptoc1_ltcblktoc, oper_vyvod_ptoc1_ltcblktoc, pusk_ptoc1_ltcblktoc, io_ptoc1_ltcblktoc = self.ltcblktoc.Step(VYVOD, OV_ptoc1_ltcblktoc, IA, IB, IC)      
+        vvod_ptoc1_ltcblktoc, oper_vyvod_ptoc1_ltcblktoc, pusk_ptoc1_ltcblktoc, io_ptoc1_ltcblktoc = self.ltcblktoc.Step(DI_ControllerDisable, DI_LTCBLKTOC, IA, IB, IC)      
         # Рассчитываем РТПО
-        vvod_hvptoc1_strpalc, oper_vyvod_hvptoc1_strpalc, pusk_hvptoc1_strpalc, io_hvptoc1_strpalc, vvod_lvptoc1_strpalc, oper_vyvod_lvptoc1_strpalc, pusk_lvptoc1_strpalc, io_lvptoc1_strpalc, vvod_lvptoc2_strpalc, oper_vyvod_lvptoc2_strpalc, pusk_lvptoc2_strpalc, io_lvptoc2_strpalc, pusk_strpalc, vvod_strpalc = self.strpalc.Step(VYVOD, OV_strpalc, OV_hvptoc1_strpalc, IA, IB, IC,  OV_lvptoc1_strpalc, IA1, IB1, IC1,  OV_lvptoc2_strpalc, IA2, IB2, IC2)        
+        vvod_hvptoc1_strpalc, oper_vyvod_hvptoc1_strpalc, pusk_hvptoc1_strpalc, io_hvptoc1_strpalc, vvod_lvptoc1_strpalc, oper_vyvod_lvptoc1_strpalc, pusk_lvptoc1_strpalc, io_lvptoc1_strpalc, vvod_lvptoc2_strpalc, oper_vyvod_lvptoc2_strpalc, pusk_lvptoc2_strpalc, io_lvptoc2_strpalc, pusk_strpalc, vvod_strpalc = self.strpalc.Step(DI_ControllerDisable, DI_STRTPALC, OV_hvptoc1_strpalc, IA, IB, IC,  DI_STRTPALC_LVPTOC1, IA1, IB1, IC1,  DI_STRTPALC_LVPTOC2, IA2, IB2, IC2)        
         # Рассчитываем ТО ЗПО
-        vvod_hvptoc1_tpalc, oper_vyvod_hvptoc1_tpalc, pusk_hvptoc1_tpalc, io_hvptoc1_tpalc, vvod_lvptoc1_tpalc, oper_vyvod_lvptoc1_tpalc, pusk_lvptoc1_tpalc, io_lvptoc1_tpalc, vvod_lvptoc2_tpalc, oper_vyvod_lvptoc2_tpalc, pusk_lvptoc2_tpalc, io_lvptoc2_tpalc, pusk_tpalc, vvod_tpalc = self.tpalc.Step(VYVOD, OV_tpalc, OV_hvptoc1_tpalc, IA, IB, IC,  OV_lvptoc1_tpalc, IA1, IB1, IC1,  OV_lvptoc2_tpalc, IA2, IB2, IC2)
+        vvod_hvptoc1_tpalc, oper_vyvod_hvptoc1_tpalc, pusk_hvptoc1_tpalc, io_hvptoc1_tpalc, vvod_lvptoc1_tpalc, oper_vyvod_lvptoc1_tpalc, pusk_lvptoc1_tpalc, io_lvptoc1_tpalc, vvod_lvptoc2_tpalc, oper_vyvod_lvptoc2_tpalc, pusk_lvptoc2_tpalc, io_lvptoc2_tpalc, pusk_tpalc, vvod_tpalc = self.tpalc.Step(DI_ControllerDisable, DI_TPALC, DI_TPALC_HVPTOC1, IA, IB, IC,  DI_TPALC_LVPTOC1, IA1, IB1, IC1,  DI_TPALC_LVPTOC2, IA2, IB2, IC2)
         # Рассчитываем ЗПО
-        vvod_lvoileqpalc_eqpalc, oper_vyvod_lvoileqpalc_eqpalc, pusk_lvoileqpalc_eqpalc, srabsign_lvoileqpalc_eqpalc, srab_lvoileqpalc_eqpalc = self.eqpalc.Step(VYVOD, OV_eqpalc, NaSign_eqpalc, otkaz_so, pusk_tpalc, t_masla_zpo)      
+        vvod_lvoileqpalc_eqpalc, oper_vyvod_lvoileqpalc_eqpalc, pusk_lvoileqpalc_eqpalc, srabsign_lvoileqpalc_eqpalc, srab_lvoileqpalc_eqpalc = self.eqpalc.Step(DI_ControllerDisable, DI_EQPALC, DI_EQPALC_Sign, FailCoolSys, pusk_tpalc, AlcOilTmp)      
         # Рассчитываем ЛО Т
         signals = (srab_lvoileqpalc_eqpalc, srabotkl_hvptoc1_tovctoc, srabotkl_ptoc1_tovctoc, srabotkl_ptoc2_tovctoc)
-        vvod_ptrc1_tprmofflvlgc, oper_vyvod_ptrc1_tprmofflvlgc, pusk_ptrc1_tprmofflvlgc, srab_ptrc1_tprmofflvlgc, vvod_rbre1_tprmofflvlgc, oper_vyvod_rbre1_tprmofflvlgc, zapret_rbre1_tprmofflvlgc = self.tprmofflvlgc.Step(VYVOD, OV_tprmofflvlgc, OV_ptrc1_tprmofflvlgc, signals, OV_rbre1_tprmofflvlgc)
+        vvod_ptrc1_tprmofflvlgc, oper_vyvod_ptrc1_tprmofflvlgc, pusk_ptrc1_tprmofflvlgc, srab_ptrc1_tprmofflvlgc, vvod_rbre1_tprmofflvlgc, oper_vyvod_rbre1_tprmofflvlgc, zapret_rbre1_tprmofflvlgc = self.tprmofflvlgc.Step(DI_ControllerDisable, DI_TPRMOFFLVLGC, DI_TJNTPTRC, signals, DI_JNTRBRE)
         # вычисляем ПС
-        pusk_lvalh = self.lvalh.Step(VYVOD, COMM_SIGN=(pusk_lvoileqpalc_eqpalc, srab_hvptoc1_tovctoc, srab_ptoc1_tovctoc, srab_ptoc2_tovctoc, srab_ptrc1_tprmofflvlgc))
+        pusk_lvalh = self.lvalh.Step(DI_ControllerDisable, COMM_SIGN=(pusk_lvoileqpalc_eqpalc, srab_hvptoc1_tovctoc, srab_ptoc1_tovctoc, srab_ptoc2_tovctoc, srab_ptrc1_tprmofflvlgc))
 
         return  (
             vvod_hvptoc1_tovctoc, oper_vyvod_hvptoc1_tovctoc, pusk_hvptoc1_tovctoc, io_hvptoc1_tovctoc, srab_hvptoc1_tovctoc, srabotkl_hvptoc1_tovctoc, vvod_ptoc1_tovctoc, oper_vyvod_ptoc1_tovctoc, pusk_ptoc1_tovctoc, io_ptoc1_tovctoc, srab_ptoc1_tovctoc, srabotkl_ptoc1_tovctoc, vvod_ptoc2_tovctoc, oper_vyvod_ptoc2_tovctoc, pusk_ptoc2_tovctoc, io_ptoc2_tovctoc, srab_ptoc2_tovctoc, srabotkl_ptoc2_tovctoc, srab_tovctoc,
