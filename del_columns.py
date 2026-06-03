@@ -13,7 +13,7 @@ def delete_columns_from_excel_files():
 
     #cols_to_delete = ["pusk_ptrc1_tofflvlgc",] 
 
-    cols_to_delete = ["Номинальный ток входа",] 
+    cols_to_delete = ["pusk_ptrc1_tprmofflvlgc",] 
 
     # Получаем все xlsx файлы в текущей папке
     current_dir = os.getcwd()

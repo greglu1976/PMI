@@ -14,6 +14,7 @@ from tkinter.filedialog import askopenfilename
 import threading
 import time
 import pandas as pd
+import numpy as np
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
@@ -28,8 +29,6 @@ from MainConfigHandler import MainConfigHandler
 from SettingsHandler import SettingsHandler
 from ToolTip import ToolTip
 
-
-import numpy as np
 
 class PartDZT_GUI:
 
