@@ -11,6 +11,7 @@ from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 import openpyxl
 
+import json
 from lib2.PARTS.LO_DZT import part_LO 
 
 from MainConfigHandler import MainConfigHandler
@@ -126,7 +127,7 @@ class PartLO_GUI:
             "TestBlockPos2": tk.IntVar(value=0),
             "TestBlockPos3": tk.IntVar(value=0),
             "GAS_OCControl": tk.IntVar(value=0),
-            "DZT2_SignAssembly_1_TECH_OCControlSignAssem": tk.IntVar(value=0),
+            "TECH_OCControl": tk.IntVar(value=0),
             "ARCnn1_OCControl": tk.IntVar(value=0),
             "ARCnn2_OCControl": tk.IntVar(value=0),            
             "CBFPnn1_OCControl": tk.IntVar(value=0),
@@ -211,28 +212,48 @@ class PartLO_GUI:
                 row = 0
                 col += 2
 
-        # Фрейм для кнопок
+            # Frame for buttons
         buttons_frame = ttk.LabelFrame(self.root, text="Buttons")
         buttons_frame.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+
+        # Button Init
         ttk.Button(buttons_frame, text="Init", command=self.init_part).grid(row=0, column=0, pady=10)
+
+        # Button Start
         ttk.Button(buttons_frame, text="Start", command=self.start_polling).grid(row=0, column=1, pady=10)
+
+        # Button Stop
         ttk.Button(buttons_frame, text="Stop", command=self.stop_polling).grid(row=0, column=2, pady=10)
+
+        # Button Save
         ttk.Button(buttons_frame, text="Save", command=self.save_to_excel).grid(row=0, column=3, pady=10)
-        ttk.Button(buttons_frame, text="Load", command=self.load_from_excel).grid(row=0, column=4, pady=10)
-        
-        ttk.Label(buttons_frame, text="Функция:").grid(row=0, column=5, padx=5, pady=5)
-        ttk.Entry(buttons_frame, textvariable=self.function_name, width=15).grid(row=0, column=6, padx=5, pady=5)
-        ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=7, padx=5, pady=5)
-        ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=8, padx=5, pady=5)
+
+        # Button Load
+        ttk.Button(buttons_frame, text="Load", command=self.load_from_excel).grid(row=0, column=4, pady=10)        
+
+        # Button Load JSON
+        ttk.Button(buttons_frame, text="Load JSON", command=self.load_settings_from_json).grid(row=0, column=5, padx=2, pady=5)
+
+        # Button Save JSON
+        ttk.Button(buttons_frame, text="Save JSON", command=self.save_settings_to_json).grid(row=0, column=6, padx=2, pady=5)
+
+        # Поля для задания имени файла
+        ttk.Label(buttons_frame, text="Функция:").grid(row=0, column=7, padx=5, pady=5)
+        ttk.Entry(buttons_frame, textvariable=self.function_name, width=15).grid(row=0, column=8, padx=5, pady=5)
+
+        ttk.Label(buttons_frame, text="Режим:").grid(row=0, column=9, padx=5, pady=5)
+        ttk.Entry(buttons_frame, textvariable=self.mode_name, width=15).grid(row=0, column=10, padx=5, pady=5)
 
         # Добавляем новый элемент (например, Label) с возможностью изменения цвета
         self.status_label = ttk.Label(buttons_frame, text="Шаг", background="green", foreground="white")
-        self.status_label.grid(row=0, column=9, padx=5, pady=5)
+        self.status_label.grid(row=0, column=11, padx=5, pady=5)
 
-        # Фрейм для входных параметров
-        input_frame = ttk.LabelFrame(self.root, text="Входные параметры")
+        # Frame for input values
+        input_frame = ttk.LabelFrame(self.root, text="Inputs")
         input_frame.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-        row, col = 0, 0
+
+        row = 0
+        col = 0
         for key, var in self.input_vars.items():
             if isinstance(var, tk.IntVar):
                 cb = ttk.Checkbutton(input_frame, text=key, variable=var)
@@ -446,6 +467,207 @@ class PartLO_GUI:
             print("Data loaded successfully")
         except Exception as e:
             print(f"Error loading data: {e}")
+
+   # === МЕТОДЫ ДЛЯ РАБОТЫ С JSON ФАЙЛАМИ УСТАВОК ===
+    
+    def load_settings_from_json(self):
+        """Загружает SGF и T-параметры из JSON-файла с суффиксом _SG1."""
+        file_path = askopenfilename(filetypes=[("JSON files", "*.json")])
+        if not file_path:
+            return
+        try:
+            handler = SettingsHandler.from_json_file(file_path)
+            if not self.meta_handler:
+                print("⚠️ Метаданные не загружены. Используется стандартная обработка.")
+            
+            # --- Обновление SGF-параметров (с _SG1) ---
+            for key in self.sgf_params:
+                json_key = key + "_SG1"
+                value_str = handler.get_value_by_parameter(json_key)
+                if value_str is None:
+                    continue
+                try:
+                    # Определяем тип из метаданных
+                    type_str = None
+                    if self.meta_handler:
+                        param_info = self.meta_handler.get_param_info(json_key)
+                        if param_info:
+                            type_str = param_info.get("type")
+                            print(f"{json_key}: type={type_str}, value='{value_str}'")
+                    
+                    # Преобразование значения в зависимости от типа
+                    if type_str == "3":  # Булевое значение
+                        value_lower = str(value_str).lower().strip()
+                        bool_map = {
+                            "true": 1, "1": 1, "on": 1, "вкл": 1, "да": 1, "yes": 1, "enabled": 1,
+                            "false": 0, "0": 0, "off": 0, "выкл": 0, "нет": 0, "no": 0, "disabled": 0
+                        }
+                        if value_lower in bool_map:
+                            self.sgf_params[key].set(bool_map[value_lower])
+                        else:
+                            try:
+                                num_val = float(value_str)
+                                self.sgf_params[key].set(1 if num_val != 0 else 0)
+                            except ValueError:
+                                print(f"⚠️ Неизвестное булевое значение для {json_key}: '{value_str}'")
+                                self.sgf_params[key].set(0)
+                    elif type_str == "130":  # Integer
+                        try:
+                            value_clean = str(value_str).strip()
+                            for suffix in ['%', '°', '°C', 'мс', 'с', 'м']:
+                                if value_clean.endswith(suffix):
+                                    value_clean = value_clean[:-len(suffix)].strip()
+
+                            int_val = int(float(value_clean.replace(',', '.')))
+                            self.sgf_params[key].set(int_val)
+                        except (ValueError, TypeError) as e:
+                            print(f"⚠️ Ошибка преобразования int для {json_key}: '{value_str}' - {e}")
+                            self.sgf_params[key].set(0)
+                    else:  # По умолчанию или неизвестный тип - пробуем как int
+                        try:
+                            value_clean = str(value_str).strip()
+                            value_lower = value_clean.lower()
+                            bool_map = {
+                                "true": 1, "1": 1, "on": 1, "вкл": 1,
+                                "false": 0, "0": 0, "off": 0, "выкл": 0
+                            }
+                            if value_lower in bool_map:
+                                self.sgf_params[key].set(bool_map[value_lower])
+                            else:
+                                int_val = int(float(value_clean.replace(',', '.')))
+                                self.sgf_params[key].set(int_val)
+                        except (ValueError, TypeError) as e:
+                            print(f"⚠️ Не удалось преобразовать значение для {json_key}: '{value_str}' - {e}")
+                            self.sgf_params[key].set(0)
+                except Exception as e:
+                    print(f"❌ Ошибка при обработке {json_key}: {e}")
+            
+            # --- Обновление T-параметров (settings) ---
+            for key in self.settings:
+                json_key = key + "_SG1"
+                value_str = handler.get_value_by_parameter(json_key)
+                if value_str is None:
+                    continue
+                try:
+                    # Определяем тип из метаданных
+                    type_str = None
+                    if self.meta_handler:
+                        param_info = self.meta_handler.get_param_info(json_key)
+                        if param_info:
+                            type_str = param_info.get("type")
+                            print(f"{json_key}: type={type_str}, value='{value_str}'")
+                    
+                    # Для settings обычно используются float значения
+                    value_clean = str(value_str).strip()
+                    # Убираем единицы измерения
+                    units_to_remove = ['%', '°', '°c', '°с', 'мс', 'с', 'м', 'мм', 'кг', 'кпа', 'па', 'ква', 'мва']
+                    for unit in units_to_remove:
+                        if value_clean.lower().endswith(unit):
+                            value_clean = value_clean[:-len(unit)].strip()
+                    
+                    # Заменяем запятую на точку
+                    value_clean = value_clean.replace(',', '.')
+                    
+                    # Пробуем преобразовать в float
+                    try:
+                        float_val = float(value_clean)
+                        # Проверяем разумные пределы для settings
+                        if abs(float_val) > 1000000:
+                            print(f"⚠️ Подозрительно большое значение для {json_key}: {float_val}")
+                        else:
+                            self.settings[key].set(float_val)
+                    except ValueError as e:
+                        print(f"⚠️ Невозможно преобразовать в число: {json_key} = '{value_str}' - {e}")
+                except Exception as e:
+                    print(f"❌ Ошибка при обработке {json_key}: {e}")
+            
+            print("✅ Параметры обновлены из JSON (с суффиксом _SG1)")
+        except FileNotFoundError:
+            print(f"❌ Ошибка: Файл не найден: {file_path}")
+        except Exception as e:
+            print(f"❌ Ошибка загрузки JSON: {e}")
+    
+    def save_settings_to_json(self):
+        """Сохраняет SGF и T-параметры в JSON-файл с суффиксом _SG1."""
+        file_path = askopenfilename(
+            title="Сохранить уставки как...",
+            filetypes=[("JSON files", "*.json")],
+            defaultextension=".json"
+        )
+        if not file_path:
+            return
+        try:
+            # Пытаемся загрузить существующий файл, иначе создаём пустой
+            try:
+                handler = SettingsHandler.from_json_file(file_path)
+            except (FileNotFoundError, json.JSONDecodeError, KeyError, ValueError):
+                handler = SettingsHandler([])  # пустой обработчик
+            
+            # --- 1. Сохраняем SGF-параметры ---
+            for base_key in self.sgf_params:
+                json_key = base_key + "_SG1"
+                raw_value = self.sgf_params[base_key].get()
+
+                # Определяем тип параметра
+                param_type = "3"  # значение по умолчанию — бинарный
+                if self.meta_handler:
+                    param_info = self.meta_handler.get_param_info(json_key)
+                    if param_info and "type" in param_info:
+                        param_type = str(param_info["type"])
+
+                # Преобразуем значение в число
+                try:
+                    numeric_value = float(raw_value)
+                    if not numeric_value.is_integer():
+                        numeric_value = int(round(numeric_value))
+                    else:
+                        numeric_value = int(numeric_value)
+                except (ValueError, TypeError):
+                    numeric_value = 0
+
+                # Форматируем в зависимости от типа
+                if param_type == "3":
+                    formatted = "1" if numeric_value != 0 else "0"
+                elif param_type == "130":
+                    formatted = str(numeric_value)
+                else:
+                    formatted = str(numeric_value)
+
+                handler.add_or_update_parameter(json_key, formatted)
+                print(f"💾 SGF {json_key} = {formatted} (type={param_type}, raw={raw_value})")
+            
+            # --- 2. Сохраняем T-параметры (settings) ---
+            for base_key in self.settings:
+                json_key = base_key + "_SG1"  # ВАЖНО: тоже добавляем _SG1!
+                raw_value = self.settings[base_key].get()
+
+                # Определяем тип параметра из метаданных
+                param_type = None
+                if self.meta_handler:
+                    param_info = self.meta_handler.get_param_info(json_key)
+                    if param_info and "type" in param_info:
+                        param_type = str(param_info["type"])
+
+                # Для T-параметров обычно используется float
+                try:
+                    float_val = float(raw_value)
+                    # Сохраняем с разумной точностью (убираем лишние нули)
+                    formatted = f"{float_val:.6g}"
+                except (ValueError, TypeError):
+                    formatted = "0.0"
+
+                handler.add_or_update_parameter(json_key, formatted)
+                print(f"💾 T   {json_key} = {formatted} (type={param_type}, raw={raw_value})")
+            
+            # Сохраняем
+            handler.save_to_json_file(file_path)
+            print(f"✅ Уставки сохранены в {file_path}")
+        except Exception as e:
+            error_msg = f"Ошибка при сохранении уставок:\n{str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+
 
 if __name__ == "__main__":
     root = tk.Tk()
