@@ -64,7 +64,7 @@ class part_LO:
         # для УРОВ
         DI_TPBRF, ExternalRBRFStart, IA, IB, IC,
         # для CC
-        CtlCirSwPos1, CtlCirSwPos2, CtlCirSwPos3, CtlCirSwPos4, TestBlockPos1, TestBlockPos2, TestBlockPos3, GAS_OCControl, DZT2_SignAssembly_1_TECH_OCControlSignAssem, ARCnn1_OCControl, ARCnn2_OCControl, CBFPnn1_OCControl, CBFPnn2_OCControl, ExtSignal1, ExtSignal2,ExtSignal3, ExtSignal4 
+        CtlCirSwPos1, CtlCirSwPos2, CtlCirSwPos3, CtlCirSwPos4, TestBlockPos1, TestBlockPos2, TestBlockPos3, GAS_OCControl, TECH_OCControl, ARCnn1_OCControl, ARCnn2_OCControl, CBFPnn1_OCControl, CBFPnn2_OCControl, ExtSignal1, ExtSignal2,ExtSignal3, ExtSignal4 
         ):
 
         # кортеж срабатываний, здесь только одно - внешнее откл. от СО   
@@ -87,7 +87,7 @@ class part_LO:
         vvod_rbrf1_tpbrf, oper_vyvod_rbrf1_tpbrf, srab_rbrf1_tpbrf, pusk_rbrf1_tpbrf, io_rbrf1_tpbrf, srab_na_sebya_rbrf1_tpbrf = self.tpbrf.Step(DI_ControllerDisable, DI_TPBRF, otkl_hvcbptrc1_hvtcboff, ExternalRBRFStart, IA, IB, IC)
 
         # вычисляем СС
-        SS_gz_sign, SS_gz_nizk_isol, SS_gz_zablok, SS_tz_sign, SS_tz_nizk_isol, SS_tz_zablok, SS_ts_sign, SS_vnesh_otkl, SS_vyh_zepi_razobr, SS_bi_vyved, SS_ot_sign, SS_neispr_ot_gz, SS_neispr_ot_tz, SS_ot_nn_sign, SS_obsh_vnesh_sign = self.tsa.Step(DI_ControllerDisable, gz_sign=(0,), gz_ki=(0,), gz_zablok=(0,), tz_sign=(0,), tz_ki=(0,), tz_zablok=(0,), ts_sign=(0,), vnesh_otkl=(OpExtOfCoolSys, OpExtOfARC_NN1, OpExtOfARC_NN2, OpExtOfCBFP_NN1, OpExtOfCBFP_NN2), Polozh_SA1=CtlCirSwPos1, Polozh_SA2=CtlCirSwPos2, Polozh_SA3=CtlCirSwPos3, Polozh_SA4=CtlCirSwPos4, Polozh_SG1=TestBlockPos1, Polozh_SG2=TestBlockPos2, Polozh_SG3=TestBlockPos3, ot_gz=GAS_OCControl, ot_tz=DZT2_SignAssembly_1_TECH_OCControlSignAssem, ot_zdz_nn1=ARCnn1_OCControl, ot_zdz_nn2=ARCnn2_OCControl, ot_urov_nn1=CBFPnn1_OCControl, ot_urov_nn2=CBFPnn2_OCControl, vnesh_sign=(ExtSignal1, ExtSignal2, ExtSignal3, ExtSignal4))
+        SS_gz_sign, SS_gz_nizk_isol, SS_gz_zablok, SS_tz_sign, SS_tz_nizk_isol, SS_tz_zablok, SS_ts_sign, SS_vnesh_otkl, SS_vyh_zepi_razobr, SS_bi_vyved, SS_ot_sign, SS_neispr_ot_gz, SS_neispr_ot_tz, SS_ot_nn_sign, SS_obsh_vnesh_sign = self.tsa.Step(DI_ControllerDisable, gz_sign=(0,), gz_ki=(0,), gz_zablok=(0,), tz_sign=(0,), tz_ki=(0,), tz_zablok=(0,), ts_sign=(0,), vnesh_otkl=(OpExtOfCoolSys, OpExtOfARC_NN1, OpExtOfARC_NN2, OpExtOfCBFP_NN1, OpExtOfCBFP_NN2), Polozh_SA1=CtlCirSwPos1, Polozh_SA2=CtlCirSwPos2, Polozh_SA3=CtlCirSwPos3, Polozh_SA4=CtlCirSwPos4, Polozh_SG1=TestBlockPos1, Polozh_SG2=TestBlockPos2, Polozh_SG3=TestBlockPos3, ot_gz=GAS_OCControl, ot_tz=TECH_OCControl, ot_zdz_nn1=ARCnn1_OCControl, ot_zdz_nn2=ARCnn2_OCControl, ot_urov_nn1=CBFPnn1_OCControl, ot_urov_nn2=CBFPnn2_OCControl, vnesh_sign=(ExtSignal1, ExtSignal2, ExtSignal3, ExtSignal4))
 
         # вычисляем ПС
         pusk_lvalh = self.lvalh.Step(DI_ControllerDisable, (srab_ptrc1_tprmofflvlgc, srab_rbrf1_tpbrf, srab_na_sebya_rbrf1_tpbrf), sgf1_sign = SS_gz_sign, sgf2_sign = SS_gz_nizk_isol, sgf3_sign = SS_gz_zablok, sgf4_sign = SS_tz_sign, sgf5_sign = SS_tz_nizk_isol, sgf6_sign = SS_tz_zablok, sgf7_sign = SS_ts_sign, sgf8_sign = SS_ot_sign, sgf9_sign = SS_ot_nn_sign, sgf10_sign = SS_vnesh_otkl, sgf11_sign = SS_vyh_zepi_razobr, sgf12_sign = SS_bi_vyved, sgf13_sign = SS_obsh_vnesh_sign)

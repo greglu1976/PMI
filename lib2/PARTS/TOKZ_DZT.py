@@ -44,7 +44,7 @@ class partTOKZ:
     DI_TOVCTOC, DI_TOVCTOC_HVPTOC1, DI_TOVCTOC_Sign, IA, IB, IC, DI_TOVCTOC_LVPTOC1, IA1, IB1, IC1,  DI_TOVCTOC_LVPTOC2, 
     DI_LVARCTOC,
     DI_LTCBLKTOC,
-    DI_STRTPALC, OV_hvptoc1_strpalc, DI_STRTPALC_LVPTOC1, DI_STRTPALC_LVPTOC2,
+    DI_STRTPALC, DI_STRTPALC_HVPTOC1, DI_STRTPALC_LVPTOC1, DI_STRTPALC_LVPTOC2,
     DI_TPALC, DI_TPALC_HVPTOC1, DI_TPALC_LVPTOC1, DI_TPALC_LVPTOC2,
     DI_EQPALC, DI_EQPALC_Sign, FailCoolSys, AlcOilTmp,
     DI_TPRMOFFLVLGC, DI_TJNTPTRC, DI_JNTRBRE,
@@ -64,7 +64,7 @@ class partTOKZ:
         # Рассчитываем ТО РПН
         vvod_ptoc1_ltcblktoc, oper_vyvod_ptoc1_ltcblktoc, pusk_ptoc1_ltcblktoc, io_ptoc1_ltcblktoc = self.ltcblktoc.Step(DI_ControllerDisable, DI_LTCBLKTOC, IA, IB, IC)      
         # Рассчитываем РТПО
-        vvod_hvptoc1_strpalc, oper_vyvod_hvptoc1_strpalc, pusk_hvptoc1_strpalc, io_hvptoc1_strpalc, vvod_lvptoc1_strpalc, oper_vyvod_lvptoc1_strpalc, pusk_lvptoc1_strpalc, io_lvptoc1_strpalc, vvod_lvptoc2_strpalc, oper_vyvod_lvptoc2_strpalc, pusk_lvptoc2_strpalc, io_lvptoc2_strpalc, pusk_strpalc, vvod_strpalc = self.strpalc.Step(DI_ControllerDisable, DI_STRTPALC, OV_hvptoc1_strpalc, IA, IB, IC,  DI_STRTPALC_LVPTOC1, IA1, IB1, IC1,  DI_STRTPALC_LVPTOC2, IA2, IB2, IC2)        
+        vvod_hvptoc1_strpalc, oper_vyvod_hvptoc1_strpalc, pusk_hvptoc1_strpalc, io_hvptoc1_strpalc, vvod_lvptoc1_strpalc, oper_vyvod_lvptoc1_strpalc, pusk_lvptoc1_strpalc, io_lvptoc1_strpalc, vvod_lvptoc2_strpalc, oper_vyvod_lvptoc2_strpalc, pusk_lvptoc2_strpalc, io_lvptoc2_strpalc, pusk_strpalc, vvod_strpalc = self.strpalc.Step(DI_ControllerDisable, DI_STRTPALC, DI_STRTPALC_HVPTOC1, IA, IB, IC,  DI_STRTPALC_LVPTOC1, IA1, IB1, IC1,  DI_STRTPALC_LVPTOC2, IA2, IB2, IC2)        
         # Рассчитываем ТО ЗПО
         vvod_hvptoc1_tpalc, oper_vyvod_hvptoc1_tpalc, pusk_hvptoc1_tpalc, io_hvptoc1_tpalc, vvod_lvptoc1_tpalc, oper_vyvod_lvptoc1_tpalc, pusk_lvptoc1_tpalc, io_lvptoc1_tpalc, vvod_lvptoc2_tpalc, oper_vyvod_lvptoc2_tpalc, pusk_lvptoc2_tpalc, io_lvptoc2_tpalc, pusk_tpalc, vvod_tpalc = self.tpalc.Step(DI_ControllerDisable, DI_TPALC, DI_TPALC_HVPTOC1, IA, IB, IC,  DI_TPALC_LVPTOC1, IA1, IB1, IC1,  DI_TPALC_LVPTOC2, IA2, IB2, IC2)
         # Рассчитываем ЗПО
